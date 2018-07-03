@@ -44,19 +44,41 @@ export class subcategory{
 
 export class Product {
   id: string;
-  name: string;
+  product_subcat ? : number;
+  image1 ? : string;
+  image2 ? : string;  
+  quant ? : number;
+  measure_u? : number;
+  description? : string;
+  id2 : number;
   price: number;
+//////////////////////////////
+  name: string;
   discount: number = 0;
   image: string;
   colors: string[];
   sizes: string[];
   descriptions: string[];
-  categories: Category[];
+  categories: Category[]; 
+ 
   brand?: string;
   love?: boolean = false;
-  status?: string;
+  status?: string; 
+  
+  
 
-  constructor() {
+  constructor(point_id : string = ""  , prod_sub_category : number  , prod_image1 : string = "" , prod_image2 : string = "" , quantity : number , measure_unit : number , prod_desc : string = "" , prod_id : number , price : number ) { 
+    this.id = point_id; 
+    this.product_subcat = prod_sub_category;
+    this.image1 = prod_image1; 
+    this.image2 = prod_image2; 
+    this.quant = quantity;
+    this.measure_u = measure_unit;
+    this.description = prod_desc; 
+    this.id2 = prod_id;
+    this.price = price;
+    
+//////////////////////////////////////////////
     this.categories = new Array<Category>();
     this.colors = new Array<string>();
     this.sizes = new Array<string>();
@@ -287,7 +309,9 @@ export class Database {
       },
   
     ];
-*/
+*/  
+
+    /*
     this.products = [
       // Western wear
       {
@@ -1410,7 +1434,7 @@ export class Database {
         categories: [this.categories[13]]
       },
     ];
-
+*/
     this.filterTypes = [
       {
         name: 'Price',
