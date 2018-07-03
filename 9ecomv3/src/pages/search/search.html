@@ -1,0 +1,49 @@
+<!--
+  Generated template for the Search page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <img src="assets/img/menu.png" class="menu-image">
+    </button>
+    <ion-title>
+      <div>9<span>ecom</span></div>
+    </ion-title>
+  </ion-navbar>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+</ion-header>
+
+
+<ion-content class="page-search">
+  <div class="result-list">
+    <ion-list class="cart-list">
+      <ion-item class="cart-list-item" *ngFor="let product of results">
+        <ion-thumbnail item-left>
+          <a (click)="toProduct(product)">
+            <img [src]="product.image">
+          </a>
+        </ion-thumbnail>
+        <a (click)="toProduct(product)">
+          <h2 [innerHTML]="decorateTitle(product.name)"></h2>
+        </a>
+        <div class="size">
+          Size: <span *ngFor="let s of product.sizes; let i=index">{{s}}<span *ngIf="i < (product.sizes.length - 1)">, </span></span> 
+        </div>
+        <div class="size">
+          Color: <span *ngFor="let c of product.colors; let i=index">{{c}}<span *ngIf="i < (product.colors.length - 1)">, </span></span>
+        </div>
+        <div class="price-wrapper">
+          <div class="price">$ {{product.price - product.discount}}</div>
+          <div class="old-price">$ {{product.price}}</div>
+        </div>
+        <div item-right class="right-bag">
+          <div *ngIf="product.status === 'in'" class="available">In stock</div>
+          <div *ngIf="product.status === 'out'" class="notavailable">Out of stock</div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

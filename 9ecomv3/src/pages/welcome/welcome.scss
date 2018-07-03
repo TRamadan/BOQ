@@ -1,0 +1,33 @@
+page-welcome {
+  .welcome-slider {
+    height: 60vh;
+  }
+  .swiper-pagination {
+    .swiper-pagination-bullet {
+      background: color($colors, light);
+    }
+  }
+
+  .footer-button {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      text-transform: uppercase;
+      font-size: 1em;
+      font-weight: 500;
+  }
+
+  .content {
+      padding: 5vh 3vw 5vh 3vw;
+      text-align: center;
+      .title {
+          font-size: 1.5em;
+          font-weight: 400;
+          span {
+              font-weight: 600;
+          }
+      }
+      .description {
+          padding-top: 3vh;
+      }
+  }
+}

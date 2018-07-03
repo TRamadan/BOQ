@@ -1,0 +1,138 @@
+page-filtermodal {
+  .pane {
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.620);
+  }
+  .filter-container {
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+    height: 75vh;
+    background-color: color($colors, pearl);
+    .header {
+      padding-top: 10px !important;
+      width: 100vw;
+      height: 42px;
+      border-bottom: 1px solid color($colors, lightdark);
+      .title {
+        width: 85vw;
+        display: inline-block;
+        margin-left: 5vw;
+        font-size: 1.68rem;
+      }
+      .close {
+        display: inline-block;
+        text-align: right;
+        button {
+          padding: 0 0 0 0;
+          margin: 0 0 0 0;
+          margin-top: -2vh;
+          font-size: 1.18rem;
+          font-weight: 100;
+          color: color($colors, dark);
+          ion-icon {
+            margin: 0 0 0 0;
+            padding: 0 0 0 0;
+          }
+        }
+      }
+    }
+    .content {
+      .vertical-tabs {
+        width: 100vw;
+        display: inline-block;
+        height: calc(75vh - 42px - 42px);
+        .tabs-left {
+          height: calc(75vh - 42px - 42px);
+          width: 32vw;
+          display: inline-block;
+          background-color: color($colors, light);
+          .tab-left-item {
+            padding-top: 2px;
+            padding-left: 10px;
+            height: 42px;
+            border-left: 3px solid color($colors, light);
+            button {
+              margin: 0 0 0 0;
+              padding: 0 0 0 0;
+              text-transform: none;
+              font-weight: 400;
+              color: color($colors, dark);
+            }
+          }
+          .tab-left-item.active {
+            border-left: 3px solid color($colors, secondary);
+            background-color: color($colors, pearl);
+          }
+        }
+        .tabs-right {
+          height: calc(75vh - 42px - 42px);
+          width: 68vw;
+          position: fixed;
+          right: 0;
+          display: inline-block;
+          .tab-right-item {
+            height: 42px;
+            margin-left: 1vw;
+            width: 100%;
+            display: inline-block;
+            border-bottom: 1px solid color($colors, light);
+            button {
+              font-size: 1.5rem;
+              .tab-icon-checkmark {
+                font-size: 2.3rem !important;
+              }
+              .tab-icon-square {
+                font-size: 1.25rem;
+              }
+            }
+            .button-square {
+              color: color($colors, dark);
+            }
+            .button-checkmark {
+              color: color($colors, secondary);
+            }
+            ion-icon::before {
+              margin-left: 5vw;
+              margin-right: 5vw;
+            }
+          }
+        }
+      }
+    }
+    .footer {
+      position: fixed;
+      width: 100vw;
+      bottom: 0;
+      height: 42px;
+      background-color: color($colors, dark);
+      .button-left {
+        display: inline-block;
+        background-color: color($colors, dark);
+        button {
+          height: 42px;
+          color: color($colors, pearl);
+          font-size: 1.5rem;
+          width: 32vw;
+          margin: 0 0 0 0;
+          padding: 0 0 0 0;
+        }
+      }
+      .button-right {
+        text-align: right;
+        width: 68vw;
+        display: inline-block;
+        position: fixed;
+        right: 0;
+        background-color: color($colors, primary);
+        button {
+          height: 42px;
+          color: color($colors, pearl);
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin: 0 0 0 0;
+        }
+      }
+    }
+  }
+}

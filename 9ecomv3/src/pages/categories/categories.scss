@@ -1,0 +1,66 @@
+page-categories {
+  .content-wrapper {
+    width: 100vw;
+    min-height: calc(100vh - 32px - 50px - 70px);
+    background-color: color($colors, light);
+    .card9-container {
+      display: inline-block;
+      margin: 1vw 0 0 1vw;
+      width: 48vw;
+      height: calc((100vh - 32px - 50px - 70px)/2 - 2px);
+      background-color: color($colors, pearl);
+      .pic-box {
+        text-align: center;
+        padding-top: 0.3vh;
+        img {
+          height: calc(((100vh - 32px - 50px - 70px)/2 - 2px)*0.75);
+        }
+      }
+      .title {
+        width: 98%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-top: 1vh;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        color: color($colors, greydark);
+        font-size: 1.25rem;
+      }
+      .price-box {
+        padding-top: 0.5vh;
+        padding-left: 3vw;
+        .price {
+          width: 80%;
+          text-align: left;
+          display: inline-block;
+          font-size: 1.5rem;
+          font-weight: 500;
+          color: color($colors, primary);
+        }
+        .old-price {
+          text-align: left;
+          padding-left: 3vw;
+          display: inline-block;
+          font-size: 1.26rem;
+          text-decoration: line-through;
+          font-weight: 400;
+          color: color($colors, greydark);
+        }
+        .price-love {
+          margin-right: 3vw;
+          text-align: right;
+          font-size: 1.5rem;
+          ion-icon {
+            color: color($colors, light) !important;
+          }
+        }
+        .price-love.selected {
+          ion-icon {
+            color: color($colors, secondary) !important;
+          }
+        }
+      }
+    }
+  }
+}

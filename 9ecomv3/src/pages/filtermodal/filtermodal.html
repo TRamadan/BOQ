@@ -1,0 +1,48 @@
+<!--
+  Generated template for the Filtermodal page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+</ion-header>
+
+
+<ion-content class="page-filtermodal pane no-scroll">
+  <div class="filter-container">
+    <div class="header">
+      <span class="title">Filter by</span>
+      <span class="close">
+        <button ion-button icon-only clear (click)="close()"><ion-icon name="close"></ion-icon></button>
+      </span>
+    </div>
+    <div class="content">
+      <div class="vertical-tabs">
+        <div class="tabs-left">
+          <div *ngFor="let filterType of filterTypes" class="tab-left-item" [class.active]="filterType.selected">
+            <button ion-button clear (click)="chooseTab(filterType)">{{filterType.name}}</button>
+          </div>
+        </div>
+        <ion-scroll class="tabs-right" scrollY="true">
+          <div class="tab-right-item" *ngFor="let val of selectedFilter.filters">
+            <button *ngIf="!val.checked" class="button-square" ion-button clear (click)="selectFilters(selectedFilter, val)">
+              <ion-icon class="tab-icon-square" name="square-outline"></ion-icon>{{val.title}}
+            </button>
+            <button *ngIf="val.checked" class="button-checkmark" ion-button clear (click)="selectFilters(selectedFilter, val)">
+              <ion-icon class="tab-icon-checkmark" name="checkmark"></ion-icon>{{val.title}}
+            </button>
+          </div>
+        </ion-scroll>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="button-left">
+        <button ion-button full clear (click)="clearAll()">Clear all</button>
+      </div>
+      <div class="button-right">
+        <button ion-button full clear (click)="applyFilter()">Apply filter</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

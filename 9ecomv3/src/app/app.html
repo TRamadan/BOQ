@@ -1,0 +1,46 @@
+<ion-menu [content]="content" id="BOQ">
+
+  <ion-header>
+
+  </ion-header>
+
+  <ion-content class="menu">
+    <ion-list class="menu-list">
+      <div *ngFor="let c of catArray; let i = index;">
+   
+            <button detail-none class="parent" ion-item (tap)="toggleItems2(i)">
+              {{c.name}}
+              <ion-icon *ngIf="!c.open" item-right name="add"></ion-icon>
+              <ion-icon *ngIf="c.open" item-right name="remove"></ion-icon>
+              
+            </button>
+          
+<!--
+            <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
+-->      
+
+        <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child">
+          <button detail-none class="child" ion-item *ngFor="let child of c.children">
+            {{child.name}}
+          </button>
+        </ion-list>
+    
+      </div>
+
+      <hr style="border: solid white 1px;">
+      <ion-list-header>
+        Settings
+      </ion-list-header>
+      <hr style="border:solid;  border-width:1px; border-color:white;">
+      <ion-item>
+        <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

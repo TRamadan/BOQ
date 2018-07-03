@@ -1,0 +1,49 @@
+page-signin {
+  .login-header {
+    padding-left: 5vw;
+    padding-top: 5vh;
+    .top-logo {
+      float: left;
+      img {
+        width: 40vw;
+      }
+    }
+    .skip {
+      float: right;
+      margin-top: 1vh;
+      margin-right: 5vw;
+      font-size: 0.88em;
+      font-weight: 400;
+    }
+  }
+  .content {
+    padding-top: 12vh;
+    text-align: center;
+    .title {
+      font-size: 1.5em;
+      font-weight: 400;
+    }
+  }
+
+  .login-button {
+    margin-top: 3vh;
+    text-transform: uppercase;
+    width: 86%;
+    margin-left: 7%;
+    font-size: 1em;
+  }
+
+  ion-footer {
+    .toolbar {
+      .toolbar-background {
+        border: none !important;
+        background-color: color($colors, pearl);
+      }
+    }
+    .title {
+      padding-left: 3vw;
+      display: inline;
+      color: color($colors, greydark);
+    }
+  }
+}

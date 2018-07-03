@@ -1,0 +1,363 @@
+page-checkout {
+  .new-address {
+    .address-form {
+      ion-row {
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+      }
+      ion-col {
+        padding: 0 0 0 0;
+        margin: 0 0 0 0;
+      }
+      ion-label {
+        margin-bottom: 0;
+        color: color($colors, greydark);
+      }
+      input {
+        font-size: 1.36rem;
+        font-weight: 400;
+      }
+      .select-text {
+        font-size: 1.36rem;
+        font-weight: 400;
+      }
+      margin-bottom: 2vh;
+    }
+    .address-form .item {
+      border: none;
+    }
+    .address-form .item .item-inner {
+      border: none;
+      border-bottom: 1px solid color($colors, light);
+    }
+    .delivery {
+      width: 100vw;
+      min-height: 30vh;
+      margin-top: 0;
+      padding-top: 3vh;
+      background-color: color($colors, light);
+      .title {
+        font-size: 1.38rem;
+        font-weight: 500;
+        padding-left: 5vw;
+      }
+      .action-button-wrapper {
+        padding-top: 2vh;
+        width: 100vw;
+        text-align: center;
+        .action-button-box {
+          margin: 1vh 3vw 1vh 3vw;
+          display: inline-block;
+          width: 24vw;
+          border: 1px solid color($colors, lightdark);
+          border-radius: 5px;
+          background-color: color($colors, pearl);
+          button {
+            color: color($colors, dark);
+            font-size: 1.68rem;
+            font-weight: 500;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+          }
+          .delivery-type {
+            margin-top: -1vh;
+            padding: 0 3vw 3vw 3vw;
+            font-size: 1.206rem;
+          }
+        }
+        .action-button-box.checked {
+          border: 1px solid color($colors, primary);
+          button {
+            color: color($colors, secondary);
+          }
+        }
+      }
+    }
+  }
+  .saved-address {
+    .address-container {
+      .address-list {
+        .address-list-item {
+          h2 {
+            font-size: 1.36rem;
+            font-weight: 400;
+          }
+          .detail {
+            width: 80vw;
+            font-size: 1.1rem;
+            font-weight: 300;
+          }
+          .right-bag {
+            width: 18vw;
+            top: 0;
+            right: 5px;
+            position: absolute;
+            display: inline-block;
+            text-align: right;
+            button {
+              margin: -10px 0 0 0;
+              padding: 0 0 0 0;
+              font-size: 0.86rem;
+            }
+          }
+        }
+      }
+    }
+  }
+  .payment {
+    height: calc(100vh - 52px - 33px - 72px);
+    .promo {
+      width: 100vw;
+      background-color: color($colors, light);
+      padding-bottom: 3vh;
+      .title {
+        padding-top: 3vh;
+        padding-bottom: 2vh;
+        margin-left: 5vw;
+        font-size: 1.46rem;
+        font-weight: 400;
+      }
+      .promo-form {
+        width: 90vw;
+        margin-left: 5vw;
+        background-color: color($colors, pearl);
+        border: 1px solid color($colors, lightdark);
+        border-right: none;
+        border-radius: 8px;
+        .promo-input {
+          width: 60vw;
+          display: inline-block;
+          padding-left: 5vw;
+          /*input {
+            // height: 10px;
+          }*/
+        }
+        .promo-button {
+          width: 28vw;
+          display: inline-block;
+          button {
+            font-size: 1.36rem;
+            text-transform: uppercase;
+            margin-top: 0;
+            margin-bottom: 0;
+            height: 38px;
+            border-radius: 0 4px 4px 0;
+          }
+        }
+      }
+    }
+    .payment-type {
+      ion-label {
+        font-size: 1.46rem;
+        color: color($colors, greydark);
+      }
+      ion-icon {
+        color: color($colors, greydark);
+      }
+      ion-icon.selected {
+        color: color($colors, primary);
+      }
+      ion-label.selected {
+        color: color($colors, dark);
+      }
+    }
+    .payment-type .item {
+      height: 10vh;
+      border: none;
+    }
+    .payment-type .item .item-inner {
+      border: none;
+      border-bottom: 1px solid color($colors, lightdark);
+    }
+    .payment-footer {
+      width: 100vw;
+      position: absolute;
+      bottom: 0;
+      border-top: 1px solid color($colors, lightdark);
+      padding-top: 5vh;
+      padding-bottom: 3vh;
+      .total {
+        padding-left: 5vw;
+        width: 48vw;
+        display: inline-block;
+        font-size: 1.46rem;
+        font-weight: 400;
+      }
+      .amount {
+        text-align: right;
+        width: 48vw;
+        display: inline-block;
+        font-size: 1.83rem;
+        font-weight: 500;
+        color: color($colors, secondary);
+      }
+    }
+  }
+  .confirmation {
+    width: 100vw;
+    .title-wrapper {
+      width: 100%;
+      display: inline-block;
+      padding: 1.5vh 5vw 2vh 5vw;
+      .title {
+        width: 70vw;
+        padding-top: 5px;
+        display: inline-block;
+        font-size: 1.46rem;
+        font-weight: 500;
+      }
+      .wrap-edit-button {
+        position: absolute;
+        display: inline-block;
+        right: 1vw;
+        .edit-button {
+          margin-top: 3px;
+          margin-bottom: 0;
+          font-size: 1rem;
+        }
+      }
+    }
+    .shipping {
+      width: 100vw;
+      border-bottom: 1px solid color($colors, lightdark);
+      .shipping-detail {
+        padding: 0 5vw 2vh 5vw;
+        font-size: 1.36rem;
+        font-weight: 400;
+        color: color($colors, greydark);
+        .name {
+          font-size: 1.26rem;
+          font-weight: 500;
+        }
+        .address, .state {
+          font-size: 1.2rem;
+        }
+      }
+    }
+    .order-detail {
+      border-bottom: 1px solid color($colors, lightdark);
+      padding-bottom: 2vh;
+      .cart-list {
+        border: none;
+        margin-bottom: 0;
+        .cart-list-item {
+          ion-thumbnail {
+            border: 1px solid color($colors, light);
+            width: 86px;
+            height: 86px;
+            img {
+              object-fit: cover;
+              width: 86px;
+              height: 86px;
+            }
+          }
+          h2 {
+            font-size: 1.36rem;
+            font-weight: 300;
+          }
+          .size {
+            font-size: 1.16rem;
+            font-weight: 300;
+            .color {
+              margin-left: 5vw;
+            }
+            .quantity {
+              margin-left: 5vw;
+            }
+          }
+          .price-wrapper {
+            padding-top: 1vh;
+            .price {
+              font-size: 1.68rem;
+              font-weight: 500;
+              color: color($colors, primary);
+              display: inline-block;
+            }
+          }
+        }
+      }
+      .cart-list .item {
+        border: none;
+      }
+      .cart-list .item .item-inner {
+        border: none;
+      }
+    }
+    .payment-summary {
+      .order-total {
+        width: 100vw;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid color($colors, lightdark);
+        .title {
+          padding-left: 5vw;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.36rem;
+          font-weight: 300;
+        }
+        .amount {
+          text-align: right;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.55rem;
+          font-weight: 400;
+        }
+      }
+      .delivery-charge {
+        width: 100vw;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        border-bottom: 1px solid color($colors, lightdark);
+        .title {
+          padding-left: 5vw;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.36rem;
+          font-weight: 300;
+        }
+        .amount {
+          text-align: right;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.55rem;
+          font-weight: 500;
+          color: color($colors, secondary);
+        }
+      }
+      .payment-total {
+        width: 100vw;
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+        .title {
+          padding-left: 5vw;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.36rem;
+          font-weight: 400;
+        }
+        .amount {
+          text-align: right;
+          width: 48vw;
+          display: inline-block;
+          font-size: 1.83rem;
+          font-weight: 500;
+          color: color($colors, secondary);
+        }
+      }
+    }
+  }
+  .action-button {
+    width: 100vw;
+    button {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      ion-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: 1px;
+      }
+    }
+  }
+}

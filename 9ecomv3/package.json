@@ -1,0 +1,62 @@
+{
+  "name": "nice-ecommerce",
+  "author": "quanganh@aiti.com.vn",
+  "homepage": "https://quanganh206.github.io/",
+  "private": true,
+  "scripts": {
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
+  },
+  "dependencies": {
+    "@angular/common": "5.0.0",
+    "@angular/compiler": "5.0.0",
+    "@angular/compiler-cli": "5.0.0",
+    "@angular/core": "5.0.0",
+    "@angular/forms": "5.0.0",
+    "@angular/http": "5.0.0",
+    "@angular/platform-browser": "5.0.0",
+    "@angular/platform-browser-dynamic": "5.0.0",
+    "@ionic-native/core": "3.12.1",
+    "@ionic-native/in-app-browser": "^3.12.1",
+    "@ionic-native/native-storage": "^4.7.0",
+    "@ionic-native/splash-screen": "3.12.1",
+    "@ionic-native/status-bar": "3.12.1",
+    "@ionic/storage": "2.1.3",
+    "cordova-plugin-inappbrowser": "^1.7.1",
+    "cordova-plugin-nativestorage": "^2.3.1",
+    "ionic-angular": "^3.9.2",
+    "ionicons": "3.0.0",
+    "rxjs": "5.5.2",
+    "sw-toolbox": "3.6.0",
+    "zone.js": "0.8.18"
+  },
+  "devDependencies": {
+    "@ionic/app-scripts": "3.1.0",
+    "typescript": "2.4.2"
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-whitelist",
+    "cordova-plugin-console",
+    "cordova-plugin-statusbar",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-device",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios",
+    {
+      "platform": "ios",
+      "version": "1.0",
+      "locator": "ios"
+    }
+  ],
+  "description": "nicecommerce: is a Premium Ionic2 Ecommerce, mCommerce Themes, Categories, Products, Products/Ads, Cart, Filters, Profile, Register, Login, Search",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-nativestorage": {}
+    }
+  }
+}

@@ -1,0 +1,78 @@
+page-thank {
+  .thank-wrapper {
+    padding: 8vh 5vw 2vh 5vw;
+    text-align: center;
+    text-transform: uppercase;
+    .thank {
+      font-size: 2.63rem;
+      font-weight: 600;
+      color: color($colors, secondary);
+    }
+    .detail {
+      padding-top: 0.5vh;
+      font-size: 1.63rem;
+      font-weight: 300;
+    }
+  }
+  .order {
+    font-size: 1.26rem;
+    font-weight: 350;
+    text-align: center;
+    span {
+      font-weight: 500;
+    }
+  }
+  .thank-image {
+    padding-top: 3vh;
+    padding-left: 1vw;
+    text-align: center;
+  }
+  .estimate-wrapper {
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    text-align: center;
+    .estimate {
+      text-transform: uppercase;
+      font-size: 1.83rem;
+      color: color($colors, secondary);
+      font-weight: 500;
+    }
+    .date {
+      font-size: 1.52rem;
+      font-weight: 300;
+      padding-top: 1vh;
+    }
+  }
+  .track-order-wrapper {
+    text-align: center;
+    .track-order {
+      margin-left: 5vw;
+      width: 90vw;
+      button {
+        font-size: 1.35rem;
+        font-weight: 500;
+        padding-top: 4vh;
+        padding-bottom: 4vh;
+        text-transform: uppercase;
+      }
+    }
+    .andor {
+      padding-bottom: 1vh;
+    }
+  }
+  .action-button {
+    width: 100vw;
+    button {
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      text-transform: uppercase;
+      padding-top: 4vh;
+      padding-bottom: 4vh;
+      ion-icon {
+        position: absolute;
+        right: 10px;
+        margin-top: 1px;
+      }
+    }
+  }
+}

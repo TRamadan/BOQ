@@ -1,0 +1,284 @@
+<!--
+  Generated template for the Checkout page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Checkout</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="information()">
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+</ion-header>
+
+
+<ion-content class="page-checkout">
+  <div [ngSwitch]="selectedTab">
+    <!-- SHIPPING SECTION -->
+    <div class="content-wrapper" *ngSwitchCase="tabs[0]">
+      <div padding>
+        <ion-segment [(ngModel)]="address">
+          <ion-segment-button value="new">
+            New Address
+          </ion-segment-button>
+          <ion-segment-button value="saved">
+            Saved Address
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <div [ngSwitch]="address">
+        <div class="new-address" *ngSwitchCase="'new'">
+          <ion-list class="address-form">
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>First name</ion-label>
+                  <ion-input type="text" [(ngModel)]="newAddress.firstname"></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>Last name</ion-label>
+                  <ion-input type="text" [(ngModel)]="newAddress.lastname"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-item>
+              <ion-label stacked>Address</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.address"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label stacked>Phone number</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.phone"></ion-input>
+            </ion-item>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>City</ion-label>
+                  <ion-select [(ngModel)]="newAddress.city">
+                    <ion-option *ngFor="let c of cities" [value]="c" [selected]="newAddress.city === c">{{c}}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>State</ion-label>
+                  <ion-select [(ngModel)]="newAddress.state">
+                    <ion-option *ngFor="let s of states" [value]="s" [selected]="newAddress.state === s">{{s}}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>Country</ion-label>
+                  <ion-select [(ngModel)]="newAddress.country">
+                    <ion-option *ngFor="let c of countries" [value]="c" [selected]="newAddress.country === c">{{c}}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-label stacked>Zip Code</ion-label>
+                  <ion-select [(ngModel)]="newAddress.zipcode">
+                    <ion-option *ngFor="let z of zipcodes" [value]="z" [selected]="newAddress.zipcode === z">{{z}}</ion-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+          <div class="delivery">
+            <div class="title">Delivery</div>
+            <div class="action-button-wrapper">
+              <div class="action-button-box" [class.checked]="shippingTypes[0]">
+                <button ion-button clear (click)="shipping(0)">Free</button>
+                <div class="delivery-type">Standard</div>
+              </div>
+              <div class="action-button-box" [class.checked]="shippingTypes[1]">
+                <button ion-button clear (click)="shipping(1)">$ 15</button>
+                <div class="delivery-type">Standard</div>
+              </div>
+              <div class="action-button-box" [class.checked]="shippingTypes[2]">
+                <button ion-button clear (click)="shipping(2)">$ 25</button>
+                <div class="delivery-type">Next-day</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="saved-address" *ngSwitchCase="'saved'">
+          <div class="address-container">
+            <ion-list class="address-list">
+              <ion-item-sliding *ngFor="let addr of savedAddresses">
+                <ion-item class="address-list-item">
+                  <a (click)="chooseAddress(addr)"><h2>{{addr.firstname}} {{addr.lastname}}</h2></a>
+                  <div class="detail">{{addr.address}},</div>
+                  <div class="detail">{{addr.city}}, {{addr.state}}, {{addr.country}} {{addr.phone}}</div>
+                  <div item-right class="right-bag">
+                    <button ion-button clear (click)="editAddress(addr)">Edit</button>
+                  </div>
+                </ion-item>
+                <ion-item-options class="actiion-button" side="right">
+                  <button ion-button icon-only color="danger" (click)="removeAddress(addr)">
+                    <ion-icon name="trash"></ion-icon>
+                  </button>
+                </ion-item-options>
+              </ion-item-sliding>
+            </ion-list>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END SHIPPING SECTION -->
+
+    <!-- PAYMENT SECTION -->
+    <div class="content-wrapper" *ngSwitchCase="tabs[1]">
+      <div class="payment">
+        <div class="promo">
+          <div class="title">
+            Promo code
+          </div>
+          <div class="promo-form">
+            <div class="promo-input">
+              <ion-input type="text" placeholder="#1243" [(ngModel)]="promotionCode" [disabled]="applied"></ion-input>
+            </div>
+            <div class="promo-button">
+              <button ion-button full (click)="promotion()">Apply</button>
+            </div>
+          </div>
+        </div>
+        <div class="payment-type">
+          <ion-list radio-group [(ngModel)]="paymentType">
+            <ion-item>
+              <ion-icon [class.selected]="paymentType==='cash'" item-left name="cash"></ion-icon>
+              <ion-label [class.selected]="paymentType==='cash'">Cash on delivery</ion-label>
+              <ion-radio value="cash"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-icon [class.selected]="paymentType==='wallet'" item-left name="closed-captioning"></ion-icon>
+              <ion-label [class.selected]="paymentType==='wallet'">E-wallet</ion-label>
+              <ion-radio value="wallet"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+              <ion-icon [class.selected]="paymentType==='card'" item-left name="card"></ion-icon>
+              <ion-label [class.selected]="paymentType==='card'">Credit Card</ion-label>
+              <ion-radio value="card"></ion-radio>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="payment-footer">
+          <div class="total">
+            Total Amount
+          </div>
+          <div class="amount">
+            $ {{cart.promoTotal()}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END PAYMENT SECTION -->
+
+    <!-- CONFIRMATION SECTION -->
+    <div class="content-wrapper" *ngSwitchCase="tabs[2]">
+      <div class="confirmation">
+        <div class="shipping">
+          <div class="title-wrapper">
+            <div class="title">Shipping to
+            </div>
+            <div class="wrap-edit-button">
+              <button class="edit-button" ion-button clear small>Edit</button>
+            </div>
+          </div>
+          <div class="shipping-detail" *ngIf="isValid(newAddress)">
+            <div class="name">
+              {{newAddress.firstname}} {{newAddress.lastname}}
+            </div>
+            <div class="address">
+              {{newAddress.address}},
+            </div>
+            <div class="state">
+              {{newAddress.city}}, {{newAddress.state}}, {{newAddress.country}}, {{newAddress.phone}}
+            </div>
+          </div>
+        </div>
+        <div class="order-detail">
+          <div class="title-wrapper">
+            <div class="title">Your order
+            </div>
+            <div class="wrap-edit-button">
+              <button class="edit-button" ion-button clear small>Edit</button>
+            </div>
+          </div>
+          <ion-list class="cart-list">
+            <ion-item class="cart-list-item" *ngFor="let item of cart.products">
+              <ion-thumbnail item-left>
+                <img [src]="item.product.image">
+              </ion-thumbnail>
+              <h2>{{item.product.name}}</h2>
+              <div class="size">Size: {{item.size}} <span class="color">Color: {{item.color}}</span><span class="quantity">Qty: {{item.quantity}}</span></div>
+              <div class="price-wrapper">
+                <div class="price">$ {{item.product.price - item.product.discount}}</div>
+              </div>
+            </ion-item>
+          </ion-list>
+        </div>
+        <div class="payment-summary">
+          <div class="title-wrapper">
+            <div class="title">Payment summary
+            </div>
+            <div class="wrap-edit-button">
+              <button class="edit-button" ion-button clear small>Edit</button>
+            </div>
+          </div>
+          <div class="order-total">
+            <div class="title">
+              Order Total
+            </div>
+            <div class="amount">
+              $ {{cart.promoTotal()}}
+            </div>
+          </div>
+          <div class="delivery-charge">
+            <div class="title">
+              Delivery Charge
+            </div>
+            <div *ngIf="cart.delivery===0" class="amount">
+              Free
+            </div>
+            <div *ngIf="cart.delivery>0" class="amount">
+              {{cart.delivery}}
+            </div>
+          </div>
+          <div class="payment-total">
+            <div class="title">
+              Total Amount
+            </div>
+            <div class="amount">
+              $ {{cart.promoTotal() + cart.delivery}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END CONFIRMATION SECTION -->
+  </div>
+</ion-content>
+<ion-footer class="clear-gap" no-border>
+  <div class="action-button">
+    <button ion-button full (click)="stepping()">{{step}} <ion-icon name="arrow-round-forward"></ion-icon></button>
+  </div>
+</ion-footer>

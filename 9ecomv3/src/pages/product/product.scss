@@ -1,0 +1,239 @@
+page-product {
+  margin-top: 0;
+  .toolbar {
+    .toolbar-background {
+      background: transparent !important;
+      border: none;
+    }
+  }
+  .heart-button {
+    ion-icon {
+      color: color($colors, lightdark);
+    }
+  }
+  .heart-button.wish {
+    ion-icon {
+      color: color($colors, primary);
+    }
+  }
+  .cart-badge {
+    margin-top: -10px;
+    margin-left: -10px;
+  }
+  .product-slider {
+    height: 46vh;
+  }
+  .product-wrapper {
+    width: 100vw;
+    text-align: center;
+    padding: 0 0 -1vh 0 !important;
+    margin: 0 0 0 0 !important;
+    border-bottom: 1px solid color($colors, light);
+    img {
+      margin: 0 0 -3px 0 !important;
+      padding: 0 0 0 0 !important;
+      height: 46vh;
+    }
+  }
+  .swiper-pagination {
+    .swiper-pagination-bullet {
+      background: color($colors, primary);
+      margin: 0 1px;
+      width: 6px;
+      height: 6px;
+    }
+  }
+  .product-detail-wrapper {
+    .title {
+      margin-top: 3.6vh;
+      padding: 0 15vw 0px 15vw;
+      text-align: center;
+      font-size: 1.68rem;
+      font-weight: 300;
+    }
+    .price-wrapper {
+      margin-top: 2.06vh;
+      width: 100vw;
+      .sale-price {
+        width: 48vw;
+        text-align: right;
+        display: inline-block;
+        color: color($colors, primary);
+        font-size: 1.86rem;
+        font-weight: 500;
+      }
+      .old-price {
+        position: absolute;
+        margin-top: 0.68vh;
+        margin-left: 2vw;
+        width: 48vw;
+        text-align: left;
+        display: inline-block;
+        text-decoration: line-through;
+        color: color($colors, lightdark);
+      }
+    }
+    .color-wrapper {
+      margin-top: 2.06vh;
+      padding-bottom: 2.06vh;
+      width: 100vw;
+      border-bottom: 1px solid color($colors, light);
+      text-align: center;
+      .checkbox-wrapper {
+        width: 19vw;
+        display: inline-block;
+        .checkbox-icon {
+          width: 30px;
+          height: 30px;
+        }
+        .inline-checkbox {
+          padding: 2px 2px 2px 2px;
+        }
+        .checkbox-checked .checkbox-inner {
+          top: 8px;
+          left: 12px;
+        }
+        .cb1.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #24c24e;
+          border-radius: 50%;
+        }
+        .cb1 .checkbox-icon {
+          border-color: #24c24e;
+          background-color: #24c24e;
+          border-radius: 50%;
+        }
+        .cb2.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #ff9600;
+          border-radius: 50%;
+        }
+        .cb2 .checkbox-icon {
+          border-color: #ff9600;
+          background-color: #ff9600;
+          border-radius: 50%;
+        }
+        .cb3.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #ff2851;
+          border-radius: 50%;
+        }
+        .cb3 .checkbox-icon {
+          border-color: #ff2851;
+          background-color: #ff2851;
+          border-radius: 50%;
+        }
+        .cb4.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #0076fe;
+          border-radius: 50%;
+        }
+        .cb4 .checkbox-icon {
+          border-color: #0076fe;
+          background-color: #0076fe;
+          border-radius: 50%;
+        }
+        .cb5.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #00c8cd;
+          border-radius: 50%;
+        }
+        .cb5 .checkbox-icon {
+          border-color: #00c8cd;
+          background-color: #00c8cd;
+          border-radius: 50%;
+        }
+        .cb6.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid color($colors, dark);
+          border-radius: 50%;
+        }
+        .cb6 .checkbox-icon {
+          border-color: #222;
+          background-color: color($colors, pearl);
+          border-radius: 50%;
+        }
+        .cb7.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #222;
+          border-radius: 50%;
+        }
+        .cb7 .checkbox-icon {
+          border-color: #222;
+          background-color: #222;
+          border-radius: 50%;
+        }
+        .cb8.checked {
+          padding: 2px 2px 2px 2px;
+          border: 1px solid #d9ad7c;
+          border-radius: 50%;
+        }
+        .cb8 .checkbox-icon {
+          border-color: #d9ad7c;
+          background-color: #d9ad7c;
+          border-radius: 50%;
+        }
+      }
+    }
+    .size-wrapper {
+      margin-top: 2.06vh;
+      padding-bottom: 2.06vh;
+      text-align: center;
+      border-bottom: 1px solid color($colors, light);
+      button {
+        width: auto !important;
+        max-width: 15vw;
+      }
+      .size-button {
+        border: 1px solid color($colors, lightdark);
+        color: color($colors, dark);
+      }
+      .size-button.checked {
+        background-color: color($colors, primary);
+        border: 1px solid color($colors, primary);
+        color: color($colors, pearl);
+      }
+    }
+    .description {
+      margin-top: 2.06vh;
+      .description-title {
+        margin-left: 3vw;
+      }
+    }
+  }
+  .footer {
+    width: 100vw;
+    bottom: 0;
+    height: 42px;
+    .button-left {
+      display: inline-block;
+      background-color: color($colors, primarydark);
+      button {
+        height: 42px;
+        color: color($colors, pearl);
+        font-size: 1.5rem;
+        width: 32vw;
+        margin: 0 0 0 0;
+        padding: 0 0 0 0;
+      }
+      .quantity-select {
+        display: none;
+      }
+    }
+    .button-right {
+      text-align: right;
+      width: 68vw;
+      display: inline-block;
+      position: fixed;
+      right: 0;
+      background-color: color($colors, primary);
+      button {
+        height: 42px;
+        color: color($colors, pearl);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0 0 0 0;
+      }
+    }
+  }
+}

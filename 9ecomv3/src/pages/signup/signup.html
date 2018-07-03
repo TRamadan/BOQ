@@ -1,0 +1,82 @@
+<!--
+  Generated template for the Signup page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+</ion-header>
+
+
+<ion-content padding class="page-signup no-scroll">
+  <div class="login-header">
+    <div class="top-logo">
+      <img src="assets/img/small-top-logo.png">
+    </div>
+    <div class="skip" (click)="skip()">
+        Skip
+    </div>
+  </div>
+  <div class="content">
+    <div class="title">
+      Sign up
+    </div>
+    <div class="line2right">
+      <div class="line-left"></div>
+      <div class="line-right"></div>
+    </div>
+  </div>
+  <ion-list class="clear-list"> 
+    <form [formGroup]="registerForm" (ngSubmit)="onRegester()">
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
+      <ion-label floating>User name</ion-label>
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-mail-outline" md="md-mail" item-left></ion-icon>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-phone-portrait-outline" md="md-phone-portrait" item-left></ion-icon>
+      <ion-label floating>Mobile Number</ion-label>
+      <ion-input formControlName="phone" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-transgender-outline" md="md-lock" item-left></ion-icon>
+      <ion-label floating>Gender</ion-label>
+      <ion-select interface="popover" class="gender-select" formControlName="gender"  [(ngModel)]="gender"
+      required>
+      <ion-option class="regs-select-option" [value]="male">male</ion-option>
+      <ion-option [value]="female">female</ion-option>
+  </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-icon class="input-icon" ios="ios-pin-outline" md="md-lock" item-left></ion-icon>
+      <ion-label floating>Address</ion-label>
+      <ion-select interface="popover" class="gender-select" formControlName="location"  [(ngModel)]="location">
+        <ion-option [value]="SheikZayed">SheikZayed</ion-option>
+        <ion-option [value]="fifth">altagamue alkhamis</ion-option>
+        <ion-option [value]="north-coast">north coast</ion-option>
+        <ion-option [value]="giza">giza</ion-option>
+    </ion-select>
+    </ion-item>
+
+    <button class="login-button" ion-button round full>
+      Register
+    </button>
+    </form>
+  </ion-list>
+</ion-content>

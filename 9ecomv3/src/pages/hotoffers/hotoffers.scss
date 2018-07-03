@@ -1,0 +1,67 @@
+page-hotoffers {
+  .ads-slider {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 100%;
+  }
+  .ads-wrapper {
+    height: 25vh;
+    width: 100%;
+    .ads-box {
+      height: 25vh;
+      background: url(../assets/img/hotoffers/hotoffers01.png);
+      background-size: cover;
+    }
+  }
+  .small-ads-wrapper {
+    max-height: 50vh;
+    width: 100%;
+    padding: 0 0 0 0;
+    padding-top: 0.5vh;
+    margin-left: 0;
+    .left-ads-wrapper {
+      margin-left: -50.4vw !important;
+      width: calc(49% + 2px);
+      text-align: left;
+      display: inline-block;
+      padding: 0 0 0 0;
+      .ads-box {
+        height: calc(100vh - 45vh - 50px - 70px);
+        background: url(../assets/img/hotoffers/hotoffers02.png);
+        background-size: cover;
+      }
+    }
+    .right-ads-wrapper {
+      position: absolute;
+      width: 49.5%;
+      display: inline-block;
+      padding: 0 0 0 0;
+      right: 0;
+      .tiny-ads-wrapper1 {
+        padding-bottom: 2px;
+        .ads-box {
+          height: calc((100vh - 45vh - 50px - 70px)/2 - 2px);
+          background: url(../assets/img/hotoffers/hotoffers03.png);
+          background-size: cover;
+        }
+      }
+      .tiny-ads-wrapper2 {
+        padding-top: 2px;
+        .ads-box {
+          height: calc((100vh - 45vh - 50px - 70px)/2 - 2px);
+          background: url(../assets/img/hotoffers/hotoffers04.png);
+          background-size: cover;
+        }
+      }
+    }
+  }
+  .footer-ads-wrapper {
+    width: 100%;
+    height: calc(25vh - 24px);
+    .ads-box {
+      height: calc(25vh - 24px);
+      background: url(../assets/img/hotoffers/hotoffers05.png);
+      background-size: cover;
+    }
+  }
+}
