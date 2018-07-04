@@ -2,7 +2,9 @@ import { Component, ViewChild, Pipe, PipeTransform } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, ModalController, Content } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import { Category, Product, Database } from '../../providers/database';
-
+import { RootProvider } from "../../providers/root/root";
+import { Http } from '@angular/http';
+import 'rxjs/add/operator/map';
 @Pipe({ name: 'byCategory' })
 export class ByCategoryPipe implements PipeTransform {
   transform(products: Product[], category: Category) {
@@ -26,14 +28,19 @@ export class ByCategoryPipe implements PipeTransform {
 export class CategoriesPage {
   tabs: IScrollTab[] = [];
   selectedTab: IScrollTab;
+  public itemsArray: Array<any>;
   db: Database;
   products: Product[];
   categories: Category[] = Array<Category>();
   menus: Category = new Category();
   show: boolean = true;
+  idd;
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private modalCtrl: ModalController) {
+  constructor(public http: Http, public root: RootProvider, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private modalCtrl: ModalController) {
+    this.itemsArray = new Array();
+    this.idd = this.navParams.get('ID');
+    this.getitems();
   }
 
   ionViewDidEnter() {
@@ -53,10 +60,10 @@ export class CategoriesPage {
     var detail = this.navParams.get('select');
     this.menus = this.navParams.get('menus');
     if (this.menus) {
-      //this.categories = this.menus.children;
-     // this.menus.children.forEach(menu => {
-        //this.tabs.push({ name: menu.name });
-      //});
+      this.categories = this.menus.children;
+       this.menus.children.forEach(menu => {
+      this.tabs.push({ name: menu.name });
+      });
 
       for (var i = 0; i < this.tabs.length; i++) {
         if (this.tabs[i].name.toLowerCase() === detail.toLowerCase()) {
@@ -97,4 +104,50 @@ export class CategoriesPage {
   toProduct(prod: Product) {
     this.navCtrl.push('ProductPage', { product: prod });
   }
+  testArr = [];
+  subArray: Array<any>;
+  getitems() {
+    
+    console.log(this.navParams.get('ID'));
+
+    this.http.get(`${this.root.APIURL3}item`).map(res =>res.json()).subscribe(data =>{
+      if(data.length == null)
+      {
+        console.log("there is no data here .....");
+      }
+      else{
+       
+          for(let i = 0; i < data.length; i++)
+          { 
+            if(data[i].prod_sub_category == this.navParams.get('ID') )
+            this.testArr[i] = data[i].quantity; 
+          } 
+          console.log(this.testArr);
+        
+      }
+    })
+    /*
+    console.log(this.navParams.get('ID'));
+    return this.http.get(`${this.root.APIURL3}item`).map(res => res.json()).subscribe(data => {
+      if (data.length == null) {
+        console.log("there is no data here ... ");
+      }
+      else {
+        if (data.length > 0) {
+          for (let i = 0; i < data.length; i++) {
+            this.testArr[i] = data[i];
+            if (this.testArr[i].prod_sub_category == this.idd) {
+              console.log(this.testArr[i].prod_sub_category);
+              this.subArray[i] = this.testArr[i];
+              // console.log(this.subArray[i]);
+            }
+          }
+          console.log(this.itemsArray);
+          console.log(this.subArray);
+        }
+      }
+    })
+    */
+  }
+
 }

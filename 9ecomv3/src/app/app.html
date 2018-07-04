@@ -19,8 +19,8 @@
             <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
 -->      
 
-        <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child">
-          <button detail-none class="child" ion-item *ngFor="let child of c.children">
+        <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child" >
+          <button detail-none class="child" ion-item *ngFor="let child of c.children" (tap) = "categories(child.id)">
             {{child.name}}
           </button>
         </ion-list>

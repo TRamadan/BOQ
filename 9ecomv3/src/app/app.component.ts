@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Database, Cart, Category, subcategory, Product } from '../providers/database';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { CategoriesPage } from '../pages/categories/categories';
 
 export interface PageInterface { 
   
@@ -27,7 +28,7 @@ export class Ecom9App {
 
   public tempArray: Category[] = [];
   public templastArray = []; 
-  public itemsArray : Array<any>;
+
   private URLNAME = "http://services.edge-techno.com/boq_v2";
   public catArray : Array<any>;
   public image: string;
@@ -60,13 +61,11 @@ export class Ecom9App {
     
     this.catArray = new Array();
     this.subcatArray = new Array();
-    this.itemsArray = new Array();
+    
 
 
     this.getcategories();
-    this.getitems()
-
-   
+  
 
     this.rootPage = 'WelcomePage';
     this.initializeApp();
@@ -114,9 +113,10 @@ export class Ecom9App {
     }
   }
 
-  categories(menuItem: Category, child: Category) {
+  categories(c) {
+    console.log(c);
     this.menu.close();
-    this.nav.setRoot('TabsPage', { tabIndex: 0, parent: menuItem, detail: child.name });
+    this.nav.push(CategoriesPage , { ID : c });
   }
 
   /**
@@ -132,7 +132,7 @@ export class Ecom9App {
          let subcat = new Array()
          for(let i = 0; i < data.length; i++)
          {
-           subcat[i] = new subcategory(data[i].item_type_name , data[i].item_type_img)
+           subcat[i] = new subcategory(data[i].item_type_name , data[i].item_type_id ,  data[i].item_type_img)
          }
          for(let i = 0; i < this.catArray.length; i++)
          {
@@ -171,26 +171,6 @@ export class Ecom9App {
       }
     })
   } 
-
-  getitems()
-  {
-    return this.http.get(`${this.root.APIURL3}item`).map(res => res.json()).subscribe(data =>{
-      if(data.length == null)
-      {
-        console.log("there is no data here ... ");
-      } 
-      else {
-        if(data.length > 0)
-        {
-          for (let i = 0; i < data.length; i++)
-          {
-            this.itemsArray[i] = new Product(data[i].point_id , data[i].prod_sub_category , data[i].prod_image1 , data[i].prod_image2 , data[i].quantity , data[i].measure_unit  , data[i].prod_desc , data[i].prod_id , data[i].price ); 
-          } 
-          console.log(this.itemsArray);
-        }
-      }
-    })
-  }
 
 
 

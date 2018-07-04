@@ -32,12 +32,13 @@ export class subcategory{
   name : string;
   image : string;
   NewsCategoryID : string;
-  
+ 
   constructor(item_type_name : string = "" , item_type_id : string = "" , item_type_img: string = "" , NewsCategoryID : string = "-1")
   {
     this.name = item_type_name; 
     this.id = item_type_id;
-    this.image = (item_type_img !=null &&item_type_img.length > 0)?subcategory.URLNAME+item_type_img.substring(1,item_type_img.length) : ""
+    this.image = (item_type_img !=null &&item_type_img.length > 0)?subcategory.URLNAME+item_type_img.substring(1,item_type_img.length) : ""; 
+    
   }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -48,7 +49,7 @@ export class Product {
   image1 ? : string;
   image2 ? : string;  
   quant ? : number;
-  measure_u? : number;
+  measure_u? : string;
   description? : string;
   id2 : number;
   price: number;
@@ -60,29 +61,25 @@ export class Product {
   sizes: string[];
   descriptions: string[];
   categories: Category[]; 
- 
   brand?: string;
   love?: boolean = false;
   status?: string; 
-  
-  
 
-  constructor(point_id : string = ""  , prod_sub_category : number  , prod_image1 : string = "" , prod_image2 : string = "" , quantity : number , measure_unit : number , prod_desc : string = "" , prod_id : number , price : number ) { 
+   constructor(point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number ) { 
     this.id = point_id; 
     this.product_subcat = prod_sub_category;
-    this.image1 = prod_image1; 
-    this.image2 = prod_image2; 
+    this.image1 = "prod_image1"; 
+    this.image2 = "prod_image2"; 
     this.quant = quantity;
-    this.measure_u = measure_unit;
-    this.description = prod_desc; 
+    this.measure_u = "measure_unit";
+    this.description = "prod_desc"; 
     this.id2 = prod_id;
     this.price = price;
-    
 //////////////////////////////////////////////
-    this.categories = new Array<Category>();
-    this.colors = new Array<string>();
-    this.sizes = new Array<string>();
-    this.descriptions = new Array<string>();
+  //  this.categories = new Array<Category>();
+   // this.colors = new Array<string>();
+   // this.sizes = new Array<string>();
+   // this.descriptions = new Array<string>();
   }
 }
 
