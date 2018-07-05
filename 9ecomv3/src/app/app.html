@@ -20,7 +20,7 @@
 -->      
 
         <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child" >
-          <button detail-none class="child" ion-item *ngFor="let child of c.children" (tap) = "categories(child.id)">
+          <button detail-none class="child" ion-item *ngFor="let child of c.children" (tap) = "categories(child.Items)">
             {{child.name}}
           </button>
         </ion-list>

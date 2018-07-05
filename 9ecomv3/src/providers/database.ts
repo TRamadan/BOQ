@@ -8,11 +8,11 @@ export class Category{
   id:string;
   name: string;
   parent?: string;
-  children?: Category[];
+  children?: any[];
   parentShow?: boolean = false;
   image:String;
   open : boolean;
-  constructor(NewsCategory : string = "" , NewsCategoryID : string = "" , NewsCategoryImage : string = "" , Parent : string = "")
+  constructor(NewsCategory : string = "" , NewsCategoryID : string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
   { 
     this.name = NewsCategory;
     this.id = NewsCategoryID;  
@@ -20,7 +20,7 @@ export class Category{
     this.parentShow = false;
     this.parent = Parent; 
     this.open = false;
-    this.children = new Array();
+    this.children = children? children : new Array();
   }  
 
   
@@ -32,13 +32,16 @@ export class subcategory{
   name : string;
   image : string;
   NewsCategoryID : string;
+  Items : any[]
+  mainCat : any;
  
-  constructor(item_type_name : string = "" , item_type_id : string = "" , item_type_img: string = "" , NewsCategoryID : string = "-1")
+  constructor(item_type_name : string = "" ,main_cat_id :string ,item_type_id : string = "" , item_type_img: string = "", items :any , NewsCategoryID : string = "-1" )
   {
     this.name = item_type_name; 
     this.id = item_type_id;
+    this.mainCat = main_cat_id;
     this.image = (item_type_img !=null &&item_type_img.length > 0)?subcategory.URLNAME+item_type_img.substring(1,item_type_img.length) : ""; 
-    
+    this.Items= items ? items : new Array();
   }
 }
 //////////////////////////////////////////////////////////////////////////////

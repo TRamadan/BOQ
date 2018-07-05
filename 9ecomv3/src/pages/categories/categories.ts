@@ -32,14 +32,18 @@ export class CategoriesPage {
   db: Database;
   products: Product[];
   categories: Category[] = Array<Category>();
-  menus: Category = new Category();
+  menus: Category;
   show: boolean = true;
-  idd;
+  items; 
+  
+  ItemsReady : boolean = false; 
+
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
   constructor(public http: Http, public root: RootProvider, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private modalCtrl: ModalController) {
     this.itemsArray = new Array();
-    this.idd = this.navParams.get('ID');
+    this.items = this.navParams.get('subcategory');
+    console.log(this.items);
     this.getitems();
   }
 
@@ -104,28 +108,30 @@ export class CategoriesPage {
   toProduct(prod: Product) {
     this.navCtrl.push('ProductPage', { product: prod });
   }
-  testArr = [];
-  subArray: Array<any>;
+
+
+  testArr = []; // this array is refered to the array of items needed
+ // subArray: Array<any>; 
   getitems() {
     
-    console.log(this.navParams.get('ID'));
-
-    this.http.get(`${this.root.APIURL3}item`).map(res =>res.json()).subscribe(data =>{
+    this.http.get(`${this.root.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
+      console.log(data)
       if(data.length == null)
       {
-        console.log("there is no data here .....");
-      }
+        console.log('there is no data here');
+      } 
       else{
-       
-          for(let i = 0; i < data.length; i++)
-          { 
-            if(data[i].prod_sub_category == this.navParams.get('ID') )
-            this.testArr[i] = data[i].quantity; 
-          } 
-          console.log(this.testArr);
-        
+        for(let i = 0; i < data.length; i++)
+        {
+          this.testArr[i] = data[i]; 
+        }  
+        this.ItemsReady = true;
+
+        console.log(this.testArr);
       }
     })
+  }
+}
     /*
     console.log(this.navParams.get('ID'));
     return this.http.get(`${this.root.APIURL3}item`).map(res => res.json()).subscribe(data => {
@@ -148,6 +154,3 @@ export class CategoriesPage {
       }
     })
     */
-  }
-
-}

@@ -42,6 +42,15 @@
         </div>
       </ion-scroll>
     </div>
-  </div>   
+  </div>    
 
+  
+    <div *ngFor="let sub of items">
+      <div>
+        <h5>
+          {{sub.price}}
+        </h5>
+      </div>
+    </div>
+  
 </ion-content>

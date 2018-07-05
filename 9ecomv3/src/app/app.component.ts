@@ -63,8 +63,9 @@ export class Ecom9App {
     this.subcatArray = new Array();
     
 
+    this.getitems();
 
-    this.getcategories();
+    //this.getcategories();
   
 
     this.rootPage = 'WelcomePage';
@@ -99,7 +100,6 @@ export class Ecom9App {
   toggleItems2(i) {
     let open: boolean = false;
     this.catArray[i].open = !this.catArray[i].open;
-
   }
 
   openPage(page) {
@@ -113,45 +113,51 @@ export class Ecom9App {
     }
   }
 
-  categories(c) {
-    console.log(c);
+  categories(Subitems) {
+    console.log("herfkhfhf")
+    console.log(Subitems);
     this.menu.close();
-    this.nav.push(CategoriesPage , { ID : c });
+    this.nav.push(CategoriesPage , { subcategory : Subitems });
   }
 
   /**
    * This function is to load the subcategories for the main categories  
   */
-  getsubcats(main_cat_id = 1) { 
-     this.http.get(`${this.root.APIURL3}main?main_cat_id=${main_cat_id}`).map(res => res.json()).subscribe(data=>{
+  getsubcats(items) { 
+     this.http.get(`${this.root.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
        if(data.length == 0)
        {
-         console.log("there is no subcategories for this category");
+         console.log("there is no subcategories");
        }
        else{
          let subcat = new Array()
          for(let i = 0; i < data.length; i++)
          {
-           subcat[i] = new subcategory(data[i].item_type_name , data[i].item_type_id ,  data[i].item_type_img)
+          let Subitems = new Array();
+           for(let j =0;j<items.length ; j++){
+            
+             if(data[i].id == items[j].prod_sub_category){
+               Subitems.push(items[j])
+               console.log(Subitems);
+              
+             }
+             subcat[i] = new subcategory(data[i].item_type_name ,data[i].main_cat_id, data[i].id ,data[i].item_type_img,Subitems)
+           }  
+           
+
          }
-         for(let i = 0; i < this.catArray.length; i++)
-         {
-           if(this.catArray[i].id == main_cat_id)
-           {
-             this.catArray[i].children = subcat;
-           }
-         }
-         console.log(this.catArray);
+         console.log(subcat);
+         this.getcategories(subcat);
+         
        }
      })
    
   }
 
-  /**
+   /**
    * This function is to load the main categories to the menu
    */
-  
-   getcategories() {
+   getcategories(subcat) {
     return this.http.get(`${this.root.APIURL3}main`).map(res => res.json()).subscribe(data =>{ 
       if(data.length == 0)
       {
@@ -163,14 +169,38 @@ export class Ecom9App {
         {
           for(let i = 0; i < data.length; i++)
           {
-            this.catArray[i] = new Category(data[i].NewsCategory , data[i].NewsCategoryID);
+            let tempcats = new Array(); 
+           for(let j =0 ; j < subcat.length ; j++){
+            
+             if(data[i].NewsCategoryID == subcat[j].mainCat){
+              tempcats.push(subcat[j]);
+
+              //console.log(tempcats);
+             }
+             this.catArray[i] = new Category(data[i].NewsCategory , data[i].NewsCategoryID,tempcats);
+           }
+
+           
           }
-          this.getsubcats(1);
-          //console.log(this.catArray);
+          
+          console.log(this.catArray);
         }
       }
     })
   } 
+  
+getitems() {
+  this.http.get(`${this.root.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
+    
+    if(data.length == null)
+    {
+      return null
+    } 
+    else{
+      this.getsubcats(data); 
+    }
+  })
+}
 
 
 
