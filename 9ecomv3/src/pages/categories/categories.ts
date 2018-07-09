@@ -44,7 +44,7 @@ export class CategoriesPage {
     this.itemsArray = new Array();
     this.items = this.navParams.get('subcategory');
     console.log(this.items);
-    this.getitems();
+   // this.getitems();
   }
 
   ionViewDidEnter() {
@@ -105,8 +105,10 @@ export class CategoriesPage {
     modal.present();
   }
 
-  toProduct(prod: Product) {
-    this.navCtrl.push('ProductPage', { product: prod });
+  toProduct(item) {
+    this.navCtrl.push('ProductPage', { product: item });
+    console.log('item passed succesfully to the product page')
+    console.log(item);
   }
 
 

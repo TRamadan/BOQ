@@ -60,9 +60,9 @@ export class Product {
   name: string;
   discount: number = 0;
   image: string;
-  colors: string[];
-  sizes: string[];
-  descriptions: string[];
+  //colors: string[];
+  //sizes: string[];
+  //descriptions: string[];
   categories: Category[]; 
   brand?: string;
   love?: boolean = false;
@@ -1694,20 +1694,11 @@ export class Database {
     }
   }
   
-  removeProductWish(prod: Product) {
-    var pos = -1;
-    for (var i = 0; i < this.wishproducts.length; i++) {
-      if (this.wishproducts[i].product.id === prod.id) {
-        pos = i;
-      }
-    }
-    if (pos >= 0) {
-      this.wishproducts.splice(pos, 1);
-      prod.love = false;
-    }
+  removeProductWish() {
+    this.wishproducts.pop();
   }
 
-  addWish(wish: WishProduct): void {
+  addWish(wish): void {
     this.wishproducts.push(wish);
   }
 

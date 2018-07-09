@@ -20,37 +20,25 @@
 </ion-header>
 
 
-<ion-content class="page-categories">
+<ion-content  class="page-categories">
   <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
-    <div *ngFor="let tab of tabs; let i = index">
-      <ion-scroll scrollY="true" class="content-wrapper" *ngSwitchCase="tabs[i]">
-        <div *ngIf="categories">
-          <div class="card9-container" *ngFor="let product of products | byCategory: categories[i]">
-            <div class="pic-box" (click)="toProduct(product)">
-              <img [src]="product.image">
+    
+      <ion-scroll scrollY="true" scrollX="true" class="content-wrapper">
+          <div class="card9-container" *ngFor="let item of items">
+            <div class="pic-box" (tap)="toProduct(item)">
+              <img [src]="item.image">
             </div>
             <div class="title">
-              {{product.name}}
+              {{item.prod_name}}
             </div>
             <div class="price-box">
-              <span class="price">$ {{product.price - product.discount}}<span class="old-price">$ {{product.price}}</span></span>
-              <span class="price-love" [class.selected]="product.love">
+              <span class="price">LE {{item.price}}<span class="old-price">LE {{item.price}}</span></span>
+              <span class="price-love" [class.selected]="item.love">
                 <ion-icon name="heart"></ion-icon>
               </span>
             </div>
           </div>
-        </div>
       </ion-scroll>
-    </div>
+    
   </div>    
-
-  
-    <div *ngFor="let sub of items">
-      <div>
-        <h5>
-          {{sub.price}}
-        </h5>
-      </div>
-    </div>
-  
 </ion-content>

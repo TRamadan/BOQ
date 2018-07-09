@@ -16,7 +16,9 @@ import { Product, Cart, Database } from '../../providers/database'
 export class ProductPage {
   cb: boolean[] = [false, true, false, false, false]
   size: boolean[] = [false, true, false, false, false]
-  @ViewChild('qtySelect') qtySelect: Select;
+  public specific_item : any;
+  @ViewChild('qtySelect') qtySelect: Select; 
+
 
   currentQty: string = 'Qty: 1';
   quantity: number = 1;
@@ -32,12 +34,17 @@ export class ProductPage {
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
+    this.specific_item = this.navParams.get('product');
+    console.log(this.specific_item);
+  /*
     if (this.product.colors.length > 0) {
       this.clearColor(1);
     }
+    
     if (this.product.sizes.length > 0) {
       this.clearSize(1);
     }
+    */
   }
 
   ionViewWillLeave() {
@@ -46,7 +53,7 @@ export class ProductPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductPage');
-    this.tabBarElement.style.display = 'none';
+    //this.tabBarElement.style.display = 'none';
   }
 
   clearColor(pos) {
@@ -57,7 +64,7 @@ export class ProductPage {
     }
     setTimeout(() => {
       this.cb[pos] = true;
-      this.currentColor = this.product.colors[pos];
+      //this.currentColor = this.product.colors[pos];
     }, 200);
   }
 
@@ -68,23 +75,24 @@ export class ProductPage {
       }
     }
     this.size[pos] = true;
-    this.currentSize = this.product.sizes[pos];
+   // this.currentSize = this.product.sizes[pos];
   }
 
   selectQty() {
     this.qtySelect.open();
   }
 
-  loveIt() {
+  loveIt() { 
+    console.log("favorait icon is pressed")
     this.product.love = !this.product.love;
-
     setTimeout(() => {
       if(this.product.love) {
-        this.db.addWish({ product: this.product, color: this.currentColor, size: this.currentSize })
+        this.db.addWish(this.specific_item)
       } else {
-        this.db.removeProductWish(this.product);
+        this.db.removeProductWish();
       }
     }, 150);
+    
   }
 
   quantityChange() {
@@ -108,7 +116,7 @@ export class ProductPage {
       }
     })
     if (!flgFound) {
-      this.cart.products.push({ product: this.product, quantity: this.quantity, color: this.currentColor, size: this.currentSize });
+      this.cart.products.push({ product: this.product, quantity: this.quantity });
     }
     setTimeout(() => {
       this.navCtrl.pop();

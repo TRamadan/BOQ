@@ -10,11 +10,12 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title></ion-title>
-    <ion-buttons end>
-      <button class="heart-button" ion-button icon-only [class.wish]="product.love" (click)="loveIt()">
+    <ion-buttons end> 
+      
+      <button class="heart-button" ion-button icon-only [class.wish]="product.love" (tap)="loveIt()">
         <ion-icon name="heart"></ion-icon>
-      </button>
-      <button ion-button icon-only (click)="goCart()">
+      </button> 
+      <button ion-button icon-only (tap)="goCart()">
         <ion-icon name="cart"></ion-icon>
         <ion-badge *ngIf="cart.count()>0" class="cart-badge" color="secondary">{{cart.count()}}</ion-badge>
       </button>
@@ -27,45 +28,42 @@
   <ion-slides #sliders class="product-slider" pager>
     <ion-slide>
       <div class="product-wrapper">
-        <img [src]="product.image" />
+        <img [src]="product.image"/>
       </div>
     </ion-slide>
   </ion-slides>
   <div class="product-detail-wrapper">
     <div class="title">
-      {{product.name}}
+      {{product.prod_name}}
     </div>
     <div class="price-wrapper">
+      
       <div class="sale-price">
-        $ {{product.price - product.discount}}
-      </div>
-      <div class="old-price">
+        $ {{product.price}}
+      </div> 
+      <div class="old-price"> 
+        <!-- put here the price of the discount 'if there is a discount on this item' -->
         $ {{product.price}}
       </div>
     </div>
-    <div *ngIf="product.colors.length > 1" class="color-wrapper">
-      <div class="checkbox-wrapper" *ngFor="let color of product.colors; let i = index;">
-        <ion-checkbox *ngIf="color==='Green'" class="inline-checkbox cb1" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Orange'" class="inline-checkbox cb2" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Pink'" class="inline-checkbox cb3" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Blue'" class="inline-checkbox cb4" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Cyan'" class="inline-checkbox cb5" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='White'" class="inline-checkbox cb6" color="light" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Black'" class="inline-checkbox cb7" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-        <ion-checkbox *ngIf="color==='Brown'" class="inline-checkbox cb8" [(ngModel)]="cb[i]" [class.checked]="cb[i]" (click)="clearColor(i)"></ion-checkbox>
-      </div>
-    </div>
+ 
+    <!--
     <div *ngIf="product.sizes.length > 0" class="size-wrapper">
       <span *ngFor="let oSize of product.sizes; let i = index;">
         <button class="size-button" ion-button round small outline [class.checked]="size[i]" (click)="clearSize(i)">{{oSize}}</button>
       </span>
-    </div>
-    <div *ngIf="product.descriptions.length > 0" class="description">
+    </div> -->
+    <div class="description">
       <div class="description-title">
         Description
       </div>
       <ul>
-        <li *ngFor="let desc of product.descriptions">{{desc}}</li>
+        <li>{{product.item_long_desc}}</li> 
+        <li>
+          <h5>
+            Quantity left : {{product.quantity}}
+          </h5>
+        </li>
       </ul>
     </div>
   </div>
@@ -86,7 +84,7 @@
       </ion-item>
     </div>
     <div class="button-right">
-      <button ion-button full clear (click)="add2Cart()">Add to Cart</button>
+      <button ion-button full clear (tap)="add2Cart()">Add to Cart</button>
     </div>
   </div>
 </ion-footer>
