@@ -226,10 +226,10 @@
           <ion-list class="cart-list">
             <ion-item class="cart-list-item" *ngFor="let item of cart.products">
               <ion-thumbnail item-left>
-                <img [src]="item.product.image">
+                <img [src]="item.product.image1">
               </ion-thumbnail>
               <h2>{{item.product.name}}</h2>
-              <div class="size">Size: {{item.size}} <span class="color">Color: {{item.color}}</span><span class="quantity">Qty: {{item.quantity}}</span></div>
+              
               <div class="price-wrapper">
                 <div class="price">$ {{item.product.price - item.product.discount}}</div>
               </div>

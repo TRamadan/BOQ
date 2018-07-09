@@ -28,13 +28,13 @@
   <ion-slides #sliders class="product-slider" pager>
     <ion-slide>
       <div class="product-wrapper">
-        <img [src]="product.image"/>
+        <img [src]="product.image1"/>
       </div>
     </ion-slide>
   </ion-slides>
   <div class="product-detail-wrapper">
     <div class="title">
-      {{product.prod_name}}
+      {{product.name}}
     </div>
     <div class="price-wrapper">
       
@@ -58,10 +58,10 @@
         Description
       </div>
       <ul>
-        <li>{{product.item_long_desc}}</li> 
+        <li>{{product.description}}</li> 
         <li>
           <h5>
-            Quantity left : {{product.quantity}}
+            Quantity left : {{product.quant}}
           </h5>
         </li>
       </ul>
