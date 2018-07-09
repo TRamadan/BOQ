@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, MenuController, ModalController, C
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import { Category, Product, Database } from '../../providers/database';
 import { RootProvider } from "../../providers/root/root";
+import { Storage } from '@ionic/storage';
+
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 @Pipe({ name: 'byCategory' })
@@ -40,9 +42,19 @@ export class CategoriesPage {
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public http: Http, public root: RootProvider, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private modalCtrl: ModalController) {
+  constructor(public http: Http,
+     public root: RootProvider,
+      public navCtrl: NavController,
+       public navParams: NavParams,
+        private menu: MenuController, 
+        private modalCtrl: ModalController,
+        public storage : Storage
+      ) {
+
+
     this.itemsArray = new Array();
     this.items = this.navParams.get('subcategory');
+   
     console.log(this.items);
    // this.getitems();
   }
@@ -59,6 +71,7 @@ export class CategoriesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
+    
     this.db = Database.getInstance();
     this.products = this.db.allProduct();
     var detail = this.navParams.get('select');
@@ -75,6 +88,7 @@ export class CategoriesPage {
         }
       }
     }
+    
   }
 
   tabChange(data: any) {

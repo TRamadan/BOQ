@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { User } from '../../templates/user';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 
@@ -22,9 +22,10 @@ export class SigninPage {
   public user :User ;
   public loginForm : FormGroup;
   
-  constructor(public menuctrl : MenuController , public natStorage : NativeStorage , public userProvider : UsersProvider , public formBuilder : FormBuilder , public navCtrl: NavController, public navParams: NavParams) { 
+  constructor(public menuctrl : MenuController , public storage : Storage , public userProvider : UsersProvider , public formBuilder : FormBuilder , public navCtrl: NavController, public navParams: NavParams) { 
     
-    //this.menuctrl.enable(false, 'BOQ');
+    this.menuctrl.enable(false);
+
     this.buildForm();}
 
   ionViewDidLoad() {
@@ -38,7 +39,7 @@ export class SigninPage {
   */
 
   register() {
-    this.navCtrl.setRoot('SignupPage');
+    this.navCtrl.push('SignupPage');
   } 
 
   buildForm()
@@ -57,7 +58,7 @@ export class SigninPage {
           let tempGender = data[0].UserGender==1 ? 'Male': 'Female'; 
           this.user = new User(data[0].UserID,data[0].UserEmail,tempGender,data[0].UserAddress,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile)
           console.log(this.user);
-          this.natStorage.setItem("user",this.user);
+          this.storage.set("user",this.user);
           this.navCtrl.setRoot(TabsPage , {"user" : this.user});
         }else{
           alert("Worng Username Or Password");
