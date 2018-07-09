@@ -48,7 +48,7 @@ export class ProductPage {
   }
 
   ionViewWillLeave() {
-    this.tabBarElement.style.display = 'flex';
+    //this.tabBarElement.style.display = 'flex';
   }
 
   ionViewDidLoad() {

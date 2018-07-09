@@ -138,7 +138,7 @@ export class Ecom9App {
             
              if(data[i].id == items[j].prod_sub_category){
                Subitems.push(items[j])
-               console.log(Subitems);
+              
               
              }
              subcat[i] = new subcategory(data[i].item_type_name ,data[i].main_cat_id, data[i].id ,data[i].item_type_img,Subitems)

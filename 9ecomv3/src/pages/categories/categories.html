@@ -22,10 +22,12 @@
 
 <ion-content  class="page-categories">
   <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
-    
+   
       <ion-scroll scrollY="true" scrollX="true" class="content-wrapper">
+        
           <div class="card9-container" *ngFor="let item of items">
-            <div class="pic-box" (tap)="toProduct(item)">
+            <div (tap)="toProduct(item)">
+            <div class="pic-box" >
               <img [src]="item.image">
             </div>
             <div class="title">
@@ -38,6 +40,8 @@
               </span>
             </div>
           </div>
+          </div>
+        
       </ion-scroll>
     
   </div>    

@@ -298,7 +298,338 @@ export class Database {
         status: 'Delivered'
       },
     ];
-   /*
+ 
+    this.filterTypes = [
+      {
+        name: 'Price',
+        selected: true,
+        type: 'or',
+        filters: [
+          {
+            title: 'Less than $50',
+            attr: 'price',
+            compare: 'range',
+            min: 1,
+            max: 50,
+            checked: false
+          },
+          {
+            title: 'From $50 to $150',
+            attr: 'price',
+            compare: 'range',
+            min: 50,
+            max: 150,
+            checked: false
+          },
+          {
+            title: 'From $150 to $250',
+            attr: 'price',
+            compare: 'range',
+            min: 150,
+            max: 250,
+            checked: false
+          },
+          {
+            title: 'From $250 to $500',
+            attr: 'price',
+            compare: 'range',
+            min: 250,
+            max: 500,
+            checked: false
+          },
+        ]
+      },
+      {
+        name: 'Brand',
+        selected: false,
+        type: 'and',
+        filters: [
+          {
+            title: 'Zaza',
+            attr: 'brand',
+            compare: 'equal',
+            value: 'Zaza',
+            checked: false
+          },
+          {
+            title: 'Mango',
+            attr: 'brand',
+            compare: 'equal',
+            value: 'Mango',
+            checked: false
+          },
+          {
+            title: 'PT2000',
+            attr: 'brand',
+            compare: 'equal',
+            value: 'PT2000',
+            checked: false
+          },
+          {
+            title: 'Blue Exchange',
+            attr: 'brand',
+            compare: 'equal',
+            value: 'Blue Exchange',
+            checked: false
+          },
+          {
+            title: 'Hoang Phuc',
+            attr: 'brand',
+            compare: 'equal',
+            value: 'Hoang Phuc',
+            checked: false
+          },
+        ]
+      },
+      {
+        name: 'Size',
+        selected: false,
+        type: 'and',
+        filters: [
+          {
+            title: 'Has S Size',
+            attr: 'sizes',
+            compare: 'equal',
+            value: 'S',
+            checked: false
+          },
+          {
+            title: 'Has M Size',
+            attr: 'sizes',
+            compare: 'equal',
+            value: 'M',
+            checked: false
+          },
+          {
+            title: 'Has L Size',
+            attr: 'sizes',
+            compare: 'equal',
+            value: 'L',
+            checked: false
+          },
+          {
+            title: 'Has XL Size',
+            attr: 'sizes',
+            compare: 'equal',
+            value: 'XL',
+            checked: false
+          },
+          {
+            title: 'Has XXL Size',
+            attr: 'sizes',
+            compare: 'equal',
+            value: 'XXL',
+            checked: false
+          },
+        ]
+      },
+      {
+        name: 'Color',
+        selected: false,
+        type: 'and',
+        filters: [
+          {
+            title: 'Has Green Color',
+            attr: 'colors',
+            compare: 'equal',
+            value: 'Green',
+            checked: false
+          },
+          {
+            title: 'Has Orange Color',
+            attr: 'colors',
+            compare: 'equal',
+            value: 'Orange',
+            checked: false
+          },
+          {
+            title: 'Has Pink Color',
+            attr: 'colors',
+            compare: 'equal',
+            value: 'Pink',
+            checked: false
+          },
+          {
+            title: 'Has Blue Color',
+            attr: 'colors',
+            compare: 'equal',
+            value: 'Blue',
+            checked: false
+          },
+          {
+            title: 'Has Cyan Color',
+            attr: 'colors',
+            compare: 'equal',
+            value: 'Cyan',
+            checked: false
+          }
+        ]
+      },
+      {
+        name: 'Discount',
+        selected: false,
+        type: 'or',
+        filters: [
+          {
+            title: 'Discount 10%',
+            attr: 'discount',
+            compare: 'range',
+            min: 1,
+            max: 10,
+            checked: false
+          },
+          {
+            title: 'Discount 25%',
+            attr: 'discount',
+            compare: 'range',
+            min: 1,
+            max: 25,
+            checked: false
+          },
+          {
+            title: 'Discount 50%',
+            attr: 'discount',
+            compare: 'range',
+            min: 1,
+            max: 50,
+            checked: false
+          },
+          {
+            title: 'Discount 90%',
+            attr: 'discount',
+            compare: 'range',
+            min: 1,
+            max: 90,
+            checked: false
+          }
+        ]
+      }
+    ];
+
+    this.wishproducts = [
+      {
+        product: this.products[0],
+        color: 'Green',
+        size: 'M'
+      },
+      {
+        product: this.products[1],
+        color: 'Pink',
+        size: 'L'
+      },
+      {
+        product: this.products[2],
+        color: 'Blue',
+        size: 'S'
+      },
+    ]
+  }
+
+  allFilters(): any {
+    return this.filterTypes;
+  }
+
+  allCategory(): Category[] {
+    return this.categories;
+  }
+
+  allSavedAdddress(): Address[] {
+    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
+    return this.addresses;
+  }
+
+  allWishList(): WishProduct[] {
+    return this.wishproducts;
+  }
+
+  allOrders(): Order[] {
+    return this.orders;
+  }
+  removeWish(wish: WishProduct): void {
+    var pos = -1;
+    for (var i = 0; i < this.wishproducts.length; i++) {
+      if (this.wishproducts[i] === wish) {
+        pos = i;
+      }
+    }
+    if (pos >= 0) {
+      this.wishproducts.splice(pos, 1);
+      wish.product.love = false;
+    }
+  }
+  
+  removeProductWish() {
+    this.wishproducts.pop();
+  }
+
+  addWish(wish): void {
+    this.wishproducts.push(wish);
+  }
+
+  allCities(): string[] {
+    return this.cities;
+  }
+
+  allStates(): string[] {
+    return this.states;
+  }
+  
+  allCountries(): string[] {
+    return this.countries;
+  }
+
+  allZipCodes(): string [] {
+    return this.zipcodes;
+  }
+
+  removeSavedAddress(addr: Address): void {
+    var pos = -1;
+    for (var i = 0; i < this.addresses.length; i++) {
+      if (this.addresses[i] === addr) {
+        pos = i;
+      }
+    }
+    if (pos >= 0) {
+      this.addresses.splice(pos, 1);
+    }
+  }
+
+  addSavedAddress(addr: Address): void {
+    this.addresses.push(addr);
+    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
+  }
+
+  addOrder(order: Order) {
+    this.orders.push(order);
+
+    this.orders = this.orders.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
+  }
+
+  parentCategory(): Category[] {
+    var parents = this.categories.filter(item => {
+      return item.parent === undefined;
+    });
+    
+    parents.forEach(parent => {
+      parent.children = new Array<Category>();
+      this.categories.forEach(item => {
+        if (item.parent == parent.id) {
+          parent.children.push(item);
+        }
+      });
+    });
+    return parents;
+  }
+
+  allProduct(): Product[] {
+    return this.products;
+  }
+
+  categoryProducts(category: Category): Product[] {
+    return this.products;
+  }
+}
+  /*
     this.categories = [
       // Girl Collection
       {
@@ -1435,333 +1766,3 @@ export class Database {
       },
     ];
 */
-    this.filterTypes = [
-      {
-        name: 'Price',
-        selected: true,
-        type: 'or',
-        filters: [
-          {
-            title: 'Less than $50',
-            attr: 'price',
-            compare: 'range',
-            min: 1,
-            max: 50,
-            checked: false
-          },
-          {
-            title: 'From $50 to $150',
-            attr: 'price',
-            compare: 'range',
-            min: 50,
-            max: 150,
-            checked: false
-          },
-          {
-            title: 'From $150 to $250',
-            attr: 'price',
-            compare: 'range',
-            min: 150,
-            max: 250,
-            checked: false
-          },
-          {
-            title: 'From $250 to $500',
-            attr: 'price',
-            compare: 'range',
-            min: 250,
-            max: 500,
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Brand',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Zaza',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Zaza',
-            checked: false
-          },
-          {
-            title: 'Mango',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Mango',
-            checked: false
-          },
-          {
-            title: 'PT2000',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'PT2000',
-            checked: false
-          },
-          {
-            title: 'Blue Exchange',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Blue Exchange',
-            checked: false
-          },
-          {
-            title: 'Hoang Phuc',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Hoang Phuc',
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Size',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Has S Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'S',
-            checked: false
-          },
-          {
-            title: 'Has M Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'M',
-            checked: false
-          },
-          {
-            title: 'Has L Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'L',
-            checked: false
-          },
-          {
-            title: 'Has XL Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'XL',
-            checked: false
-          },
-          {
-            title: 'Has XXL Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'XXL',
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Color',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Has Green Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Green',
-            checked: false
-          },
-          {
-            title: 'Has Orange Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Orange',
-            checked: false
-          },
-          {
-            title: 'Has Pink Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Pink',
-            checked: false
-          },
-          {
-            title: 'Has Blue Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Blue',
-            checked: false
-          },
-          {
-            title: 'Has Cyan Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Cyan',
-            checked: false
-          }
-        ]
-      },
-      {
-        name: 'Discount',
-        selected: false,
-        type: 'or',
-        filters: [
-          {
-            title: 'Discount 10%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 10,
-            checked: false
-          },
-          {
-            title: 'Discount 25%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 25,
-            checked: false
-          },
-          {
-            title: 'Discount 50%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 50,
-            checked: false
-          },
-          {
-            title: 'Discount 90%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 90,
-            checked: false
-          }
-        ]
-      }
-    ];
-
-    this.wishproducts = [
-      {
-        product: this.products[0],
-        color: 'Green',
-        size: 'M'
-      },
-      {
-        product: this.products[1],
-        color: 'Pink',
-        size: 'L'
-      },
-      {
-        product: this.products[2],
-        color: 'Blue',
-        size: 'S'
-      },
-    ]
-  }
-
-  allFilters(): any {
-    return this.filterTypes;
-  }
-
-  allCategory(): Category[] {
-    return this.categories;
-  }
-
-  allSavedAdddress(): Address[] {
-    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
-    return this.addresses;
-  }
-
-  allWishList(): WishProduct[] {
-    return this.wishproducts;
-  }
-
-  allOrders(): Order[] {
-    return this.orders;
-  }
-  removeWish(wish: WishProduct): void {
-    var pos = -1;
-    for (var i = 0; i < this.wishproducts.length; i++) {
-      if (this.wishproducts[i] === wish) {
-        pos = i;
-      }
-    }
-    if (pos >= 0) {
-      this.wishproducts.splice(pos, 1);
-      wish.product.love = false;
-    }
-  }
-  
-  removeProductWish() {
-    this.wishproducts.pop();
-  }
-
-  addWish(wish): void {
-    this.wishproducts.push(wish);
-  }
-
-  allCities(): string[] {
-    return this.cities;
-  }
-
-  allStates(): string[] {
-    return this.states;
-  }
-  
-  allCountries(): string[] {
-    return this.countries;
-  }
-
-  allZipCodes(): string [] {
-    return this.zipcodes;
-  }
-
-  removeSavedAddress(addr: Address): void {
-    var pos = -1;
-    for (var i = 0; i < this.addresses.length; i++) {
-      if (this.addresses[i] === addr) {
-        pos = i;
-      }
-    }
-    if (pos >= 0) {
-      this.addresses.splice(pos, 1);
-    }
-  }
-
-  addSavedAddress(addr: Address): void {
-    this.addresses.push(addr);
-    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
-  }
-
-  addOrder(order: Order) {
-    this.orders.push(order);
-
-    this.orders = this.orders.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
-  }
-
-  parentCategory(): Category[] {
-    var parents = this.categories.filter(item => {
-      return item.parent === undefined;
-    });
-    
-    parents.forEach(parent => {
-      parent.children = new Array<Category>();
-      this.categories.forEach(item => {
-        if (item.parent == parent.id) {
-          parent.children.push(item);
-        }
-      });
-    });
-    return parents;
-  }
-
-  allProduct(): Product[] {
-    return this.products;
-  }
-
-  categoryProducts(category: Category): Product[] {
-    return this.products;
-  }
-}

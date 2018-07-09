@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
 import { Cart } from '../../providers/database';
 /**
  * Generated class for the Tabs tabs.
@@ -23,7 +23,8 @@ export class TabsPage {
   detail: NavParams;
   selectedIndex: number;
   cart: Cart;
-  constructor(public navCtrl: NavController, private params: NavParams) {
+  constructor(public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
+    this.menuCtrl.enable(true);
     this.selectedIndex = params.data.tabIndex || 0;
     this.detail = params;
     this.cart = Cart.getInstance();
