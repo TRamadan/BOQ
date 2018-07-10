@@ -108,14 +108,14 @@ export class ProductPage {
     }, 100);
   }
 
-  add2Cart() {
+  add2Cart() { 
     let flgFound = false;
-    this.cart.products.forEach(item => {
-      console.log(item)
+    this.cart.products.forEach(specific_item => {
+      console.log(specific_item)
 
-      if (item.product != undefined && item.product.id === this.product.id) {
+      if (specific_item.product != undefined && specific_item.product.id === this.product.id) {
         flgFound = true;
-        item.quantity = parseInt(item.quantity.toString()) + parseInt(this.quantity.toString());
+        specific_item.quantity = parseInt(specific_item.quantity.toString()) + parseInt(this.quantity.toString());
       }
       
     })
@@ -126,7 +126,6 @@ export class ProductPage {
     setTimeout(() => {
       this.navCtrl.pop();
     }, 300);
-
   }
 
 }

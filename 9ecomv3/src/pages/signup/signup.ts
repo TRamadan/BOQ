@@ -5,6 +5,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 import { Storage } from "@ionic/storage";
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the Signup page.
@@ -54,7 +55,7 @@ export class SignupPage {
 
 
 
-  onRegester() {
+  onRegester(): Observable<any> {
     if (this.registerForm.valid) {
       console.log(this.gender);
       console.log(this.location)
@@ -65,7 +66,7 @@ export class SignupPage {
           this.user = new User(data[0].USERID, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.password, this.registerForm.value.email, this.registerForm.value.phone)
 
           console.log(this.user);
-          this.storage.set('user', this.user);
+          this.storage.set('user', this.user); 
           this.navCtrl.setRoot(TabsPage, { "user": this.user });
         } else {
           alert("Server Error");
@@ -74,7 +75,8 @@ export class SignupPage {
         alert("No Connection");
       })
     } else {
-    }
+    } 
+    return
   }
   /*
   register() {

@@ -25,7 +25,7 @@
       <img src="assets/img/thankyou.png">
     </div>
     <div class="no-items-round">
-      <button ion-button clear (click)="shopping()">Continue Shopping</button>
+      <button ion-button clear (tap)="shopping()">Continue Shopping</button>
     </div>
   </div>
   <ion-list class="cart-list">
@@ -37,12 +37,13 @@
         <h2>{{item.product.name}}</h2>
         
         <div class="price-wrapper">
-          <div class="price">$ {{item.product.price - item.product.discount}}</div>
-          <div *ngIf="item.product.discount>0" class="old-price">$ {{item.product.discount}}</div>
+          <div class="price">LE {{item.product.price - item.product.discount}}</div>
+          <div *ngIf="item.product.discount>0" class="old-price">LE {{item.product.discount}}</div>
+          
         </div>
         <div item-right class="right-bag">
           <div class="right-button">
-            <button ion-button clear (click)="incQty(item)">
+            <button ion-button clear (tap)="incQty(item)">
             <ion-icon class="add" name="add"></ion-icon>
           </button>
           </div>
@@ -50,20 +51,22 @@
             {{item.quantity}}
           </div>
           <div class="right-button">
-            <button ion-button clear icon-only (click)="decQty(item)">
+            <button ion-button clear icon-only (tap)="decQty(item)">
             <ion-icon name="remove"></ion-icon>
           </button>
           </div>
         </div>
       </ion-item>
+      <!--
       <ion-item-options class="actiion-button" side="left">
         <button ion-button icon-only>
           <ion-icon name="create"></ion-icon>
         </button>
-      </ion-item-options>
+      </ion-item-options> 
+    -->
       <ion-item-options class="actiion-button" side="right">
-        <button ion-button icon-only color="danger">
-          <ion-icon name="trash"></ion-icon>
+        <button ion-button icon-only color="danger" (tap)="delete_item(item)">
+          <ion-icon name="trash" ></ion-icon>
         </button>
       </ion-item-options>
     </ion-item-sliding>
@@ -72,10 +75,10 @@
   <div class="place-order-wrapper" *ngIf="cart.products.length>0">
     <div class="place-order-round">
       <div class="place-order">
-        <button ion-button clear (click)="placeOrder()">Place this order</button>
+        <button ion-button clear (tap)="placeOrder()">Place this order</button>
       </div>
       <div class="order-price">
-        $ {{cart.total()}}
+        LE {{cart.total()}}
       </div>
     </div>
   </div>

@@ -33,7 +33,8 @@ export class ProfilePage {
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   db: Database;
   savedAddresses: Address[];
-  wishProducts: WishProduct[];
+  wishProducts: WishProduct[]; 
+  userarray : any =  [];
   orders: Order[];
   cart: Cart;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
@@ -42,12 +43,16 @@ export class ProfilePage {
     this.cart = Cart.getInstance();
     this.savedAddresses = this.db.allSavedAdddress();
     this.wishProducts = this.db.allWishList();
-    this.orders = this.db.allOrders();
+    this.orders = this.db.allOrders(); 
+    
+    this.userarray = this.navParams.get('user');
+    console.log(this.userarray);
   }
 
+  /*
   ionViewDidEnter() {
     this.menu.swipeEnable(false, 'ecom9');
-    var detail = this.navParams.get('detail');
+    var detail = this.navParams.get('user');
     console.log(detail);
     if (detail) {
       for (var i = 0; i < this.tabs.length; i++) {
@@ -58,6 +63,7 @@ export class ProfilePage {
       }
     }
   }
+  */
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
@@ -92,8 +98,8 @@ export class ProfilePage {
     cp = {
       product: wish.product,
       quantity: 1,
-      color: wish.color,
-      size: wish.size,
+     // color: wish.color,
+     // size: wish.size,
     };
 
     let flgFound = false;
