@@ -34,6 +34,7 @@ export class ProductPage {
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
+    //this.cart.clear();
     this.specific_item = this.navParams.get('product');
     console.log(this.specific_item);
   /*
@@ -110,16 +111,22 @@ export class ProductPage {
   add2Cart() {
     let flgFound = false;
     this.cart.products.forEach(item => {
-      if (item.product.id === this.product.id) {
+      console.log(item)
+
+      if (item.product != undefined && item.product.id === this.product.id) {
         flgFound = true;
         item.quantity = parseInt(item.quantity.toString()) + parseInt(this.quantity.toString());
       }
+      
     })
+    
     if (!flgFound) {
       this.cart.products.push({ product: this.product, quantity: this.quantity });
     }
     setTimeout(() => {
       this.navCtrl.pop();
     }, 300);
+
   }
+
 }

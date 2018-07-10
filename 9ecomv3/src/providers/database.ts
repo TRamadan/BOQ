@@ -68,11 +68,12 @@ export class Product {
   love?: boolean = false;
   status?: string; 
 
-   constructor(point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number ) { 
+   constructor(prod_name : string,point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number ) { 
+    this.name = prod_name;
     this.id = point_id; 
     this.product_subcat = prod_sub_category;
-    this.image1 = "prod_image1"; 
-    this.image2 = "prod_image2"; 
+    this.image1 = prod_image1==""? 'assets/img/categories/girl/jewellery/jewellery01.jpg' : prod_image1; 
+    this.image2 = prod_image2==""? 'assets/img/categories/girl/jewellery/jewellery01.jpg' : prod_image2; 
     this.quant = quantity;
     this.measure_u = "measure_unit";
     this.description = "prod_desc"; 
@@ -99,8 +100,7 @@ export class Address {
 
 export interface WishProduct {
   product: Product;
-  color?: string;
-  size?: string;
+
 }
 
 export interface CartProduct extends WishProduct {
@@ -136,8 +136,8 @@ export class Cart {
     let db = Database.getInstance();
     let products = db.allProduct();
 
-    this.products.push({ product: products[0], quantity: 2, color: 'Green', size: 'M' })
-    this.products.push({ product: products[1], quantity: 1, color: 'Pink', size: 'L' })
+   // this.products.push({ product: products[0], quantity: 2, color: 'Green', size: 'M' })
+   // this.products.push({ product: products[1], quantity: 1, color: 'Pink', size: 'L' })
   }
 
   static getInstance() {
@@ -505,24 +505,6 @@ export class Database {
         ]
       }
     ];
-
-    this.wishproducts = [
-      {
-        product: this.products[0],
-        color: 'Green',
-        size: 'M'
-      },
-      {
-        product: this.products[1],
-        color: 'Pink',
-        size: 'L'
-      },
-      {
-        product: this.products[2],
-        color: 'Blue',
-        size: 'S'
-      },
-    ]
   }
 
   allFilters(): any {

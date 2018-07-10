@@ -28,10 +28,10 @@
           <div class="card9-container" *ngFor="let item of items">
             <div (tap)="toProduct(item)">
             <div class="pic-box" >
-              <img [src]="item.image">
+              <img [src]="item.image2">
             </div>
             <div class="title">
-              {{item.prod_name}}
+              {{item.name}}
             </div>
             <div class="price-box">
               <span class="price">LE {{item.price}}<span class="old-price">LE {{item.price}}</span></span>
