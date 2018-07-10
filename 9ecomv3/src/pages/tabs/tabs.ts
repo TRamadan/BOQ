@@ -30,4 +30,8 @@ export class TabsPage {
     this.cart = Cart.getInstance();
   }
 
+  public navTo(tabIndex: any){
+    this.selectedIndex=tabIndex;
+  }
+
 }

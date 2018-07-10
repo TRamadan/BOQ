@@ -124,7 +124,7 @@ export class Ecom9App {
   /**
    * This function is to load the subcategories for the main categories  
   */
-  getsubcats(items) { 
+  getsubcats(items) {  
      this.http.get(`${this.root.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
        if(data.length == null)
        {
@@ -182,7 +182,7 @@ export class Ecom9App {
            }
 
            
-          }
+          } 
           
           console.log(this.catArray);
         }
@@ -193,7 +193,7 @@ export class Ecom9App {
 getitems() {
   this.http.get(`${this.root.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
     
-    if(data.length == null)
+    if(data.length == 0)
     {
       return null
     } 
