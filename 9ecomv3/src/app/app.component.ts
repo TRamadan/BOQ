@@ -10,8 +10,9 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
 
+var require :any;
 export interface PageInterface { 
-  
+ 
   title: string;
   name: string;
   icon?: string;
@@ -64,7 +65,7 @@ export class Ecom9App {
     
 
     this.getitems();
-
+    
     //this.getcategories();
   
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Cart } from '../../providers/database'
+import { HomePage } from '../home/home';
 /**
  * Generated class for the Mycart page.
  *
@@ -34,5 +35,8 @@ export class MyCartPage {
     if (parseInt(item.quantity) > 1) {
       item.quantity = parseInt(item.quantity) - 1;
     }
+  }
+  shopping(){
+    this.navCtrl.setRoot(HomePage);
   }
 }

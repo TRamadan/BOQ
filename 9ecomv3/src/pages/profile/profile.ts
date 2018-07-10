@@ -92,8 +92,6 @@ export class ProfilePage {
     cp = {
       product: wish.product,
       quantity: 1,
-      color: wish.color,
-      size: wish.size,
     };
 
     let flgFound = false;
