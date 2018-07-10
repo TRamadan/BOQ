@@ -157,6 +157,27 @@ export class Cart {
     this.promotion = 0;
   }
 
+  public removeItem(index : any){
+    if(this.products.length==1){
+      this.products.pop();
+      
+        
+    }else{
+      let counter = index+1;
+      for(let i = index ; i<this.products.length-1;i++){
+        this.products[i]=this.products[counter++];
+        
+        
+        
+        } 
+        this.products.pop();
+        
+      }
+      
+    
+    
+  }
+
   count(): number {
     let sum: number = 0;
     this.products.forEach(product => {

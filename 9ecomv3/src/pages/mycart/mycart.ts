@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Cart, Database, Product } from '../../providers/database'
 import { CategoriesPage } from '../categories/categories';
+import {TabsPage} from '../tabs/tabs';
+import { Events } from 'ionic-angular';
+
 /**
  * Generated class for the Mycart page.
  *
@@ -16,8 +19,10 @@ import { CategoriesPage } from '../categories/categories';
 export class MyCartPage {
   cart: Cart; 
   db : Database;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, public navParams: NavParams , public events : Events) {
     this.cart = Cart.getInstance();   
+    console.log(this.cart);
   }
 
   ionViewDidLoad() {
@@ -40,14 +45,16 @@ export class MyCartPage {
 
   shopping()
   { 
-    // logic of this function will be added here
+    this.navCtrl.setRoot(TabsPage,{tabIndex : 0});
+    //this.events.publish("routeTo" ,TabsPage);
     console.log("go to homepage to choose msh 3aref a ");
   } 
   
   // this function is to delete item from the cart
   delete_item(p : any)
   {
-    this.db.delet_specific_item(p);
+    console.log(p);
+    this.cart.removeItem(p);
   }
  
 }
