@@ -201,4 +201,7 @@ export class HomePage {
       //}
     })
   }
+  getPrevious(){
+    return this.navCtrl.getPrevious().component.navto(2)
+  }
 }

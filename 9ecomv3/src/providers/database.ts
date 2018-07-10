@@ -79,6 +79,7 @@ export class Product {
     this.description = "prod_desc"; 
     this.id2 = prod_id;
     this.price = price;
+    this.status = "in";
 //////////////////////////////////////////////
   //  this.categories = new Array<Category>();
    // this.colors = new Array<string>();
@@ -542,6 +543,7 @@ export class Database {
   }
 
   allWishList(): WishProduct[] {
+    console.log(this.wishproducts);
     return this.wishproducts;
   }
 
@@ -567,6 +569,7 @@ export class Database {
 
   addWish(wish): void {
     this.wishproducts.push(wish);
+    //console.log(this.wishproducts);
   }
 
   allCities(): string[] {

@@ -73,7 +73,7 @@
     <div class="button-left">
       <button ion-button full clear (click)="selectQty()">{{currentQty}}</button>
       <ion-item class="quantity-select">
-        <ion-label>Quantity</ion-label>
+        <ion-label>Quantity</ion-label>   
         <ion-select #qtySelect [(ngModel)]="quantity" (ionChange)="quantityChange()">
           <ion-option value="1" selected="true">1</ion-option>
           <ion-option value="2">2</ion-option>

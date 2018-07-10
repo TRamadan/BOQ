@@ -99,8 +99,18 @@ export class Ecom9App {
   /////////////////////////////////////
 
   toggleItems2(i) {
-    let open: boolean = false;
+    
     this.catArray[i].open = !this.catArray[i].open;
+    if(this.catArray[i].open == true)
+    {
+      for(let j = 0; j < this.catArray.length; j++)
+      {
+        if(i != j)
+        {
+          this.catArray[j].open = false;
+        }
+      }
+    }
   }
 
   openPage(page) {
@@ -123,7 +133,7 @@ export class Ecom9App {
 
   /**
    * This function is to load the subcategories for the main categories  
-  */
+   */
   getsubcats(items) {  
      this.http.get(`${this.root.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
        if(data.length == null)
