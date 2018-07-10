@@ -125,7 +125,7 @@ export class Ecom9App {
   */
   getsubcats(items) { 
      this.http.get(`${this.root.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
-       if(data.length == 0)
+       if(data.length == null)
        {
          console.log("there is no subcategories");
        }
