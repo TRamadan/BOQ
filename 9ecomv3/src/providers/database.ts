@@ -574,6 +574,24 @@ export class Database {
     if (pos >= 0) {
       this.addresses.splice(pos, 1);
     }
+  } 
+
+  //Delete only one single item from the cart 
+
+  delet_specific_item(prod : Product)
+  { 
+    let pro = -1;
+    for(let i = 0; i < this.products.length; i++)
+    {
+      if(this.products[i] === prod)
+      {
+        pro = i;
+      } 
+      if(pro >= 0)
+      {
+        this.products.splice(pro , 1);
+      }
+    }
   }
 
   addSavedAddress(addr: Address): void {

@@ -28,23 +28,26 @@
             </div>
           </div>
         </div>
-        <ion-list class="info-list">
+        <ion-list class="info-list" *ngFor = "let u of userarray">
           <ion-item>
             <ion-icon class="info-icon" item-left name="person"></ion-icon>
             <div class="info-detail">John Smith</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>
-            <div class="info-detail">johnsmith@domain.com</div>
+            <div class="info-detail">{{email}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="phone-portrait"></ion-icon>
-            <div class="info-detail">+91 1234 5678 99</div>
-          </ion-item>
+            <div class="info-detail">{{phone}}</div>
+          </ion-item> 
+         
+          <!--
           <ion-item>
             <ion-icon class="info-icon" item-left name="lock"></ion-icon>
             <div class="info-detail">Change password</div>
-          </ion-item>
+          </ion-item> -->
+
         </ion-list>
       </div>
     </div>

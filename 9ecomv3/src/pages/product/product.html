@@ -26,9 +26,9 @@
 
 <ion-content class="page-product">
   <ion-slides #sliders class="product-slider" pager>
-    <ion-slide>
+    <ion-slide pager = "true" parallax = "true">
       <div class="product-wrapper">
-        <img [src]="product.image1"/>
+        <img [src]="product.image1"/> 
       </div>
     </ion-slide>
   </ion-slides>
@@ -39,11 +39,11 @@
     <div class="price-wrapper">
       
       <div class="sale-price">
-        $ {{product.price}}
+        LE {{product.price}}
       </div> 
       <div class="old-price"> 
         <!-- put here the price of the discount 'if there is a discount on this item' -->
-        $ {{product.price}}
+        LE {{product.price}}
       </div>
     </div>
  
@@ -55,7 +55,7 @@
     </div> -->
     <div class="description">
       <div class="description-title">
-        Description
+        Full Description
       </div>
       <ul>
         <li>{{product.description}}</li> 
