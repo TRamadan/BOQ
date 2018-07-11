@@ -40,7 +40,7 @@ export class ProfilePage {
   orders: Order[];
   cart: Cart; 
   
-  // this a flag to show the user is exists or not to show it in the profile
+  // this a flag to show the user is exists or not to show his data in the profile
   UserExists : boolean = false;
 
   constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
@@ -113,7 +113,6 @@ export class ProfilePage {
      // color: wish.color,
      // size: wish.size,
     };
-
     let flgFound = false;
     this.cart.products.forEach(item => {
       if (item.product.id === cp.product.id) {

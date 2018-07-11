@@ -152,8 +152,6 @@ export class Ecom9App {
             
              if(data[i].id == items[j].product_subcat){
                Subitems.push(items[j])
-              
-              
              }
              subcat[i] = new subcategory(data[i].item_type_name ,data[i].main_cat_id, data[i].id ,data[i].item_type_img,Subitems)
            }  
@@ -176,6 +174,7 @@ export class Ecom9App {
       if(data.length == 0)
       {
         console.log("No added category here ");
+        alert("There is no categories");
       }
       else 
       {
@@ -187,7 +186,7 @@ export class Ecom9App {
            for(let j =0 ; j < subcat.length ; j++){
             
              if(data[i].NewsCategoryID == subcat[j].mainCat){
-              tempcats.push(subcat[j]);
+              tempcats.push(subcat[j]); 
 
               //console.log(tempcats);
              }
@@ -219,7 +218,7 @@ getitems() {
       console.log(data);
       console.log(items);
       this.getsubcats(items);
-      
+      this.storage.set("appData " , items);
     }
   })
 }

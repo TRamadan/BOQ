@@ -239,7 +239,6 @@ export class Database {
       this.wishproducts = new Array<WishProduct>();
       this.orders = new Array<Order>();
       this.filterTypes = new Array<any>();
-
       this.cities = new Array<string>();
       this.states = new Array<string>();
       this.countries = new Array<string>();

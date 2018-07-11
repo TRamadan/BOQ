@@ -82,20 +82,22 @@
           <ion-item-sliding *ngFor="let wish of wishProducts">
             <ion-item class="cart-list-item">
               <ion-thumbnail item-left>
-                <img [src]="wish.image">
+                <img [src]="wish.image1">
               </ion-thumbnail>
               <h2>{{wish.name}}</h2>
         
               <div class="price-wrapper">
-                <div class="price">$ {{wish.price - wish.discount}}</div>
-                <div class="old-price">$ {{wish.price}}</div>
+                <div class="price">LE {{wish.price - wish.discount}}</div>
+                <div class="old-price">LE {{wish.price}}</div>
               </div>
               <button *ngIf="wish.status === 'in'" class="add-button" round small ion-button clear (tap)="add2Cart(wish)">Add to bag</button>
               <button *ngIf="wish.status === 'out'" round small ion-button clear></button>
+             
+              <!--
               <div item-right class="right-bag">
                 <div *ngIf="wish.status === 'in'" class="available">In stock</div>
                 <div *ngIf="wish.status === 'out'" class="notavailable">Out of stock</div>
-              </div>
+              </div> --> 
             </ion-item>
             <ion-item-options class="actiion-button" side="right">
               <button ion-button icon-only color="danger" (tap)="removeWish(wish)">
