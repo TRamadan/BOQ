@@ -20,13 +20,13 @@ export class UsersProvider extends RootProvider {
   private register : string = "AddNewUser"; 
 
   public login(email : string , password : string) : Observable<any>{
-    return this.http.get(`${this.APIURL}${this.logIn}?user_email=${email}&user_pwd=${password}`).map(res=><any>res.json());
+    return this.http.get(`${RootProvider.APIURL}${this.logIn}?user_email=${email}&user_pwd=${password}`).map(res=><any>res.json());
 
   }
 
   public Regester(email :string , password :string , name :string ,gender : string , location :string , phone: string ) : Observable<any>{
     let tempGender = (gender =="ذكر")? 1:2;
-    return this.http.get(`${this.APIURL}${this.register}?user_email=${email}&user_pwd=${password}&mobile=${phone}&fname=${name}&home_address=${location}&gender=${tempGender}`).map(res=><any>res.json())
+    return this.http.get(`${RootProvider.APIURL}${this.register}?user_email=${email}&user_pwd=${password}&mobile=${phone}&fname=${name}&home_address=${location}&gender=${tempGender}`).map(res=><any>res.json())
   }
 
 

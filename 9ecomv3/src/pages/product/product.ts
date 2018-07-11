@@ -35,7 +35,6 @@ export class ProductPage {
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
-    console.log(this.navCtrl.getPrevious().component);
     //this.cart.clear();
     this.specific_item = this.navParams.get('product');
     console.log(this.specific_item);
