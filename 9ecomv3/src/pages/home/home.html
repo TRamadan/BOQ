@@ -17,43 +17,46 @@
 
 
 <ion-content class="page-home pane no-scroll">
-  <ion-slides #sliders class="ads-slider" pager (ionSlideDidChange)="slideChanged()">
+  <ion-slides #sliders class="ads-slider" pager="true">
     <ion-slide *ngFor="let slide of adsSliders">
       <img [src]="slide.image">
       <a (click)="categories(slide.category)">
-      <div class="ads-wrapper">
-        <div class="ads-box">
-          <div class="ads-title" [innerHTML]="slide.title"></div>
-          <div class="ads-description">{{slide.description}}</div>
+        <div class="ads-wrapper">
+          <div class="ads-box">
+            <div class="ads-title" [innerHTML]="slide.title"></div>
+            <div class="ads-description">{{slide.description}}</div>
+          </div>
         </div>
-      </div>
       </a>
       <div class="fade-away"></div>
     </ion-slide>
   </ion-slides>
-  <div class="small-ads-wrapper">
-    <div class="left-ads-wrapper">
-      <div class="ads-box" [style.backgroundImage]="smallAds[adsCount][0].image">
-        <div class="ads-box-title">
-          <button class="ads-button" ion-button small clear (click)="categories('0300')">{{smallAds[adsCount][0].title}}</button>
-        </div>
+
+  <div class="small-ads-wrapper"> 
+    <ion-list *ngIf="ReadyCats">
+      <ion-row>
+        <ion-col *ngFor="let cat of category_array;">
+          <ion-avatar item-start>
+              <div>
+                  <img (tap) = "categories()" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="cat.image" [src]="cat.image"/>
+                  <img (tap) = "categories()" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="!cat.image" src="assets/img/nophoto.jpg"/> 
+                  <h4 style="color:rgba(25, 206, 238, 0.719);">
+                    {{cat.name}}
+                  </h4>
+              </div>
+          </ion-avatar> 
+          
+        </ion-col> 
+      </ion-row>
+
+    </ion-list> 
+
+    <div *ngIf = "ReadyItems">
+      <div *ngFor = "let i of items">
+        {{i.name}}
       </div>
     </div>
-    <div class="right-ads-wrapper">
-      <div class="tiny-ads-wrapper1">
-        <div class="ads-box" [style.backgroundImage]="smallAds[adsCount][1].image">
-          <div class="ads-box-title">
-            <button class="ads-button" ion-button small clear (click)="categories('0100')">{{smallAds[adsCount][1].title}}</button>
-          </div>
-        </div>
-      </div>
-      <div class="tiny-ads-wrapper2">
-        <div class="ads-box" [style.backgroundImage]="smallAds[adsCount][2].image">
-          <div class="ads-box-title">
-            <button class="ads-button" ion-button small clear (click)="categories('0200')">{{smallAds[adsCount][2].title}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div> 
+
+  
 </ion-content>

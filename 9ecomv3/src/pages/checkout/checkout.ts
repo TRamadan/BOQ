@@ -42,7 +42,8 @@ export class CheckoutPage {
   states: string[];
   countries: string[];
   zipcodes: string[];
-  savedAddresses: Address[];
+  savedAddresses: Address[]; 
+
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {

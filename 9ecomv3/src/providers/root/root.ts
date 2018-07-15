@@ -10,11 +10,11 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class RootProvider {
-  public APIURL = "http://services.edge-techno.com/BOQMobilApi/api/APP/"; 
+  public static APIURL = "http://services.edge-techno.com/BOQMobilApi/api/APP/"; 
   
-  public APIURL2 = "http://services.edge-techno.com/BOQAPI/api/";
+  public static APIURL2 = "http://services.edge-techno.com/BOQAPI/api/";
   
-  public APIURL3 = "http://localhost:37871/api/";
+  public static APIURL3 = "http://localhost:37871/api/";
   
   constructor(public http: Http) {
     console.log('Hello RootProvider Provider');

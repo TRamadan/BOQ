@@ -4,7 +4,7 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { RootProvider } from "../providers/root/root";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { Storage} from  '@ionic/storage';
 import { Database, Cart, Category, subcategory, Product } from '../providers/database';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -50,6 +50,7 @@ export class Ecom9App {
 
   constructor(
 
+    public storage: Storage,
     public root: RootProvider,
     public http: Http,
     public platform: Platform,
@@ -64,7 +65,7 @@ export class Ecom9App {
     this.subcatArray = new Array();
     
 
-    this.getitems();
+    
     
     //this.getcategories();
   
@@ -78,6 +79,8 @@ export class Ecom9App {
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();
+      this.getitems();
+      
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
@@ -99,8 +102,18 @@ export class Ecom9App {
   /////////////////////////////////////
 
   toggleItems2(i) {
-    let open: boolean = false;
+    
     this.catArray[i].open = !this.catArray[i].open;
+    if(this.catArray[i].open == true)
+    {
+      for(let j = 0; j < this.catArray.length; j++)
+      {
+        if(i != j)
+        {
+          this.catArray[j].open = false;
+        }
+      }
+    }
   }
 
   openPage(page) {
@@ -123,9 +136,9 @@ export class Ecom9App {
 
   /**
    * This function is to load the subcategories for the main categories  
-  */
+   */
   getsubcats(items) {  
-     this.http.get(`${this.root.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
+     this.http.get(`${RootProvider.APIURL3}itemtype2`).map(res => res.json()).subscribe(data=>{
        if(data.length == null)
        {
          console.log("there is no subcategories");
@@ -139,8 +152,6 @@ export class Ecom9App {
             
              if(data[i].id == items[j].product_subcat){
                Subitems.push(items[j])
-              
-              
              }
              subcat[i] = new subcategory(data[i].item_type_name ,data[i].main_cat_id, data[i].id ,data[i].item_type_img,Subitems)
            }  
@@ -159,10 +170,11 @@ export class Ecom9App {
    * This function is to load the main categories to the menu
    */
    getcategories(subcat) {
-    return this.http.get(`${this.root.APIURL3}main`).map(res => res.json()).subscribe(data =>{ 
+    return this.http.get(`${RootProvider.APIURL3}main`).map(res => res.json()).subscribe(data =>{ 
       if(data.length == 0)
       {
         console.log("No added category here ");
+        alert("There is no categories");
       }
       else 
       {
@@ -174,7 +186,7 @@ export class Ecom9App {
            for(let j =0 ; j < subcat.length ; j++){
             
              if(data[i].NewsCategoryID == subcat[j].mainCat){
-              tempcats.push(subcat[j]);
+              tempcats.push(subcat[j]); 
 
               //console.log(tempcats);
              }
@@ -185,13 +197,14 @@ export class Ecom9App {
           } 
           
           console.log(this.catArray);
+          this.storage.set("appData",this.catArray);
         }
       }
     })
   } 
   
 getitems() {
-  this.http.get(`${this.root.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
+  this.http.get(`${RootProvider.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
     
     if(data.length == 0)
     {
@@ -204,7 +217,8 @@ getitems() {
       }
       console.log(data);
       console.log(items);
-      this.getsubcats(items); 
+      this.getsubcats(items);
+      this.storage.set("appData " , items);
     }
   })
 }

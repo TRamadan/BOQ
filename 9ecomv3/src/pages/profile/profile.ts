@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import { WishProduct, CartProduct, Order, Address, Cart, Database } from '../../providers/database'
+import { Storage } from "@ionic/storage";
 /**
  * Generated class for the Profile page.
  *
@@ -13,7 +14,8 @@ import { WishProduct, CartProduct, Order, Address, Cart, Database } from '../../
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage {
+export class ProfilePage { 
+  u : any;
   tabs: IScrollTab[] = [
     {
       name: 'Profile',
@@ -36,17 +38,27 @@ export class ProfilePage {
   wishProducts: WishProduct[]; 
   userarray : any =  [];
   orders: Order[];
-  cart: Cart;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
+  cart: Cart; 
+  
+  // this a flag to show the user is exists or not to show his data in the profile
+  UserExists : boolean = false;
+
+  constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
     this.savedAddresses = this.db.allSavedAdddress();
-    this.wishProducts = this.db.allWishList();
-    this.orders = this.db.allOrders(); 
-    
-    this.userarray = this.navParams.get('user');
-    console.log(this.userarray);
+    this.wishProducts = this.db.allWishList(); 
+    console.log(this.wishProducts);
+    this.orders = this.db.allOrders();  
+
+     this.storage.get('user').then(data=>{ 
+       this.u = data;
+       this.UserExists = true;
+       console.log(data);
+     },err=>{
+       console.log(err);
+     })
   }
 
   /*
@@ -101,7 +113,6 @@ export class ProfilePage {
      // color: wish.color,
      // size: wish.size,
     };
-
     let flgFound = false;
     this.cart.products.forEach(item => {
       if (item.product.id === cp.product.id) {

@@ -25,7 +25,7 @@ export class TabsPage {
   cart: Cart;
   constructor(public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
     this.menuCtrl.enable(true);
-    this.selectedIndex = params.get("tabIndex") || 0;
+    this.selectedIndex = params.get('tabIndex') || 0;
     this.detail = params;
     this.cart = Cart.getInstance();
   }

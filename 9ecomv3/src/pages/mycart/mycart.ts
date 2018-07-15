@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { App, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Cart, Database, Product } from '../../providers/database'
 import { CategoriesPage } from '../categories/categories';
 import {TabsPage} from '../tabs/tabs';
@@ -46,7 +46,8 @@ export class MyCartPage {
 
   shopping()
   { 
-    this.app.getRootNav().setRoot(TabsPage ,{"tabIndex" : 0})
+    this.app.getRootNav().setRoot(TabsPage,{"tabIndex" : 0});
+
     //this.events.publish("routeTo" ,TabsPage);
     console.log("go to homepage to choose msh 3aref a ");
   } 

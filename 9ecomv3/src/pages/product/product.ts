@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Select } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, Select } from 'ionic-angular';
 import { Product, Cart, Database } from '../../providers/database'
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Product page.
@@ -29,7 +30,7 @@ export class ProductPage {
   product: Product;
   cart: Cart;
   db: Database;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public app : App , public navCtrl: NavController, public navParams: NavParams) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
@@ -95,17 +96,15 @@ export class ProductPage {
     }, 150);
     
   }
-
+ 
+  
   quantityChange() {
     console.log(this.quantity);
     this.currentQty = 'Qty: ' + this.quantity.toString();
   }
 
   goCart() {
-    this.navCtrl.pop();
-    setTimeout(() => {
-      this.navCtrl.parent.select(2);
-    }, 100);
+   this.app.getRootNav().setRoot(TabsPage,{"tabIndex":2})
   }
 
   add2Cart() { 

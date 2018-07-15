@@ -23,18 +23,13 @@
       <ion-item class="cart-list-item" *ngFor="let product of results">
         <ion-thumbnail item-left>
           <a (click)="toProduct(product)">
-            <img [src]="product.image">
+            <img [src]="product.image1">
           </a>
         </ion-thumbnail>
         <a (click)="toProduct(product)">
           <h2 [innerHTML]="decorateTitle(product.name)"></h2>
         </a>
-        <div class="size">
-          Size: <span *ngFor="let s of product.sizes; let i=index">{{s}}<span *ngIf="i < (product.sizes.length - 1)">, </span></span> 
-        </div>
-        <div class="size">
-          Color: <span *ngFor="let c of product.colors; let i=index">{{c}}<span *ngIf="i < (product.colors.length - 1)">, </span></span>
-        </div>
+
         <div class="price-wrapper">
           <div class="price">$ {{product.price - product.discount}}</div>
           <div class="old-price">$ {{product.price}}</div>

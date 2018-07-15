@@ -56,7 +56,7 @@ export class SigninPage {
       this.userProvider.login(this.loginForm.value.email,this.loginForm.value.password).subscribe(data=>{
         if(data.length >0){
           let tempGender = data[0].UserGender==1 ? 'Male': 'Female'; 
-          this.user = new User(data[0].UserID,data[0].UserEmail,tempGender,data[0].UserAddress,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile)
+          this.user = new User(data[0].UserID,data[0].UserName,tempGender,data[0].UserAddress,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile)
           console.log(this.user);
           this.storage.set("user",this.user);
           this.navCtrl.setRoot(TabsPage , {"user" : this.user});

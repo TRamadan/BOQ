@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Product, Database } from '../../providers/database';
+import { Storage } from '@ionic/storage';
+import {Category,subcategory, Product, Database } from '../../providers/database';
+
+import {ProductPage }from '../product/product';
 /**
  * Generated class for the Search page.
  *
@@ -14,9 +17,19 @@ import { Product, Database } from '../../providers/database';
 })
 export class SearchPage {
   results: Product[];
+  catsArr: Category[];
   mark: string;
-  constructor(public navCtrl: NavController, public navParams: NavParams) { 
+  Ready: boolean;
+  constructor(
+    public storage: Storage,
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) { 
+    this.mark="";
     this.results = new Array<Product>();
+    this.catsArr = new Array<Category>();
+    this.Ready=false;
+    this.initializeItems();
   }
 
   ionViewDidLoad() {
@@ -24,8 +37,26 @@ export class SearchPage {
   }
 
   initializeItems() {
-    let db = Database.getInstance();
-    this.results = db.allProduct();
+    //let db = Database.getInstance();
+    //this.results = db.allProduct();
+    this.storage.get("appData").then(data=>{
+      this.catsArr = <Category[]>data;
+     
+      for (let i =0 ;i<this.catsArr.length;i++) {
+        
+        for(let j =0 ;j<this.catsArr[i].children.length;j++){
+         
+          for(let k = 0;k<this.catsArr[i].children[j].Items.length;k++){
+           
+            this.results.push(this.catsArr[i].children[j].Items[k]);
+          }
+        }
+      }
+      console.log(this.results);
+      this.Ready=true;
+    },err=>{
+      console.error(err);
+    })
   }
 
   getItems(ev: any) {
@@ -54,6 +85,8 @@ export class SearchPage {
   }
 
   toProduct(prod: Product) {
-    this.navCtrl.push('ProductPage', {product: prod});
+    this.navCtrl.push(ProductPage, {product: prod});
   }
 }
+
+

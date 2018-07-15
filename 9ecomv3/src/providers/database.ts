@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-
+import {RootProvider} from './root/root';
 
 
 export class Category{
-  private static URLNAME = "http://services.edge-techno.com/boq_v2";
+  public static URLNAME = RootProvider.APIURL3;
   id:string;
   name: string;
   parent?: string;
@@ -27,7 +27,7 @@ export class Category{
 } 
 //////////////////////////////////////////////////////////////////////////////
 export class subcategory{
-  private static URLNAME = "http://services.edge-techno.com/boq_v2"
+  public static URLNAME = RootProvider.APIURL3;
   id : string; 
   name : string;
   image : string;
@@ -47,6 +47,7 @@ export class subcategory{
 //////////////////////////////////////////////////////////////////////////////
 
 export class Product {
+  public static URLNAME = RootProvider.APIURL3;
   id: string;
   product_subcat ? : number;
   image1 ? : string;
@@ -72,13 +73,14 @@ export class Product {
     this.name = prod_name;
     this.id = point_id; 
     this.product_subcat = prod_sub_category;
-    this.image1 = prod_image1==""? 'assets/img/categories/girl/jewellery/jewellery01.jpg' : prod_image1; 
-    this.image2 = prod_image2==""? 'assets/img/categories/girl/jewellery/jewellery01.jpg' : prod_image2; 
+    this.image1 = (prod_image1 !=null &&prod_image1.length > 0)?subcategory.URLNAME+prod_image1.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    this.image2 = (prod_image2 !=null &&prod_image2.length > 0)?subcategory.URLNAME+prod_image2.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
     this.quant = quantity;
     this.measure_u = "measure_unit";
     this.description = "prod_desc"; 
     this.id2 = prod_id;
     this.price = price;
+    this.status = "in";
 //////////////////////////////////////////////
   //  this.categories = new Array<Category>();
    // this.colors = new Array<string>();
@@ -237,7 +239,6 @@ export class Database {
       this.wishproducts = new Array<WishProduct>();
       this.orders = new Array<Order>();
       this.filterTypes = new Array<any>();
-
       this.cities = new Array<string>();
       this.states = new Array<string>();
       this.countries = new Array<string>();
@@ -542,6 +543,7 @@ export class Database {
   }
 
   allWishList(): WishProduct[] {
+    console.log(this.wishproducts);
     return this.wishproducts;
   }
 
@@ -567,6 +569,7 @@ export class Database {
 
   addWish(wish): void {
     this.wishproducts.push(wish);
+    //console.log(this.wishproducts);
   }
 
   allCities(): string[] {

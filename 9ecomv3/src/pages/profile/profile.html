@@ -27,20 +27,25 @@
               <img src="assets/img/profile-anhlq.png">
             </div>
           </div>
-        </div>
-        <ion-list class="info-list" *ngFor = "let u of userarray">
+        </div> 
+        <div *ngIf="UserExists">
+        <ion-list class="info-list">
           <ion-item>
             <ion-icon class="info-icon" item-left name="person"></ion-icon>
-            <div class="info-detail">John Smith</div>
+            <div class="info-detail">{{u.name}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>
-            <div class="info-detail">{{email}}</div>
+            <div class="info-detail">{{u.email}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="phone-portrait"></ion-icon>
-            <div class="info-detail">{{phone}}</div>
+            <div class="info-detail">{{u.phone}}</div>
           </ion-item> 
+          <ion-item>
+            <ion-icon class="info-icon" item-left name="pin"></ion-icon>
+            <div class="info-detail">{{u.location}}</div>
+          </ion-item>
          
           <!--
           <ion-item>
@@ -48,7 +53,8 @@
             <div class="info-detail">Change password</div>
           </ion-item> -->
 
-        </ion-list>
+        </ion-list> 
+      </div>
       </div>
     </div>
     <!-- END PROFILE -->
@@ -69,30 +75,32 @@
     </div>
     <!-- END MY ORDERS -->
 
-    <!-- WISHLIST -->
+    <!-- WISHLIST --> 
     <div class="content-wrapper" *ngSwitchCase="tabs[2]">
       <div class="wishlist">
         <ion-list class="cart-list">
           <ion-item-sliding *ngFor="let wish of wishProducts">
             <ion-item class="cart-list-item">
               <ion-thumbnail item-left>
-                <img [src]="wish.product.image">
+                <img [src]="wish.image1">
               </ion-thumbnail>
-              <h2>{{wish.product.name}}</h2>
+              <h2>{{wish.name}}</h2>
         
               <div class="price-wrapper">
-                <div class="price">$ {{wish.product.price - wish.product.discount}}</div>
-                <div class="old-price">$ {{wish.product.price}}</div>
+                <div class="price">LE {{wish.price - wish.discount}}</div>
+                <div class="old-price">LE {{wish.price}}</div>
               </div>
-              <button *ngIf="wish.product.status === 'in'" class="add-button" round small ion-button clear (click)="add2Cart(wish)">Add to bag</button>
-              <button *ngIf="wish.product.status === 'out'" round small ion-button clear></button>
+              <button *ngIf="wish.status === 'in'" class="add-button" round small ion-button clear (tap)="add2Cart(wish)">Add to bag</button>
+              <button *ngIf="wish.status === 'out'" round small ion-button clear></button>
+             
+              <!--
               <div item-right class="right-bag">
-                <div *ngIf="wish.product.status === 'in'" class="available">In stock</div>
-                <div *ngIf="wish.product.status === 'out'" class="notavailable">Out of stock</div>
-              </div>
+                <div *ngIf="wish.status === 'in'" class="available">In stock</div>
+                <div *ngIf="wish.status === 'out'" class="notavailable">Out of stock</div>
+              </div> --> 
             </ion-item>
             <ion-item-options class="actiion-button" side="right">
-              <button ion-button icon-only color="danger" (click)="removeWish(wish)">
+              <button ion-button icon-only color="danger" (tap)="removeWish(wish)">
                 <ion-icon name="trash"></ion-icon>
               </button>
             </ion-item-options>

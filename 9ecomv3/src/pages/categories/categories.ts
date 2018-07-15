@@ -128,7 +128,9 @@ export class CategoriesPage {
 
   testArr = []; // this array is refered to the array of items needed
  // subArray: Array<any>; 
-  getitems() {
+ 
+ /*
+ getitems() {
     
     this.http.get(`${this.root.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
       console.log(data)
@@ -147,6 +149,7 @@ export class CategoriesPage {
       }
     })
   }
+  */
 }
     /*
     console.log(this.navParams.get('ID'));
