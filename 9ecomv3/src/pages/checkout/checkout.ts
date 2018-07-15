@@ -2,7 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Content, AlertController } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { Address, Cart, Order, Database } from '../../providers/database'
+import { Address, Cart, Order, Database } from '../../providers/database';
+
+import { Storage } from "@ionic/storage";
+import { User } from '../../templates/user';
 /**
  * Generated class for the Checkout page.
  *
@@ -14,7 +17,13 @@ import { Address, Cart, Order, Database } from '../../providers/database'
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
 })
+
 export class CheckoutPage {
+
+  public user: any;
+
+  public user_exist: boolean = false;
+
   tabs: IScrollTab[] = [
     {
       name: 'Shipping',
@@ -27,7 +36,7 @@ export class CheckoutPage {
       name: 'Confirmation',
     },
   ];
-  newAddress: Address;
+  users: Address;
   step: string = 'Continue to payment';
   selectedTab: IScrollTab;
   address: string = 'new';
@@ -42,13 +51,13 @@ export class CheckoutPage {
   states: string[];
   countries: string[];
   zipcodes: string[];
-  savedAddresses: Address[]; 
+  savedAddresses: Address[];
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
+  constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-    this.newAddress = new Address();
+    this.users = new Address();
     this.db = Database.getInstance();
     this.savedAddresses = this.db.allSavedAdddress();
     this.cities = this.db.allCities();
@@ -58,6 +67,14 @@ export class CheckoutPage {
     this.selectedTab = this.tabs[0];
     this.cart = Cart.getInstance();
     this.shipping(0);
+
+    this.storage.get('user').then(data => {
+      this.user = data;
+      console.log(data);
+      this.user_exist = true;
+    }, err => {
+      console.log(err);
+    })
   }
 
   ionViewWillLeave() {
@@ -127,14 +144,14 @@ export class CheckoutPage {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
         let flgFound = false;
-        this.savedAddresses.forEach(addr => {
-          if (addr === this.newAddress) {
+        this.savedAddresses.forEach(u => {
+          if (u === this.users) {
             flgFound = true;
           }
         });
         if (!flgFound) {
-          if (this.isValid(this.newAddress)) {
-            this.db.addSavedAddress(this.newAddress);
+          if (this.isValid(this.user)) {
+            this.db.addSavedAddress(this.users);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
@@ -150,13 +167,13 @@ export class CheckoutPage {
             alert.present();
           }
         } else {
-          this.scrollTab.nextTab();  
+          this.scrollTab.nextTab();
         }
       } else {
         this.scrollTab.nextTab();
       }
     } else {
-      if (this.isValid(this.newAddress)) {
+      if (this.isValid(this.users)) {
         // add order
         let order = new Order();
         order.id = 'SC' + + (new Date()).getTime().toString();
@@ -177,17 +194,17 @@ export class CheckoutPage {
     }
   }
 
-  chooseAddress(addr) {
-    this.newAddress = addr;
+  chooseAddress(u) {
+    this.users = u;
     this.address = 'new';
   }
 
-  editAddress(addr: Address) {
-
+  editAddress(u: Address) {
+    console.log("Edited ...");
   }
 
-  removeAddress(addr: Address) {
-    this.db.removeSavedAddress(addr);
+  removeAddress(u: Address) {
+    this.db.removeSavedAddress(u);
   }
 
   information() {
@@ -223,14 +240,10 @@ export class CheckoutPage {
       alert.present();
     }
   }
-  isValid(addr: Address) {
-    return (addr.firstname !== '' && addr.firstname !== undefined)
-      && (addr.lastname !== '' && addr.lastname !== undefined)
-      && (addr.address !== '' && addr.address !== undefined)
-      && (addr.phone !== '' && addr.phone !== undefined)
-      && (addr.city !== '' && addr.city !== undefined)
-      && (addr.state !== '' && addr.state !== undefined)
-      && (addr.country !== '' && addr.country !== undefined)
-      && (addr.zipcode !== '' && addr.zipcode !== undefined)
+  isValid(users: any) {
+    return (users.name !== '' && users.name !== undefined)
+      && (users.location !== '' && users.location !== undefined)
+      && (users.phone !== '' && users.phone !== undefined)
+      && (users.email !== '' && users.email !== undefined)
   }
 }

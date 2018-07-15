@@ -37,32 +37,39 @@
 
       <div [ngSwitch]="address">
         <div class="new-address" *ngSwitchCase="'new'">
-          <ion-list class="address-form">
+          <ion-list class="address-form" *ngIf="user_exist">
             <ion-row>
               <ion-col>
                 <ion-item>
                   <ion-label stacked>First name</ion-label>
-                  <ion-input type="text" [(ngModel)]="newAddress.firstname"></ion-input>
+                  <ion-input type="text" [(ngModel)]="user.name"></ion-input>
                 </ion-item>
               </ion-col>
+              <!--
               <ion-col>
                 <ion-item>
                   <ion-label stacked>Last name</ion-label>
                   <ion-input type="text" [(ngModel)]="newAddress.lastname"></ion-input>
                 </ion-item>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
             <ion-item>
               <ion-label stacked>Address</ion-label>
-              <ion-input type="text" [(ngModel)]="newAddress.address"></ion-input>
+              <ion-input  type="text" [(ngModel)]="user.location"></ion-input>
             </ion-item>
             <ion-item>
+                <ion-label stacked>E-mail</ion-label>
+                <ion-input  type="text" [(ngModel)]="user.email"></ion-input>
+              </ion-item>
+            <ion-item>
               <ion-label stacked>Phone number</ion-label>
-              <ion-input type="text" [(ngModel)]="newAddress.phone"></ion-input>
+              <ion-input type="text" [(ngModel)]="user.phone"></ion-input>
             </ion-item>
 
             <ion-row>
+              <!--
               <ion-col>
+                
                 <ion-item>
                   <ion-label stacked>City</ion-label>
                   <ion-select [(ngModel)]="newAddress.city">
@@ -70,6 +77,7 @@
                   </ion-select>
                 </ion-item>
               </ion-col>
+              
               <ion-col>
                 <ion-item>
                   <ion-label stacked>State</ion-label>
@@ -77,10 +85,11 @@
                     <ion-option *ngFor="let s of states" [value]="s" [selected]="newAddress.state === s">{{s}}</ion-option>
                   </ion-select>
                 </ion-item>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
 
             <ion-row>
+              <!--
               <ion-col>
                 <ion-item>
                   <ion-label stacked>Country</ion-label>
@@ -88,17 +97,20 @@
                     <ion-option *ngFor="let c of countries" [value]="c" [selected]="newAddress.country === c">{{c}}</ion-option>
                   </ion-select>
                 </ion-item>
-              </ion-col>
-              <ion-col>
+              </ion-col> -->
+              
+              <!-- <ion-col>
                 <ion-item>
                   <ion-label stacked>Zip Code</ion-label>
                   <ion-select [(ngModel)]="newAddress.zipcode">
                     <ion-option *ngFor="let z of zipcodes" [value]="z" [selected]="newAddress.zipcode === z">{{z}}</ion-option>
                   </ion-select>
                 </ion-item>
-              </ion-col>
+              </ion-col> -->
             </ion-row>
           </ion-list>
+          
+          
           <div class="delivery">
             <div class="title">Delivery</div>
             <div class="action-button-wrapper">
@@ -107,31 +119,32 @@
                 <div class="delivery-type">Standard</div>
               </div>
               <div class="action-button-box" [class.checked]="shippingTypes[1]">
-                <button ion-button clear (click)="shipping(1)">$ 15</button>
+                <button ion-button clear (click)="shipping(1)">LE 15</button>
                 <div class="delivery-type">Standard</div>
               </div>
               <div class="action-button-box" [class.checked]="shippingTypes[2]">
-                <button ion-button clear (click)="shipping(2)">$ 25</button>
+                <button ion-button clear (click)="shipping(2)">LE 25</button>
                 <div class="delivery-type">Next-day</div>
               </div>
             </div>
-          </div>
+          </div> 
+
         </div>
 
         <div class="saved-address" *ngSwitchCase="'saved'">
           <div class="address-container">
             <ion-list class="address-list">
-              <ion-item-sliding *ngFor="let addr of savedAddresses">
+              <ion-item-sliding *ngFor="let x of savedAddresses">
                 <ion-item class="address-list-item">
-                  <a (click)="chooseAddress(addr)"><h2>{{addr.firstname}} {{addr.lastname}}</h2></a>
-                  <div class="detail">{{addr.address}},</div>
-                  <div class="detail">{{addr.city}}, {{addr.state}}, {{addr.country}} {{addr.phone}}</div>
+                  <a (click)="chooseAddress(x)"><h2>{{x.name}}</h2></a>
+                  <div class="detail">{{x.location}},</div>
+                  <div class="detail">{{x.phone}}</div>
                   <div item-right class="right-bag">
-                    <button ion-button clear (click)="editAddress(addr)">Edit</button>
+                    <button ion-button clear (tap)="editAddress(x)">Edit</button>
                   </div>
                 </ion-item>
                 <ion-item-options class="actiion-button" side="right">
-                  <button ion-button icon-only color="danger" (click)="removeAddress(addr)">
+                  <button ion-button icon-only color="danger" (tap)="removeAddress(u)">
                     <ion-icon name="trash"></ion-icon>
                   </button>
                 </ion-item-options>
@@ -185,7 +198,7 @@
             Total Amount
           </div>
           <div class="amount">
-            $ {{cart.promoTotal()}}
+            LE {{cart.promoTotal()}}
           </div>
         </div>
       </div>
@@ -203,15 +216,15 @@
               <button class="edit-button" ion-button clear small>Edit</button>
             </div>
           </div>
-          <div class="shipping-detail" *ngIf="isValid(newAddress)">
+          <div class="shipping-detail" *ngIf="isValid(user) && user_exist">
             <div class="name">
-              {{newAddress.firstname}} {{newAddress.lastname}}
+              {{user.name}}
             </div>
             <div class="address">
-              {{newAddress.address}},
+              {{user.location}},
             </div>
             <div class="state">
-              {{newAddress.city}}, {{newAddress.state}}, {{newAddress.country}}, {{newAddress.phone}}
+             {{user.phone}}
             </div>
           </div>
         </div>
@@ -231,7 +244,7 @@
               <h2>{{item.product.name}}</h2>
               
               <div class="price-wrapper">
-                <div class="price">$ {{item.product.price - item.product.discount}}</div>
+                <div class="price">LE {{item.product.price - item.product.discount}}</div>
               </div>
             </ion-item>
           </ion-list>
@@ -249,7 +262,7 @@
               Order Total
             </div>
             <div class="amount">
-              $ {{cart.promoTotal()}}
+              LE {{cart.promoTotal()}}
             </div>
           </div>
           <div class="delivery-charge">
@@ -268,7 +281,7 @@
               Total Amount
             </div>
             <div class="amount">
-              $ {{cart.promoTotal() + cart.delivery}}
+              LE {{cart.promoTotal() + cart.delivery}}
             </div>
           </div>
         </div>

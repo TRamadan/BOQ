@@ -90,14 +90,22 @@ export class Product {
 }
 
 export class Address {
-  firstname: string;
-  lastname: string;
-  address: string;
-  phone: string;
-  city: string;
-  state: string;
-  country: string;
-  zipcode: string;
+ // name: string;
+  //lastname: string;
+ // address: string; //this is the location
+ // phone: string;
+  //city: string;
+ // state: string;
+ // country: string;
+ // zipcode: string;
+ gender : string;
+ email : string; 
+ name : string;
+ id :string;
+ location : string ;
+ password : string;
+ phone :string ;
+
 }
 
 export interface WishProduct {
@@ -163,21 +171,13 @@ export class Cart {
     if(this.products.length==1){
       this.products.pop();
       
-        
     }else{
       let counter = index+1;
       for(let i = index ; i<this.products.length-1;i++){
         this.products[i]=this.products[counter++];
-        
-        
-        
         } 
         this.products.pop();
-        
       }
-      
-    
-    
   }
 
   count(): number {
@@ -279,16 +279,15 @@ export class Database {
       '200000',
       '300000'
     ];
+    
+    /*
     this.addresses = [
       {
         firstname: 'John',
-        lastname: 'Smith',
         address: '701, Block -  B, Siddhi Vinayak Tower',
         phone: '+91 1234 5678 99',
         city: this.cities[1],
-        state: this.states[1],
-        country: this.countries[0],
-        zipcode: '100000'
+      
       },
       {
         firstname: 'Vernon',
@@ -300,7 +299,7 @@ export class Database {
         country: this.countries[0],
         zipcode: '200000'
       },
-    ];
+    ]; */
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
     this.orders = [
@@ -538,8 +537,9 @@ export class Database {
   }
 
   allSavedAdddress(): Address[] {
-    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
+    this.addresses = this.addresses.sort((a, b) => { return a.name.charCodeAt(0) - b.name.charCodeAt(0) });
     return this.addresses;
+    //console.log(this.addresses);
   }
 
   allWishList(): WishProduct[] {
@@ -588,10 +588,10 @@ export class Database {
     return this.zipcodes;
   }
 
-  removeSavedAddress(addr: Address): void {
+  removeSavedAddress(u: Address): void {
     var pos = -1;
     for (var i = 0; i < this.addresses.length; i++) {
-      if (this.addresses[i] === addr) {
+      if (this.addresses[i] === u) {
         pos = i;
       }
     }
@@ -618,9 +618,12 @@ export class Database {
     }
   }
 
-  addSavedAddress(addr: Address): void {
-    this.addresses.push(addr);
-    this.addresses = this.addresses.sort((a, b) => { return a.firstname.charCodeAt(0) - b.firstname.charCodeAt(0) });
+  //Add the variable u as a parameter to the function 
+  //As done in in check.ts
+
+  addSavedAddress(u: Address): void {
+    this.addresses.push(u);
+    this.addresses = this.addresses.sort((a, b) => { return a.name.charCodeAt(0) - b.name.charCodeAt(0) });
   }
 
   addOrder(order: Order) {
