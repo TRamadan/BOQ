@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import {App, IonicPage, NavController, NavParams, Select } from 'ionic-angular';
-import { Product, Cart, Database } from '../../providers/database'
+import { Database } from '../../providers/database';
+import { Product } from '../../providers/product/product';
+import { Cart} from '../../providers/cart/cart';
 import { TabsPage } from '../tabs/tabs';
 
 /**

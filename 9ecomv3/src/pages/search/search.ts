@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {Category,subcategory, Product, Database } from '../../providers/database';
-
+import { Category} from '../../providers/categories/categories';
+import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
 /**
  * Generated class for the Search page.

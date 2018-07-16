@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { WishProduct, CartProduct, Order, Address, Cart, Database } from '../../providers/database'
+import { Address, Database } from '../../providers/database';
+import { WishProduct,Cart,CartProduct,Order} from '../../providers/cart/cart';
 import { Storage } from "@ionic/storage";
 /**
  * Generated class for the Profile page.

@@ -35,11 +35,11 @@
   <div class="small-ads-wrapper"> 
     <ion-list *ngIf="ReadyCats">
       <ion-row>
-        <ion-col *ngFor="let cat of category_array;">
+        <ion-col *ngFor="let cat of category_array;let i = index">
           <ion-avatar item-start>
               <div>
-                  <img (tap) = "categories()" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="cat.image" [src]="cat.image"/>
-                  <img (tap) = "categories()" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="!cat.image" src="assets/img/nophoto.jpg"/> 
+                  <img (tap) = "categories(i)" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="cat.image" [src]="cat.image"/>
+                  <img (tap) = "categories(i)" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="!cat.image" src="assets/img/nophoto.jpg"/> 
                   <h4 style="color:rgba(25, 206, 238, 0.719);">
                     {{cat.name}}
                   </h4>

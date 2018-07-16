@@ -5,7 +5,11 @@ import { RootProvider } from "../providers/root/root";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage} from  '@ionic/storage';
-import { Database, Cart, Category, subcategory, Product } from '../providers/database';
+import { Database } from '../providers/database';
+import { Category} from '../providers/categories/categories'
+import { Cart,Order,WishProduct,CartProduct } from '../providers/cart/cart';
+import {Product } from '../providers/product/product';
+import {subcategory } from '../providers/sub-categories/sub-categories';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
@@ -30,7 +34,6 @@ export class Ecom9App {
   public tempArray: Category[] = [];
   public templastArray = []; 
 
-  private URLNAME = "http://services.edge-techno.com/boq_v2";
   public catArray : Array<any>;
   public image: string;
   public subcatArray : Array<any>;
@@ -80,7 +83,7 @@ export class Ecom9App {
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();
       this.getitems();
-      
+      console.log(this.database);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();

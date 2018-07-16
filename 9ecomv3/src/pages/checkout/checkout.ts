@@ -2,7 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Content, AlertController } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { Address, Cart, Order, Database } from '../../providers/database'
+import { Address,Database } from '../../providers/database'
+import { Cart,Order } from "../../providers/cart/cart";
 /**
  * Generated class for the Checkout page.
  *
@@ -138,7 +139,7 @@ export class CheckoutPage {
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
-              title: 'Address Information',
+              title: 'Address Information 1',
               subTitle: 'Please enter neccessary address information.',
               buttons: [{
                 text: 'OK',
@@ -168,7 +169,7 @@ export class CheckoutPage {
         this.navCtrl.push('ThankPage');
       } else {
         let alert = this.alertCtrl.create({
-          title: 'Address Information',
+          title: 'Address Information 2',
           subTitle: 'Please enter neccessary address information.',
           buttons: ['OK']
         });

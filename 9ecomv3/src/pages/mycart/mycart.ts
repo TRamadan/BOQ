@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {App, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Cart, Database, Product } from '../../providers/database'
-import { CategoriesPage } from '../categories/categories';
+import {  Database } from '../../providers/database';
+
+
 import {TabsPage} from '../tabs/tabs';
 import { Events } from 'ionic-angular';
+import { Cart } from '../../providers/cart/cart';
 
 /**
  * Generated class for the Mycart page.
