@@ -1,47 +1,45 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import {RootProvider} from './root/root';
+import { RootProvider } from './root/root';
 
 
-export class Category{
+export class Category {
   public static URLNAME = RootProvider.APIURL3;
-  id:string;
+  id: string;
   name: string;
   parent?: string;
   children?: any[];
   parentShow?: boolean = false;
-  image:String;
-  open : boolean;
-  constructor(NewsCategory : string = "" , NewsCategoryID : string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
-  { 
+  image: String;
+  open: boolean;
+  constructor(NewsCategory: string = "", NewsCategoryID: string = "", children: any, NewsCategoryImage: string = "", Parent: string = "") {
     this.name = NewsCategory;
-    this.id = NewsCategoryID;  
-    this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?Category.URLNAME+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
+    this.id = NewsCategoryID;
+    this.image = (NewsCategoryImage != null && NewsCategoryImage.length > 0) ? Category.URLNAME + NewsCategoryImage.substring(1, NewsCategoryImage.length) : ""
     this.parentShow = false;
-    this.parent = Parent; 
+    this.parent = Parent;
     this.open = false;
-    this.children = children? children : new Array();
-  }  
+    this.children = children ? children : new Array();
+  }
 
-  
-} 
+
+}
 //////////////////////////////////////////////////////////////////////////////
-export class subcategory{
+export class subcategory {
   public static URLNAME = RootProvider.APIURL3;
-  id : string; 
-  name : string;
-  image : string;
-  NewsCategoryID : string;
-  Items : any[]
-  mainCat : any;
- 
-  constructor(item_type_name : string = "" ,main_cat_id :string ,item_type_id : string = "" , item_type_img: string = "", items :any , NewsCategoryID : string = "-1" )
-  {
-    this.name = item_type_name; 
+  id: string;
+  name: string;
+  image: string;
+  NewsCategoryID: string;
+  Items: any[]
+  mainCat: any;
+
+  constructor(item_type_name: string = "", main_cat_id: string, item_type_id: string = "", item_type_img: string = "", items: any, NewsCategoryID: string = "-1") {
+    this.name = item_type_name;
     this.id = item_type_id;
     this.mainCat = main_cat_id;
-    this.image = (item_type_img !=null &&item_type_img.length > 0)?subcategory.URLNAME+item_type_img.substring(1,item_type_img.length) : ""; 
-    this.Items= items ? items : new Array();
+    this.image = (item_type_img != null && item_type_img.length > 0) ? subcategory.URLNAME + item_type_img.substring(1, item_type_img.length) : "";
+    this.Items = items ? items : new Array();
   }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -49,62 +47,62 @@ export class subcategory{
 export class Product {
   public static URLNAME = RootProvider.APIURL3;
   id: string;
-  product_subcat ? : number;
-  image1 ? : string;
-  image2 ? : string;  
-  quant ? : number;
-  measure_u? : string;
-  description? : string;
-  id2 : number;
+  product_subcat?: number;
+  image1?: string;
+  image2?: string;
+  quant?: number;
+  measure_u?: string;
+  description?: string;
+  id2: number;
   price: number;
-//////////////////////////////
+  //////////////////////////////
   name: string;
   discount: number = 0;
   image: string;
   //colors: string[];
   //sizes: string[];
   //descriptions: string[];
-  categories: Category[]; 
+  categories: Category[];
   brand?: string;
   love?: boolean = false;
-  status?: string; 
+  status?: string;
 
-   constructor(prod_name : string,point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number ) { 
+  constructor(prod_name: string, point_id: string, prod_sub_category: number, prod_image1: string, prod_image2: string, quantity: number, measure_unit: number, prod_desc: string, prod_id: number, price: number) {
     this.name = prod_name;
-    this.id = point_id; 
+    this.id = point_id;
     this.product_subcat = prod_sub_category;
-    this.image1 = (prod_image1 !=null &&prod_image1.length > 0)?subcategory.URLNAME+prod_image1.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
-    this.image2 = (prod_image2 !=null &&prod_image2.length > 0)?subcategory.URLNAME+prod_image2.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    this.image1 = (prod_image1 != null && prod_image1.length > 0) ? subcategory.URLNAME + prod_image1.substring(2, prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    this.image2 = (prod_image2 != null && prod_image2.length > 0) ? subcategory.URLNAME + prod_image2.substring(2, prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
     this.quant = quantity;
     this.measure_u = "measure_unit";
-    this.description = "prod_desc"; 
+    this.description = "prod_desc";
     this.id2 = prod_id;
     this.price = price;
     this.status = "in";
-//////////////////////////////////////////////
-  //  this.categories = new Array<Category>();
-   // this.colors = new Array<string>();
-   // this.sizes = new Array<string>();
-   // this.descriptions = new Array<string>();
+    //////////////////////////////////////////////
+    //  this.categories = new Array<Category>();
+    // this.colors = new Array<string>();
+    // this.sizes = new Array<string>();
+    // this.descriptions = new Array<string>();
   }
 }
 
 export class Address {
- // name: string;
+  // name: string;
   //lastname: string;
- // address: string; //this is the location
- // phone: string;
+  // address: string; //this is the location
+  // phone: string;
   //city: string;
- // state: string;
- // country: string;
- // zipcode: string;
- gender : string;
- email : string; 
- name : string;
- id :string;
- location : string ;
- password : string;
- phone :string ;
+  // state: string;
+  // country: string;
+  // zipcode: string;
+  gender: string;
+  email: string;
+  name: string;
+  id: string;
+  location: string;
+  password: string;
+  phone: string;
 
 }
 
@@ -146,8 +144,8 @@ export class Cart {
     let db = Database.getInstance();
     let products = db.allProduct();
 
-   // this.products.push({ product: products[0], quantity: 2, color: 'Green', size: 'M' })
-   // this.products.push({ product: products[1], quantity: 1, color: 'Pink', size: 'L' })
+    // this.products.push({ product: products[0], quantity: 2, color: 'Green', size: 'M' })
+    // this.products.push({ product: products[1], quantity: 1, color: 'Pink', size: 'L' })
   }
 
   static getInstance() {
@@ -167,17 +165,17 @@ export class Cart {
     this.promotion = 0;
   }
 
-  public removeItem(index : any){
-    if(this.products.length==1){
+  public removeItem(index: any) {
+    if (this.products.length == 1) {
       this.products.pop();
-      
-    }else{
-      let counter = index+1;
-      for(let i = index ; i<this.products.length-1;i++){
-        this.products[i]=this.products[counter++];
-        } 
-        this.products.pop();
+
+    } else {
+      let counter = index + 1;
+      for (let i = index; i < this.products.length - 1; i++) {
+        this.products[i] = this.products[counter++];
       }
+      this.products.pop();
+    }
   }
 
   count(): number {
@@ -279,7 +277,7 @@ export class Database {
       '200000',
       '300000'
     ];
-    
+
     /*
     this.addresses = [
       {
@@ -304,22 +302,22 @@ export class Database {
     let day = 24 * 60 * 60 * 1000;
     this.orders = [
       {
-        id: 'SC' + (new Date(now.getTime() - 2*day)).getTime().toString(),
-        date: new Date(now.getTime() - 2*day),
+        id: 'SC' + (new Date(now.getTime() - 2 * day)).getTime().toString(),
+        date: new Date(now.getTime() - 2 * day),
         status: 'Dispatched'
       },
       {
-        id: 'SC' + (new Date(now.getTime() - 3*day)).getTime().toString(),
-        date: new Date(now.getTime() - 3*day),
+        id: 'SC' + (new Date(now.getTime() - 3 * day)).getTime().toString(),
+        date: new Date(now.getTime() - 3 * day),
         status: 'On Way'
       },
       {
-        id: 'SC' + (new Date(now.getTime() - 15*day)).getTime().toString(),
-        date: new Date(now.getTime() - 15*day),
+        id: 'SC' + (new Date(now.getTime() - 15 * day)).getTime().toString(),
+        date: new Date(now.getTime() - 15 * day),
         status: 'Delivered'
       },
     ];
- 
+
     this.filterTypes = [
       {
         name: 'Price',
@@ -562,7 +560,7 @@ export class Database {
       wish.product.love = false;
     }
   }
-  
+
   removeProductWish() {
     this.wishproducts.pop();
   }
@@ -579,12 +577,12 @@ export class Database {
   allStates(): string[] {
     return this.states;
   }
-  
+
   allCountries(): string[] {
     return this.countries;
   }
 
-  allZipCodes(): string [] {
+  allZipCodes(): string[] {
     return this.zipcodes;
   }
 
@@ -598,22 +596,18 @@ export class Database {
     if (pos >= 0) {
       this.addresses.splice(pos, 1);
     }
-  } 
+  }
 
   //Delete only one single item from the cart 
 
-  delet_specific_item(prod : Product)
-  { 
+  delet_specific_item(prod: Product) {
     let pro = -1;
-    for(let i = 0; i < this.products.length; i++)
-    {
-      if(this.products[i] === prod)
-      {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i] === prod) {
         pro = i;
-      } 
-      if(pro >= 0)
-      {
-        this.products.splice(pro , 1);
+      }
+      if (pro >= 0) {
+        this.products.splice(pro, 1);
       }
     }
   }
@@ -623,7 +617,9 @@ export class Database {
 
   addSavedAddress(u: Address): void {
     this.addresses.push(u);
+    console.log(u);
     this.addresses = this.addresses.sort((a, b) => { return a.name.charCodeAt(0) - b.name.charCodeAt(0) });
+    console.log(this.addresses);
   }
 
   addOrder(order: Order) {
@@ -636,7 +632,7 @@ export class Database {
     var parents = this.categories.filter(item => {
       return item.parent === undefined;
     });
-    
+
     parents.forEach(parent => {
       parent.children = new Array<Category>();
       this.categories.forEach(item => {
@@ -667,7 +663,7 @@ export class Database {
       },
   
     ];
-*/  
+*/
 
     /*
     this.products = [

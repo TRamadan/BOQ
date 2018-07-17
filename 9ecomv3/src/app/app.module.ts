@@ -16,11 +16,15 @@ import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { ProductProvider } from '../providers/product/product';
-import { CategoriesProvider } from '../providers/categories/categories';
+import { CategoriesProvider } from '../providers/categories/categories'; 
+
+
+import { QuantitymodalPage } from "../pages/quantitymodal/quantitymodal";
 
 @NgModule({
   declarations: [
-    Ecom9App
+    Ecom9App,
+    QuantitymodalPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { CategoriesProvider } from '../providers/categories/categories';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    Ecom9App
+    Ecom9App,QuantitymodalPage
   ],
   providers: [
     StatusBar,

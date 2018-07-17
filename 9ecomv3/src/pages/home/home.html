@@ -10,7 +10,7 @@
       <img src="assets/img/menu.png" class="menu-image">
     </button>
     <ion-title>
-      BOQ
+      <div>B<span>OQ</span></div>
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -50,12 +50,6 @@
       </ion-row>
 
     </ion-list> 
-
-    <div *ngIf = "ReadyItems">
-      <div *ngFor = "let i of items">
-        {{i.name}}
-      </div>
-    </div>
   </div> 
 
   

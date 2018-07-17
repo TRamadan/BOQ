@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Select } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, Select, ModalController, PopoverController } from 'ionic-angular';
 import { Product, Cart, Database } from '../../providers/database'
 import { TabsPage } from '../tabs/tabs';
+import { QuantitymodalPage } from '../quantitymodal/quantitymodal';
 
 /**
  * Generated class for the Product page.
@@ -17,12 +18,11 @@ import { TabsPage } from '../tabs/tabs';
 export class ProductPage {
   cb: boolean[] = [false, true, false, false, false]
   size: boolean[] = [false, true, false, false, false]
-  public specific_item : any;
-  @ViewChild('qtySelect') qtySelect: Select; 
+  public specific_item : any
 
 
   currentQty: string = 'Qty: 1';
-  quantity: number = 1;
+  quantity: number = 1 ;
   currentColor: string;
   currentSize: string;
   hideIt: boolean = true;
@@ -30,8 +30,8 @@ export class ProductPage {
   product: Product;
   cart: Cart;
   db: Database;
-  constructor(public app : App , public navCtrl: NavController, public navParams: NavParams) {
-    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+  constructor(public popoverCtrl : PopoverController , public app : App , public navCtrl: NavController, public navParams: NavParams) {
+   // this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
@@ -80,10 +80,6 @@ export class ProductPage {
    // this.currentSize = this.product.sizes[pos];
   }
 
-  selectQty() {
-    this.qtySelect.open();
-  }
-
   loveIt() { 
     console.log("favorait icon is pressed")
     this.product.love = !this.product.love;
@@ -99,8 +95,13 @@ export class ProductPage {
  
   
   quantityChange() {
-    console.log(this.quantity);
+    
     this.currentQty = 'Qty: ' + this.quantity.toString();
+    console.log(this.quantity);
+
+    //open modal 
+    let quantitymodal = this.popoverCtrl.create(QuantitymodalPage , {'Quantity' : this.quantity }); 
+    quantitymodal.present();
   }
 
   goCart() {
@@ -125,6 +126,7 @@ export class ProductPage {
     setTimeout(() => {
       this.navCtrl.pop();
     }, 300);
-  }
+  } 
+
 
 }

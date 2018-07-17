@@ -134,7 +134,7 @@
         <div class="saved-address" *ngSwitchCase="'saved'">
           <div class="address-container">
             <ion-list class="address-list">
-              <ion-item-sliding *ngFor="let x of savedAddresses">
+              <ion-item-sliding *ngFor="let x of addresses">
                 <ion-item class="address-list-item">
                   <a (click)="chooseAddress(x)"><h2>{{x.name}}</h2></a>
                   <div class="detail">{{x.location}},</div>

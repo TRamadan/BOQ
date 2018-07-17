@@ -9,7 +9,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-  <ion-title></ion-title> 
+  <ion-title>{{name}}</ion-title> 
     <ion-buttons end>
       <button ion-button icon-only (click)="filterModal()">
         <ion-icon name="options"></ion-icon>
@@ -18,7 +18,6 @@
   </ion-navbar>
   <scroll-tabs *ngIf="show" #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
 </ion-header>
-
 
 <ion-content  class="page-categories">
   <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">

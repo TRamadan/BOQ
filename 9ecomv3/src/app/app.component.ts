@@ -192,7 +192,6 @@ export class Ecom9App {
              }
              this.catArray[i] = new Category(data[i].NewsCategory , data[i].NewsCategoryID,tempcats);
            }
-
            
           } 
           

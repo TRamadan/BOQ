@@ -20,7 +20,7 @@ import { User } from '../../templates/user';
 
 export class CheckoutPage {
 
-  public user: any;
+  public user: User;
 
   public user_exist: boolean = false;
 
@@ -36,7 +36,7 @@ export class CheckoutPage {
       name: 'Confirmation',
     },
   ];
-  users: Address;
+  useraddress: Address;
   step: string = 'Continue to payment';
   selectedTab: IScrollTab;
   address: string = 'new';
@@ -57,7 +57,7 @@ export class CheckoutPage {
   @ViewChild(Content) content: Content;
   constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-    this.users = new Address();
+    this.useraddress = new Address();
     this.db = Database.getInstance();
     this.savedAddresses = this.db.allSavedAdddress();
     this.cities = this.db.allCities();
@@ -70,7 +70,7 @@ export class CheckoutPage {
 
     this.storage.get('user').then(data => {
       this.user = data;
-      console.log(data);
+      console.log(data); 
       this.user_exist = true;
     }, err => {
       console.log(err);
@@ -140,18 +140,20 @@ export class CheckoutPage {
       }
     }
   }
-  stepping() {
+  stepping(userdata) {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
-        let flgFound = false;
+        let flgFound = false; 
         this.savedAddresses.forEach(u => {
-          if (u === this.users) {
+          if (u === this.useraddress) {
             flgFound = true;
           }
         });
         if (!flgFound) {
           if (this.isValid(this.user)) {
-            this.db.addSavedAddress(this.users);
+            this.db.addSavedAddress(this.useraddress); 
+            
+            console.log(this.useraddress);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
@@ -173,7 +175,7 @@ export class CheckoutPage {
         this.scrollTab.nextTab();
       }
     } else {
-      if (this.isValid(this.users)) {
+      if (this.isValid(this.useraddress)) {
         // add order
         let order = new Order();
         order.id = 'SC' + + (new Date()).getTime().toString();
@@ -195,7 +197,7 @@ export class CheckoutPage {
   }
 
   chooseAddress(u) {
-    this.users = u;
+    this.useraddress = u;
     this.address = 'new';
   }
 
@@ -240,7 +242,7 @@ export class CheckoutPage {
       alert.present();
     }
   }
-  isValid(users: any) {
+  isValid(users: Address) {
     return (users.name !== '' && users.name !== undefined)
       && (users.location !== '' && users.location !== undefined)
       && (users.phone !== '' && users.phone !== undefined)

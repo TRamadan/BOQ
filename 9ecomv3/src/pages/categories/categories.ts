@@ -75,7 +75,8 @@ export class CategoriesPage {
     this.db = Database.getInstance();
     this.products = this.db.allProduct();
     var detail = this.navParams.get('select');
-    this.menus = this.navParams.get('menus');
+    this.menus = this.navParams.get('appData');
+    console.log(this.menu);
     if (this.menus) {
       this.categories = this.menus.children;
        this.menus.children.forEach(menu => {
