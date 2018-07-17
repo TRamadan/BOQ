@@ -2,7 +2,7 @@ import { Component, ViewChild, Pipe, PipeTransform } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, ModalController, Content } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import { Database } from '../../providers/database';
-import { Category } from '../../providers/categories/categories';
+import { Category } from '../../providers/category/category';
 import { Product } from '../../providers/product/product';
 import { RootProvider } from "../../providers/root/root";
 import { Storage } from '@ionic/storage';

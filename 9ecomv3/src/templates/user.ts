@@ -17,6 +17,23 @@ export class User {
         this.email = email;
         this.phone = phone;
     }
+
+    public addSavedAddress(address :Address){
+        this.addresses.push(address);
+    }
+
+    public removeSavedAddress(u: Address): void {
+        let pos = -1;
+        for (let i = 0; i < this.addresses.length; i++) {
+          if (this.addresses[i] === u) {
+            pos = i;
+          }
+        }
+        if (pos >= 0) {
+          this.addresses.splice(pos, 1);
+        }
+      } 
+    
     
 }
 export class Address{

@@ -1,7 +1,7 @@
 import { Http} from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RootProvider } from '../root/root';
-import { Category } from '../categories/categories';
+import { Category } from '../category/category';
 import { subcategory } from '../sub-categories/sub-categories';
 /*
   Generated class for the ProductProvider provider.

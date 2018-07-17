@@ -6,15 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage} from  '@ionic/storage';
 import { Database } from '../providers/database';
-import { Category} from '../providers/categories/categories'
-import { Cart,Order,WishProduct,CartProduct } from '../providers/cart/cart';
+import { Cart } from '../providers/cart/cart';
 import {Product } from '../providers/product/product';
 import {subcategory } from '../providers/sub-categories/sub-categories';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
+import { Category } from '../providers/category/category';
 
-var require :any;
 export interface PageInterface { 
  
   title: string;

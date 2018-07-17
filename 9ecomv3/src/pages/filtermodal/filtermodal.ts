@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Product, Database } from '../../providers/database';
+import { Database } from '../../providers/database';
+import { Product} from '../../providers/product/product';
 /**
  * Generated class for the Filtermodal page.
  *

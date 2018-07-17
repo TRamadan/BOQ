@@ -15,10 +15,7 @@ import { Database } from '../providers/database';
 import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { ProductProvider } from '../providers/product/product';
-import { CategoriesProvider } from '../providers/categories/categories';
-import { SubCategoriesProvider } from '../providers/sub-categories/sub-categories';
-import { CartProvider,Cart } from '../providers/cart/cart';
+
 
 @NgModule({
   declarations: [
@@ -53,14 +50,8 @@ import { CartProvider,Cart } from '../providers/cart/cart';
     InAppBrowser,
     Database, 
     NativeStorage,
-
-    Cart,
     RootProvider,
     UsersProvider,
-    ProductProvider,
-    CategoriesProvider,
-    SubCategoriesProvider,
-    CartProvider
   ]
 })
 export class AppModule {}

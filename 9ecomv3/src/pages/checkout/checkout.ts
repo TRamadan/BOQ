@@ -2,8 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Content, AlertController } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { Address,Database } from '../../providers/database'
-import { Cart,Order } from "../../providers/cart/cart";
+import {Database } from '../../providers/database'
+import { Cart } from '../../providers/cart/cart';
+import { Order } from '../../providers/order/order';
+import { Address ,User } from '../../templates/user';
 /**
  * Generated class for the Checkout page.
  *
@@ -38,9 +40,10 @@ export class CheckoutPage {
   tabBarElement: any;
   shippingTypes = [true, false, false];
   cart: Cart;
+  user : User;
   db: Database;
   cities: string[];
-  states: string[];
+  districts: string[];
   countries: string[];
   zipcodes: string[];
   savedAddresses: Address[]; 
@@ -50,10 +53,12 @@ export class CheckoutPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
+    
     this.db = Database.getInstance();
-    this.savedAddresses = this.db.allSavedAdddress();
+    this.user = this.db.user;
+    this.savedAddresses = this.user.addresses;
     this.cities = this.db.allCities();
-    this.states = this.db.allStates();
+    this.districts = this.db.alldistrict();
     this.countries = this.db.allCountries();
     this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
@@ -135,7 +140,7 @@ export class CheckoutPage {
         });
         if (!flgFound) {
           if (this.isValid(this.newAddress)) {
-            this.db.addSavedAddress(this.newAddress);
+            this.user.addSavedAddress(this.newAddress);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
@@ -188,7 +193,7 @@ export class CheckoutPage {
   }
 
   removeAddress(addr: Address) {
-    this.db.removeSavedAddress(addr);
+    this.user.removeSavedAddress(addr);
   }
 
   information() {
@@ -225,13 +230,8 @@ export class CheckoutPage {
     }
   }
   isValid(addr: Address) {
-    return (addr.firstname !== '' && addr.firstname !== undefined)
-      && (addr.lastname !== '' && addr.lastname !== undefined)
-      && (addr.address !== '' && addr.address !== undefined)
-      && (addr.phone !== '' && addr.phone !== undefined)
-      && (addr.city !== '' && addr.city !== undefined)
-      && (addr.state !== '' && addr.state !== undefined)
+    return (addr.city !== '' && addr.city !== undefined)
       && (addr.country !== '' && addr.country !== undefined)
-      && (addr.zipcode !== '' && addr.zipcode !== undefined)
+    
   }
 }

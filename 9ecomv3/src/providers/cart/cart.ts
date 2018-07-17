@@ -8,29 +8,8 @@ import {Product} from '../product/product';
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
-@Injectable()
-export class CartProvider {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello CartProvider Provider');
-  }
 
-}
-
-export interface WishProduct {
-  product: Product;
-
-}
-
-export interface CartProduct extends WishProduct {
-  quantity: number;
-}
-
-export class Order {
-  id: string;
-  date: Date;
-  status: string;
-}
 
 @Injectable()
 export class Cart {
@@ -115,3 +94,9 @@ export class Cart {
     return sum;
   }
 }
+
+export interface CartProduct {
+  product : Product;
+  quantity: number;
+}
+

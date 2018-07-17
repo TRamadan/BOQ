@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { Category} from '../../providers/categories/categories';
+import { Category} from '../../providers/category/category';
 import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
 /**

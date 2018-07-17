@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import {Http}from '@angular/http';
 import 'rxjs/add/operator/map';
+import {Storage}from '@ionic/storage';
 
-import {Category} from'./categories/categories';
 import {subcategory} from './sub-categories/sub-categories';
 import {Product} from './product/product';
-import {Cart,WishProduct,Order} from './cart/cart';
+import {Cart} from './cart/cart';
+import {Order} from './order/order';
 import { RootProvider } from "./root/root";
-import { User ,Address } from '../templates/user';
+import { User} from '../templates/user';
+import { Category } from './Category/category';
 
 
 
@@ -29,16 +31,17 @@ import { User ,Address } from '../templates/user';
 */
 @Injectable()
 export class Database {
+  storage : Storage;
   user : User;
   categories: Category[];
   products: Product[];
-  wishproducts: WishProduct[];
+  wishproducts: Product[];
   orders: Order[];
   cart: Cart;
   filterTypes: any[];
 
   cities: string[];
-  states: string[];
+  district: string[];
   countries: string[];
   zipcodes: string[];
   http:Http;
@@ -55,11 +58,11 @@ export class Database {
       this.user = new User();
       this.categories = new Array<Category>();
       this.products = new Array<Product>();
-      this.wishproducts = new Array<WishProduct>();
+      this.wishproducts = new Array<Product>();
       this.orders = new Array<Order>();
       this.filterTypes = new Array<any>();
       this.cities = new Array<string>();
-      this.states = new Array<string>();
+      this.district = new Array<string>();
       this.countries = new Array<string>();
       this.zipcodes = new Array<string>();
       this.initialize();
@@ -79,7 +82,7 @@ export class Database {
   private initialize() {
     console.log('Initialize Database');
     this.countries.push('USA');
-    this.states = [
+    this.district = [
       'New York',
       'California',
       'Indiana',
@@ -101,230 +104,34 @@ export class Database {
     
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
-    this.orders = [
-      {
-        id: 'SC' + (new Date(now.getTime() - 2*day)).getTime().toString(),
-        date: new Date(now.getTime() - 2*day),
-        status: 'Dispatched'
-      },
-      {
-        id: 'SC' + (new Date(now.getTime() - 3*day)).getTime().toString(),
-        date: new Date(now.getTime() - 3*day),
-        status: 'On Way'
-      },
-      {
-        id: 'SC' + (new Date(now.getTime() - 15*day)).getTime().toString(),
-        date: new Date(now.getTime() - 15*day),
-        status: 'Delivered'
-      },
-    ];
+
+    
+    let id = 'SC' + (new Date(now.getTime() - 2*day)).getTime().toString();
+    let date = new Date(now.getTime() - 2*day);
+    let status = 'Dispatched';
+    this.orders.push(new Order(id ,date , status ));
+
+     id = 'SC' + (new Date(now.getTime() - 3*day)).getTime().toString();
+     date = new Date(now.getTime() - 3*day);
+     status = 'On Way';
+    this.orders.push(new Order(id ,date , status ));
+
+     id = 'SC' + (new Date(now.getTime() - 15*day)).getTime().toString();
+     date = new Date(now.getTime() - 15*day);
+     status = 'Delivered';
+    this.orders.push(new Order(id ,date , status ));
+    
  
-    this.filterTypes = [
-      {
-        name: 'Price',
-         selected: true,
-        type: 'or',
-        filters: [
-          {
-            title: 'Less than $50',
-            attr: 'price',
-            compare: 'range',
-            min: 1,
-            max: 50,
-            checked: false
-          },
-          {
-            title: 'From $50 to $150',
-            attr: 'price',
-            compare: 'range',
-            min: 50,
-            max: 150,
-            checked: false
-          },
-          {
-            title: 'From $150 to $250',
-            attr: 'price',
-            compare: 'range',
-            min: 150,
-            max: 250,
-            checked: false
-          },
-          {
-            title: 'From $250 to $500',
-            attr: 'price',
-            compare: 'range',
-            min: 250,
-            max: 500,
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Brand',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Zaza',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Zaza',
-            checked: false
-          },
-          {
-            title: 'Mango',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Mango',
-            checked: false
-          },
-          {
-            title: 'PT2000',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'PT2000',
-            checked: false
-          },
-          {
-            title: 'Blue Exchange',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Blue Exchange',
-            checked: false
-          },
-          {
-            title: 'Hoang Phuc',
-            attr: 'brand',
-            compare: 'equal',
-            value: 'Hoang Phuc',
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Size',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Has S Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'S',
-            checked: false
-          },
-          {
-            title: 'Has M Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'M',
-            checked: false
-          },
-          {
-            title: 'Has L Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'L',
-            checked: false
-          },
-          {
-            title: 'Has XL Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'XL',
-            checked: false
-          },
-          {
-            title: 'Has XXL Size',
-            attr: 'sizes',
-            compare: 'equal',
-            value: 'XXL',
-            checked: false
-          },
-        ]
-      },
-      {
-        name: 'Color',
-        selected: false,
-        type: 'and',
-        filters: [
-          {
-            title: 'Has Green Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Green',
-            checked: false
-          },
-          {
-            title: 'Has Orange Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Orange',
-            checked: false
-          },
-          {
-            title: 'Has Pink Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Pink',
-            checked: false
-          },
-          {
-            title: 'Has Blue Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Blue',
-            checked: false
-          },
-          {
-            title: 'Has Cyan Color',
-            attr: 'colors',
-            compare: 'equal',
-            value: 'Cyan',
-            checked: false
-          }
-        ]
-      },
-      {
-        name: 'Discount',
-        selected: false,
-        type: 'or',
-        filters: [
-          {
-            title: 'Discount 10%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 10,
-            checked: false
-          },
-          {
-            title: 'Discount 25%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 25,
-            checked: false
-          },
-          {
-            title: 'Discount 50%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 50,
-            checked: false
-          },
-          {
-            title: 'Discount 90%',
-            attr: 'discount',
-            compare: 'range',
-            min: 1,
-            max: 90,
-            checked: false
-          }
-        ]
-      }
-    ];
+    
+  }
+
+  SaveAll(): void{
+    this.user != undefined && this.user.id != "0" ? this.storage.set('user',this.user) : null;
+    this.district != undefined && this.district.length > 0 ? this.storage.set('district',this.district): null;
+    this.cities != undefined && this.cities.length > 0 ? this.storage.set('cities',this.cities) : null ;
+    this.countries != undefined && this.countries.length > 0 ? this.storage.set('countries',this.countries) : null;
+    this.zipcodes != undefined && this.zipcodes.length > 0 ? this.storage.set('zipcodes',this.zipcodes) : null;
+    this.filterTypes != undefined && this.filterTypes.length > 0 ? this.storage.set('fileterTypes',this.filterTypes) : null;
   }
 
   allFilters(): any {
@@ -337,7 +144,7 @@ export class Database {
 
  
 
-  allWishList(): WishProduct[] {
+  allWishList(): Product[] {
     console.log(this.wishproducts);
     return this.wishproducts;
   }
@@ -345,7 +152,7 @@ export class Database {
   allOrders(): Order[] {
     return this.orders;
   }
-  removeWish(wish: WishProduct): void {
+  removeWish(wish: Product): void {
     var pos = -1;
     for (var i = 0; i < this.wishproducts.length; i++) {
       if (this.wishproducts[i] === wish) {
@@ -354,7 +161,7 @@ export class Database {
     }
     if (pos >= 0) {
       this.wishproducts.splice(pos, 1);
-      wish.product.love = false;
+      wish.love = false;
     }
   }
   
@@ -371,8 +178,8 @@ export class Database {
     return this.cities;
   }
 
-  allStates(): string[] {
-    return this.states;
+  alldistrict(): string[] {
+    return this.district;
   }
   
   allCountries(): string[] {

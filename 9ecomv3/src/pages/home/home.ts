@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { DomSanitizer } from '@angular/platform-browser';
 
-import { Category, Database } from '../../providers/database';
 import { Storage } from "@ionic/storage";
+import { Category } from '../../providers/category/category';
 /**
  * Generated class for the Home page.
  *
