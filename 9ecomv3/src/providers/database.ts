@@ -80,7 +80,7 @@ export class Database {
   }
 
   private initialize() {
-    console.log('Initialize Database');
+    //console.log('Initialize Database');
     this.countries.push('USA');
     this.district = [
       'New York',
@@ -145,7 +145,7 @@ export class Database {
  
 
   allWishList(): Product[] {
-    console.log(this.wishproducts);
+    //console.log(this.wishproducts);
     return this.wishproducts;
   }
 

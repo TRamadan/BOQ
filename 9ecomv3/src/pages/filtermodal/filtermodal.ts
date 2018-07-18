@@ -65,7 +65,7 @@ export class FilterModalPage {
   }
 
   applyFilter() {
-    console.log('Apply Filter');
+    //console.log('Apply Filter');
     let filterList = new Array<any>();
 
     let newProducts = new Array<Product>();

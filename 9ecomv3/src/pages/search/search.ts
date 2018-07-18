@@ -52,7 +52,7 @@ export class SearchPage {
           }
         }
       }
-      console.log(this.results);
+      //console.log(this.results);
       this.Ready=true;
     },err=>{
       console.error(err);
@@ -72,7 +72,7 @@ export class SearchPage {
       this.results = this.results.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
-      console.log(this.results);
+      //console.log(this.results);
     } else {
       this.results = [];
     }

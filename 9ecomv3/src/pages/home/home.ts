@@ -72,10 +72,10 @@ export class HomePage {
     // getting all the categories saved in the storage
     this.storage.get('appData').then(data =>{ 
       this.category_array = data;
-      console.log(data);
+      //console.log(data);
       this.ReadyCats = true;
     },err=>{
-      console.log(err)
+      console.error(err);
     });
     /*
     this.smallAds.forEach(ads => {
@@ -88,8 +88,8 @@ export class HomePage {
   } 
 
   ionViewDidEnter() {
-    var detail = this.navParams.get('detail');
-    var parent = this.navParams.get('parent');
+    var detail = this.navParams.get('subcat');
+    var parent = this.navParams.get('category');
     if(detail !== undefined) {
       this.navParams.data.detail = undefined;
       this.navCtrl.push('CategoriesPage', {menus: parent, select: detail});
@@ -111,9 +111,11 @@ export class HomePage {
   } */
 
   categories(id: string) {
-    this.menuItems.forEach(item => {
+   // console.log(this.category_array);
+   // console.log(id);
+    this.category_array.forEach(item => {
       if(item.id === id) {
-        this.navCtrl.push('CategoriesPage', {menus: item, select: item.children[0].name.toLowerCase()});
+        this.navCtrl.push('CategoriesPage', {'category': item, 'subcat': item.children[0]});
       }
     })
   } 

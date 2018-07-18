@@ -56,15 +56,15 @@ export class ProfilePage {
     this.user = this.db.user;
     this.savedAddresses = this.user.addresses;
     this.wishProducts = this.db.allWishList(); 
-    console.log(this.wishProducts);
+    //console.log(this.wishProducts);
     this.orders = this.db.allOrders();  
 
      this.storage.get('user').then(data=>{ 
        this.u = data;
        this.UserExists = true;
-       console.log(data);
+       //console.log(data);
      },err=>{
-       console.log(err);
+       console.error(err);
      })
   }
 
@@ -93,7 +93,7 @@ export class ProfilePage {
   }
 
   swipeEvent($e) {
-    console.log('before', $e.direction);
+    //console.log('before', $e.direction);
     switch ($e.direction) {
       case 2: // left
         this.scrollTab.nextTab();

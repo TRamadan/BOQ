@@ -39,7 +39,7 @@ export class ProductPage {
     this.cart = Cart.getInstance();
     //this.cart.clear();
     this.specific_item = this.navParams.get('product');
-    console.log(this.specific_item);
+    //console.log(this.specific_item);
   /*
     if (this.product.colors.length > 0) {
       this.clearColor(1);
@@ -101,7 +101,7 @@ export class ProductPage {
  
   
   quantityChange() {
-    console.log(this.quantity);
+    //console.log(this.quantity);
     this.currentQty = 'Qty: ' + this.quantity.toString();
   }
 
@@ -112,7 +112,7 @@ export class ProductPage {
   add2Cart() { 
     let flgFound = false;
     this.cart.products.forEach(specific_item => {
-      console.log(specific_item)
+      //console.log(specific_item)
 
       if (specific_item.product != undefined && specific_item.product.id === this.product.id) {
         flgFound = true;

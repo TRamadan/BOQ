@@ -57,15 +57,15 @@ export class SignupPage {
 
   onRegester(): Observable<any> {
     if (this.registerForm.valid) {
-      console.log(this.gender);
-      console.log(this.location)
+      //console.log(this.gender);
+      //console.log(this.location)
       this.user = new User();
       this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone).subscribe(data => {
-        console.log(data);
+        //console.log(data);
         if (data.length > 0) {
           this.user = new User(data[0].USERID, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.password, this.registerForm.value.email, this.registerForm.value.phone)
 
-          console.log(this.user);
+         // console.log(this.user);
           this.storage.set('user', this.user); 
           this.navCtrl.setRoot(TabsPage, { "user": this.user });
         } else {

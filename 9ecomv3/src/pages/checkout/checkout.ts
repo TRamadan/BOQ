@@ -96,7 +96,7 @@ export class CheckoutPage {
   }
 
   swipeEvent($e) {
-    console.log('before', $e.direction);
+    //console.log('before', $e.direction);
     switch ($e.direction) {
       case 2: // left
         this.scrollTab.nextTab();
@@ -206,7 +206,7 @@ export class CheckoutPage {
   }
 
   promotion() {
-    console.log(this.promotionCode);
+   // console.log(this.promotionCode);
     if (this.promotionCode === '#812006') {
       let alert = this.alertCtrl.create({
         title: 'Promotion',
