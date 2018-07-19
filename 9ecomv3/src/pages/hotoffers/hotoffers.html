@@ -17,42 +17,39 @@
 
 
 <ion-content class="page-hotoffers">
-  <ion-slides #sliders class="ads-slider">
-    <ion-slide>
-      <a (click)="categories('0100')">
-        <div class="ads-wrapper">
-          <div class="ads-box">
-          </div>
+ <div *ngIf="ReadyOffers"> 
+    <ion-slides  loop="false"  pager="false" parallax="true" dir="ltr" slidesPerView='4'>
+      <ion-slide class="cat-slide" (tap) = "filter()"> 
+        <div *ngIf="Activenow == -1" class="cat-slide-activated">
+          All
+        </div> 
+
+        <div *ngIf="Activenow != -1">
+          All
         </div>
-      </a>
-      <div class="small-ads-wrapper">
-        <a (click)="categories('0200')">
-          <div class="left-ads-wrapper">
-            <div class="ads-box">
-            </div>
-          </div>
-        </a>
-        <div class="right-ads-wrapper">
-          <a (click)="categories('0300')">
-            <div class="tiny-ads-wrapper1">
-              <div class="ads-box">
-              </div>
-            </div>
-          </a>
-          <a (click)="categories('0100')">
-            <div class="tiny-ads-wrapper2">
-              <div class="ads-box">
-              </div>
-            </div>
-          </a>
+      </ion-slide> 
+
+      <ion-slide *ngFor = "let o of get_offers; let i=index;" (tap)="filter(o,i)">
+        <div *ngIf = "Activenow == i" class="cat-slide-activated">
+          {{o.offer_name}}
+        </div> 
+
+        <div *ngIf = "Activenow != i">
+          {{o.offer_name}}
         </div>
-      </div>
-      <a (click)="categories('0100')">
-        <div class="footer-ads-wrapper">
-          <div class="ads-box">
-          </div>
-        </div>
-      </a>
-    </ion-slide>
-  </ion-slides>
+      </ion-slide>
+   </ion-slides>  
+
+   <div>
+     <ion-list>
+       
+     </ion-list>
+   </div>
+  <!--
+  <div *ngFor="let o of get_offers">
+    {{o.offer_name}}
+  </div>-->
+
+ </div> 
+  
 </ion-content>

@@ -69,15 +69,22 @@
   </div>
 </ion-content>
 <ion-footer>
-  <div class="footer">
-    <div class="button-left">
-      <button ion-button full clear (input)="quantityChange()" (ionChange)="quantityChange()">{{currentQty}}</button>
-      <ion-item class="quantity-select">
-        <ion-label>Quantity</ion-label>   
-      </ion-item>
+    <div class="footer">
+      <div class="button-left">
+        <button ion-button full clear (click)="selectQty()">{{currentQty}}</button>
+        <ion-item class="quantity-select">
+          <ion-label>Quantity</ion-label>
+          <ion-select #qtySelect [(ngModel)]="quantity" (ionChange)="quantityChange()">
+            <ion-option value="1" selected="true">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <div class="button-right">
+        <button ion-button full clear (click)="add2Cart()">Add to Cart</button>
+      </div>
     </div>
-    <div class="button-right">
-      <button ion-button full clear (tap)="add2Cart()">Add to Cart</button>
-    </div>
-  </div>
-</ion-footer>
+  </ion-footer>

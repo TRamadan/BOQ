@@ -6,6 +6,8 @@ import { Address, Cart, Order, Database } from '../../providers/database';
 
 import { Storage } from "@ionic/storage";
 import { User } from '../../templates/user';
+
+//import { Order } from "../../providers/orders/orders";
 /**
  * Generated class for the Checkout page.
  *
@@ -146,7 +148,9 @@ export class CheckoutPage {
         let flgFound = false; 
         this.savedAddresses.forEach(u => {
           if (u === this.useraddress) {
-            flgFound = true;
+            flgFound = true; 
+            userdata = this.navParams.get('data'); 
+            console.log(userdata);
           }
         });
         if (!flgFound) {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { RootProvider } from './root/root';
+import { RootProvider } from './root/root'; 
+import { Storage } from "@ionic-angular";
 
 
 export class Category {
@@ -115,9 +116,29 @@ export interface CartProduct extends WishProduct {
   quantity: number;
 }
 
-export class Order {
-  id: string;
-  date: Date;
+export class Order { 
+  //this is the item_id
+  id: string; 
+
+  //this is the user_id 
+  user_id: number; 
+
+  //this is quantity 
+  quantity : number;
+  
+  //this is total_price
+  total_price : number;
+
+  // this is order_datetime
+  date: Date; 
+
+  // this is deliver_address
+  deliver_address : string;
+
+  //this is shipping_id 
+  shipping_id : number; 
+
+  // this is status of the order
   status: string;
 }
 
@@ -297,9 +318,13 @@ export class Database {
         country: this.countries[0],
         zipcode: '200000'
       },
-    ]; */
+    ]; */ 
+
+
+    /*
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
+    
     this.orders = [
       {
         id: 'SC' + (new Date(now.getTime() - 2 * day)).getTime().toString(),
@@ -316,7 +341,7 @@ export class Database {
         date: new Date(now.getTime() - 15 * day),
         status: 'Delivered'
       },
-    ];
+    ];*/
 
     this.filterTypes = [
       {
@@ -613,18 +638,22 @@ export class Database {
   }
 
   //Add the variable u as a parameter to the function 
-  //As done in in check.ts
+  //As done in in check.ts 
+
+  //get all the users data from the storage 
+  public storage : Storage; 
+  
 
   addSavedAddress(u: Address): void {
-    this.addresses.push(u);
-    console.log(u);
+    //console.log(u);
     this.addresses = this.addresses.sort((a, b) => { return a.name.charCodeAt(0) - b.name.charCodeAt(0) });
+    this.addresses.push(u);
     console.log(this.addresses);
   }
 
   addOrder(order: Order) {
     this.orders.push(order);
-
+    console.log(order);
     this.orders = this.orders.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
   }
 

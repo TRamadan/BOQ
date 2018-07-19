@@ -20,6 +20,7 @@ export class ProductPage {
   size: boolean[] = [false, true, false, false, false]
   public specific_item : any
 
+  @ViewChild('qtySelect') qtySelect: Select;
 
   currentQty: string = 'Qty: 1';
   quantity: number = 1 ;
@@ -91,17 +92,23 @@ export class ProductPage {
       }
     }, 150);
     
+  } 
+
+  selectQty() {
+    this.qtySelect.open();
+    console.log('afkjakfafha')
   }
- 
   
   quantityChange() {
     
-    this.currentQty = 'Qty: ' + this.quantity.toString();
     console.log(this.quantity);
+    this.currentQty = 'Qty: ' + this.quantity.toString();
+    console.log("affhjfhajhfj")
 
     //open modal 
-    let quantitymodal = this.popoverCtrl.create(QuantitymodalPage , {'Quantity' : this.quantity }); 
-    quantitymodal.present();
+    //let quantitymodal = this.popoverCtrl.create(QuantitymodalPage); 
+    //quantitymodal.present(); 
+    
   }
 
   goCart() {
