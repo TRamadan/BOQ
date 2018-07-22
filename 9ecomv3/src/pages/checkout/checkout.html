@@ -41,41 +41,33 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>First name</ion-label>
-                  <ion-input type="text" [(ngModel)]="newAddress.firstname"></ion-input>
+                  <ion-label stacked>House Num</ion-label>
+                  <ion-input type="number" [(ngModel)]="newAddress.houseNum"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>Last name</ion-label>
-                  <ion-input type="text" [(ngModel)]="newAddress.lastname"></ion-input>
+                  <ion-label stacked>Street</ion-label>
+                  <ion-input type="text" [(ngModel)]="newAddress.street"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
             <ion-item>
-              <ion-label stacked>Address</ion-label>
-              <ion-input type="text" [(ngModel)]="newAddress.address"></ion-input>
+              <ion-label stacked>Block</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.Block"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label stacked>Phone number</ion-label>
-              <ion-input type="text" [(ngModel)]="newAddress.phone"></ion-input>
+              <ion-label stacked>district</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.district"></ion-input>
             </ion-item>
 
             <ion-row>
               <ion-col>
                 <ion-item>
                   <ion-label stacked>City</ion-label>
-                  <ion-select [(ngModel)]="newAddress.city">
-                    <ion-option *ngFor="let c of cities" [value]="c" [selected]="newAddress.city === c">{{c}}</ion-option>
-                  </ion-select>
-                </ion-item>
-              </ion-col>
-              <ion-col>
-                <ion-item>
-                  <ion-label stacked>State</ion-label>
-                  <ion-select [(ngModel)]="newAddress.state">
-                    <ion-option *ngFor="let s of states" [value]="s" [selected]="newAddress.state === s">{{s}}</ion-option>
-                  </ion-select>
+                  
+                    <ion-input type="text" [(ngModel)]="newAddress.city"></ion-input>
+                  
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -84,17 +76,17 @@
               <ion-col>
                 <ion-item>
                   <ion-label stacked>Country</ion-label>
-                  <ion-select [(ngModel)]="newAddress.country">
-                    <ion-option *ngFor="let c of countries" [value]="c" [selected]="newAddress.country === c">{{c}}</ion-option>
-                  </ion-select>
+                  
+                    <ion-input type="text" [(ngModel)]="newAddress.country"></ion-input>
+                  
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
                   <ion-label stacked>Zip Code</ion-label>
-                  <ion-select [(ngModel)]="newAddress.zipcode">
-                    <ion-option *ngFor="let z of zipcodes" [value]="z" [selected]="newAddress.zipcode === z">{{z}}</ion-option>
-                  </ion-select>
+                
+                    <ion-input type="text" [(ngModel)]="newAddress.zipCode"></ion-input>
+                  
                 </ion-item>
               </ion-col>
             </ion-row>
@@ -122,10 +114,10 @@
           <div class="address-container">
             <ion-list class="address-list">
               <ion-item-sliding *ngFor="let addr of savedAddresses">
-                <ion-item class="address-list-item">
-                  <a (click)="chooseAddress(addr)"><h2>{{addr.firstname}} {{addr.lastname}}</h2></a>
-                  <div class="detail">{{addr.address}},</div>
-                  <div class="detail">{{addr.city}}, {{addr.state}}, {{addr.country}} {{addr.phone}}</div>
+                <ion-item class="address-list-item" (tap)="chooseAddress(addr)">
+                <h2>{{addr.houseNum}} {{addr.street}}</h2>
+                  <div class="detail">{{addr.Block}},</div>
+                  <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
                   <div item-right class="right-bag">
                     <button ion-button clear (click)="editAddress(addr)">Edit</button>
                   </div>

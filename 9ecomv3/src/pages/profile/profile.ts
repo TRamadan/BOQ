@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { Storage } from "@ionic/storage";
+
 
 import { Database } from '../../providers/database';
 import { Cart,CartProduct} from '../../providers/cart/cart';
-import { User , Address} from '../../templates/user';
+import { User , Address ,UsersProvider} from '../../providers/users/users';
 import { Product } from '../../providers/product/product';
 import { Order } from '../../providers/order/order';
 /**
@@ -47,25 +47,20 @@ export class ProfilePage {
   user : User;
   
   // this a flag to show the user is exists or not to show his data in the profile
-  UserExists : boolean = false;
-
-  constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
+  constructor(public navCtrl: NavController
+    , public navParams: NavParams
+    , private menu: MenuController
+    , public userProv : UsersProvider
+  ) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
-    this.user = this.db.user;
+    this.user = this.userProv.getUser();
     this.savedAddresses = this.user.addresses;
     this.wishProducts = this.db.allWishList(); 
-    //console.log(this.wishProducts);
     this.orders = this.db.allOrders();  
-
-     this.storage.get('user').then(data=>{ 
-       this.u = data;
-       this.UserExists = true;
-       //console.log(data);
-     },err=>{
-       console.error(err);
-     })
+    console.log(this.user);
+    
   }
 
   /*

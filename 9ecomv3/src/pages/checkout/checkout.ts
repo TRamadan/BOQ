@@ -5,7 +5,7 @@ import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import {Database } from '../../providers/database'
 import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
-import { Address ,User } from '../../templates/user';
+import { Address ,UsersProvider} from '../../providers/users/users';
 /**
  * Generated class for the Checkout page.
  *
@@ -40,7 +40,7 @@ export class CheckoutPage {
   tabBarElement: any;
   shippingTypes = [true, false, false];
   cart: Cart;
-  user : User;
+  user : any;
   db: Database;
   cities: string[];
   districts: string[];
@@ -50,17 +50,22 @@ export class CheckoutPage {
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+      private menu: MenuController,
+       private alertCtrl: AlertController,
+      public userProv : UsersProvider
+      ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
     
     this.db = Database.getInstance();
-    this.user = this.db.user;
+    this.user = this.userProv.getUser();
     this.savedAddresses = this.user.addresses;
-    this.cities = this.db.allCities();
-    this.districts = this.db.alldistrict();
-    this.countries = this.db.allCountries();
-    this.zipcodes = this.db.allZipCodes();
+    //this.cities = this.db.allCities();
+    //this.districts = this.db.alldistrict();
+    //this.countries = this.db.allCountries();
+    //this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
     this.cart = Cart.getInstance();
     this.shipping(0);
@@ -230,8 +235,8 @@ export class CheckoutPage {
     }
   }
   isValid(addr: Address) {
-    return (addr.city !== '' && addr.city !== undefined)
-      && (addr.country !== '' && addr.country !== undefined)
-    
+    return (addr.street !== '' && addr.houseNum !== undefined)
+      && (addr.city !== '' && addr.country !== undefined)
+      && (addr.district !== '' && addr.zipCode !== undefined)
   }
 }

@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import {Http}from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Storage}from '@ionic/storage';
-
-import {subcategory} from './sub-categories/sub-categories';
+import {subcategory} from '../providers/sub-categories/sub-categories';
 import {Product} from './product/product';
 import {Cart} from './cart/cart';
 import {Order} from './order/order';
 import { RootProvider } from "./root/root";
-import { User} from '../templates/user';
-import { Category } from './Category/category';
+import { Address} from '../providers/users/users';
+import { Category } from './category/category';
 
 
 
@@ -32,7 +31,6 @@ import { Category } from './Category/category';
 @Injectable()
 export class Database {
   storage : Storage;
-  user : User;
   categories: Category[];
   products: Product[];
   wishproducts: Product[];
@@ -40,6 +38,7 @@ export class Database {
   cart: Cart;
   filterTypes: any[];
 
+  Addresses : Address[];
   cities: string[];
   district: string[];
   countries: string[];
@@ -55,7 +54,7 @@ export class Database {
     if (!Database.isCreating) {
       throw new Error(`You can't call new in Singleton instance!`)
     } else {
-      this.user = new User();
+
       this.categories = new Array<Category>();
       this.products = new Array<Product>();
       this.wishproducts = new Array<Product>();
@@ -65,6 +64,7 @@ export class Database {
       this.district = new Array<string>();
       this.countries = new Array<string>();
       this.zipcodes = new Array<string>();
+      this.Addresses = new Array<Address>();
       this.initialize();
     }
   }
@@ -126,7 +126,8 @@ export class Database {
   }
 
   SaveAll(): void{
-    this.user != undefined && this.user.id != "0" ? this.storage.set('user',this.user) : null;
+    let storage : Storage;
+    this.storage = storage;
     this.district != undefined && this.district.length > 0 ? this.storage.set('district',this.district): null;
     this.cities != undefined && this.cities.length > 0 ? this.storage.set('cities',this.cities) : null ;
     this.countries != undefined && this.countries.length > 0 ? this.storage.set('countries',this.countries) : null;
@@ -190,6 +191,10 @@ export class Database {
     return this.zipcodes;
   }
 
+  
+
+  
+
 
 
   //Delete only one single item from the cart 
@@ -242,38 +247,5 @@ export class Database {
     return this.products;
   }
 
-  public async getItems(){
-    try{
-      return new Promise((resolve ,reject)=>{
-        this.http.get(`${RootProvider.APIURL3}item`).map(res=>res.json()).subscribe(data=>{
-          if(data== undefined || data.length == 0)
-    {
-      return reject([]);
-    }
-    else{
-      let items : Product[] = new Array();
-      for(let i = 0 ; i < data.length ; i++){
-        items[i] = new Product(data[i].prod_name,data[i].point_id,data[i].prod_sub_category,data[i].prod_image,data[i].prod_image2,data[i].quantity,data[i].measure_unit,data[i].prod_desc,data[i].point_id,data[i].price);
-      }
-     
-        }
-      })
-    })
-    
-   
-    }
-    catch(err){
-      console.error(err);
-
-    }
-  }
-
-
-  private async getCategories(){
-
-  }
-  private async getSubCategories  (items : Product[]){
-    return items;
-
-  }
+  
 }

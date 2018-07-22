@@ -14,6 +14,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Database } from '../providers/database';
 import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
+import { CategoryProvider} from '../providers/category/category';
+
 import { NativeStorage } from '@ionic-native/native-storage';
 
 
@@ -52,6 +54,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
     NativeStorage,
     RootProvider,
     UsersProvider,
+    CategoryProvider,
   ]
 })
 export class AppModule {}
