@@ -69,6 +69,7 @@
   </div>
 </ion-content>
 <ion-footer>
+<<<<<<< HEAD
     <div class="footer">
       <div class="button-left">
         <button ion-button full clear (click)="selectQty()">{{currentQty}}</button>
@@ -86,5 +87,16 @@
       <div class="button-right">
         <button ion-button full clear (click)="add2Cart()">Add to Cart</button>
       </div>
+=======
+  <div class="footer">
+    <div class="button-left">
+      <button ion-button full clear (tap)="quantityChange()">{{currentQty}}</button>
+      <ion-item class="quantity-select">
+        <ion-label>Quantity</ion-label>   
+      </ion-item>
+    </div>
+    <div class="button-right">
+      <button ion-button full clear (tap)="add2Cart()">Add to Cart</button>
+>>>>>>> ea660c1655d270f922682b8e1f6413c4f95bfb93
     </div>
   </ion-footer>
