@@ -1,5 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
 import 'rxjs/add/operator/map';
 
 /*
@@ -16,8 +17,8 @@ export class RootProvider {
   
   public static APIURL3 = "http://localhost:37871/api/";
   
-  constructor(public http: Http) {
+  constructor(public http: Http ) {
     console.log('Hello RootProvider Provider');
   }
-
+ 
 }

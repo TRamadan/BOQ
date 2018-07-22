@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { User } from '../../templates/user';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
@@ -19,7 +18,6 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  public user: User;
   public registerForm: FormGroup;
   public gender: string = "";
   public location: string = "";
@@ -55,32 +53,21 @@ export class SignupPage {
 
 
 
-  onRegester(): Observable<any> {
+  public async onRegester()  {
     if (this.registerForm.valid) {
       //console.log(this.gender);
       //console.log(this.location)
-      this.user = new User();
-      this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone).subscribe(data => {
-        //console.log(data);
-        if (data.length > 0) {
-          this.user = new User(data[0].USERID, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.password, this.registerForm.value.email, this.registerForm.value.phone)
-
-         // console.log(this.user);
-          this.storage.set('user', this.user); 
-          this.navCtrl.setRoot(TabsPage, { "user": this.user });
-        } else {
-          alert("Server Error");
-        }
-      }, err => {
-        alert("No Connection");
-      })
-    } else {
-    } 
-    return
+     
+      let bool = await this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone)  
+      if(bool == true){
+        this.navCtrl.setRoot(TabsPage);
+      }
+      
   }
   /*
   register() {
     this.navCtrl.setRoot('TabsPage');
   }
   */
+}
 }
