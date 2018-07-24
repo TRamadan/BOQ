@@ -116,12 +116,12 @@ export class HomePage {
     console.log(this.smallAds[this.adsCount][0]);
   } */
 
-  categories(id: string) { 
-    console.log(this.category_array); 
-    console.log(id);
-    this.menuItems.forEach(item => {
+  categories(id: string) {
+   // console.log(this.category_array);
+   // console.log(id);
+    this.category_array.forEach(item => {
       if(item.id === id) {
-        this.navCtrl.push('CategoriesPage', {'categories': item, 'subcat' : item.children[0].name.toLowerCase()});
+        this.navCtrl.push('CategoriesPage', {'category': item, 'subcat': item.children[0]});
       }
     })
   } 
