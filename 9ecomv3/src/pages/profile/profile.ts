@@ -116,15 +116,16 @@ export class ProfilePage {
      // size: wish.size,
     };
     let flgFound = false;
-    this.cart.products.forEach(item => {
-      if (item.product.id === cp.product.id) {
+    this.cart.products.forEach(Wish => {
+      if (Wish.product.id === cp.product.id) {
         flgFound = true;
-        item.quantity = parseInt(item.quantity.toString()) + parseInt(cp.quantity.toString());
+        Wish.quantity = parseInt(Wish.quantity.toString()) + parseInt(cp.quantity.toString());
       }
     })
     if (!flgFound) {
-      this.cart.products.push(cp); 
-    }
+      this.cart.products.push(cp);  
+    } 
+    
   }
 
   removeWish(wish: Product) {

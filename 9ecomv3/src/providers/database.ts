@@ -173,7 +173,7 @@ export class Database {
 
   addWish(wish): void {
     this.wishproducts.push(wish);
-    //console.log(this.wishproducts);
+    console.log(this.wishproducts);
   }
 
   allCities(): string[] {
@@ -220,7 +220,7 @@ export class Database {
 
   addOrder(order: Order) {
     this.orders.push(order);
-
+    console.log(order);
     this.orders = this.orders.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
   }
 

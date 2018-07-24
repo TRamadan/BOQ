@@ -22,7 +22,6 @@ export class ProductPage {
   public specific_item : any;
   @ViewChild('qtySelect') qtySelect: Select; 
 
-
   currentQty: string = 'Qty: 1';
   quantity: number = 1;
   currentColor: string;
@@ -91,14 +90,14 @@ export class ProductPage {
     this.product.love = !this.product.love;
     setTimeout(() => {
       if(this.product.love) {
-        this.db.addWish(this.specific_item)
+        this.db.addWish(this.specific_item) 
+        console.log(this.specific_item);
       } else {
         this.db.removeProductWish();
       }
     }, 150);
     
-  }
- 
+  } 
   
   quantityChange() {
     //console.log(this.quantity);

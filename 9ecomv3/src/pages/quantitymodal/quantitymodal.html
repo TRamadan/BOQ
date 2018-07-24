@@ -7,16 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title></ion-title>
+    <h4 style="text-align:center">
+      Quantity
+    </h4>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding> 
-  <ion-label>Type here the quantity</ion-label>
-  <ion-input [(ngModel)]="quant"  type="number">
-  </ion-input> 
+<ion-content padding>
 
-  <button ion-button full clear (tap) = "dismiss()">Done</button>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label floating>Type quantity</ion-label>
+      <ion-input [(ngModel)]="quant" type="number">
+      </ion-input>
+    </ion-item>
+  </ion-list>
+
+
+  <button ion-button full clear (tap)="dismiss()">Done</button>
 </ion-content>

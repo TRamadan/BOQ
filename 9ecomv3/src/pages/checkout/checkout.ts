@@ -169,7 +169,7 @@ export class CheckoutPage {
     } else {
       if (this.isValid(this.newAddress)) {
         // add order
-        let order = new Order();
+        let order = new Order("-1",new Date(),"");
         order.id = 'SC' + + (new Date()).getTime().toString();
         order.date = new Date();
         order.status = 'Processing';

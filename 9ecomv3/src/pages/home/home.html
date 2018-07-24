@@ -49,8 +49,14 @@
         </ion-col> 
       </ion-row>
 
-    </ion-list> 
+    </ion-list>  
+
+    <div *ngIf="ReadyCats">
+      <div *ngFor="let item of items">
+       {{item.name}}
+      </div>
+    </div>
   </div> 
 
-  
+
 </ion-content>

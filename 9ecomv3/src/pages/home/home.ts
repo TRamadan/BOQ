@@ -64,6 +64,8 @@ export class HomePage {
   //this variable is to get the all the categories with all items and all subcategories
   category_array = [];
 
+  //this is a variable
+
   //this is a flag to show that the categories are ready to be loaded 
   //ReadyCats : boolean = false; 
 
@@ -84,13 +86,19 @@ export class HomePage {
     let db = Database.getInstance();
     this.menuItems = db.parentCategory(); */
   } 
+   
+  
 
-  ionViewDidEnter() {
-    var detail = this.navParams.get('subcat');
-    var parent = this.navParams.get('category');
-    if(detail !== undefined) {
+  ionViewDidEnter() { 
+    // this variable is to get the subcategories, when the categoriespage is pushed , 
+    // the subcategories is loaded as needed
+    var subcategories = this.navParams.get('subcat'); 
+
+    //Also this variable is needed to
+    var Category = this.navParams.get('categories');
+    if(subcategories !== undefined) {
       this.navParams.data.detail = undefined;
-      this.navCtrl.push('CategoriesPage', {menus: parent, select: detail});
+      this.navCtrl.push('CategoriesPage', {menus: Category, select: subcategories});
     }
   }
 
@@ -108,12 +116,12 @@ export class HomePage {
     console.log(this.smallAds[this.adsCount][0]);
   } */
 
-  categories(id: string) {
-   // console.log(this.category_array);
-   // console.log(id);
-    this.category_array.forEach(item => {
+  categories(id: string) { 
+    console.log(this.category_array); 
+    console.log(id);
+    this.menuItems.forEach(item => {
       if(item.id === id) {
-        this.navCtrl.push('CategoriesPage', {'category': item, 'subcat': item.children[0]});
+        this.navCtrl.push('CategoriesPage', {'categories': item, 'subcat' : item.children[0].name.toLowerCase()});
       }
     })
   } 

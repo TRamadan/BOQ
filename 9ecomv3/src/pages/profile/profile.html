@@ -87,7 +87,7 @@
                 <div class="price">LE {{wish.price - wish.discount}}</div>
                 <div class="old-price">LE {{wish.price}}</div>
               </div>
-              <button *ngIf="wish.status === 'in'" class="add-button" round small ion-button clear (tap)="add2Cart(wish)">Add to bag</button>
+              <button *ngIf="wish.status === 'in'" class="add-button" round small ion-button clear (tap)="add2Cart(wish)">Add to cart</button>
               <button *ngIf="wish.status === 'out'" round small ion-button clear></button>
              
               <!--

@@ -151,24 +151,26 @@
             </div>
           </div>
         </div>
-        <div class="payment-type">
+        <div class="payment-type"> 
+
+          <!-- Place the value behaved as the id of the payment operation -->
           <ion-list radio-group [(ngModel)]="paymentType">
             <ion-item>
               <ion-icon [class.selected]="paymentType==='cash'" item-left name="cash"></ion-icon>
               <ion-label [class.selected]="paymentType==='cash'">Cash on delivery</ion-label>
-              <ion-radio value="cash"></ion-radio>
+              <ion-radio value="1"></ion-radio>
             </ion-item>
 
             <ion-item>
               <ion-icon [class.selected]="paymentType==='wallet'" item-left name="closed-captioning"></ion-icon>
               <ion-label [class.selected]="paymentType==='wallet'">E-wallet</ion-label>
-              <ion-radio value="wallet"></ion-radio>
+              <ion-radio value="2"></ion-radio>
             </ion-item>
 
             <ion-item>
               <ion-icon [class.selected]="paymentType==='card'" item-left name="card"></ion-icon>
               <ion-label [class.selected]="paymentType==='card'">Credit Card</ion-label>
-              <ion-radio value="card"></ion-radio>
+              <ion-radio value="3"></ion-radio>
             </ion-item>
           </ion-list>
         </div>
@@ -191,9 +193,7 @@
           <div class="title-wrapper">
             <div class="title">Shipping to
             </div>
-            <div class="wrap-edit-button">
-              <button class="edit-button" ion-button clear small>Edit</button>
-            </div>
+           
           </div>
           <div class="shipping-detail" *ngIf="isValid(newAddress)">
             <div class="name">
@@ -211,9 +211,7 @@
           <div class="title-wrapper">
             <div class="title">Your order
             </div>
-            <div class="wrap-edit-button">
-              <button class="edit-button" ion-button clear small>Edit</button>
-            </div>
+            
           </div>
           <ion-list class="cart-list">
             <ion-item class="cart-list-item" *ngFor="let item of cart.products">
@@ -232,9 +230,7 @@
           <div class="title-wrapper">
             <div class="title">Payment summary
             </div>
-            <div class="wrap-edit-button">
-              <button class="edit-button" ion-button clear small>Edit</button>
-            </div>
+           
           </div>
           <div class="order-total">
             <div class="title">
