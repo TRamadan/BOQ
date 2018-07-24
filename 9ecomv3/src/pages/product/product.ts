@@ -1,8 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Select, ModalController, PopoverController } from 'ionic-angular';
-import { Product, Cart, Database } from '../../providers/database'
+import {App, IonicPage, NavController, NavParams, Select } from 'ionic-angular';
+import { Database } from '../../providers/database';
+import { Product } from '../../providers/product/product';
+import { Cart} from '../../providers/cart/cart';
 import { TabsPage } from '../tabs/tabs';
-import { QuantitymodalPage } from '../quantitymodal/quantitymodal';
 
 /**
  * Generated class for the Product page.
@@ -18,11 +19,12 @@ import { QuantitymodalPage } from '../quantitymodal/quantitymodal';
 export class ProductPage {
   cb: boolean[] = [false, true, false, false, false]
   size: boolean[] = [false, true, false, false, false]
-  public specific_item : any
+  public specific_item : any;
+  @ViewChild('qtySelect') qtySelect: Select; 
 
 
   currentQty: string = 'Qty: 1';
-  quantity: number = 1 ;
+  quantity: number = 1;
   currentColor: string;
   currentSize: string;
   hideIt: boolean = true;
@@ -30,14 +32,14 @@ export class ProductPage {
   product: Product;
   cart: Cart;
   db: Database;
-  constructor(public popoverCtrl : PopoverController , public app : App , public navCtrl: NavController, public navParams: NavParams) {
-   // this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+  constructor(public app : App , public navCtrl: NavController, public navParams: NavParams) {
+    this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
     //this.cart.clear();
     this.specific_item = this.navParams.get('product');
-    console.log(this.specific_item);
+    //console.log(this.specific_item);
   /*
     if (this.product.colors.length > 0) {
       this.clearColor(1);
@@ -80,6 +82,10 @@ export class ProductPage {
    // this.currentSize = this.product.sizes[pos];
   }
 
+  selectQty() {
+    this.qtySelect.open();
+  }
+
   loveIt() { 
     console.log("favorait icon is pressed")
     this.product.love = !this.product.love;
@@ -95,13 +101,8 @@ export class ProductPage {
  
   
   quantityChange() {
-    
+    //console.log(this.quantity);
     this.currentQty = 'Qty: ' + this.quantity.toString();
-    console.log(this.quantity);
-
-    //open modal 
-    let quantitymodal = this.popoverCtrl.create(QuantitymodalPage , {'Quantity' : this.quantity }); 
-    quantitymodal.present();
   }
 
   goCart() {
@@ -111,7 +112,7 @@ export class ProductPage {
   add2Cart() { 
     let flgFound = false;
     this.cart.products.forEach(specific_item => {
-      console.log(specific_item)
+      //console.log(specific_item)
 
       if (specific_item.product != undefined && specific_item.product.id === this.product.id) {
         flgFound = true;
@@ -126,7 +127,6 @@ export class ProductPage {
     setTimeout(() => {
       this.navCtrl.pop();
     }, 300);
-  } 
-
+  }
 
 }

@@ -37,80 +37,60 @@
 
       <div [ngSwitch]="address">
         <div class="new-address" *ngSwitchCase="'new'">
-          <ion-list class="address-form" *ngIf="user_exist">
+          <ion-list class="address-form">
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>First name</ion-label>
-                  <ion-input type="text" [(ngModel)]="user.name"></ion-input>
+                  <ion-label stacked>House Num</ion-label>
+                  <ion-input type="number" [(ngModel)]="newAddress.houseNum"></ion-input>
                 </ion-item>
               </ion-col>
-              <!--
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>Last name</ion-label>
-                  <ion-input type="text" [(ngModel)]="newAddress.lastname"></ion-input>
+                  <ion-label stacked>Street</ion-label>
+                  <ion-input type="text" [(ngModel)]="newAddress.street"></ion-input>
                 </ion-item>
-              </ion-col> -->
+              </ion-col>
             </ion-row>
             <ion-item>
-              <ion-label stacked>Address</ion-label>
-              <ion-input  type="text" [(ngModel)]="user.location"></ion-input>
+              <ion-label stacked>Block</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.Block"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label stacked>E-mail</ion-label>
-                <ion-input  type="text" [(ngModel)]="user.email"></ion-input>
-              </ion-item>
-            <ion-item>
-              <ion-label stacked>Phone number</ion-label>
-              <ion-input type="text" [(ngModel)]="user.phone"></ion-input>
+              <ion-label stacked>district</ion-label>
+              <ion-input type="text" [(ngModel)]="newAddress.district"></ion-input>
             </ion-item>
 
             <ion-row>
-              <!--
               <ion-col>
-                
                 <ion-item>
                   <ion-label stacked>City</ion-label>
-                  <ion-select [(ngModel)]="newAddress.city">
-                    <ion-option *ngFor="let c of cities" [value]="c" [selected]="newAddress.city === c">{{c}}</ion-option>
-                  </ion-select>
+                  
+                    <ion-input type="text" [(ngModel)]="newAddress.city"></ion-input>
+                  
                 </ion-item>
               </ion-col>
-              
-              <ion-col>
-                <ion-item>
-                  <ion-label stacked>State</ion-label>
-                  <ion-select [(ngModel)]="newAddress.state">
-                    <ion-option *ngFor="let s of states" [value]="s" [selected]="newAddress.state === s">{{s}}</ion-option>
-                  </ion-select>
-                </ion-item>
-              </ion-col> -->
             </ion-row>
 
             <ion-row>
-              <!--
               <ion-col>
                 <ion-item>
                   <ion-label stacked>Country</ion-label>
-                  <ion-select [(ngModel)]="newAddress.country">
-                    <ion-option *ngFor="let c of countries" [value]="c" [selected]="newAddress.country === c">{{c}}</ion-option>
-                  </ion-select>
+                  
+                    <ion-input type="text" [(ngModel)]="newAddress.country"></ion-input>
+                  
                 </ion-item>
-              </ion-col> -->
-              
-              <!-- <ion-col>
+              </ion-col>
+              <ion-col>
                 <ion-item>
                   <ion-label stacked>Zip Code</ion-label>
-                  <ion-select [(ngModel)]="newAddress.zipcode">
-                    <ion-option *ngFor="let z of zipcodes" [value]="z" [selected]="newAddress.zipcode === z">{{z}}</ion-option>
-                  </ion-select>
+                
+                    <ion-input type="text" [(ngModel)]="newAddress.zipCode"></ion-input>
+                  
                 </ion-item>
-              </ion-col> -->
+              </ion-col>
             </ion-row>
           </ion-list>
-          
-          
           <div class="delivery">
             <div class="title">Delivery</div>
             <div class="action-button-wrapper">
@@ -119,32 +99,31 @@
                 <div class="delivery-type">Standard</div>
               </div>
               <div class="action-button-box" [class.checked]="shippingTypes[1]">
-                <button ion-button clear (click)="shipping(1)">LE 15</button>
+                <button ion-button clear (click)="shipping(1)">$ 15</button>
                 <div class="delivery-type">Standard</div>
               </div>
               <div class="action-button-box" [class.checked]="shippingTypes[2]">
-                <button ion-button clear (click)="shipping(2)">LE 25</button>
+                <button ion-button clear (click)="shipping(2)">$ 25</button>
                 <div class="delivery-type">Next-day</div>
               </div>
             </div>
-          </div> 
-
+          </div>
         </div>
 
         <div class="saved-address" *ngSwitchCase="'saved'">
           <div class="address-container">
             <ion-list class="address-list">
-              <ion-item-sliding *ngFor="let x of addresses">
-                <ion-item class="address-list-item">
-                  <a (click)="chooseAddress(x)"><h2>{{x.name}}</h2></a>
-                  <div class="detail">{{x.location}},</div>
-                  <div class="detail">{{x.phone}}</div>
+              <ion-item-sliding *ngFor="let addr of savedAddresses">
+                <ion-item class="address-list-item" (tap)="chooseAddress(addr)">
+                <h2>{{addr.houseNum}} {{addr.street}}</h2>
+                  <div class="detail">{{addr.Block}},</div>
+                  <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
                   <div item-right class="right-bag">
-                    <button ion-button clear (tap)="editAddress(x)">Edit</button>
+                    <button ion-button clear (click)="editAddress(addr)">Edit</button>
                   </div>
                 </ion-item>
                 <ion-item-options class="actiion-button" side="right">
-                  <button ion-button icon-only color="danger" (tap)="removeAddress(u)">
+                  <button ion-button icon-only color="danger" (click)="removeAddress(addr)">
                     <ion-icon name="trash"></ion-icon>
                   </button>
                 </ion-item-options>
@@ -198,7 +177,7 @@
             Total Amount
           </div>
           <div class="amount">
-            LE {{cart.promoTotal()}}
+            $ {{cart.promoTotal()}}
           </div>
         </div>
       </div>
@@ -216,15 +195,15 @@
               <button class="edit-button" ion-button clear small>Edit</button>
             </div>
           </div>
-          <div class="shipping-detail" *ngIf="isValid(user) && user_exist">
+          <div class="shipping-detail" *ngIf="isValid(newAddress)">
             <div class="name">
-              {{user.name}}
+              {{newAddress.firstname}} {{newAddress.lastname}}
             </div>
             <div class="address">
-              {{user.location}},
+              {{newAddress.address}},
             </div>
             <div class="state">
-             {{user.phone}}
+              {{newAddress.city}}, {{newAddress.state}}, {{newAddress.country}}, {{newAddress.phone}}
             </div>
           </div>
         </div>
@@ -244,7 +223,7 @@
               <h2>{{item.product.name}}</h2>
               
               <div class="price-wrapper">
-                <div class="price">LE {{item.product.price - item.product.discount}}</div>
+                <div class="price">$ {{item.product.price - item.product.discount}}</div>
               </div>
             </ion-item>
           </ion-list>
@@ -262,7 +241,7 @@
               Order Total
             </div>
             <div class="amount">
-              LE {{cart.promoTotal()}}
+              $ {{cart.promoTotal()}}
             </div>
           </div>
           <div class="delivery-charge">
@@ -281,7 +260,7 @@
               Total Amount
             </div>
             <div class="amount">
-              LE {{cart.promoTotal() + cart.delivery}}
+              $ {{cart.promoTotal() + cart.delivery}}
             </div>
           </div>
         </div>

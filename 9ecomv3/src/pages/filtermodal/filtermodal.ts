@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Product, Database } from '../../providers/database';
+import { Database } from '../../providers/database';
+import { Product} from '../../providers/product/product';
 /**
  * Generated class for the Filtermodal page.
  *
@@ -64,7 +65,7 @@ export class FilterModalPage {
   }
 
   applyFilter() {
-    console.log('Apply Filter');
+    //console.log('Apply Filter');
     let filterList = new Array<any>();
 
     let newProducts = new Array<Product>();

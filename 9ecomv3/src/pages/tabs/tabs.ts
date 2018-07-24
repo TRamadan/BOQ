@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
-import { Cart } from '../../providers/database';
+import { Cart } from '../../providers/cart/cart';
 /**
  * Generated class for the Tabs tabs.
  *

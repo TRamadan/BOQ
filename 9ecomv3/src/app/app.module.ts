@@ -11,20 +11,17 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // Mock Data
-import { Database, Cart } from '../providers/database';
+import { Database } from '../providers/database';
 import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
+import { CategoryProvider} from '../providers/category/category';
+
 import { NativeStorage } from '@ionic-native/native-storage';
-import { ProductProvider } from '../providers/product/product';
-import { CategoriesProvider } from '../providers/categories/categories'; 
 
-
-import { QuantitymodalPage } from "../pages/quantitymodal/quantitymodal";
 
 @NgModule({
   declarations: [
-    Ecom9App,
-    QuantitymodalPage
+    Ecom9App
   ],
   imports: [
     BrowserModule,
@@ -46,7 +43,7 @@ import { QuantitymodalPage } from "../pages/quantitymodal/quantitymodal";
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    Ecom9App,QuantitymodalPage
+    Ecom9App
   ],
   providers: [
     StatusBar,
@@ -55,12 +52,9 @@ import { QuantitymodalPage } from "../pages/quantitymodal/quantitymodal";
     InAppBrowser,
     Database, 
     NativeStorage,
-
-    Cart,
     RootProvider,
     UsersProvider,
-    ProductProvider,
-    CategoriesProvider
+    CategoryProvider,
   ]
 })
 export class AppModule {}

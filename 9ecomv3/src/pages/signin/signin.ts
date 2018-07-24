@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
-import { User } from '../../templates/user';
+
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
-import { UsersProvider } from '../../providers/users/users';
+import { User, UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 
 
@@ -19,14 +19,21 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'signin.html',
 })
 export class SigninPage {
-  public user :User ;
-  public loginForm : FormGroup;
-  
-  constructor(public menuctrl : MenuController , public storage : Storage , public userProvider : UsersProvider , public formBuilder : FormBuilder , public navCtrl: NavController, public navParams: NavParams) { 
-    
+  public user: User;
+  public loginForm: FormGroup;
+
+  constructor(public menuctrl: MenuController
+    , public storage: Storage
+    , public userProvider: UsersProvider
+    , public formBuilder: FormBuilder
+    , public navCtrl: NavController
+    , public navParams: NavParams
+  ) {
+
     this.menuctrl.enable(false);
 
-    this.buildForm();}
+    this.buildForm();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SigninPage');
@@ -40,32 +47,23 @@ export class SigninPage {
 
   register() {
     this.navCtrl.push('SignupPage');
-  } 
+  }
 
-  buildForm()
-  {
+  buildForm() {
     this.loginForm = this.formBuilder.group({
-  
-      password : ['',[Validators.required,Validators.maxLength(20),Validators.minLength(6)]],
-      email : ['',[Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]]
-    })
-  } 
 
-  public onLogin(){
-    if(this.loginForm.valid){
-      this.userProvider.login(this.loginForm.value.email,this.loginForm.value.password).subscribe(data=>{
-        if(data.length >0){
-          let tempGender = data[0].UserGender==1 ? 'Male': 'Female'; 
-          this.user = new User(data[0].UserID,data[0].UserName,tempGender,data[0].UserAddress,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile)
-          console.log(this.user);
-          this.storage.set("user",this.user);
-          this.navCtrl.setRoot(TabsPage , {"user" : this.user});
-        }else{
-          alert("Worng Username Or Password");
-        }
-      },err=>{
-        alert("No Connection");
-      })
+      password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]]
+    })
+  }
+
+  public async onLogin() {
+    if (this.loginForm.valid) {
+      let temp = await this.userProvider.login(this.loginForm.value.email, this.loginForm.value.password);
+      console.log(temp);
+      if (temp ==true) {
+        this.navCtrl.setRoot(TabsPage);
+      }
     }
   }
 }

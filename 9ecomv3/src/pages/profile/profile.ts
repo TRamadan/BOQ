@@ -1,8 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { WishProduct, CartProduct, Order, Address, Cart, Database } from '../../providers/database'
-import { Storage } from "@ionic/storage";
+
+
+import { Database } from '../../providers/database';
+import { Cart,CartProduct} from '../../providers/cart/cart';
+import { User , Address ,UsersProvider} from '../../providers/users/users';
+import { Product } from '../../providers/product/product';
+import { Order } from '../../providers/order/order';
 /**
  * Generated class for the Profile page.
  *
@@ -35,30 +40,27 @@ export class ProfilePage {
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   db: Database;
   savedAddresses: Address[];
-  wishProducts: WishProduct[]; 
+  wishProducts: Product[]; 
   userarray : any =  [];
   orders: Order[];
   cart: Cart; 
+  user : User;
   
   // this a flag to show the user is exists or not to show his data in the profile
-  UserExists : boolean = false;
-
-  constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private menu: MenuController) {
+  constructor(public navCtrl: NavController
+    , public navParams: NavParams
+    , private menu: MenuController
+    , public userProv : UsersProvider
+  ) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
-    this.savedAddresses = this.db.allSavedAdddress();
+    this.user = this.userProv.getUser();
+    this.savedAddresses = this.user.addresses;
     this.wishProducts = this.db.allWishList(); 
-    console.log(this.wishProducts);
     this.orders = this.db.allOrders();  
-
-     this.storage.get('user').then(data=>{ 
-       this.u = data;
-       this.UserExists = true;
-       console.log(data);
-     },err=>{
-       console.log(err);
-     })
+    console.log(this.user);
+    
   }
 
   /*
@@ -86,7 +88,7 @@ export class ProfilePage {
   }
 
   swipeEvent($e) {
-    console.log('before', $e.direction);
+    //console.log('before', $e.direction);
     switch ($e.direction) {
       case 2: // left
         this.scrollTab.nextTab();
@@ -102,13 +104,13 @@ export class ProfilePage {
   }
 
   removeAddress(addr: Address) {
-    this.db.removeSavedAddress(addr);
+    this.user.removeSavedAddress(addr);
   }
 
-  add2Cart(wish: WishProduct) {
+  add2Cart(wish: Product) {
     let cp: CartProduct;
     cp = {
-      product: wish.product,
+      product: wish,
       quantity: 1,
      // color: wish.color,
      // size: wish.size,
@@ -125,7 +127,7 @@ export class ProfilePage {
     }
   }
 
-  removeWish(wish: WishProduct) {
+  removeWish(wish: Product) {
     this.db.removeWish(wish);
   }
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {Category,subcategory, Product, Database } from '../../providers/database';
-
+import { Category} from '../../providers/category/category';
+import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
+import {Database} from '../../providers/database';
 /**
  * Generated class for the Search page.
  *
@@ -20,6 +21,7 @@ export class SearchPage {
   catsArr: Category[];
   mark: string;
   Ready: boolean;
+  dataBase : Database;
   constructor(
     public storage: Storage,
     public navCtrl: NavController,
@@ -29,6 +31,7 @@ export class SearchPage {
     this.results = new Array<Product>();
     this.catsArr = new Array<Category>();
     this.Ready=false;
+    this.dataBase =Database.getInstance();
     this.initializeItems();
   }
 
@@ -39,8 +42,8 @@ export class SearchPage {
   initializeItems() {
     //let db = Database.getInstance();
     //this.results = db.allProduct();
-    this.storage.get("appData").then(data=>{
-      this.catsArr = <Category[]>data;
+    
+      this.catsArr = this.dataBase.allCategory();
      
       for (let i =0 ;i<this.catsArr.length;i++) {
         
@@ -52,11 +55,9 @@ export class SearchPage {
           }
         }
       }
-      console.log(this.results);
+      //console.log(this.results);
       this.Ready=true;
-    },err=>{
-      console.error(err);
-    })
+   
   }
 
   getItems(ev: any) {
@@ -72,7 +73,7 @@ export class SearchPage {
       this.results = this.results.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
-      console.log(this.results);
+      //console.log(this.results);
     } else {
       this.results = [];
     }

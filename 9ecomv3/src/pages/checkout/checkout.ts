@@ -2,10 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, Content, AlertController } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-import { Address, Cart, Order, Database } from '../../providers/database';
-
-import { Storage } from "@ionic/storage";
-import { User } from '../../templates/user';
+import {Database } from '../../providers/database'
+import { Cart } from '../../providers/cart/cart';
+import { Order } from '../../providers/order/order';
+import { Address ,UsersProvider} from '../../providers/users/users';
 /**
  * Generated class for the Checkout page.
  *
@@ -17,13 +17,7 @@ import { User } from '../../templates/user';
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
 })
-
 export class CheckoutPage {
-
-  public user: User;
-
-  public user_exist: boolean = false;
-
   tabs: IScrollTab[] = [
     {
       name: 'Shipping',
@@ -36,7 +30,7 @@ export class CheckoutPage {
       name: 'Confirmation',
     },
   ];
-  useraddress: Address;
+  newAddress: Address;
   step: string = 'Continue to payment';
   selectedTab: IScrollTab;
   address: string = 'new';
@@ -46,35 +40,35 @@ export class CheckoutPage {
   tabBarElement: any;
   shippingTypes = [true, false, false];
   cart: Cart;
+  user : any;
   db: Database;
   cities: string[];
-  states: string[];
+  districts: string[];
   countries: string[];
   zipcodes: string[];
-  savedAddresses: Address[];
+  savedAddresses: Address[]; 
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public storage: Storage, public navCtrl: NavController, public navParams: NavParams, private menu: MenuController, private alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+      private menu: MenuController,
+       private alertCtrl: AlertController,
+      public userProv : UsersProvider
+      ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-    this.useraddress = new Address();
+    this.newAddress = new Address();
+    
     this.db = Database.getInstance();
-    this.savedAddresses = this.db.allSavedAdddress();
-    this.cities = this.db.allCities();
-    this.states = this.db.allStates();
-    this.countries = this.db.allCountries();
-    this.zipcodes = this.db.allZipCodes();
+    this.user = this.userProv.getUser();
+    this.savedAddresses = this.user.addresses;
+    //this.cities = this.db.allCities();
+    //this.districts = this.db.alldistrict();
+    //this.countries = this.db.allCountries();
+    //this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
     this.cart = Cart.getInstance();
     this.shipping(0);
-
-    this.storage.get('user').then(data => {
-      this.user = data;
-      console.log(data); 
-      this.user_exist = true;
-    }, err => {
-      console.log(err);
-    })
   }
 
   ionViewWillLeave() {
@@ -107,7 +101,7 @@ export class CheckoutPage {
   }
 
   swipeEvent($e) {
-    console.log('before', $e.direction);
+    //console.log('before', $e.direction);
     switch ($e.direction) {
       case 2: // left
         this.scrollTab.nextTab();
@@ -140,24 +134,22 @@ export class CheckoutPage {
       }
     }
   }
-  stepping(userdata) {
+  stepping() {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
-        let flgFound = false; 
-        this.savedAddresses.forEach(u => {
-          if (u === this.useraddress) {
+        let flgFound = false;
+        this.savedAddresses.forEach(addr => {
+          if (addr === this.newAddress) {
             flgFound = true;
           }
         });
         if (!flgFound) {
-          if (this.isValid(this.user)) {
-            this.db.addSavedAddress(this.useraddress); 
-            
-            console.log(this.useraddress);
+          if (this.isValid(this.newAddress)) {
+            this.user.addSavedAddress(this.newAddress);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
-              title: 'Address Information',
+              title: 'Address Information 1',
               subTitle: 'Please enter neccessary address information.',
               buttons: [{
                 text: 'OK',
@@ -169,13 +161,13 @@ export class CheckoutPage {
             alert.present();
           }
         } else {
-          this.scrollTab.nextTab();
+          this.scrollTab.nextTab();  
         }
       } else {
         this.scrollTab.nextTab();
       }
     } else {
-      if (this.isValid(this.useraddress)) {
+      if (this.isValid(this.newAddress)) {
         // add order
         let order = new Order();
         order.id = 'SC' + + (new Date()).getTime().toString();
@@ -187,7 +179,7 @@ export class CheckoutPage {
         this.navCtrl.push('ThankPage');
       } else {
         let alert = this.alertCtrl.create({
-          title: 'Address Information',
+          title: 'Address Information 2',
           subTitle: 'Please enter neccessary address information.',
           buttons: ['OK']
         });
@@ -196,17 +188,17 @@ export class CheckoutPage {
     }
   }
 
-  chooseAddress(u) {
-    this.useraddress = u;
+  chooseAddress(addr) {
+    this.newAddress = addr;
     this.address = 'new';
   }
 
-  editAddress(u: Address) {
-    console.log("Edited ...");
+  editAddress(addr: Address) {
+
   }
 
-  removeAddress(u: Address) {
-    this.db.removeSavedAddress(u);
+  removeAddress(addr: Address) {
+    this.user.removeSavedAddress(addr);
   }
 
   information() {
@@ -219,7 +211,7 @@ export class CheckoutPage {
   }
 
   promotion() {
-    console.log(this.promotionCode);
+   // console.log(this.promotionCode);
     if (this.promotionCode === '#812006') {
       let alert = this.alertCtrl.create({
         title: 'Promotion',
@@ -242,10 +234,9 @@ export class CheckoutPage {
       alert.present();
     }
   }
-  isValid(users: Address) {
-    return (users.name !== '' && users.name !== undefined)
-      && (users.location !== '' && users.location !== undefined)
-      && (users.phone !== '' && users.phone !== undefined)
-      && (users.email !== '' && users.email !== undefined)
+  isValid(addr: Address) {
+    return (addr.street !== '' && addr.houseNum !== undefined)
+      && (addr.city !== '' && addr.country !== undefined)
+      && (addr.district !== '' && addr.zipCode !== undefined)
   }
 }

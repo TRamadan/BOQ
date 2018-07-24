@@ -28,24 +28,21 @@
             </div>
           </div>
         </div> 
-        <div *ngIf="UserExists">
+        
         <ion-list class="info-list">
           <ion-item>
             <ion-icon class="info-icon" item-left name="person"></ion-icon>
-            <div class="info-detail">{{u.name}}</div>
+            <div class="info-detail">{{user.name}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>
-            <div class="info-detail">{{u.email}}</div>
+            <div class="info-detail">{{user.email}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="phone-portrait"></ion-icon>
-            <div class="info-detail">{{u.phone}}</div>
+            <div class="info-detail">{{user.phone}}</div>
           </ion-item> 
-          <ion-item>
-            <ion-icon class="info-icon" item-left name="pin"></ion-icon>
-            <div class="info-detail">{{u.location}}</div>
-          </ion-item>
+          
          
           <!--
           <ion-item>
@@ -54,7 +51,7 @@
           </ion-item> -->
 
         </ion-list> 
-      </div>
+  
       </div>
     </div>
     <!-- END PROFILE -->
@@ -116,9 +113,9 @@
         <ion-list class="address-list">
           <ion-item-sliding *ngFor="let addr of savedAddresses">
             <ion-item class="address-list-item">
-              <h2>{{addr.firstname}} {{addr.lastname}}</h2>
-              <div class="detail">{{addr.address}},</div>
-              <div class="detail">{{addr.city}}, {{addr.state}}, {{addr.country}} {{addr.phone}}</div>
+              <h2>{{addr.houseNum}} {{addr.street}}</h2>
+              <div class="detail">{{addr.Block}},</div>
+              <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
               <div item-right class="right-bag">
                 <button ion-button clear (click)="editAddress(addr)">Edit</button>
               </div>
