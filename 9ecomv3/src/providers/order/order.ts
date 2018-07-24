@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
 
 /*
   Generated class for the OrderProvider provider.
@@ -12,11 +13,37 @@ export class Order {
   id: string;
   date: Date;
   status: string;
-  http : HttpClient
-  
-  constructor(id="",date= new Date(),status="") {
-  this.id=id;
-  this.date=date;
-  this.status=status;
+  orderAPi : string ="";
+
+  orderData : {
+    userId : string,
+    paymentId : string,
+    shippingId : string,
+    totalPrice : number,
+    invoice_id :string,
+    orderDate  : Date,
+    deleveryAddress : String,
+    deleveryLong : number,
+    deleverLatt : number,
+    items : [{
+      itemId : string,
+      quantity : string
+    }]
+
+    http :Http
+
+
+
   }
+  
+  constructor(id :String ,date :Date = new Date() ,status: string  ) {
+ 
+  }
+
+  addOrder(){
+
+  }
+
+  
 }
+

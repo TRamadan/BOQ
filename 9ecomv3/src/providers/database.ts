@@ -105,7 +105,7 @@ export class Database {
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
 
-    
+    /*
     let id = 'SC' + (new Date(now.getTime() - 2*day)).getTime().toString();
     let date = new Date(now.getTime() - 2*day);
     let status = 'Dispatched';
@@ -120,6 +120,7 @@ export class Database {
      date = new Date(now.getTime() - 15*day);
      status = 'Delivered';
     this.orders.push(new Order(id ,date , status ));
+  */
     
  
     

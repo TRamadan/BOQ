@@ -82,7 +82,8 @@ export class Ecom9App {
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();
       this.catProv.getCategories().then(data=>{
-        this.catArray = data;
+        this.database.categories = data;
+        this.catArray = this.database.categories;
       });
       
       //console.log(this.database);

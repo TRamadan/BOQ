@@ -4,6 +4,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { Storage } from "@ionic/storage";
 import { Category } from '../../providers/category/category';
+import { Database} from '../../providers/database';
 /**
  * Generated class for the Home page.
  *
@@ -56,27 +57,24 @@ export class HomePage {
   ];
 
 
-  
   adsCount: number = 0;
-  menuItems: Category[]; 
+  menuItems: Category[];
   
+  dataBase : Database;
   //this variable is to get the all the categories with all items and all subcategories
   category_array = [];
 
   //this is a flag to show that the categories are ready to be loaded 
-  ReadyCats : boolean = false; 
+  //ReadyCats : boolean = false; 
 
   @ViewChild('sliders') slider: Slides;
   constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
     
     // getting all the categories saved in the storage
-    this.storage.get('appData').then(data =>{ 
-      this.category_array = data;
-      //console.log(data);
-      this.ReadyCats = true;
-    },err=>{
-      console.error(err);
-    });
+    this.dataBase = Database.getInstance();
+    console.log(this.dataBase);
+    this.category_array = this.dataBase.allCategory();
+    
     /*
     this.smallAds.forEach(ads => {
       ads.forEach(item => {
