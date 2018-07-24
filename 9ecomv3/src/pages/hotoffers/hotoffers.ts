@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { Category} from '../../providers/category/category';
+import { Storage } from "@ionic/storage";
 /**
  * Generated class for the HotOffer page.
  *

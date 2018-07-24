@@ -35,7 +35,7 @@
   <div class="small-ads-wrapper"> 
     <ion-list >
       <ion-row>
-        <ion-col *ngFor="let cat of category_array;let i = index">
+        <ion-col *ngFor="let cat of category_array; let item = index;">
           <ion-avatar item-start>
               <div>
                   <img (tap) = "categories(cat.id)" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="cat.image" [src]="cat.image"/>
