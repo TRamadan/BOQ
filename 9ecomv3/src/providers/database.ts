@@ -592,7 +592,7 @@ export class Database {
 
   addWish(wish): void {
     this.wishproducts.push(wish);
-    //console.log(this.wishproducts);
+    console.log(this.wishproducts);
   }
 
   allCities(): string[] {

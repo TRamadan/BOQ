@@ -49,8 +49,8 @@ export class HotoffersPage {
     })
   } 
 
-  filter(category:any , Activenow = -1) 
-  {
-    console.log("khfjafha");
+  filter(offer_id:any , Activenow = -1) 
+  {  
+    
   }
 }

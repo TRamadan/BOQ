@@ -86,7 +86,8 @@ export class ProductPage {
     this.product.love = !this.product.love;
     setTimeout(() => {
       if(this.product.love) {
-        this.db.addWish(this.specific_item)
+        this.db.addWish(this.specific_item) 
+        console.log(this.specific_item);
       } else {
         this.db.removeProductWish();
       }
