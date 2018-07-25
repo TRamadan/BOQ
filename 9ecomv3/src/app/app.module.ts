@@ -15,13 +15,13 @@ import { Database } from '../providers/database';
 import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
 import { CategoryProvider} from '../providers/category/category';
-
 import { NativeStorage } from '@ionic-native/native-storage';
+import { Order } from '../providers/order/order';
 
 
 @NgModule({
   declarations: [
-    Ecom9App
+    Ecom9App,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +55,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
     RootProvider,
     UsersProvider,
     CategoryProvider,
+    Order
   ]
 })
 export class AppModule {}

@@ -5,7 +5,7 @@ import {Storage}from '@ionic/storage';
 import {subcategory} from '../providers/sub-categories/sub-categories';
 import {Product} from './product/product';
 import {Cart} from './cart/cart';
-import {Order} from './order/order';
+import {OrderData} from './order/order';
 import { RootProvider } from "./root/root";
 import { Address} from '../providers/users/users';
 import { Category } from './category/category';
@@ -34,7 +34,7 @@ export class Database {
   categories: Category[];
   products: Product[];
   wishproducts: Product[];
-  orders: Order[];
+  orders: OrderData[];
   cart: Cart;
   filterTypes: any[];
 
@@ -58,7 +58,7 @@ export class Database {
       this.categories = new Array<Category>();
       this.products = new Array<Product>();
       this.wishproducts = new Array<Product>();
-      this.orders = new Array<Order>();
+      this.orders = new Array<OrderData>();
       this.filterTypes = new Array<any>();
       this.cities = new Array<string>();
       this.district = new Array<string>();
@@ -151,7 +151,7 @@ export class Database {
     return this.wishproducts;
   }
 
-  allOrders(): Order[] {
+  allOrders(): OrderData[] {
     return this.orders;
   }
   removeWish(wish: Product): void {
@@ -218,10 +218,10 @@ export class Database {
 
   
 
-  addOrder(order: Order) {
-    this.orders.push(order);
+  addOrder(order: OrderData) {
+    this.orders.push(order); 
     console.log(order);
-    this.orders = this.orders.sort((a, b) => { return b.date.getTime() - a.date.getTime() });
+    this.orders = this.orders.sort((a, b) => { return b.orderDate.getTime() - a.orderDate.getTime() });
   }
 
   parentCategory(): Category[] {

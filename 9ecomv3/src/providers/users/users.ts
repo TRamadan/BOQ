@@ -1,7 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RootProvider } from '../root/root';
-import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 /*
   Generated class for the UsersProvider provider.
@@ -29,7 +28,7 @@ export class UsersProvider extends RootProvider {
           this.user = User.getInstance(data[0].UserID,data[0].UserName,tempGender,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile);
           console.log(User.getInstance());
           this.storage.set('user', this.user); 
-          console.log(data);
+          //console.log(data);
           resolve(true);
           
         }else{
@@ -130,8 +129,8 @@ export class User {
   }
 
   static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",address: Address[] = new Array()) {
-    if (User.instance === null) {
-      User.isCreating = false;
+    if (User.isCreating === false) {
+      //User.isCreating = false;
       User.instance = new User(id, name, gender, password, email, phone, address);
       console.log(console.log(User.instance));
     }
@@ -179,6 +178,10 @@ export class Address {
     this.city = city;
     this.country = country;
     this.zipCode = zipCode
+  }
+
+  toString(): string{
+    return this.houseNum + "," + this.street + "," + this.Block + "," + this.district + "," + this.city + "," + this.country;
   }
 }
 

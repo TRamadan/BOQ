@@ -48,7 +48,7 @@ export class MyCartPage {
 
   shopping()
   { 
-    this.app.getRootNav().setRoot(TabsPage,{"tabIndex" : 0});
+    this.app.getRootNav().setRoot(TabsPage,{"tabIndex" : 3});
 
     //this.events.publish("routeTo" ,TabsPage);
    // console.log("go to homepage to choose msh 3aref a ");
