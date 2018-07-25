@@ -134,14 +134,12 @@ export class Ecom9App {
   categories(catid , subcatid) {
     let selectedCategory = this.catArray[catid];
     let selectedSubCat = selectedCategory.children[subcatid];
-    this.menu.close();
+    this.menu.close(); 
+    
     this.nav.push(CategoriesPage, {  'tabIndex': 0, 'category': selectedCategory, 'subcat': selectedSubCat });
   }
 
   /**
    * This function is to load the subcategories for the main categories  
    */
-  
-
-
 }
