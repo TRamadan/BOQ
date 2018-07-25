@@ -16,24 +16,28 @@
 </ion-header>
 
 
-<ion-content class="page-home pane no-scroll">
+<ion-content center  class="page-home pane no-scroll">
+  
+  <!--
   <ion-slides #sliders class="ads-slider" pager="true">
     <ion-slide *ngFor="let slide of adsSliders">
       <img [src]="slide.image">
-      <a (click)="categories(slide.category)">
+      
+      <a (click)="categories(slide.category)"> 
         <div class="ads-wrapper">
           <div class="ads-box">
             <div class="ads-title" [innerHTML]="slide.title"></div>
             <div class="ads-description">{{slide.description}}</div>
           </div>
         </div>
-      </a>
+      </a> 
       <div class="fade-away"></div>
     </ion-slide>
-  </ion-slides>
+  </ion-slides>  -->
 
+  <!--
   <div class="small-ads-wrapper"> 
-    <ion-list >
+    <ion-list>
       <ion-row>
         <ion-col *ngFor="let cat of category_array; let item = index;">
           <ion-avatar item-start>
@@ -56,7 +60,45 @@
        {{item.name}}
       </div>
     </div>
-  </div> 
+  </div> --> 
+
+  <!--
+<ion-list no-lines>
+  <ion-item *ngFor = "let cat of category_array ; let item = index;">  
+    <img (tap) = "categories(cat.id)" *ngIf = "cat.image" [src] = "cat.image"/> 
+    <img (tap) = "categories(cat.id)" *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
+    <div class="ads-wrapper">
+        <div class="ads-box">
+          <div class="ads-title">{{cat.name}}</div>
+        </div>
+      </div>
+  </ion-item>
+</ion-list> 
+
+<div *ngIf="ReadyCats">
+    <div *ngFor="let item of items">
+     {{item.name}}
+    </div>
+  </div> -->
 
 
+
+   <ion-item no-lines *ngFor = "let cat of category_array ; let item = index;">
+    <ion-card>
+      <img (tap) = "categories(cat.id)" *ngIf = "cat.image" [src] = "cat.image"/> 
+      <img (tap) = "categories(cat.id)" *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
+    
+    <div class="ads-wrapper">
+      <div class="ads-box">
+        <div class="ads-title">{{cat.name}}</div>
+      </div>
+    </div> 
+  </ion-card>
+   </ion-item>
+
+  <div *ngIf="ReadyCats">
+    <div *ngFor="let item of items">
+     {{item.name}}
+    </div>
+  </div>
 </ion-content>

@@ -65,7 +65,7 @@ export class HotoffersPage {
     } 
     else{
       let ctr =0; 
-      //console.log(offer_id);
+      console.log(offer_id);
       for(let i = 0; i<this.get_offers.length; i++)
       {
         if(this.get_offers[i].offer_id == offer_id)
@@ -75,5 +75,6 @@ export class HotoffersPage {
         }
       }
     }
-  }
+  } 
+
 }

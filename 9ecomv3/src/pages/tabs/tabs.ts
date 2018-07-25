@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
 import { Cart } from '../../providers/cart/cart';
+
 /**
  * Generated class for the Tabs tabs.
  *
@@ -28,6 +29,7 @@ export class TabsPage {
     this.selectedIndex = params.get('tabIndex') || 0;
     this.detail = params;
     this.cart = Cart.getInstance();
+   
   }
 
   public navTo(tabIndex: any){

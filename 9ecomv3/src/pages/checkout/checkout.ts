@@ -1,11 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, Content, AlertController } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import {Database } from '../../providers/database'
 import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
-import { Address ,UsersProvider} from '../../providers/users/users';
+import { Address ,UsersProvider, User} from '../../providers/users/users';
+import { TabsPage } from '../tabs/tabs';
 /**
  * Generated class for the Checkout page.
  *
@@ -40,7 +41,7 @@ export class CheckoutPage {
   tabBarElement: any;
   shippingTypes = [true, false, false];
   cart: Cart;
-  user : any;
+  user : User;
   db: Database;
   cities: string[];
   districts: string[];
@@ -54,7 +55,10 @@ export class CheckoutPage {
      public navParams: NavParams,
       private menu: MenuController,
        private alertCtrl: AlertController,
-      public userProv : UsersProvider
+      public userProv : UsersProvider,
+      public order : Order
+      ,public loadCtrl : LoadingController
+      ,public app : App
       ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
@@ -134,7 +138,7 @@ export class CheckoutPage {
       }
     }
   }
-  stepping() {
+  async stepping() {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
         let flgFound = false;
@@ -145,6 +149,7 @@ export class CheckoutPage {
         });
         if (!flgFound) {
           if (this.isValid(this.newAddress)) {
+            console.log(this.newAddress.toString());
             this.user.addSavedAddress(this.newAddress);
             this.scrollTab.nextTab();
           } else {
@@ -169,21 +174,30 @@ export class CheckoutPage {
     } else {
       if (this.isValid(this.newAddress)) {
         // add order
-        let order = new Order("-1",new Date(),"");
-        order.id = 'SC' + + (new Date()).getTime().toString();
-        order.date = new Date();
-        order.status = 'Processing';
-        this.db.addOrder(order);
-        // clear cart and go to Thank Page
-        this.cart.clear();
-        this.navCtrl.push('ThankPage');
-      } else {
-        let alert = this.alertCtrl.create({
-          title: 'Address Information 2',
-          subTitle: 'Please enter neccessary address information.',
-          buttons: ['OK']
+        let loading = this.loadCtrl.create({
+          content: 'Send Order Please Wait'
         });
-        alert.present();
+        loading.present();
+        let output =false;
+         output =await this.order.addOrder(this.cart.total(),this.newAddress.toString(),this.cart.products);
+        console.log(output);
+        if(output){
+          loading.dismiss();
+          this.cart.clear();
+          this.app.getRootNav().setRoot(TabsPage,{"tabIndex":0})
+          
+        }else{
+           
+        setTimeout(()=>{
+          if(!output){
+            alert('Connection Error Please Try again');
+          }
+          loading.dismiss()
+          
+        },10000)
+        }
+       
+        
       }
     }
   }

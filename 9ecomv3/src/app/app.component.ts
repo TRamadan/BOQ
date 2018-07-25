@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
 import { Category ,CategoryProvider } from '../providers/category/category';
 
+
 export interface PageInterface {
 
   title: string;
@@ -86,6 +87,7 @@ export class Ecom9App {
         this.catArray = this.database.categories;
       });
       
+     
       //console.log(this.database);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

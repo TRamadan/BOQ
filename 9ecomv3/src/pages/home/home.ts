@@ -5,6 +5,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Storage } from "@ionic/storage";
 import { Category } from '../../providers/category/category';
 import { Database} from '../../providers/database';
+
+import {Order} from '../../providers/order/order';
+
 /**
  * Generated class for the Home page.
  *
@@ -77,6 +80,9 @@ export class HomePage {
     console.log(this.dataBase);
     this.category_array = this.dataBase.allCategory();
     
+
+   // let temp  = new Order();
+    //console.log(temp);
     /*
     this.smallAds.forEach(ads => {
       ads.forEach(item => {

@@ -196,14 +196,9 @@
            
           </div>
           <div class="shipping-detail" *ngIf="isValid(newAddress)">
-            <div class="name">
-              {{newAddress.firstname}} {{newAddress.lastname}}
-            </div>
-            <div class="address">
-              {{newAddress.address}},
-            </div>
+
             <div class="state">
-              {{newAddress.city}}, {{newAddress.state}}, {{newAddress.country}}, {{newAddress.phone}}
+              {{newAddress.toString()}}
             </div>
           </div>
         </div>
