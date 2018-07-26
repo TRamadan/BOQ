@@ -81,8 +81,7 @@ export class HomePage {
     this.category_array = this.dataBase.allCategory();
     
 
-    let temp  = new Order();
-    console.log(temp);
+   
     /*
     this.smallAds.forEach(ads => {
       ads.forEach(item => {
