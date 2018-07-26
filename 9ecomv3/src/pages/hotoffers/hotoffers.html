@@ -10,61 +10,63 @@
       <img src="assets/img/menu.png" class="menu-image">
     </button>
     <ion-title>
-      <div>B<span>OQ</span></div>
+      <div>B<span>OQ</span>
+      </div>
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content class="page-hotoffers">
- <div *ngIf="ReadyOffers"> 
-    <ion-slides  loop="false"  pager="false" parallax="true" dir="ltr" slidesPerView='4'>
-      <ion-slide class="cat-slide" (tap) = "filter()"> 
+  <div *ngIf="ReadyOffers">
+    <ion-slides loop="false" pager="false" parallax="true" dir="ltr" slidesPerView='4'>
+      <ion-slide class="cat-slide" (tap)="filter()">
         <div *ngIf="Activenow == -1" class="cat-slide-activated">
           All
-        </div> 
+        </div>
 
         <div *ngIf="Activenow != -1">
           All
         </div>
-      </ion-slide> 
+      </ion-slide>
 
-      <ion-slide *ngFor = "let o of get_offers; let i=index;" (tap)="filter(o,i)">
-        <div *ngIf = "Activenow == i" class="cat-slide-activated">
+      <ion-slide *ngFor="let o of get_offers; let i=index;" (tap)="filter(o,i)">
+        <div *ngIf="Activenow == i" class="cat-slide-activated">
           {{o.offer_name}}
-        </div> 
+        </div>
 
-        <div *ngIf = "Activenow != i">
+        <div *ngIf="Activenow != i">
           {{o.offer_name}}
         </div>
       </ion-slide>
-   </ion-slides>  
+    </ion-slides>
 
-   <div>
-     <ion-list>
-       <ion-item>
-         <ion-card>
-           <ion-card-header>
-             <h3>
-               <!--{{}}-->
-             </h3>  
-           </ion-card-header> 
-           <!-- here will be the image of the item -->
-            <!-- <img src=""/> --> 
+    <div>
+      <ion-list *ngFor="let item of filtered_Array ">
+        <ion-item>
+          <ion-card style="border-radius:20px;">
+            <ion-card-header>
+              <h3>
+                {{item.prod_name}}
+              </h3>
+            </ion-card-header>
+            <!-- here will be the image of the item -->
+            <img src="../assets/img/nophoto.jpg" />
             <ion-card-content>
-              <h4>
-                here will be the description of the item "product description"
-              </h4>
+                <h4 style="text-align:center;">Offer information</h4> 
+                <hr>
+              <h5 style="font-weight:bold;">Offer name :</h5> <h5>{{item.offer_name}}</h5>
+             <h5 style="font-weight:bold;">Company name :</h5> <h5>{{item.company_name}}</h5>
             </ion-card-content>
-         </ion-card>
-       </ion-item>
-     </ion-list>
-   </div>
-  <!--
+          </ion-card>
+        </ion-item>
+      </ion-list>
+    </div>
+    <!--
   <div *ngFor="let o of get_offers">
     {{o.offer_name}}
   </div>-->
 
- </div> 
-  
+  </div> 
+
 </ion-content>

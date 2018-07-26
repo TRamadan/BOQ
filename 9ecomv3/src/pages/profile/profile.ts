@@ -7,7 +7,7 @@ import { Database } from '../../providers/database';
 import { Cart,CartProduct} from '../../providers/cart/cart';
 import { User , Address ,UsersProvider} from '../../providers/users/users';
 import { Product } from '../../providers/product/product';
-import { Order } from '../../providers/order/order';
+import { OrderData } from '../../providers/order/order';
 /**
  * Generated class for the Profile page.
  *
@@ -42,7 +42,7 @@ export class ProfilePage {
   savedAddresses: Address[];
   wishProducts: Product[]; 
   userarray : any =  [];
-  orders: Order[];
+  orders: OrderData[];
   cart: Cart; 
   user : User;
   
@@ -63,7 +63,7 @@ export class ProfilePage {
     
   }
 
-  /*
+  /*  
   ionViewDidEnter() {
     this.menu.swipeEnable(false, 'ecom9');
     var detail = this.navParams.get('user');
