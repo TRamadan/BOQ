@@ -17,6 +17,7 @@ import { UsersProvider } from '../providers/users/users';
 import { CategoryProvider} from '../providers/category/category';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
+import { FiltersProvider } from '../providers/filters/filters';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { Order } from '../providers/order/order';
     RootProvider,
     UsersProvider,
     CategoryProvider,
-    Order
+    Order,
+    FiltersProvider
   ]
 })
 export class AppModule {}

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { Product} from '../../providers/product/product';
+
+import { FiltersProvider , FilterTypes, Filter} from '../../providers/filters/filters';
 /**
  * Generated class for the Filtermodal page.
  *
@@ -15,15 +17,22 @@ import { Product} from '../../providers/product/product';
 })
 export class FilterModalPage {
   products: Product[];
-  filterTypes: any;
-  selectedFilter: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private view: ViewController) {
+  filterTypes: Array<FilterTypes>;
+  selectedFilter: FilterTypes;
+  constructor(public navCtrl: NavController
+    , public navParams: NavParams
+    , private view: ViewController
+    , public filterProv : FiltersProvider
+  ) {
     this.products = new Array<Product>();
-    this.filterTypes = new Array<any>();
-    var db = Database.getInstance();
-    this.products = db.allProduct();
-    this.filterTypes = db.allFilters();
+    this.products = navParams.get('products');
+    console.log(this.products);
+    this.filterTypes = new Array<FilterTypes>();
+    this.filterProv.init();
+    this.filterTypes = this.filterProv.filterTypes;
     this.selectedFilter = this.filterTypes[0];
+    console.log(this.filterTypes);
+    console.log(this.selectedFilter);
   }
 
   ionViewDidLoad() {
@@ -44,62 +53,54 @@ export class FilterModalPage {
   }
 
   selectFilters(selectedFilter, val) {
-    if (selectedFilter.type === 'or') {
-      selectedFilter.filters.forEach(f => {
+
+      selectedFilter.filter.forEach(f => {
         if (f !== val) {
-          f.checked = false;
+          f.selected = false;
         }
       })
-      val.checked = !val.checked;
-    } else {
-      val.checked = !val.checked;
-    }
+      val.selected = !val.selected;
   }
 
   clearAll() {
     this.filterTypes.forEach((fi: any) => {
-      fi.filters.forEach((item: any) => {
-        item.checked = false;
+      fi.filter.forEach((item: any) => {
+        item.selected = false;
       });
     });
   }
 
   applyFilter() {
     //console.log('Apply Filter');
-    let filterList = new Array<any>();
+    let filterList = new Array<Filter>();
 
     let newProducts = new Array<Product>();
     this.filterTypes.forEach((fi: any) => {
-      fi.filters.forEach((item: any) => {
-        if (item.checked) {
+      fi.filter.forEach((item: any) => {
+        if (item.selected) {
           filterList.push(item);
         }
       });
     });
-
+    console.log(filterList)
     if (filterList.length > 0) {
       filterList.forEach(item => {
         let prods = new Array<Product>();
-
+        
         this.products.forEach(prod => {
-          if (item.compare === 'range') {
-            if (prod[item.attr]) {
-              if (prod[item.attr] > item.min && prod[item.attr] < item.max) {
+          
+            
+              if (prod.price < item.val) {
                 prods.push(prod);
               }
-            }
-          } else if (item.compare === 'equal') {
-            if (prod[item.attr]) {
-              if (prod[item.attr].indexOf(item.value) >= 0) {
-                prods.push(prod);
-              }
-            }
-          }
+            
         });
 
         newProducts = prods;
       });
+      
       this.products = newProducts;
+      
     }
 
     this.dismiss();

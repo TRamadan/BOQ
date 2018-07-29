@@ -39,6 +39,8 @@ export class CategoriesPage {
   menus: Category;
   show: boolean = true;
   items;
+  viewItems;
+
 
   selectedTabNum=0;
   ItemsReady: boolean = false;
@@ -91,6 +93,7 @@ export class CategoriesPage {
       for (var i = 0; i < this.tabs.length; i++) {
         if (this.tabs[i].name.toLowerCase() === subcat.name.toLowerCase()) {
           this.items = subcat.Items;
+          this.viewItems = this.items;
           this.selectedTabNum = i;
           this.scrollTab.go2Tab(i);
         }
@@ -107,6 +110,7 @@ export class CategoriesPage {
     for(let i = 0 ;i< this.menus.children.length;i++){
         if(this.menus.children[i].name.toLowerCase() === this.selectedTab.name.toLowerCase() ){
           this.items = this.menus.children[i].Items;
+          this.viewItems = this.items;
           this.selectedTabNum=i;
         }
     }
@@ -126,11 +130,11 @@ export class CategoriesPage {
   }
 
   filterModal() {
-    let modal = this.modalCtrl.create('FilterModalPage', { products: this.products });
+    let modal = this.modalCtrl.create('FilterModalPage', { 'products': this.items });
     modal.onDidDismiss(data => {
       if (data) {
       //  console.log(data);
-        this.products = data.products;
+        this.viewItems = data.products;
       }
     });
     modal.present();

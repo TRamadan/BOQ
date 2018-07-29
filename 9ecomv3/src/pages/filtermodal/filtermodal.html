@@ -10,30 +10,35 @@
 
 
 <ion-content class="page-filtermodal pane no-scroll">
+  
   <div class="filter-container">
     <div class="header">
       <span class="title">Filter by</span>
       <span class="close">
-        <button ion-button icon-only clear (click)="close()"><ion-icon name="close"></ion-icon></button>
+        <button ion-button icon-only clear (tap)="close()"><ion-icon name="close"></ion-icon></button>
       </span>
     </div>
     <div class="content">
       <div class="vertical-tabs">
         <div class="tabs-left">
           <div *ngFor="let filterType of filterTypes" class="tab-left-item" [class.active]="filterType.selected">
-            <button ion-button clear (click)="chooseTab(filterType)">{{filterType.name}}</button>
+            <button ion-button clear (tap)="chooseTab(filterType)">{{filterType.filterTypeName}}</button>
           </div>
         </div>
+       
         <ion-scroll class="tabs-right" scrollY="true">
-          <div class="tab-right-item" *ngFor="let val of selectedFilter.filters">
-            <button *ngIf="!val.checked" class="button-square" ion-button clear (click)="selectFilters(selectedFilter, val)">
-              <ion-icon class="tab-icon-square" name="square-outline"></ion-icon>{{val.title}}
+          <div *ngIf="selectedFilter != undefiend">
+          <div class="tab-right-item" *ngFor="let val of selectedFilter.filter">
+            <button *ngIf="!val.selected" class="button-square" ion-button clear (click)="selectFilters(selectedFilter, val)">
+              <ion-icon class="tab-icon-square" name="square-outline"></ion-icon>{{val.typeName}}
             </button>
-            <button *ngIf="val.checked" class="button-checkmark" ion-button clear (click)="selectFilters(selectedFilter, val)">
-              <ion-icon class="tab-icon-checkmark" name="checkmark"></ion-icon>{{val.title}}
+            <button *ngIf="val.selected" class="button-checkmark" ion-button clear (click)="selectFilters(selectedFilter, val)">
+              <ion-icon class="tab-icon-checkmark" name="checkmark"></ion-icon>{{val.typeName}}
             </button>
           </div>
+        </div>
         </ion-scroll>
+      
       </div>
     </div>
     <div class="footer">
@@ -42,7 +47,11 @@
       </div>
       <div class="button-right">
         <button ion-button full clear (click)="applyFilter()">Apply filter</button>
+       
       </div>
+     
     </div>
+   
   </div>
+
 </ion-content>

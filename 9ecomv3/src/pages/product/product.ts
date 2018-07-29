@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Select } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, Select , PopoverController  } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { Product } from '../../providers/product/product';
 import { Cart} from '../../providers/cart/cart';
 import { TabsPage } from '../tabs/tabs';
-
-/**
+import {QuantitymodalPage } from '../quantitymodal/quantitymodal';
+/** 
  * Generated class for the Product page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
@@ -31,7 +31,11 @@ export class ProductPage {
   product: Product;
   cart: Cart;
   db: Database;
-  constructor(public app : App , public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public app : App 
+    , public navCtrl: NavController
+    , public navParams: NavParams
+    , public popoverCtrl : PopoverController
+  ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
     this.db = Database.getInstance();
@@ -59,27 +63,9 @@ export class ProductPage {
     //this.tabBarElement.style.display = 'none';
   }
 
-  clearColor(pos) {
-    for (var i = 0; i < this.cb.length; i++) {
-      if (i !== pos) {
-        this.cb[i] = false;
-      }
-    }
-    setTimeout(() => {
-      this.cb[pos] = true;
-      //this.currentColor = this.product.colors[pos];
-    }, 200);
-  }
+  
 
-  clearSize(pos) {
-    for (var i = 0; i < this.size.length; i++) {
-      if (i !== pos) {
-        this.size[i] = false;
-      }
-    }
-    this.size[pos] = true;
-   // this.currentSize = this.product.sizes[pos];
-  }
+
 
   selectQty() {
     this.qtySelect.open();
@@ -99,10 +85,32 @@ export class ProductPage {
     
   } 
   
-  quantityChange() {
+  quantityPopOver() {
     //console.log(this.quantity);
-    this.currentQty = 'Qty: ' + this.quantity.toString();
+    let popover = this.popoverCtrl.create(QuantitymodalPage,{
+      'Quantity' : this.quantity
+    })
+    popover.present();
+
+    popover.onDidDismiss((data)=>{
+      this.quantity = data;
+      this.quantityChange();
+    })
+    
   }
+
+  quantityChange(){
+    if(this.quantity >this.product.quant){
+      this.quantity =this.product.quant;
+    }
+    if(this.quantity <0){
+      this.quantity =0;
+    }
+    this.currentQty = 'Qty: ' + this.quantity.toString();
+
+  }
+
+
 
   goCart() {
    this.app.getRootNav().setRoot(TabsPage,{"tabIndex":2})

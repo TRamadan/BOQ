@@ -1,5 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+
 import { User } from '../users/users';
 import { RootProvider } from '../root/root';
 import { CartProduct } from '../cart/cart';
