@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { Category} from '../../providers/category/category';
 import { Storage } from "@ionic/storage";
-import { Product } from '../../providers/product/product';
 /**
  * Generated class for the HotOffer page.
  *
@@ -17,34 +16,68 @@ import { Product } from '../../providers/product/product';
 })
 export class HotoffersPage { 
    
-  
+  public get_offers=[]; 
 
   public ReadyOffers : boolean = false;
   
-  public allOffers: Array<string>;
-
   public Activenow : number = -1; 
 
   public filtered_Array : Array<any>; 
 
   public cats : Array<Category>;
 
-  public allOfferd : Array<Product>;
-
   menuItems: Category[];
   constructor(public storage : Storage ,  public navCtrl: NavController, public navParams: NavParams) {
     let db = Database.getInstance();
     this.menuItems = db.parentCategory();
     this.cats= db.allCategory();
-    this.allOfferd = new Array();
+    console.log(this.cats); 
      this.filtered_Array = new Array();
-     this.allOffers = new Array();
-     this.getOferedItems()
+
     //iterate over the category hirerachy ..
     // passing through the categories , subcategories , items and product
-   
-    this.filter();
-    this.getAllOffers(this.allOfferd);
+  
+    for(let i = 0; i < this.cats.length; i++)
+    {
+      for(let j = 0;  j < this.cats[i].children.length; i++)
+      {
+        for(let k = 0;  k < this.cats[i].children[j].Items.length; k++) 
+        {
+          if(this.get_offers.length == 0)
+          {
+            this.get_offers.push(this.cats[i].children[j].Items[k].offer_name);
+          } 
+          else{
+            let flag = false;
+            let flag2 = false;
+            for(let I = 0; I < this.get_offers.length; I++)   
+            {
+                 if(this.cats[i].children[j].Items[k].offer_name =="no offer" )
+                 {
+                   flag =true;
+                   flag2 = true;
+                 }else{
+                  if(this.get_offers[I] == this.cats[i].children[j].Items[k].offer_name ){
+                    flag = true;
+                  }
+                  
+                 }
+                  
+                 
+                 
+            }
+            if(!flag){
+              this.get_offers.push(this.cats[i].children[j].Items[k].offer_name);
+              
+            }
+            if(!flag2){
+              this.filtered_Array.push(this.cats[i].children[j].Items[k]);
+            }
+          }
+        }
+      }
+    } 
+    console.log(this.get_offers);
     this.ReadyOffers = true;
    
   }
@@ -61,61 +94,37 @@ export class HotoffersPage {
     })
   } 
 
-  filter(offer_name : any = "", Activenumber : any = -1) 
+  filter(offer_id : any = "", Activenumber : any = -1) 
   {  
     this.Activenow = Activenumber; 
     this.filtered_Array = new Array();
-    if(offer_name == "")
-    {
-      this.filtered_Array = this.allOfferd;  
+    if(offer_id == "")
+    { 
+      
+      if(this.offer_name != "no_offer")
+
+      
+      this.filtered_Array = this.get_offers;  
       
       //console.log(this.filtered_Array);
     } 
     else{
-      
-      //console.log(offer_name);
-      this.allOfferd.forEach(item=>{
-        if(item.offer_name == offer_name){
-          this.filtered_Array.push(item);
-        }
-      })
-    }
-  }
-  getOferedItems(){
-    this.cats.forEach(category => {
-      //console.log(category);
-      category.children.forEach(subCat =>{
-        //console.log(subCat);
-        //let sub = <subcategory> subCat;
-        subCat.Items.forEach(item =>{
-          if(item.offer_name != "no offer"){
-            this.allOfferd.push(item);
+      let ctr =0; 
+      console.log(offer_id);
+      for(let i = 0; i<this.cats.length; i++)
+      {
+        for(let j =0 ; j <this.cats[i].children.length ; j++){
+          for(let k=0 ; k<this.cats[i].children[j].Items.length ; k++){
+            if(offer_id ==  this.cats[i].children[j].Items[k].offer_name)
+            {
+              this.filtered_Array[ctr] = this.cats[i].children[j].Items[k]; 
+              ctr++;
+            }
           }
-        })
-        })
-      })
-      console.log(this.allOfferd);
-    
-  }
-
-  getAllOffers(items : Array<Product>){
-    items.forEach(item=>{
-      if(this.allOffers.length ==0){
-        this.allOffers.push(item.offer_name);
-      }else{
-        let flag =true;
-        this.allOffers.forEach(offer=>{
-          if(offer == item.offer_name){
-            flag= false;
-          }
-
-        })
-        if(flag){
-          this.allOffers.push(item.offer_name);
         }
+       
       }
-    })
-    
-  }
+    }
+  } 
 
 }
