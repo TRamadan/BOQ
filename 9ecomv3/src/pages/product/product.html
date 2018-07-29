@@ -15,10 +15,13 @@
       <button class="heart-button" ion-button icon-only [class.wish]="product.love" (tap)="loveIt()">
         <ion-icon name="heart"></ion-icon>
       </button> 
-      <button ion-button icon-only (tap)="goCart()">
+      <!--      
+        <button ion-button icon-only (tap)="goCart()">
         <ion-icon name="cart"></ion-icon>
         <ion-badge *ngIf="cart.count()>0" class="cart-badge" color="secondary">{{cart.count()}}</ion-badge>
       </button>
+      -->
+
     </ion-buttons>
   </ion-navbar>
 </ion-header>

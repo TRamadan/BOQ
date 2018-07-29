@@ -141,7 +141,8 @@ export class CategoriesPage {
   }
 
   toProduct(item) {
-    this.navCtrl.push('ProductPage', { product: item });
+    console.log(item);
+    this.navCtrl.push('ProductPage', { 'product': item });
     //console.log('item passed succesfully to the product page')
    // console.log(item);
   }

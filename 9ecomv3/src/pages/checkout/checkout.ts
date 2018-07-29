@@ -7,6 +7,7 @@ import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
 import { Address ,UsersProvider, User} from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
+import { ThrowStmt } from '../../../node_modules/@angular/compiler';
 /**
  * Generated class for the Checkout page.
  *
@@ -184,7 +185,8 @@ export class CheckoutPage {
         if(output){
           loading.dismiss();
           this.cart.clear();
-          this.app.getRootNav().setRoot(TabsPage,{"tabIndex":0})
+          
+          this.navCtrl.setRoot(TabsPage,{"tabIndex":2})
           
         }else{
            

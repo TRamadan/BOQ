@@ -41,8 +41,8 @@ export class ProductPage {
     this.db = Database.getInstance();
     this.cart = Cart.getInstance();
     //this.cart.clear();
-    this.specific_item = this.navParams.get('product');
-    //console.log(this.specific_item);
+    //this.specific_item = this.navParams.get('product');
+    console.log(this.product);
   /*
     if (this.product.colors.length > 0) {
       this.clearColor(1);
@@ -76,8 +76,8 @@ export class ProductPage {
     this.product.love = !this.product.love;
     setTimeout(() => {
       if(this.product.love) {
-        this.db.addWish(this.specific_item) 
-        console.log(this.specific_item);
+        this.db.addWish(this.product) 
+        console.log(this.product);
       } else {
         this.db.removeProductWish();
       }
@@ -113,7 +113,8 @@ export class ProductPage {
 
 
   goCart() {
-   this.app.getRootNav().setRoot(TabsPage,{"tabIndex":2})
+   // console.log(this.navParams.data);
+   this.navCtrl.setRoot(TabsPage,{"tabIndex":2})
   }
 
   add2Cart() { 

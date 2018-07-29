@@ -19,6 +19,7 @@ import {Database} from '../../providers/database';
 export class SearchPage {
   results: Product[];
   catsArr: Category[];
+  allProduct: Array<Product>;
   mark: string;
   Ready: boolean;
   dataBase : Database;
@@ -28,6 +29,7 @@ export class SearchPage {
     public navParams: NavParams
   ) { 
     this.mark="";
+    this.allProduct = new Array<Product>();
     this.results = new Array<Product>();
     this.catsArr = new Array<Category>();
     this.Ready=false;
@@ -50,11 +52,13 @@ export class SearchPage {
         for(let j =0 ;j<this.catsArr[i].children.length;j++){
          
           for(let k = 0;k<this.catsArr[i].children[j].Items.length;k++){
-           
-            this.results.push(this.catsArr[i].children[j].Items[k]);
+            
+            this.allProduct.push(this.catsArr[i].children[j].Items[k]);
+            
           }
         }
       }
+      this.results = this.allProduct;
       //console.log(this.results);
       this.Ready=true;
    
@@ -62,21 +66,25 @@ export class SearchPage {
 
   getItems(ev: any) {
     // Reset items back to all of the items
-    this.initializeItems();
+    
 
     // set val to the value of the searchbar
     let val = ev.target.value;
 
-    // if the value is an empty string don't filter the items
+    // if the value is an empty string  list all items
+    this.results = new Array();
+    //console.log(this.results.length);
     if (val && val.trim() != '') {
       this.mark = val;
-      this.results = this.results.filter((item) => {
+     
+      this.results = this.allProduct.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
       //console.log(this.results);
     } else {
-      this.results = [];
+      this.results = this.allProduct;
     }
+    //console.log(this.allProduct.length);
   }
   
   decorateTitle(title: string): string {

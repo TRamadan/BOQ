@@ -45,7 +45,7 @@ export class Ecom9App {
   // make HelloIonicPage the root (or first) page
   rootPage: string;
   pages: PageInterface[] = [
-    { title: 'Track Orders', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'my orders' },
+    //{ title: 'Track Orders', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'my orders' },
     { title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
     { title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
   ];
