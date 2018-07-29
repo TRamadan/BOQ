@@ -32,11 +32,11 @@
 
       <ion-slide *ngFor="let o of get_offers; let i=index;" (tap)="filter(o,i)">
         <div *ngIf="Activenow == i" class="cat-slide-activated">
-          {{o.offer_name}}
+          {{o}}
         </div>
 
         <div *ngIf="Activenow != i">
-          {{o.offer_name}}
+          {{o}}
         </div>
       </ion-slide>
     </ion-slides>
