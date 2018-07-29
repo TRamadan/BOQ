@@ -34,7 +34,8 @@ export class Product {
 //////////////////////////////
   name: string;
   discount: number = 0;
-  image: string;
+  image: string; 
+  
   //colors: string[];
   //sizes: string[];
   //descriptions: string[];
@@ -42,8 +43,10 @@ export class Product {
   brand?: string;
   love?: boolean = false;
   status?: string; 
+  offer_id : string; 
+  offer_name : string;
 
-   constructor(prod_name : string,point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number ) { 
+   constructor(prod_name : string,point_id : string   , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : number , prod_desc : string  , prod_id : number , price : number  , offer_id : string , offer_name : string ) { 
     this.name = prod_name;
     this.id = point_id; 
     this.product_subcat = prod_sub_category;
@@ -54,7 +57,9 @@ export class Product {
     this.description = "prod_desc"; 
     this.id2 = prod_id;
     this.price = price;
-    this.status = "in";
+    this.status = "in"; 
+    this.offer_id  = offer_id; 
+    this.offer_name = offer_name;
 //////////////////////////////////////////////
   //  this.categories = new Array<Category>();
    // this.colors = new Array<string>();

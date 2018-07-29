@@ -24,21 +24,62 @@ export class HotoffersPage {
 
   public filtered_Array : Array<any>; 
 
+  public cats : Array<Category>;
+
   menuItems: Category[];
   constructor(public storage : Storage ,  public navCtrl: NavController, public navParams: NavParams) {
     let db = Database.getInstance();
     this.menuItems = db.parentCategory();
+    this.cats= db.allCategory();
+    console.log(this.cats); 
+     this.filtered_Array = new Array();
 
-    this.storage.get('offersData').then(data=>{
-      this.get_offers = data; 
-      console.log(data); 
-      this.ReadyOffers = true; 
-      this.filter();
-    },err=>{
-      console.log(err);
-    }) 
-    
-    this.filtered_Array = new Array();
+    //iterate over the category hirerachy ..
+    // passing through the categories , subcategories , items and product
+  
+    for(let i = 0; i < this.cats.length; i++)
+    {
+      for(let j = 0;  j < this.cats[i].children.length; i++)
+      {
+        for(let k = 0;  k < this.cats[i].children[j].Items.length; k++) 
+        {
+          if(this.get_offers.length == 0)
+          {
+            this.get_offers.push(this.cats[i].children[j].Items[k].offer_name);
+          } 
+          else{
+            let flag = false;
+            let flag2 = false;
+            for(let I = 0; I < this.get_offers.length; I++)   
+            {
+                 if(this.cats[i].children[j].Items[k].offer_name =="no offer" )
+                 {
+                   flag =true;
+                   flag2 = true;
+                 }else{
+                  if(this.get_offers[I] == this.cats[i].children[j].Items[k].offer_name ){
+                    flag = true;
+                  }
+                  
+                 }
+                  
+                 
+                 
+            }
+            if(!flag){
+              this.get_offers.push(this.cats[i].children[j].Items[k].offer_name);
+              
+            }
+            if(!flag2){
+              this.filtered_Array.push(this.cats[i].children[j].Items[k]);
+            }
+          }
+        }
+      }
+    } 
+    console.log(this.get_offers);
+    this.ReadyOffers = true;
+   
   }
 
   ionViewDidLoad() {
@@ -66,13 +107,18 @@ export class HotoffersPage {
     else{
       let ctr =0; 
       console.log(offer_id);
-      for(let i = 0; i<this.get_offers.length; i++)
+      for(let i = 0; i<this.cats.length; i++)
       {
-        if(this.get_offers[i].offer_id == offer_id)
-        {
-          this.filtered_Array[ctr] = this.get_offers[i]; 
-          ctr++;
+        for(let j =0 ; j <this.cats[i].children.length ; j++){
+          for(let k=0 ; k<this.cats[i].children[j].Items.length ; k++){
+            if(offer_id ==  this.cats[i].children[j].Items[k].offer_name)
+            {
+              this.filtered_Array[ctr] = this.cats[i].children[j].Items[k]; 
+              ctr++;
+            }
+          }
         }
+       
       }
     }
   } 
