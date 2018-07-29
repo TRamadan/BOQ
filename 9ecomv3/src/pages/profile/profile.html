@@ -59,7 +59,15 @@
     <!-- MY ORDERS -->
     <div class="content-wrapper" *ngSwitchCase="tabs[1]">
       <div class="order">
-        <ion-list class="order-list">
+        <ion-list class="order-list"> 
+            <div *ngIf="orders.length == 0">  
+                <div class="no-items">
+                    <div class="title">
+                        No orders made
+                    </div>
+                </div>
+               
+              </div>
           <button ion-item *ngFor="let order of orders">
             <div class="date">{{order.date | date: 'dd-MMM-yyyy'}}</div>
             <div class="order-number">Order id #{{order.id}}</div>
@@ -75,7 +83,15 @@
     <!-- WISHLIST --> 
     <div class="content-wrapper" *ngSwitchCase="tabs[2]">
       <div class="wishlist">
-        <ion-list class="cart-list">
+        <ion-list class="cart-list"> 
+            <div *ngIf="wishProducts.length == 0">  
+                <div class="no-items">
+                    <div class="title">
+                        No wishlist added
+                    </div>
+                </div>
+               
+              </div>
           <ion-item-sliding *ngFor="let wish of wishProducts">
             <ion-item class="cart-list-item">
               <ion-thumbnail item-left>
@@ -110,7 +126,15 @@
     <!-- SAVED ADDRESS -->
     <div class="content-wrapper" *ngSwitchCase="tabs[3]">
       <div class="address-container">
-        <ion-list class="address-list">
+        <ion-list class="address-list"> 
+          <div *ngIf="savedAddresses.length == 0">  
+            <div class="no-items">
+                <div class="title">
+                    No saved addresses
+                </div>
+            </div>
+           
+          </div>
           <ion-item-sliding *ngFor="let addr of savedAddresses">
             <ion-item class="address-list-item">
               <h2>{{addr.houseNum}} {{addr.street}}</h2>

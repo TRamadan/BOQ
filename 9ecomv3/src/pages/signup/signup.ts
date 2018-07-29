@@ -4,7 +4,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 import { Storage } from "@ionic/storage";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable'; 
+import { SigninPage } from "../signin/signin";
 
 /**
  * Generated class for the Signup page.
@@ -48,7 +49,7 @@ export class SignupPage {
   }
 
   skip() {
-    this.navCtrl.setRoot('TabsPage');
+    this.navCtrl.setRoot('SigninPage');
   }
 
 
