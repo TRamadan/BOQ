@@ -48,18 +48,18 @@ export class SigninPage {
   register() {
     this.navCtrl.push('SignupPage');
   }
-
+//Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
   buildForm() {
     this.loginForm = this.formBuilder.group({
 
       password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
-      email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]]
+      userName: ['', [Validators.required]]
     })
   }
 
   public async onLogin() {
     if (this.loginForm.valid) {
-      let temp = await this.userProvider.login(this.loginForm.value.email, this.loginForm.value.password);
+      let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password);
       console.log(temp);
       if (temp ==true) {
         this.navCtrl.setRoot(TabsPage);

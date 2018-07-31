@@ -35,8 +35,8 @@ export class Order extends RootProvider {
   public async addOrder(totalPrice : number
     ,deleveryAddress:string
     ,items : Array<CartProduct>
-    ,paymentId :string ='0'
-    ,shippingId : string = '0'
+    ,paymentId :string ='1'
+    ,shippingId : string = '1'
     ,long : string ='0'
     ,latt : string ='0'
   ) : Promise<any> {
@@ -53,7 +53,8 @@ export class Order extends RootProvider {
     this.orderData.deleveryLong = long;
     let count = 0;
     for(let i = 0;i<this.orderData.items.length;i++){
-      let bool = await this.sendSingleItem(this.orderData.items[i].product.id ,this.orderData.items[i].quantity);
+      let totalItemPrice= this.orderData.items[i].product.price * this.orderData.items[i].quantity;
+      let bool = await this.sendSingleItem(this.orderData.items[i].product.distributerLinkId ,this.orderData.items[i].quantity,totalItemPrice);
       if(bool == true){
         count++;
       }
@@ -73,9 +74,10 @@ export class Order extends RootProvider {
     
   }
 
-  private async sendSingleItem(itemId:string,quantity: number) :Promise<any>{
+  private async sendSingleItem(itemId:string,quantity: number,totalItemPrice) :Promise<any>{
     return new Promise((resolve,reject)=>{
-      let str = `${RootProvider.APIURL3}${this.orderAPi}?item_id=${itemId}&user_id=${this.orderData.userId}&payment_id=${this.orderData.paymentId}&shipping_id=${this.orderData.shippingId}&quantity=${quantity}&total_price=${this.orderData.totalPrice}&invoice_id=${this.orderData.invoiceId}&order_datetime=${this.orderData.orderDate.toJSON()}&deliver_address=${this.orderData.deleveryAddress}&deliver_long=${this.orderData.deleveryLong}&deliver_latt=${this.orderData.deleverLatt}`;
+      
+      let str = `${RootProvider.APIURL3}${this.orderAPi}?item_id=${itemId}&user_id=${this.orderData.userId}&payment_id=${this.orderData.paymentId}&shipping_id=${this.orderData.shippingId}&quantity=${quantity}&total_price=${totalItemPrice}&invoice_id=${this.orderData.invoiceId}&order_datetime=${this.orderData.orderDate.toJSON()}&deliver_address=${this.orderData.deleveryAddress}&deliver_long=${this.orderData.deleveryLong}&deliver_latt=${this.orderData.deleverLatt}`;
       console.log(str);
       this.http.get(str).subscribe(data=>{
         
