@@ -35,7 +35,9 @@ export class ProfilePage {
     {
       name: 'Saved Address',
     },
-  ];
+  ]; 
+
+  quantity : number = 1;
   selectedTab: IScrollTab;
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   db: Database;
@@ -116,9 +118,20 @@ export class ProfilePage {
      // size: wish.size,
     };
     let flgFound = false;
+    console.log(wish);
     this.cart.products.forEach(Wish => {
       if (Wish.product.id === cp.product.id) {
-        flgFound = true;
+        flgFound = true;   
+        if(Wish.quantity >= wish.quant) 
+        {
+          Wish.quantity = wish.quant;
+          cp.quantity = 0;
+        }else if(Wish.quantity < 0) 
+        {
+          Wish.quantity = 0; 
+        }
+        
+       
         Wish.quantity = parseInt(Wish.quantity.toString()) + parseInt(cp.quantity.toString());
       }
     })
@@ -130,5 +143,5 @@ export class ProfilePage {
 
   removeWish(wish: Product) {
     this.db.removeWish(wish);
-  }
+  } 
 }
