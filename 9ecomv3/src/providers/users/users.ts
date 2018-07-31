@@ -34,7 +34,7 @@ export class UsersProvider extends RootProvider {
           console.log(User.getInstance());
           this.storage.set('user', this.user); 
           //console.log(data);
-          resolve("true");
+          resolve(true);
           
         } 
         else{
