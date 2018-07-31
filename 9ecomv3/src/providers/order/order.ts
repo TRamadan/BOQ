@@ -36,6 +36,7 @@ export class Order extends RootProvider {
     ,long : string ='0'
     ,latt : string ='0'
   ) : Promise<any> {
+
     this.orderData = new OrderData(this.user.id,paymentId,shippingId,totalPrice,new Date(),deleveryAddress,long,latt,items);
     let count = 0;
     for(let i = 0;i<this.orderData.items.length;i++){
@@ -122,6 +123,7 @@ export class OrderData {
   ){
     this.items = new Array<CartProduct>();
     this.items = items;
+    this.userId= userId;
     this.paymentId= paymentId;
     this.shippingId=shippingId;
     this.totalPrice= totalPrice;
