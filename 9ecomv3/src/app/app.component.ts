@@ -79,6 +79,7 @@ export class Ecom9App {
 
   initializeApp() {
     this.platform.ready().then(() => {
+      console.log(new Date().toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();

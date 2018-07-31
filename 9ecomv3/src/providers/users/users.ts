@@ -11,6 +11,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UsersProvider extends RootProvider {
   private logIn: string = "MobileUserLogin";
+  private logIn2: string = "users"
   private register: string = "AddNewUser";
   public user: User;
 
@@ -20,24 +21,40 @@ export class UsersProvider extends RootProvider {
   }
 
  
-  public async login(email: string, password: string) : Promise<any> {
+  public async login(name: string, password: string) : Promise<any> {
     return new Promise((resolve,reject)=>{
-      this.http.get(`${RootProvider.APIURL}${this.logIn}?user_email=${email}&user_pwd=${password}`).map(res => <any>res.json()).subscribe(data=>{
-        if(data.length >0){
-          let tempGender = data[0].UserGender==1 ? 'Male': 'Female'; 
-          this.user = User.getInstance(data[0].UserID,data[0].UserName,tempGender,data[0].UserPwd,data[0].UserEmail,data[0].UserMobile);
+      let temp = `${RootProvider.APIURL3}${this.logIn2}?user_name=${name}&user_password=${password}`;
+      //console.log(temp);
+      this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
+        try{
+          if(data != null)
+        {  if(data.length > 0){
+          let tempGender = data[0].user_type==1 ? 'Male': 'Female'; 
+          this.user = User.getInstance(data[0].id,data[0].user_name,tempGender,data[0].user_password,data[0].user_email,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
           console.log(User.getInstance());
           this.storage.set('user', this.user); 
           //console.log(data);
-          resolve(true);
+          resolve("true");
           
-        }else{
+        } 
+        else{
           alert("Worng User Name Or Password");
-          reject(false);
+          resolve("false");
+        } 
+
+      } 
+      else{
+        alert("Worng User Name Or Password");
+        resolve("false");
+      } 
+        }catch(error){
+          reject(error);
         }
+
+        
       },err=>{
         alert(err);
-         reject(false);
+         reject("false");
       });
   
     })
@@ -96,6 +113,8 @@ export class UsersProvider extends RootProvider {
 export class User {
   id: string;
   name: string;
+  fName:string;
+  lName:string;
   gender: string;
   addresses: Address[];
   password: string;
@@ -106,7 +125,7 @@ export class User {
   private static instance: User = null;
   static isCreating: boolean = false;
 
-  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",address: Address[] = new Array()) {
+  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
@@ -128,10 +147,10 @@ export class User {
     this.phone = phone;
   }
 
-  static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",address: Address[] = new Array()) {
+  static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
     if (User.isCreating === false) {
       //User.isCreating = false;
-      User.instance = new User(id, name, gender, password, email, phone, address);
+      User.instance = new User(id, name, gender, password, email, phone,lName,fName, address);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {

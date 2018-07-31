@@ -29,14 +29,14 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
 
     <ion-item>
-      <ion-icon class="input-icon" ios="ios-mail-outline" md="md-mail" item-left></ion-icon>
-      <ion-label floating>Email</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
+      <ion-icon class="input-icon" ios="ios-person-outline" md="ios-person-outline" item-left></ion-icon>
+      <ion-label floating>User Name</ion-label>
+      <ion-input formControlName="userName" type="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
       <ion-label floating>Password</ion-label>
-      <ion-input formControlName="password" type="email" type="password"></ion-input>
+      <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
   
     <button type="submit" class="login-button" ion-button round full>

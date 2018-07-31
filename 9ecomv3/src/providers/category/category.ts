@@ -30,7 +30,7 @@ export class CategoryProvider {
   else{
     let items : Product[] = new Array();
     for(let i = 0 ; i < data.length ; i++){
-      items[i] = new Product(data[i].prod_name,data[i].point_id,data[i].prod_sub_category,data[i].prod_image,data[i].prod_image2,data[i].quantity,data[i].measure_unit,data[i].prod_desc,data[i].point_id,data[i].price ,data[i].offer_id , data[i].offer_name , data[i].company_name);
+      items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].prod_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id);
     }
     resolve(items);
     }
@@ -76,7 +76,7 @@ public async getCategories( ) : Promise<any>{
 private async getSubCategories  () :Promise<any>{
   let items = await this.getItems();
   return new Promise((resolve,reject)=>{
-    this.http.get(`${RootProvider.APIURL3}itemtype2`).map(res => <any>res.json()).subscribe(data => {
+    this.http.get(`${RootProvider.APIURL3}subcat`).map(res => <any>res.json()).subscribe(data => {
       if (data == null || data.length == 0 || items.length==0) {
         reject([]);
       }
