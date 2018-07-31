@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import {Database } from '../../providers/database'
@@ -7,7 +7,7 @@ import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
 import { Address ,UsersProvider, User} from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
-import { ThrowStmt } from '../../../node_modules/@angular/compiler';
+import { CategoryProvider} from '../../providers/category/category';
 /**
  * Generated class for the Checkout page.
  *
@@ -59,7 +59,8 @@ export class CheckoutPage {
       public userProv : UsersProvider,
       public order : Order
       ,public loadCtrl : LoadingController
-      ,public app : App
+      ,public nav : Nav
+      ,public catProv: CategoryProvider
       ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
@@ -185,7 +186,8 @@ export class CheckoutPage {
         if(output){
           loading.dismiss();
           this.cart.clear();
-          
+          this.db.categories= await this.catProv.getCategories(); 
+          console.log(this.db.categories);
           this.navCtrl.setRoot(TabsPage,{"tabIndex":2})
           
         }else{

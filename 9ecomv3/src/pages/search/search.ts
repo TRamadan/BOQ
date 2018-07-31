@@ -34,10 +34,14 @@ export class SearchPage {
     this.catsArr = new Array<Category>();
     this.Ready=false;
     this.dataBase =Database.getInstance();
+
     this.initializeItems();
+    console.log(this.dataBase);
+
   }
 
   ionViewDidLoad() {
+   
     console.log('ionViewDidLoad SearchPage');
   }
 

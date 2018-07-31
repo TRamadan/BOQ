@@ -31,6 +31,7 @@ export class Product {
   description? : string;
   distributerId : number;
   price: number;
+  currentPrice: number;
   distributorId: string;
   distributerLinkId: string;
   discountPercentage:number;
@@ -66,6 +67,7 @@ export class Product {
     this.offer_name = offer_name;
     this.discountPercentage = discount_percentage;
     this.distributerLinkId=item_distributor_id;
+    this.currentPrice=this.discountPercentage == null ? this.price : (this.price-((this.price*this.discountPercentage)/100));
 //////////////////////////////////////////////
    //  this.categories = new Array<Category>();
    // this.colors = new Array<string>();

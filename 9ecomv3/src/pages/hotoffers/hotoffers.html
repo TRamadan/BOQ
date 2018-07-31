@@ -47,7 +47,7 @@
           <ion-card style="border-radius:20px;" (tap) = "toProduct(item)">
             <ion-card-header>
               <h3>
-                {{item.prod_name}}
+                {{item.name}}
               </h3>
             </ion-card-header>
             <!-- here will be the image of the item --> 
@@ -56,7 +56,7 @@
                 <h4 style="text-align:center;">Offer information</h4> 
                 <hr>
               <h5 style="font-weight:bold;">Offer name :</h5> <h5>{{item.offer_name}}</h5>
-             <h5 style="font-weight:bold;">Company name :</h5> <h5>{{item.company_name}}</h5>
+             <h5 style="font-weight:bold;">Price :</h5> <h5>{{item.currentPrice}}</h5>
             </ion-card-content>
           </ion-card>
         </ion-item>

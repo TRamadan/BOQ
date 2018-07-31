@@ -32,12 +32,24 @@
             <div class="title">
               {{item.name}}
             </div>
-            <div class="price-box">
-              <span class="price">LE {{item.price}}<span class="old-price">LE {{item.price}}</span></span>
+            <div class="price-box" *ngIf="item.price != item.currentPrice">
+              <span class="price">LE {{item.currentPrice}}<span class="old-price">LE {{item.price}}</span></span>
+              
+              
               <span class="price-love" [class.selected]="item.love">
                 <ion-icon name="heart"></ion-icon>
               </span>
             </div>
+
+            <div class="price-box" *ngIf="item.price == item.currentPrice">
+                <span class="price">LE {{item.currentPrice}}</span>
+                
+                
+                <span class="price-love" [class.selected]="item.love">
+                  <ion-icon name="heart"></ion-icon>
+                </span>
+              </div>
+
           </div>
           </div>
         

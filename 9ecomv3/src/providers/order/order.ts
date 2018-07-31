@@ -84,6 +84,7 @@ export class Order extends RootProvider {
       console.log(str);
       this.http.get(str).map(res=><any>res.json()).subscribe(data=>{
         if(data != null && data.length != 0){
+          console.log(data);
           let Orders= new Array<OrderData>();
           for(let i = 0 ; i <data.length ; i++){
             Orders.push(new OrderData(userId,data[i].payment_id,data[i].shipping_id,data[i].total_price,data[i].order_datetime,data[i].deliver_to,data[i].deliver_long,data[i].deliver_latt,new Array<CartProduct>()));

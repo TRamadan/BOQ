@@ -88,7 +88,7 @@ export class HotoffersPage {
         //console.log(subCat);
         //let sub = <subcategory> subCat;
         subCat.Items.forEach(item =>{
-          if(item.offer_name != "no offer"){
+          if(item.offer_id != 0){
             this.allOfferd.push(item);
           }
         })

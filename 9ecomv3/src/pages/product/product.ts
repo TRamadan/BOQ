@@ -38,8 +38,7 @@ export class ProductPage {
   ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
-    this.db = Database.getInstance();
-    this.cart = Cart.getInstance();
+    
     //this.cart.clear();
     //this.specific_item = this.navParams.get('product');
     console.log(this.product);
@@ -59,6 +58,8 @@ export class ProductPage {
   }
 
   ionViewDidLoad() {
+    this.db = Database.getInstance();
+    this.cart = Cart.getInstance();
     console.log('ionViewDidLoad ProductPage');
     //this.tabBarElement.style.display = 'none';
   }
@@ -89,9 +90,8 @@ export class ProductPage {
     //console.log(this.quantity);
     let popover = this.popoverCtrl.create(QuantitymodalPage,{
       'Quantity' : this.quantity
-    })
+    },{ enableBackdropDismiss: false })
     popover.present();
-
     popover.onDidDismiss((data)=>{
       this.quantity = data;
       this.quantityChange();
