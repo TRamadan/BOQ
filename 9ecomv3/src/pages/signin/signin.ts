@@ -61,7 +61,9 @@ export class SigninPage {
 
   public async onLogin() {
     if (this.loginForm.valid) {
-      let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password);
+      let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password).catch(reg=>{
+      
+      });
       console.log(temp);
       if (temp ==true) {
         this.user = User.getInstance();

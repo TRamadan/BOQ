@@ -47,7 +47,8 @@ export class Product {
   love?: boolean = false;
   status?: string; 
   offer_id : string; 
-  offer_name : string;
+  offer_name : string; 
+  company_name : string;
 
    constructor(prod_name : string,itemId : string , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : string , prod_desc : string  , distributorId : number , price : number  , offer_id : string , offer_name : string,discount_percentage:number,item_distributor_id:string) { 
     this.name = prod_name;
