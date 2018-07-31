@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import {Http}from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Storage}from '@ionic/storage';
-import {subcategory} from '../providers/sub-categories/sub-categories';
 import {Product} from './product/product';
 import {Cart} from './cart/cart';
 import {OrderData} from './order/order';
-import { RootProvider } from "./root/root";
 import { Address} from '../providers/users/users';
 import { Category } from './category/category';
 

@@ -22,7 +22,7 @@ export class UsersProvider extends RootProvider {
 
  
   public async login(name: string, password: string) : Promise<any> {
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve)=>{
       let temp = `${RootProvider.APIURL3}${this.logIn2}?user_name=${name}&user_password=${password}`;
       //console.log(temp);
       this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
@@ -36,11 +36,11 @@ export class UsersProvider extends RootProvider {
           
         }else{
           alert("Worng User Name Or Password");
-          reject(false);
+          resolve(false);
         }
       },err=>{
         alert(err);
-         reject(false);
+         resolve(false);
       });
   
     })
@@ -49,7 +49,7 @@ export class UsersProvider extends RootProvider {
   }
 
   public async Regester(email: string, password: string, name: string, gender: string, location: string, phone: string): Promise<any> {
-    return new Promise ((resolve,reject)=>{
+    return new Promise ((resolve)=>{
       let tempGender = (gender == "ذكر") ? 1 : 2;
     this.http.get(`${RootProvider.APIURL}${this.register}?user_email=${email}&user_pwd=${password}&mobile=${phone}&fname=${name}&home_address=${location}&gender=${tempGender}`).map(res => <any>res.json()).subscribe(data=>{
       if (data.length > 0) {
@@ -59,11 +59,11 @@ export class UsersProvider extends RootProvider {
         resolve(true);
       } else {
         alert("Server Error");
-        reject(false)
+        resolve(false)
       }
     }, err => {
       alert(err);
-      reject(false)
+      resolve(false)
     })
     })
     

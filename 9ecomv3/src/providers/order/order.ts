@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../users/users';
 import { RootProvider } from '../root/root';
 import { CartProduct } from '../cart/cart';
+import { resolve } from 'url';
 /*
   Generated class for the OrderProvider provider.
 
@@ -14,6 +15,7 @@ import { CartProduct } from '../cart/cart';
 export class Order extends RootProvider {
   user: User;
   orderAPi: string = "main";
+  getUserOrderApi: string ="users"
 
   orderData: OrderData;
 
@@ -22,13 +24,7 @@ export class Order extends RootProvider {
     this.user = User.getInstance();
   }
 
-  private genrateInvoiceId(date : Date) : string{
-    
-    let Rand = Math.floor(Math.random() *1000);
-    return Rand.toString();
-    //return this.user.id +  date.getMinutes().toString()+date.getHours().toString() + date.getSeconds().toString() + Rand;
-
-  }
+ 
 
 
 
@@ -40,17 +36,7 @@ export class Order extends RootProvider {
     ,long : string ='0'
     ,latt : string ='0'
   ) : Promise<any> {
-    this.orderData = new OrderData();
-    this.orderData.orderDate = new Date();
-    this.orderData.invoiceId = this.genrateInvoiceId(this.orderData.orderDate);
-    this.orderData.userId = this.user.id;
-    this.orderData.totalPrice = totalPrice;
-    this.orderData.deleveryAddress = deleveryAddress ;
-    this.orderData.items = items;
-    this.orderData.paymentId = paymentId;
-    this.orderData.shippingId = shippingId;
-    this.orderData.deleverLatt = latt;
-    this.orderData.deleveryLong = long;
+    this.orderData = new OrderData(this.user.id,paymentId,shippingId,totalPrice,new Date(),deleveryAddress,long,latt,items);
     let count = 0;
     for(let i = 0;i<this.orderData.items.length;i++){
       let totalItemPrice= this.orderData.items[i].product.price * this.orderData.items[i].quantity;
@@ -61,12 +47,12 @@ export class Order extends RootProvider {
     }
     console.log(count)
     console.log(this.orderData.items.length)
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve)=>{
       if(count == this.orderData.items.length){
         console.log("all orders sent");
         resolve (true);
       }
-      reject(false)
+      resolve(false)
     })
     
     
@@ -75,7 +61,7 @@ export class Order extends RootProvider {
   }
 
   private async sendSingleItem(itemId:string,quantity: number,totalItemPrice) :Promise<any>{
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve)=>{
       
       let str = `${RootProvider.APIURL3}${this.orderAPi}?item_id=${itemId}&user_id=${this.orderData.userId}&payment_id=${this.orderData.paymentId}&shipping_id=${this.orderData.shippingId}&quantity=${quantity}&total_price=${totalItemPrice}&invoice_id=${this.orderData.invoiceId}&order_datetime=${this.orderData.orderDate.toJSON()}&deliver_address=${this.orderData.deleveryAddress}&deliver_long=${this.orderData.deleveryLong}&deliver_latt=${this.orderData.deleverLatt}`;
       console.log(str);
@@ -84,9 +70,29 @@ export class Order extends RootProvider {
         resolve(true)
       },err=>{
         console.error(err);
-        reject(false);
+        resolve(false);
       }
       )
+    })
+  }
+
+
+  public async getUserOrders(userId:string) : Promise<any>{
+    return new Promise((resolve)=>{
+      let str = `${RootProvider.APIURL3}${this.getUserOrderApi}?user_id=${userId}`;
+      console.log(str);
+      this.http.get(str).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data.length != 0){
+          let Orders= new Array<OrderData>();
+          for(let i = 0 ; i <data.length ; i++){
+            Orders.push(new OrderData(userId,data[i].payment_id,data[i].shipping_id,data[i].total_price,data[i].order_datetime,data[i].deliver_to,data[i].deliver_long,data[i].deliver_latt,new Array<CartProduct>()));
+            
+          }
+          resolve(Orders);
+        }
+      },err=>{
+        resolve(err);
+      })
     })
   }
 
@@ -104,8 +110,34 @@ export class OrderData {
   deleverLatt: string
   items: Array<CartProduct>;
 
-  constructor(){
+  constructor(userId:string
+    ,paymentId:string
+    ,shippingId:string
+    ,totalPrice:number
+    ,orderDate: Date
+    ,deleveryAddress:string
+    ,deleveryLong:string
+    ,delevertlatt:string
+    ,items:Array<CartProduct>
+  ){
     this.items = new Array<CartProduct>();
+    this.items = items;
+    this.paymentId= paymentId;
+    this.shippingId=shippingId;
+    this.totalPrice= totalPrice;
+    this.invoiceId= this.genrateInvoiceId(orderDate);
+    this.orderDate= orderDate;
+    this.deleveryAddress= deleveryAddress;
+    this.deleveryLong= deleveryLong;
+    this.deleverLatt= delevertlatt;
+  }
+
+  private genrateInvoiceId(date : Date) : string{
+    
+    let Rand = Math.floor(Math.random() *1000);
+    return Rand.toString();
+    //return this.user.id +  date.getMinutes().toString()+date.getHours().toString() + date.getSeconds().toString() + Rand;
+
   }
 }
 

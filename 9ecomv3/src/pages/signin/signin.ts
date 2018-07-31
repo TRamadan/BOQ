@@ -5,8 +5,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 import { User, UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
-
-
+import { Order  } from '../../providers/order/order';
+import { Database} from '../../providers/database';
 /**
  * Generated class for the Signin page.
  *
@@ -21,6 +21,7 @@ import { TabsPage } from '../tabs/tabs';
 export class SigninPage {
   public user: User;
   public loginForm: FormGroup;
+  public dataBase : Database;
 
   constructor(public menuctrl: MenuController
     , public storage: Storage
@@ -28,10 +29,11 @@ export class SigninPage {
     , public formBuilder: FormBuilder
     , public navCtrl: NavController
     , public navParams: NavParams
+    , public orderProv: Order
   ) {
 
     this.menuctrl.enable(false);
-
+    this.dataBase = Database.getInstance();
     this.buildForm();
   }
 
@@ -62,6 +64,8 @@ export class SigninPage {
       let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password);
       console.log(temp);
       if (temp ==true) {
+        this.user = User.getInstance();
+        this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
         this.navCtrl.setRoot(TabsPage);
       }
     }

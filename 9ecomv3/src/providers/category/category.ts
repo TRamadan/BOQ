@@ -21,11 +21,11 @@ export class CategoryProvider {
   }
 
   private async getItems() : Promise<any>{
-    return new Promise((resolve ,reject)=>{
+    return new Promise((resolve)=>{
       this.http.get(`${RootProvider.APIURL3}item`).map(res=><any>res.json()).subscribe(data=>{
         if(data== undefined || data.length == 0)
   {
-     reject([]);
+     resolve([]);
   }
   else{
     let items : Product[] = new Array();
@@ -43,10 +43,10 @@ export class CategoryProvider {
 
 public async getCategories( ) : Promise<any>{
   let subcat = await this.getSubCategories();
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve)=>{
     this.http.get(`${RootProvider.APIURL3}main`).map(res => <any>res.json()).subscribe(data => {
       if (data == null || data.length == 0 || subcat.length ==0) {
-       reject([])
+       resolve([])
       }
       else {
         let catArray = new Array<Category>();
@@ -75,10 +75,10 @@ public async getCategories( ) : Promise<any>{
 }
 private async getSubCategories  () :Promise<any>{
   let items = await this.getItems();
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve)=>{
     this.http.get(`${RootProvider.APIURL3}subcat`).map(res => <any>res.json()).subscribe(data => {
       if (data == null || data.length == 0 || items.length==0) {
-        reject([]);
+        resolve([]);
       }
       else {
         let subcat = new Array()
