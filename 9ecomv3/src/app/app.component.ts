@@ -131,6 +131,7 @@ export class Ecom9App {
     this.menu.close();
     // navigate to the new page if it is not the current page
     if (page.name === 'SigninPage') {
+      this.storage.remove('user');
       this.nav.setRoot(page.name);
     } else {
       this.nav.setRoot(page.name, { tabIndex: page.index, tabName: page.tabName, detail: page.detail });

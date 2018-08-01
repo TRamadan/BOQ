@@ -11,8 +11,9 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UsersProvider extends RootProvider {
   private logIn: string = "MobileUserLogin";
-  private logIn2: string = "users"
+  private logIn2: string = "users";
   private register: string = "AddNewUser";
+  private register2: string = "users";
   public user: User;
 
   constructor(public http: Http, public storage: Storage) {
@@ -53,15 +54,21 @@ export class UsersProvider extends RootProvider {
    
   }
 
-  public async Regester(email: string, password: string, name: string, gender: string, location: string, phone: string): Promise<any> {
+  public async Regester(userName:string,password:string,fname:string,lname:string,userImage:string,userPhone:string,userEmail:string,usertype:string): Promise<any> {
+    let temp = `${RootProvider.APIURL3}${this.register2}?user_name=${userName}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_img=""&user_phone=${userPhone},&user_email=${userEmail}&user_type=${usertype}`;
+    //console.log(temp);
+    
     return new Promise ((resolve)=>{
-      let tempGender = (gender == "ذكر") ? 1 : 2;
-    this.http.get(`${RootProvider.APIURL}${this.register}?user_email=${email}&user_pwd=${password}&mobile=${phone}&fname=${name}&home_address=${location}&gender=${tempGender}`).map(res => <any>res.json()).subscribe(data=>{
+    this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
       if (data.length > 0) {
-        this.user = User.getInstance(data[0].USERID,name, gender,password,email,phone)
-       
-        this.storage.set('user', this.user);
-        resolve(true);
+        if(data[0].error_name == "done"){
+          let temp =this.login(userName,password);
+          resolve(true && temp);
+        }else{
+          alert("this Email has been regestered before")
+          resolve(false);
+
+        }
       } else {
         alert("Server Error");
         resolve(false)

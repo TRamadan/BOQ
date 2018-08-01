@@ -42,9 +42,9 @@ export class SignupPage {
       name: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
-      gender: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]]
+      phone: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]],
+      fname: ['',[Validators.required]],
+      lname: ['',[Validators.required]]
     })
   }
 
@@ -59,7 +59,7 @@ export class SignupPage {
       //console.log(this.gender);
       //console.log(this.location)
      
-      let bool = await this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name, this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone)  
+      let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
       if(bool == true){
         this.navCtrl.setRoot(TabsPage);
       }
