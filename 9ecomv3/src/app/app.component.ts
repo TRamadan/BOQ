@@ -7,11 +7,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Database } from '../providers/database';
 import { Cart } from '../providers/cart/cart';
-
+import { User} from '../providers/users/users';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
 import { Category ,CategoryProvider } from '../providers/category/category';
+
+import {TabsPage} from '../pages/tabs';
 
 
 export interface PageInterface {
@@ -79,7 +81,9 @@ export class Ecom9App {
 
   initializeApp() {
     this.platform.ready().then(() => {
+
       console.log(new Date().toJSON());
+     
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();

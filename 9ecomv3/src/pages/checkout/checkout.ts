@@ -152,7 +152,7 @@ export class CheckoutPage {
         if (!flgFound) {
           if (this.isValid(this.newAddress)) {
             console.log(this.newAddress.toString());
-            this.user.addSavedAddress(this.newAddress);
+            this.userProv.addAddress(this.newAddress);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
@@ -216,7 +216,7 @@ export class CheckoutPage {
   }
 
   removeAddress(addr: Address) {
-    this.user.removeSavedAddress(addr);
+    this.userProv.removeAddress(addr);
   }
 
   information() {

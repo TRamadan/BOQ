@@ -65,6 +65,7 @@ export class SigninPage {
       console.log(temp);
       if (temp ==true) {
         this.user = User.getInstance();
+        this.storage.set('user',this.user);
         this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
         this.navCtrl.setRoot(TabsPage);
       }

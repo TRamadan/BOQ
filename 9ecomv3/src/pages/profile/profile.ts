@@ -106,7 +106,7 @@ export class ProfilePage {
   }
 
   removeAddress(addr: Address) {
-    this.user.removeSavedAddress(addr);
+    this.userProv.removeAddress(addr);
   }
 
   add2Cart(wish: Product) {

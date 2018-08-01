@@ -27,6 +27,6 @@
   </div>
 </ion-content>
 
-<ion-footer class="clear-gap">
+<ion-footer class="clear-gap"  *ngIf="ready">
     <button class="footer-button" ion-button full (click)="signin()">Get Started</button>
-</ion-footer>
+  </ion-footer>

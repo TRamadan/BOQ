@@ -80,12 +80,14 @@ export class UsersProvider extends RootProvider {
   }
 
   public addAddress(address : Address){
-    this.storage.get('addresses').then(data=>{
-      this.user.addresses = data;
-      this.user.addSavedAddress(address);
-     this.storage.set('addresses' , this.user.addresses)
-    })
+
+    this.user.addSavedAddress(address);
+    this.storage.set('user' , this.user)
     
+  }
+  public removeAddress(address : Address){
+    this.user.removeSavedAddress(address);
+    this.storage.set('user',this.user);
   }
 
 
