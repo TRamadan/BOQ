@@ -60,6 +60,7 @@ export class UsersProvider extends RootProvider {
     
     return new Promise ((resolve)=>{
     this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
+      console.log(data);
       if (data.length > 0) {
         if(data[0].error_name == "done"){
           let temp =this.login(userName,password);
@@ -148,7 +149,7 @@ export class User {
   }
 
   static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
-    if (User.isCreating === false) {
+    if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
       User.instance = new User(id, name, gender, password, email, phone,lName,fName, address);
       console.log(console.log(User.instance));

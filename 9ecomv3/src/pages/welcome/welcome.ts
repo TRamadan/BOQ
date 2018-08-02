@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,MenuController } from 'ionic-angular';
 import { Storage} from '@ionic/storage';
-import { TabsPage } from '../tabs/tabs';
 
+import { Order} from '../../providers/order/order';
+import { Database }from '../../providers/database';
 import { User } from '../../providers/users/users';
 interface shopSlider {
   image: string;
@@ -37,17 +38,21 @@ export class WelcomePage {
     },
   ];
   public ready = false;
-
+  public db : Database;
+  public userData;
   constructor(public navCtrl: NavController
     , public navParams: NavParams
     , public menuCtrl : MenuController
     , public storage: Storage
+    , public order: Order
   ) {
     this.menuCtrl.enable(false);
     this.storage.get('user').then(data=>{
+      console.log(data);
       if(data != null){
-        let userData = <User> data;
-        User.getInstance(userData.id,userData.name,userData.gender,userData.password,userData.email,userData.phone,userData.fName,userData.lName,userData.addresses);
+        console.log("test");
+        this.userData = <User> data;
+        User.getInstance(this.userData.id,this.userData.name,this.userData.gender,this.userData.password,this.userData.email,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
         console.log(User.getInstance())
       }
 
@@ -59,10 +64,12 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  signin() {
-    console.log(User.getInstance);
+  async signin() {
+    console.log(User.isCreating);
     if(User.isCreating){
       
+      this.db = Database.getInstance();
+      this.db.orders = await this.order.getUserOrders(this.userData.id);
       this.navCtrl.setRoot('TabsPage')
     }else{
       this.navCtrl.setRoot('SigninPage');
