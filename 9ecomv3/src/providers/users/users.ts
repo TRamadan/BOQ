@@ -11,9 +11,10 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class UsersProvider extends RootProvider {
   private logIn: string = "MobileUserLogin";
-  private logIn2: string = "users"
+  private logIn2: string = "users";
   private register: string = "AddNewUser";
-  public user: User;
+  public user: User; 
+  public register2 : string = "users";
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
@@ -53,12 +54,16 @@ export class UsersProvider extends RootProvider {
    
   }
 
-  public async Regester(email: string, password: string, name: string, gender: string, location: string, phone: string): Promise<any> {
+  ////////////////////////////////////////////////////
+  public async Regester(name: string, password: string, fname: string, lname : string ,   phone: string , email : string, gender: string, location: string): Promise<any> {
     return new Promise ((resolve)=>{
       let tempGender = (gender == "ذكر") ? 1 : 2;
-    this.http.get(`${RootProvider.APIURL}${this.register}?user_email=${email}&user_pwd=${password}&mobile=${phone}&fname=${name}&home_address=${location}&gender=${tempGender}`).map(res => <any>res.json()).subscribe(data=>{
-      if (data.length > 0) {
-        this.user = User.getInstance(data[0].USERID,name, gender,password,email,phone)
+      let temp =`${RootProvider.APIURL3}${this.register2}?user_name=${name}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_phone=${phone}&user_email=${email}`;
+      console.log(temp);
+      this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
+      
+      if (data != null && data.length > 0  ) {
+        this.user = User.getInstance(data[0].USERID,data[0].user_first_name, data[0].gender,password,data[0].user_email,data[0].user_phone)
        
         this.storage.set('user', this.user);
         resolve(true);
@@ -111,12 +116,13 @@ export class User {
   password: string;
   email: string;
   phone: string;
+  image : string; 
 
   
   private static instance: User = null;
   static isCreating: boolean = false;
 
-  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
+  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array() , image : string = "") {
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
