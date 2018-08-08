@@ -15,7 +15,7 @@ export class RootProvider {
   
   public static APIURL2 = "http://services.edge-techno.com/BOQAPI/api/";
   
-  public static APIURL3 = "http://localhost:37871/api/";
+  public static APIURL3 = "http://nemooo-001-site1.atempurl.com/api/";
   
   constructor(public http: Http ) {
     console.log('Hello RootProvider Provider');
