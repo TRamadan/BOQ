@@ -120,7 +120,7 @@ export class Category{
   { 
     this.name = NewsCategory;
     this.id = NewsCategoryID;  
-    this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?Category.URLNAME+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
+    this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?RootProvider.imageUrl+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
     this.parentShow = false;
     this.parent = Parent; 
     this.open = false;

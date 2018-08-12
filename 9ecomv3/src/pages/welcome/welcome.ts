@@ -5,6 +5,7 @@ import { Storage} from '@ionic/storage';
 import { Order} from '../../providers/order/order';
 import { Database }from '../../providers/database';
 import { User } from '../../providers/users/users';
+import {  CategoryProvider } from '../../providers/category/category';
 interface shopSlider {
   image: string;
 }
@@ -40,13 +41,16 @@ export class WelcomePage {
   public ready = false;
   public db : Database;
   public userData;
+  public loadProgress = 0;
   constructor(public navCtrl: NavController
     , public navParams: NavParams
     , public menuCtrl : MenuController
     , public storage: Storage
     , public order: Order
+    , public catProv : CategoryProvider
   ) {
     this.menuCtrl.enable(false);
+    this.db = Database.getInstance();
     this.storage.get('user').then(data=>{
       console.log(data);
       if(data != null){
@@ -54,9 +58,15 @@ export class WelcomePage {
         this.userData = <User> data;
         User.getInstance(this.userData.id,this.userData.name,this.userData.gender,this.userData.password,this.userData.email,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
         console.log(User.getInstance())
+        this.loadProgress = 50;
       }
+      this.catProv.getCategories().then(data=>{
+        this.db.categories = data;
+        this.loadProgress=100;
+        this.ready = true;
+      });
 
-      this.ready = true;
+     
     })
   }
 

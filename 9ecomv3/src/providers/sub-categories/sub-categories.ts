@@ -32,7 +32,7 @@ export class subcategory{
     this.name = item_type_name; 
     this.id = item_type_id;
     this.mainCat = main_cat_id;
-    this.image = (item_type_img !=null &&item_type_img.length > 0)?subcategory.URLNAME+item_type_img.substring(1,item_type_img.length) : ""; 
+    this.image = (item_type_img !=null &&item_type_img.length > 0)?RootProvider.imageUrl+item_type_img.substring(1,item_type_img.length) : ""; 
     this.Items= items ? items : new Array();
   } 
 }

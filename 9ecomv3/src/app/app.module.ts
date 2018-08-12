@@ -18,15 +18,17 @@ import { CategoryProvider} from '../providers/category/category';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
-
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
     Ecom9App,
+    
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    ComponentsModule,
     IonicModule.forRoot(Ecom9App, {
       preloadModules: true,
       backButtonText: '',
@@ -44,7 +46,8 @@ import { FiltersProvider } from '../providers/filters/filters';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    Ecom9App
+    Ecom9App,
+    
   ],
   providers: [
     StatusBar,

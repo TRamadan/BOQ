@@ -6,7 +6,7 @@ import {Storage}from '@ionic/storage';
 import {Product} from './product/product';
 import {Cart} from './cart/cart';
 import { OrderData} from './order/order';
-import { Address} from '../providers/users/users';
+import { Address} from './users/users';
 import { Category } from './category/category';
 
 
