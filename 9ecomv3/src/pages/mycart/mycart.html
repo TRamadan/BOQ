@@ -37,8 +37,8 @@
         <h2>{{item.product.name}}</h2>
         
         <div class="price-wrapper">
-          <div class="price">LE {{item.product.price - item.product.discount}}</div>
-          <div *ngIf="item.product.discount==0" class="old-price">LE {{item.product.discount}}</div>
+          <div class="price"> {{item.product.price - item.product.discount}} LE</div>
+          <div *ngIf="item.product.discount==0" class="old-price"> {{item.product.discount}} LE</div>
           
         </div>
         <div item-right class="right-bag">
@@ -78,7 +78,7 @@
         <button ion-button clear (tap)="placeOrder()">Place this order</button>
       </div>
       <div class="order-price">
-        LE {{cart.total()}}
+        {{cart.total()}} LE
       </div>
     </div>
   </div>

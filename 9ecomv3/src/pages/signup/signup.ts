@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController ,LoadingController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
@@ -27,7 +27,8 @@ export class SignupPage {
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public loadCtrl : LoadingController
   ) {
     this.menuCtrl.enable(false);
     this.buildForm();
@@ -55,15 +56,24 @@ export class SignupPage {
 
 
   public async onRegester()  {
+    let loading = this.loadCtrl.create({
+      content: 'Logging in ,Please Wait'
+    });
     if (this.registerForm.valid) {
+      loading.present();
       //console.log(this.gender);
       //console.log(this.location)
      
       let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
+      loading.dismiss();
       if(bool == true){
         this.navCtrl.setRoot(TabsPage);
+      }else{
+        alert("this user name is used Please try a new one");
       }
       
+  }else{
+    alert("Invaled fealds");
   }
   /*
   register() {

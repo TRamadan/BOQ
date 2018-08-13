@@ -44,14 +44,14 @@ export class Product {
   //sizes: string[];
   //descriptions: string[];
   categories: Category[]; 
-  brand?: string;
+  company_id: string;
   love?: boolean = false;
   status?: string; 
   offer_id : string; 
   offer_name : string; 
   company_name : string;
 
-   constructor(prod_name : string,itemId : string , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : string , prod_desc : string  , distributorId : number , price : number  , offer_id : string , offer_name : string,discount_percentage:number,item_distributor_id:string) { 
+   constructor(prod_name : string,itemId : string , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : string , prod_desc : string  , distributorId : number , price : number  , offer_id : string , offer_name : string,discount_percentage:number,item_distributor_id:string,compantyId:string ="") { 
     this.name = prod_name;
     this.id = itemId; 
     this.product_subcat = prod_sub_category;
@@ -68,6 +68,7 @@ export class Product {
     this.discountPercentage = discount_percentage;
     this.distributerLinkId=item_distributor_id;
     this.currentPrice=this.discountPercentage == null ? this.price : (this.price-((this.price*this.discountPercentage)/100));
+    this.company_id= compantyId;
 //////////////////////////////////////////////
    //  this.categories = new Array<Category>();
    // this.colors = new Array<string>();

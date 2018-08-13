@@ -51,12 +51,12 @@
               </h3>
             </ion-card-header>
             <!-- here will be the image of the item --> 
-            <img src="../assets/img/nophoto.jpg" />
+            <img [src]="item.image1" />
             <ion-card-content>
                 <h4 style="text-align:center;">Offer information</h4> 
                 <hr>
               <h5 style="font-weight:bold;">Offer name :</h5> <h5>{{item.offer_name}}</h5>
-             <h5 style="font-weight:bold;">Price :</h5> <h5>{{item.currentPrice}}</h5>
+             <h5 style="font-weight:bold;">Price :</h5> <h5>{{item.currentPrice}} LE</h5>
             </ion-card-content>
           </ion-card>
         </ion-item>

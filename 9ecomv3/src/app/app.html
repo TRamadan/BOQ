@@ -9,6 +9,7 @@
       <div *ngFor="let c of catArray; let i = index;">
    
             <button detail-none class="parent" ion-item (tap)="toggleItems2(i)">
+                
               {{c.name}}
               <ion-icon *ngIf="!c.open" item-right name="add"></ion-icon>
               <ion-icon *ngIf="c.open" item-right name="remove"></ion-icon>

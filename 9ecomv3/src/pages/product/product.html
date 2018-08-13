@@ -39,20 +39,23 @@
     <div class="title">
       {{product.name}}
     </div>
+    <div class="title">
+      {{product.company_name}}
+    </div>
     <div class="price-wrapper" *ngIf="product.price != product.currentPrice">
       
       <div class="sale-price">
-        LE {{product.currentPrice}}
+         {{product.currentPrice}} LE
       </div> 
       <div class="old-price"> 
         <!-- put here the price of the discount 'if there is a discount on this item' -->
-        LE {{product.price}}
+         {{product.price}} LE
       </div>
     </div>
     <div class="price-wrapper" *ngIf="product.price == product.currentPrice">
       
       <div class="sale-price">
-        LE {{product.currentPrice}}
+         {{product.currentPrice}} LE
       </div> 
       
     </div>

@@ -126,7 +126,7 @@ export class User {
   private static instance: User = null;
   static isCreating: boolean = false;
 
-  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
@@ -136,7 +136,7 @@ export class User {
     }
   }
 
-  public setData(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
+  public setData(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
     
     this.id = id;
     this.name = name;

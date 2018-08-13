@@ -24,7 +24,9 @@
         <div class="avatar-image">
           <div class="avatar-container">
             <div class="avatar-cropper">
-              <img src="assets/img/profile-anhlq.png">
+              
+              <img *ngIf="user.gender  == 'Male'" src="assets/img/signup_male.png">
+              <img *ngIf="user.gender  == 'Female'" src="assets/img/signup_female.png">
             </div>
           </div>
         </div> 
