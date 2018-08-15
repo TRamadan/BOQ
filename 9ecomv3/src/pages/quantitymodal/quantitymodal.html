@@ -16,11 +16,12 @@
 
 
 <ion-content padding>
-
+    <form (ngSubmit)="dismiss()">
     <ion-item>
       <ion-label floating>Type quantity</ion-label>
-      <ion-input [(ngModel)]="qunt" type="number" clearOnEdit="true">
+      <ion-input [(ngModel)]="qunt" name="qunt" type="number" clearOnEdit="true">
       </ion-input>
     </ion-item>
-  <button ion-button full clear (tap)="dismiss()">Done</button>
+  <button ion-button full clear type="submit" >Done</button>
+  </form>
 </ion-content>

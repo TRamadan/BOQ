@@ -23,7 +23,6 @@ import { ComponentsModule } from '../components/components.module';
 @NgModule({
   declarations: [
     Ecom9App,
-    
   ],
   imports: [
     BrowserModule,
@@ -39,6 +38,10 @@ import { ComponentsModule } from '../components/components.module';
           statusbarPadding: true,
         },
         android: {
+          scrollAssist: false,
+          autoFocusAssist: false,
+          statusbarPadding: true,
+          
         }
       }
     }),
@@ -52,6 +55,7 @@ import { ComponentsModule } from '../components/components.module';
   providers: [
     StatusBar,
     SplashScreen,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     InAppBrowser,
     Database, 
@@ -60,6 +64,7 @@ import { ComponentsModule } from '../components/components.module';
     UsersProvider,
     CategoryProvider,
     Order,
+
     FiltersProvider
   ]
 })

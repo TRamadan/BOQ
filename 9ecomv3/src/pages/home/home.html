@@ -84,9 +84,9 @@
 
 
    <ion-item no-lines *ngFor = "let cat of category_array ; let item = index;">
-    <ion-card>
-      <img (tap) = "categories(cat.id)" *ngIf = "cat.image" [src] = "cat.image"/> 
-      <img (tap) = "categories(cat.id)" *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
+    <ion-card (tap) = "categories(cat.id)">
+      <img  *ngIf = "cat.image" [src] = "cat.image"/> 
+      <img  *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
     
     <div class="ads-wrapper">
       <div class="ads-box">

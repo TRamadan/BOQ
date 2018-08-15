@@ -48,8 +48,8 @@ export class Ecom9App {
   rootPage: string;
   pages: PageInterface[] = [
     //{ title: 'Track Orders', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'my orders' },
-    { title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
-    { title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
+    //{ title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
+    //{ title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
   ];
 
   constructor(
@@ -61,7 +61,7 @@ export class Ecom9App {
     public menu: MenuController,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public catProv: CategoryProvider
+    public catProv: CategoryProvider,
   ) {
 
 
@@ -82,8 +82,7 @@ export class Ecom9App {
   initializeApp() {
     this.platform.ready().then(() => {
 
-      console.log(new Date().toJSON());
-     
+      //console.log(new Date().toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();

@@ -6,14 +6,19 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="assets/img/menu.png" class="menu-image">
-    </button>
-    <ion-title>Account Details</ion-title>
+    
+   <button ion-button menuToggle><img src="assets/img/menu.png" class="menu-image"></button>
+      <ion-title>Account Details</ion-title>
+   
+    
+   
+    
   </ion-navbar>
   <div>
     <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
   </div>
+  
+
 </ion-header>
 
 <ion-content class="page-profile">
@@ -45,7 +50,7 @@
             <div class="info-detail">{{user.phone}}</div>
           </ion-item> 
           
-         
+          <button class="sign-out" ion-button (tap)="signOut()">SignOut</button>
           <!--
           <ion-item>
             <ion-icon class="info-icon" item-left name="lock"></ion-icon>

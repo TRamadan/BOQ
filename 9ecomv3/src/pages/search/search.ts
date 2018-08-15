@@ -62,7 +62,7 @@ export class SearchPage {
           }
         }
       }
-      this.results = this.allProduct;
+      this.results = this.allProduct.slice(0,20);
       //console.log(this.results);
       this.Ready=true;
    
@@ -89,6 +89,17 @@ export class SearchPage {
       this.results = this.allProduct;
     }
     //console.log(this.allProduct.length);
+  }
+  doInfinite($event){
+    setTimeout(()=>{
+      this.results = this.allProduct;
+      $event.complete();
+    })
+  }
+
+  allDataExist():boolean{
+    console.log(this.results.length == this.allProduct.length ? true : false);
+    return this.results.length == this.allProduct.length ? true : false;
   }
   
   decorateTitle(title: string): string {

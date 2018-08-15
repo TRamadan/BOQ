@@ -12,6 +12,11 @@ $font-path: "../assets/fonts";
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
 
+ion-card img {
+  //display: block;
+  //width: 100vw;
+  height: 20vh;
+}
 
 
 
@@ -24,11 +29,11 @@ $font-path: "../assets/fonts";
 // The "primary" color is the only required color in the map.
 
 $colors: ( 
-   primary: #00acec,
-   secondary: #3fb653,
+   primary: #333333,
+   secondary: #e0a018,
    danger: #f15a67,
    light: #f4f4f4,
-   dark: #333333,
+   dark: #e2c12b,
    pearl: #ffffff,
    primarydark:#0081b1,
    lightdark: #d9d9d9,
@@ -41,6 +46,21 @@ $colors: (
 // --------------------------------------------------
 // iOS only Sass variables can go here
 
+.tabs-ios .tabbar{
+  color: color($colors, primary);
+  background: color($colors, primary)!important;
+}
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+  color:color($colors, dark)!important;
+}
+.tabs-ios .tab-button[aria-selected=true] {
+  color: color($colors, dark)!important;
+}
+.button-ios{
+  background: color($colors,primary);
+  color: color($colors,dark)!important;
+}
+
 
 
 
@@ -49,7 +69,13 @@ $colors: (
 // Material Design only Sass variables can go here
 
 
-
+.tabs-md .tabbar{
+  color: color($colors, primary);
+  background: color($colors, primary)!important;
+}
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+  color:color($colors, dark)!important;
+}
 
 // App Windows Variables
 // --------------------------------------------------

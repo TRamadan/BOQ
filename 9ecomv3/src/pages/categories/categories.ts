@@ -40,8 +40,7 @@ export class CategoriesPage {
   show: boolean = true;
   items;
   viewItems;
-
-
+  name: string ="";
   selectedTabNum=0;
   ItemsReady: boolean = false;
 
@@ -83,6 +82,7 @@ export class CategoriesPage {
 
     var subcat = this.navParams.get('subcat');
     this.menus = this.navParams.get('category');
+    this.name = this.menus.name;
     //console.log(this.menus);
     if (this.menus) {
       this.categories = this.menus.children;
