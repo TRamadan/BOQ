@@ -29,17 +29,17 @@ import { ComponentsModule } from '../components/components.module';
     HttpModule,
     ComponentsModule,
     IonicModule.forRoot(Ecom9App, {
+      scrollPadding: false,
+      scrollAssist: true, 
+      autoFocusAssist: false,
       preloadModules: true,
       backButtonText: '',
       platforms: {
         ios: {
-          scrollAssist: false, 
-          autoFocusAssist: false,
+          
           statusbarPadding: true,
         },
         android: {
-          scrollAssist: false,
-          autoFocusAssist: false,
           statusbarPadding: true,
           
         }
