@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
-
-
+import { Storage} from '@ionic/storage';
 import { Database } from '../../providers/database';
 import { Cart,CartProduct} from '../../providers/cart/cart';
 import { User , Address ,UsersProvider} from '../../providers/users/users';
@@ -15,11 +14,13 @@ import { OrderData } from '../../providers/order/order';
  * on Ionic pages and navigation.
  */
 @IonicPage()
+
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
 export class ProfilePage { 
+
   u : any;
   tabs: IScrollTab[] = [
     {
@@ -53,6 +54,8 @@ export class ProfilePage {
     , public navParams: NavParams
     , private menu: MenuController
     , public userProv : UsersProvider
+    , public storage: Storage
+    , public app: App
   ) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
@@ -106,7 +109,7 @@ export class ProfilePage {
   }
 
   removeAddress(addr: Address) {
-    this.user.removeSavedAddress(addr);
+    this.userProv.removeAddress(addr);
   }
 
   add2Cart(wish: Product) {
@@ -143,5 +146,16 @@ export class ProfilePage {
 
   removeWish(wish: Product) {
     this.db.removeWish(wish);
-  } 
+  }
+  signOut(){
+      this.storage.remove('user');
+      if(this.app.getActiveNavs()!= undefined &&this.app.getActiveNavs().length >0)
+      {
+        const root = this.app.getRootNavs()[0];
+        root.setRoot('SigninPage')
+        root.popToRoot();
+       
+      }
+     
+  }
 }

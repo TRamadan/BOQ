@@ -195,7 +195,7 @@
             </div>
            
           </div>
-          <div class="shipping-detail" *ngIf="isValid(newAddress)">
+          <div class="shipping-detail" *ngIf="isValid()">
 
             <div class="state">
               {{newAddress.toString()}}
@@ -232,7 +232,7 @@
               Order Total
             </div>
             <div class="amount">
-              LE {{cart.promoTotal()}}
+              {{cart.promoTotal()}} LE
             </div>
           </div>
           <div class="delivery-charge">
@@ -251,7 +251,7 @@
               Total Amount
             </div>
             <div class="amount">
-              LE {{cart.promoTotal() + cart.delivery}}
+               {{cart.promoTotal() + cart.delivery}} LE
             </div>
           </div>
         </div>

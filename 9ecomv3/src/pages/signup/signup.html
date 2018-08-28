@@ -14,7 +14,7 @@
     <!-- logo will be here -->
     </div>
     <div class="skip" (click)="skip()">
-      Skip
+      Back
   </div>
   </div>
   <div class="content">
@@ -36,17 +36,22 @@
     </ion-item>
 
     <ion-item>
-      <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
-      <ion-label floating>First Name</ion-label>
-      <ion-input formControlName="firstname" type="text"></ion-input>
+        <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
+        <ion-label floating>Password</ion-label>
+        <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
-      <ion-label floating>Last Name</ion-label>
-      <ion-input formControlName="lastname" type="text"></ion-input>
-    </ion-item>
+        <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
+        <ion-label floating>First Name</ion-label>
+        <ion-input formControlName="fname" type="text"></ion-input>
+      </ion-item>
 
+      <ion-item>
+          <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
+          <ion-label floating>Last Name</ion-label>
+          <ion-input formControlName="lname" type="text"></ion-input>
+        </ion-item>
 
     <ion-item>
       <ion-icon class="input-icon" ios="ios-mail-outline" md="md-mail" item-left></ion-icon>
@@ -58,33 +63,6 @@
       <ion-icon class="input-icon" ios="ios-phone-portrait-outline" md="md-phone-portrait" item-left></ion-icon>
       <ion-label floating>Mobile Number</ion-label>
       <ion-input formControlName="phone" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
-      <ion-label floating>Password</ion-label>
-      <ion-input formControlName="password" type="password"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon class="input-icon" ios="ios-transgender-outline" md="md-lock" item-left></ion-icon>
-      <ion-label floating>Gender</ion-label>
-      <ion-select interface="popover" class="gender-select" formControlName="gender"  [(ngModel)]="gender"
-      required>
-      <ion-option class="regs-select-option" [value]="male">male</ion-option>
-      <ion-option [value]="female">female</ion-option>
-  </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon class="input-icon" ios="ios-pin-outline" md="md-lock" item-left></ion-icon>
-      <ion-label floating>Address</ion-label>
-      <ion-select interface="popover" class="gender-select" formControlName="location"  [(ngModel)]="location">
-        <ion-option [value]="SheikZayed">SheikZayed</ion-option>
-        <ion-option [value]="fifth">altagamue alkhamis</ion-option>
-        <ion-option [value]="north-coast">north coast</ion-option>
-        <ion-option [value]="giza">giza</ion-option>
-    </ion-select>
     </ion-item>
 
     <button type="submit" class="login-button" ion-button round full>

@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { User } from '../users/users';
 import { RootProvider } from '../root/root';
 import { CartProduct } from '../cart/cart';
-import { resolve } from 'url';
 /*
   Generated class for the OrderProvider provider.
 
@@ -21,7 +20,7 @@ export class Order extends RootProvider {
 
   constructor(http : Http) {
     super(http);
-    this.user = User.getInstance();
+    
   }
 
  
@@ -36,7 +35,7 @@ export class Order extends RootProvider {
     ,long : string ='0'
     ,latt : string ='0'
   ) : Promise<any> {
-
+    this.user = User.getInstance();
     this.orderData = new OrderData(this.user.id,paymentId,shippingId,totalPrice,new Date(),deleveryAddress,long,latt,items);
     let count = 0;
     for(let i = 0;i<this.orderData.items.length;i++){
@@ -83,14 +82,18 @@ export class Order extends RootProvider {
       let str = `${RootProvider.APIURL3}${this.getUserOrderApi}?user_id=${userId}`;
       console.log(str);
       this.http.get(str).map(res=><any>res.json()).subscribe(data=>{
+        let Orders= new Array<OrderData>();
         if(data != null && data.length != 0){
-          let Orders= new Array<OrderData>();
+          console.log(data);
+          
           for(let i = 0 ; i <data.length ; i++){
-            Orders.push(new OrderData(userId,data[i].payment_id,data[i].shipping_id,data[i].total_price,data[i].order_datetime,data[i].deliver_to,data[i].deliver_long,data[i].deliver_latt,new Array<CartProduct>()));
+            Orders.push(new OrderData(userId,data[i].payment_id,data[i].shipping_id,data[i].total_price,new Date(data[i].order_datetime),data[i].deliver_to,data[i].deliver_long,data[i].deliver_latt,new Array<CartProduct>(),data[i].invoice_id));
             
           }
-          resolve(Orders);
+         
         }
+        resolve(Orders);
+      
       },err=>{
         resolve(err);
       })
@@ -120,6 +123,7 @@ export class OrderData {
     ,deleveryLong:string
     ,delevertlatt:string
     ,items:Array<CartProduct>
+    ,invoiceId:string =""
   ){
     this.items = new Array<CartProduct>();
     this.items = items;
@@ -127,18 +131,17 @@ export class OrderData {
     this.paymentId= paymentId;
     this.shippingId=shippingId;
     this.totalPrice= totalPrice;
-    this.invoiceId= this.genrateInvoiceId(orderDate);
+    this.invoiceId= invoiceId== "" ? this.genrateInvoiceId(orderDate, userId) : invoiceId;
     this.orderDate= orderDate;
     this.deleveryAddress= deleveryAddress;
     this.deleveryLong= deleveryLong;
     this.deleverLatt= delevertlatt;
   }
 
-  private genrateInvoiceId(date : Date) : string{
+  private genrateInvoiceId(date : Date, id : string) : string{
     
-    let Rand = Math.floor(Math.random() *1000);
-    return Rand.toString();
-    //return this.user.id +  date.getMinutes().toString()+date.getHours().toString() + date.getSeconds().toString() + Rand;
+   
+    return id +  date.getMinutes().toString()+date.getHours().toString() + date.getSeconds().toString();
 
   }
 }

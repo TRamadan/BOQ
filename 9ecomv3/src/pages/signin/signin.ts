@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, LoadingController } from 'ionic-angular';
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Storage } from '@ionic/storage';
@@ -30,6 +30,7 @@ export class SigninPage {
     , public navCtrl: NavController
     , public navParams: NavParams
     , public orderProv: Order
+    , public loadCtrl : LoadingController
   ) {
 
     this.menuctrl.enable(false);
@@ -60,14 +61,25 @@ export class SigninPage {
   }
 
   public async onLogin() {
+    let loading = this.loadCtrl.create({
+      content: 'Logging in ,Please Wait'
+    });
     if (this.loginForm.valid) {
+      loading.present();
       let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password)
       console.log(temp);
       if (temp ==true) {
+        loading.dismiss();
         this.user = User.getInstance();
+        this.storage.set('user',this.user);
         this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
         this.navCtrl.setRoot(TabsPage);
+      }else{
+        loading.dismiss();
+        alert('Wrong user name or password')
       }
+    }else{
+      alert('Wrong user name or password')
     }
   }
 }

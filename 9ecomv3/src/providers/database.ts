@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Http}from '@angular/http';
 import 'rxjs/add/operator/map';
+
 import {Storage}from '@ionic/storage';
 import {Product} from './product/product';
 import {Cart} from './cart/cart';
-import {OrderData} from './order/order';
-import { Address} from '../providers/users/users';
+import { OrderData} from './order/order';
+import { Address} from './users/users';
 import { Category } from './category/category';
 
 
@@ -102,7 +103,7 @@ export class Database {
     
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
-
+    
     /*
     let id = 'SC' + (new Date(now.getTime() - 2*day)).getTime().toString();
     let date = new Date(now.getTime() - 2*day);

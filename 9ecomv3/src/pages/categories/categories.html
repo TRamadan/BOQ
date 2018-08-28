@@ -27,17 +27,32 @@
           <div class="card9-container" *ngFor="let item of viewItems">
             <div (tap)="toProduct(item)">
             <div class="pic-box" >
-              <img [src]="item.image2">
+              <img [src]="item.image1">
             </div>
             <div class="title">
               {{item.name}}
             </div>
-            <div class="price-box">
-              <span class="price">LE {{item.price}}<span class="old-price">LE {{item.price}}</span></span>
+            <div class="temp">
+              {{item.company_name}}
+            </div>
+            <div class="price-box" *ngIf="item.price != item.currentPrice">
+              <span class="price">{{item.currentPrice}} LE<span class="old-price">{{item.price}} LE</span></span>
+              
+              
               <span class="price-love" [class.selected]="item.love">
                 <ion-icon name="heart"></ion-icon>
               </span>
             </div>
+
+            <div class="price-box" *ngIf="item.price == item.currentPrice">
+                <span class="price">{{item.currentPrice}} LE</span>
+                
+                
+                <span class="price-love" [class.selected]="item.love">
+                  <ion-icon name="heart"></ion-icon>
+                </span>
+              </div>
+
           </div>
           </div>
         

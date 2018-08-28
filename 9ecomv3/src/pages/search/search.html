@@ -19,20 +19,21 @@
 
 <ion-content class="page-search">
   <div class="result-list">
-    <ion-list class="cart-list">
-      <ion-item class="cart-list-item" *ngFor="let product of results">
-        <ion-thumbnail item-left>
-          <a (click)="toProduct(product)">
-            <img [src]="product.image1">
-          </a>
-        </ion-thumbnail>
-        <a (click)="toProduct(product)">
-          <h2 [innerHTML]="decorateTitle(product.name)"></h2>
-        </a>
 
-        <div class="price-wrapper">
-          <div class="price">$ {{product.price - product.discount}}</div>
-          <div class="old-price">$ {{product.price}}</div>
+    <ion-list class="cart-list" [virtualScroll]="results" [approxItemHeight]="'88px'">
+      <ion-item class="cart-list-item" *virtualItem="let product" (tap)="toProduct(product)">
+        <ion-thumbnail item-left>
+            <img [src]="product.image1">
+        </ion-thumbnail>
+          <h2 [innerHTML]="decorateTitle(product.name)"></h2>
+          <h3 [innerHTML]="decorateTitle(product.company_name)"></h3>
+        <div class="price-wrapper" *ngIf="product.price != product.currentPrice">
+          <div class="price">{{product.currentPrice}} LE</div>
+          <div class="old-price">{{product.price}} LE</div>
+        </div>
+        <div class="price-wrapper" *ngIf="product.price == product.currentPrice">
+          <div class="price">{{product.currentPrice}} LE</div>
+          
         </div>
         <div item-right class="right-bag">
           <div *ngIf="product.status === 'in'" class="available">In stock</div>
@@ -40,5 +41,8 @@
         </div>
       </ion-item>
     </ion-list>
+    
+    
+     
   </div>
 </ion-content>

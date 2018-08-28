@@ -7,11 +7,13 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Database } from '../providers/database';
 import { Cart } from '../providers/cart/cart';
-
+import { User} from '../providers/users/users';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
 import { Category ,CategoryProvider } from '../providers/category/category';
+
+import {TabsPage} from '../pages/tabs';
 
 
 export interface PageInterface {
@@ -46,10 +48,39 @@ export class Ecom9App {
   rootPage: string;
   pages: PageInterface[] = [
     //{ title: 'Track Orders', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'my orders' },
-    { title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
-    { title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
+    //{ title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
+    //{ title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
   ];
+  
 
+  icons=[
+  {
+    name: "plummbing"
+    ,url:"assets/img/plum.png"
+  },
+  {
+    name: "electricity"
+    ,url:"assets/img/elec.png"
+  },
+  {
+    name: "Insulation"
+    ,url:"assets/img/insolation.png"
+  },
+  {
+    name: "Paints"
+    ,url:"assets/img/paints.png"
+  },
+  {
+    name: "gypsum board"
+    ,url:"assets/img/gyps.png"
+  },
+  {
+    name: "chemicals"
+    ,url:"assets/img/cimicals.png"
+  },
+
+
+]
   constructor(
 
     public storage: Storage,
@@ -59,7 +90,7 @@ export class Ecom9App {
     public menu: MenuController,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public catProv: CategoryProvider
+    public catProv: CategoryProvider,
   ) {
 
 
@@ -79,7 +110,8 @@ export class Ecom9App {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      console.log(new Date().toJSON());
+
+      //console.log(new Date().toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
       this.menuItems = this.database.parentCategory();
@@ -127,6 +159,7 @@ export class Ecom9App {
     this.menu.close();
     // navigate to the new page if it is not the current page
     if (page.name === 'SigninPage') {
+      this.storage.remove('user');
       this.nav.setRoot(page.name);
     } else {
       this.nav.setRoot(page.name, { tabIndex: page.index, tabName: page.tabName, detail: page.detail });

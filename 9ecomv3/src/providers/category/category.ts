@@ -20,8 +20,29 @@ export class CategoryProvider {
     console.log('Hello SubCategoriesProvider Provider');
   }
 
-  private async getItems() : Promise<any>{
+  public async getCompany() : Promise<any>{
     return new Promise((resolve)=>{
+      this.http.get(`${RootProvider.APIURL3}company`).map(res=><any>res.json()).subscribe(
+        data=>{
+          if(data ==undefined || data.length == 0 ){
+            resolve([])
+          }else{
+            let comps = new Array<Company>();
+            for(let i = 0;i < data.length ; i++){
+              comps.push(new Company(data[i].PointName,data[i].PointID,data[i].PointCategory,data[i].main_category_name,data[i].PointDesc,data[i].PointAddress,data[i].company_address_ar,data[i].PointPhone,data[i].company_phone2,data[i].PointLong,data[i].PointLatt))
+            }
+            console.log(comps);
+            resolve(comps);
+          }
+        }
+      )
+    })
+  }
+
+  private async getItems() : Promise<any>{
+    let comps = <Array<Company>> await this.getCompany();
+    return new Promise((resolve)=>{
+      console.log(`${RootProvider.APIURL3}item`);
       this.http.get(`${RootProvider.APIURL3}item`).map(res=><any>res.json()).subscribe(data=>{
         if(data== undefined || data.length == 0)
   {
@@ -30,7 +51,13 @@ export class CategoryProvider {
   else{
     let items : Product[] = new Array();
     for(let i = 0 ; i < data.length ; i++){
-      items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].prod_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id);
+      items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].item_long_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id,data[i].company_id);
+      for(let j = 0 ; j< comps.length ; j++){
+        if(items[i].company_id == comps[j].id){
+          items[i].company_name = comps[j].name;
+          break;
+        }
+      }
     }
     resolve(items);
     }
@@ -59,7 +86,7 @@ public async getCategories( ) : Promise<any>{
 
                 //console.log(tempcats);
               }
-              catArray[i] = new Category(data[i].NewsCategory, data[i].NewsCategoryID, tempcats);
+              catArray[i] = new Category(data[i].NewsCategory, data[i].NewsCategoryID, tempcats,data[i].NewsCategoryImage);
             }
 
 
@@ -120,7 +147,7 @@ export class Category{
   { 
     this.name = NewsCategory;
     this.id = NewsCategoryID;  
-    this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?Category.URLNAME+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
+    this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?RootProvider.imageUrl+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
     this.parentShow = false;
     this.parent = Parent; 
     this.open = false;
@@ -129,6 +156,49 @@ export class Category{
   
 
   
-} 
+}
+
+export class Company{
+  name: string;
+  id: string;
+  nameAr: string;
+  descr: string;
+  address: string;
+  addressAr: string;
+  phone: string;
+  phone2: string;
+  categoryId: string;
+  logo: string;
+  long: string;
+  latt: string;
+  categoryName: string;
+
+  constructor(name:string
+    ,id:string
+    ,categoryId:string
+    ,categortName:string
+    ,descr: string = ""
+    ,address: string = ""
+    ,addressAr: string = ""
+    ,phone: string = ""
+    ,phone2:string = ""
+    ,long: string = ""
+    ,latt: string = ""
+    
+  ){
+    this.name = name;
+    this.id= id;
+    this.categoryId = categoryId;
+    this.categoryName = categortName;
+    this.descr = descr;
+    this.address = address;
+    this.addressAr = addressAr;
+    this.phone = phone;
+    this.phone2 = phone2;
+    this.logo = long;
+    this.latt = latt;
+
+  }
+}
 
 

@@ -13,8 +13,13 @@ export class UsersProvider extends RootProvider {
   private logIn: string = "MobileUserLogin";
   private logIn2: string = "users";
   private register: string = "AddNewUser";
+<<<<<<< HEAD
   public user: User; 
   public register2 : string = "users";
+=======
+  private register2: string = "users";
+  public user: User;
+>>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
@@ -54,19 +59,22 @@ export class UsersProvider extends RootProvider {
    
   }
 
-  ////////////////////////////////////////////////////
-  public async Regester(name: string, password: string, fname: string, lname : string ,   phone: string , email : string, gender: string, location: string): Promise<any> {
+  public async Regester(userName:string,password:string,fname:string,lname:string,userImage:string,userPhone:string,userEmail:string,usertype:string): Promise<any> {
+    let temp = `${RootProvider.APIURL3}${this.register2}?user_name=${userName}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_img=""&user_phone=${userPhone},&user_email=${userEmail}&user_type=${usertype}`;
+    //console.log(temp);
+    
     return new Promise ((resolve)=>{
-      let tempGender = (gender == "ذكر") ? 1 : 2;
-      let temp =`${RootProvider.APIURL3}${this.register2}?user_name=${name}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_phone=${phone}&user_email=${email}`;
-      console.log(temp);
-      this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
-      
-      if (data != null && data.length > 0  ) {
-        this.user = User.getInstance(data[0].USERID,data[0].user_first_name, data[0].gender,password,data[0].user_email,data[0].user_phone)
-       
-        this.storage.set('user', this.user);
-        resolve(true);
+    this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
+      console.log(data);
+      if (data.length > 0) {
+        if(data[0].error_name == "done"){
+          let temp =this.login(userName,password);
+          resolve(true && temp);
+        }else{
+          alert("this Email has been regestered before")
+          resolve(false);
+
+        }
       } else {
         alert("Server Error");
         resolve(false)
@@ -85,12 +93,14 @@ export class UsersProvider extends RootProvider {
   }
 
   public addAddress(address : Address){
-    this.storage.get('addresses').then(data=>{
-      this.user.addresses = data;
-      this.user.addSavedAddress(address);
-     this.storage.set('addresses' , this.user.addresses)
-    })
+
+    this.user.addSavedAddress(address);
+    this.storage.set('user' , this.user)
     
+  }
+  public removeAddress(address : Address){
+    this.user.removeSavedAddress(address);
+    this.storage.set('user',this.user);
   }
 
 
@@ -122,7 +132,11 @@ export class User {
   private static instance: User = null;
   static isCreating: boolean = false;
 
+<<<<<<< HEAD
   constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array() , image : string = "") {
+=======
+  constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
+>>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
@@ -132,7 +146,7 @@ export class User {
     }
   }
 
-  public setData(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
+  public setData(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
     
     this.id = id;
     this.name = name;
@@ -145,7 +159,7 @@ export class User {
   }
 
   static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
-    if (User.isCreating === false) {
+    if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
       User.instance = new User(id, name, gender, password, email, phone,lName,fName, address);
       console.log(console.log(User.instance));

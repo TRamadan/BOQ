@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController ,LoadingController } from 'ionic-angular';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
@@ -27,7 +27,8 @@ export class SignupPage {
     public formBuilder: FormBuilder,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public menuCtrl: MenuController
+    public menuCtrl: MenuController,
+    public loadCtrl : LoadingController
   ) {
     this.menuCtrl.enable(false);
     this.buildForm();
@@ -42,11 +43,9 @@ export class SignupPage {
       name: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
-      gender: ['', [Validators.required]],
-      location: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]],
-      firstname: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(4)]], 
-      lastname : ['', [Validators.required, Validators.maxLength(12), Validators.minLength(4)]]
+      fname: ['',[Validators.required]],
+      lname: ['',[Validators.required]]
     })
   }
 
@@ -57,15 +56,29 @@ export class SignupPage {
 
 
   public async onRegester()  {
+    let loading = this.loadCtrl.create({
+      content: 'Logging in ,Please Wait'
+    });
     if (this.registerForm.valid) {
+      loading.present();
       //console.log(this.gender);
       //console.log(this.location)
+<<<<<<< HEAD
      //email: string, password: string, name: string, lname : string , gender: string, location: string, phone: string
       let bool = await this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name,this.registerForm.value.firstname,this.registerForm.value.lastname ,this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone)  
+=======
+     
+      let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
+      loading.dismiss();
+>>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
       if(bool == true){
         this.navCtrl.setRoot(TabsPage);
+      }else{
+        alert("this user name is used Please try a new one");
       }
       
+  }else{
+    alert("Invaled fealds");
   }
   /*
   register() {

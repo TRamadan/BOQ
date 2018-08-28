@@ -34,10 +34,14 @@ export class SearchPage {
     this.catsArr = new Array<Category>();
     this.Ready=false;
     this.dataBase =Database.getInstance();
+
     this.initializeItems();
+    console.log(this.dataBase);
+
   }
 
   ionViewDidLoad() {
+   
     console.log('ionViewDidLoad SearchPage');
   }
 
@@ -85,6 +89,16 @@ export class SearchPage {
       this.results = this.allProduct;
     }
     //console.log(this.allProduct.length);
+  }
+  doInfinite($event){
+    setTimeout(()=>{
+     
+    })
+  }
+
+  allDataExist():boolean{
+    console.log(this.results.length == this.allProduct.length ? true : false);
+    return this.results.length == this.allProduct.length ? true : false;
   }
   
   decorateTitle(title: string): string {

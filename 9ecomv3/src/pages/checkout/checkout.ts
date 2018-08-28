@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert } from 'ionic-angular';
+import {Nav, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert } from 'ionic-angular';
 
 import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import {Database } from '../../providers/database'
@@ -7,7 +7,7 @@ import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
 import { Address ,UsersProvider, User} from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
-import { ThrowStmt } from '../../../node_modules/@angular/compiler';
+import { CategoryProvider} from '../../providers/category/category';
 /**
  * Generated class for the Checkout page.
  *
@@ -59,7 +59,8 @@ export class CheckoutPage {
       public userProv : UsersProvider,
       public order : Order
       ,public loadCtrl : LoadingController
-      ,public app : App
+      ,public nav : Nav
+      ,public catProv: CategoryProvider
       ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
@@ -67,6 +68,7 @@ export class CheckoutPage {
     this.db = Database.getInstance();
     this.user = this.userProv.getUser();
     this.savedAddresses = this.user.addresses;
+    console.log
     //this.cities = this.db.allCities();
     //this.districts = this.db.alldistrict();
     //this.countries = this.db.allCountries();
@@ -149,9 +151,9 @@ export class CheckoutPage {
           }
         });
         if (!flgFound) {
-          if (this.isValid(this.newAddress)) {
+          if (this.isValid()) {
             console.log(this.newAddress.toString());
-            this.user.addSavedAddress(this.newAddress);
+            this.userProv.addAddress(this.newAddress);
             this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
@@ -173,7 +175,7 @@ export class CheckoutPage {
         this.scrollTab.nextTab();
       }
     } else {
-      if (this.isValid(this.newAddress)) {
+      if (this.isValid()) {
         // add order
         let loading = this.loadCtrl.create({
           content: 'Send Order Please Wait'
@@ -181,11 +183,12 @@ export class CheckoutPage {
         loading.present();
         let output =false;
          output =await this.order.addOrder(this.cart.total(),this.newAddress.toString(),this.cart.products);
-        console.log(output);
+        //onsole.log(output);
         if(output){
-          loading.dismiss();
+          this.db.categories= await this.catProv.getCategories(); 
           this.cart.clear();
-          
+          loading.dismiss();
+          //console.log(this.db.categories);
           this.navCtrl.setRoot(TabsPage,{"tabIndex":2})
           
         }else{
@@ -204,8 +207,10 @@ export class CheckoutPage {
     }
   }
 
-  chooseAddress(addr) {
-    this.newAddress = addr;
+  chooseAddress(addr : Address) {
+    console.log(addr);
+    this.newAddress = new Address(addr.houseNum,addr.street,addr.Block,addr.district,addr.city,addr.country,addr.zipCode);
+    console.log(this.newAddress);
     this.address = 'new';
   }
 
@@ -214,7 +219,7 @@ export class CheckoutPage {
   }
 
   removeAddress(addr: Address) {
-    this.user.removeSavedAddress(addr);
+    this.userProv.removeAddress(addr);
   }
 
   information() {
@@ -250,9 +255,10 @@ export class CheckoutPage {
       alert.present();
     }
   }
-  isValid(addr: Address) {
-    return (addr.street !== '' && addr.houseNum !== undefined)
-      && (addr.city !== '' && addr.country !== undefined)
-      && (addr.district !== '' && addr.zipCode !== undefined)
+  isValid() {
+    console.log(this.newAddress);
+    return (this.newAddress.street !== '' && this.newAddress.houseNum !== undefined)
+      && (this.newAddress.city !== '' && this.newAddress.country !== undefined)
+      && (this.newAddress.district !== '' && this.newAddress.zipCode !== undefined)
   }
 }

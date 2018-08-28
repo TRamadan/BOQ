@@ -7,7 +7,7 @@ page-categories {
       display: inline-block;
       margin: 1vw 0 0 1vw;
       width: 48vw;
-      height: calc((100vh - 32px - 50px - 70px)/2 - 2px);
+      height: calc((100vh - 32px - 50px - 70px)/2 + 10px);
       background-color: color($colors, pearl);
       .pic-box {
         text-align: center;
@@ -26,6 +26,17 @@ page-categories {
         padding-right: 3vw;
         color: color($colors, greydark);
         font-size: 1.25rem;
+      }
+      .temp {
+        width: 98%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding-left: 3vw;
+        padding-right: 3vw;
+        font-size: 1.00rem;
+        color: color($colors, greydark);
+        
       }
       .price-box {
         padding-top: 0.5vh;

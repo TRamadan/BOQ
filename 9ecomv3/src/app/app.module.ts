@@ -18,7 +18,7 @@ import { CategoryProvider} from '../providers/category/category';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
-
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [
@@ -27,16 +27,21 @@ import { FiltersProvider } from '../providers/filters/filters';
   imports: [
     BrowserModule,
     HttpModule,
+    ComponentsModule,
     IonicModule.forRoot(Ecom9App, {
+      scrollPadding: false,
+      scrollAssist: true, 
+      autoFocusAssist: false,
       preloadModules: true,
       backButtonText: '',
       platforms: {
         ios: {
-          scrollAssist: false, 
-          autoFocusAssist: false,
+          
           statusbarPadding: true,
         },
         android: {
+          statusbarPadding: true,
+          
         }
       }
     }),
@@ -44,11 +49,13 @@ import { FiltersProvider } from '../providers/filters/filters';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    Ecom9App
+    Ecom9App,
+    
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     InAppBrowser,
     Database, 
@@ -57,6 +64,7 @@ import { FiltersProvider } from '../providers/filters/filters';
     UsersProvider,
     CategoryProvider,
     Order,
+
     FiltersProvider
   ]
 })

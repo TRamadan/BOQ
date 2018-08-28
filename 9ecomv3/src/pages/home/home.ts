@@ -78,7 +78,8 @@ export class HomePage {
     // getting all the categories saved in the storage
     this.dataBase = Database.getInstance();
     console.log(this.dataBase);
-    this.category_array = this.dataBase.allCategory();
+    this.category_array = this.dataBase.categories;
+    console.log(this.category_array)
     
 
    

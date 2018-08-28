@@ -1,19 +1,30 @@
 <ion-menu [content]="content" id="BOQ">
 
   <ion-header>
-
+<div class="menu-header">Categories</div>
   </ion-header>
 
   <ion-content class="menu">
     <ion-list class="menu-list">
       <div *ngFor="let c of catArray; let i = index;">
-   
-            <button detail-none class="parent" ion-item (tap)="toggleItems2(i)">
-              {{c.name}}
-              <ion-icon *ngIf="!c.open" item-right name="add"></ion-icon>
-              <ion-icon *ngIf="c.open" item-right name="remove"></ion-icon>
-              
-            </button>
+        <ion-row>
+          <ion-col col-auto><img class="menu-thumbnail-img" [src]="icons[i].url"></ion-col>
+          <ion-col>
+              <button detail-none class="parent" ion-item (tap)="toggleItems2(i)" *ngIf="c.open">
+                  {{c.name}}
+                  <ion-icon  item-right name="remove"></ion-icon> 
+                </button>
+                <button detail-none  ion-item (tap)="toggleItems2(i)" *ngIf="!c.open">
+                    
+                    {{c.name}}
+                    
+                    <ion-icon item-right name="add"></ion-icon>
+                    
+                  </button>
+          </ion-col>
+        </ion-row>
+          
+            
           
 <!--
             <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
@@ -27,16 +38,7 @@
     
       </div>
 
-      <hr style="border: solid white 1px;">
-      <ion-list-header>
-        Settings
-      </ion-list-header>
-      <hr style="border:solid;  border-width:1px; border-color:white;">
-      <ion-item>
-        <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-      </ion-item>
+    
 
     </ion-list>
   </ion-content>
