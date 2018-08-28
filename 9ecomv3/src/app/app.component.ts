@@ -51,7 +51,36 @@ export class Ecom9App {
     //{ title: 'Account details', name: 'TabsPage', tabName: 'ProfilePage', index: 4, detail: 'profile' },
     //{ title: 'Sign out', name: 'SigninPage', tabName: 'SigninPage', index: 2 },
   ];
+  
 
+  icons=[
+  {
+    name: "plummbing"
+    ,url:"assets/img/plum.png"
+  },
+  {
+    name: "electricity"
+    ,url:"assets/img/elec.png"
+  },
+  {
+    name: "Insulation"
+    ,url:"assets/img/insolation.png"
+  },
+  {
+    name: "Paints"
+    ,url:"assets/img/paints.png"
+  },
+  {
+    name: "gypsum board"
+    ,url:"assets/img/gyps.png"
+  },
+  {
+    name: "chemicals"
+    ,url:"assets/img/cimicals.png"
+  },
+
+
+]
   constructor(
 
     public storage: Storage,

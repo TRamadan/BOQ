@@ -14,16 +14,43 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.menu-header{
+  color: color($colors,dark);
+  color: #e2c12b;
+  font-size: 2.36rem;
+  text-align: center;
+  padding: 1rem;
+}
 .menu {
   background-color: color($colors, primary);
   .menu-list {
     padding-top: 5vh;
+  }
+  .parent{
+    color: color($colors,dark)!important;
+
+  }
+  .menu-list .item:active {
+    color: color($colors, dark);
+    font-size: 1.36rem;
+    background: transparent;
+    border: none;
+    // border-bottom: 0.1rem solid color($colors, light);
+    ion-icon {
+      font-size: 2rem;
+      padding-top: 3px;
+    }
+  }
+  .menu-thumbnail-img{
+    width: 9vw;
+    height: 5vh;
   }
   .menu-list .item {
     color: color($colors, light);
     font-size: 1.36rem;
     background: transparent;
     border: none;
+    padding: 0;
     // border-bottom: 0.1rem solid color($colors, light);
     ion-icon {
       font-size: 2rem;

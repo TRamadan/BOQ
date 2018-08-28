@@ -51,10 +51,11 @@ export class WelcomePage {
   ) {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
-
+    this.loadProgress=30;
     this.catProv.getCategories().then(data=>{
       this.db.categories = data;
       this.loadProgress=50;
+      console.log(this.loadProgress);
       this.ready = true;
 
       this.storage.get('user').then(data=>{
@@ -66,16 +67,19 @@ export class WelcomePage {
           User.getInstance(this.userData.id,this.userData.name,this.userData.gender,this.userData.password,this.userData.email,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
           //console.log(User.getInstance())
           this.loadProgress= this.loadProgress+ 30;
+          console.log(this.loadProgress);
           
             this.db = Database.getInstance();
             this.order.getUserOrders(this.userData.id).then(data=>{
               this.loadProgress= this.loadProgress+ 20;
+              console.log(this.loadProgress);
               this.db.orders = data;
               this.navCtrl.setRoot('TabsPage');
             });
             
           
         }else{
+          console.log(this.loadProgress);
           this.loadProgress=100;
           this.navCtrl.setRoot('SigninPage');
         }
@@ -97,9 +101,5 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
 
-  async signin() {
-    console.log(User.isCreating);
-    
-    
-  }
+  
 }

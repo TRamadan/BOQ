@@ -13,8 +13,13 @@ export class UsersProvider extends RootProvider {
   private logIn: string = "MobileUserLogin";
   private logIn2: string = "users";
   private register: string = "AddNewUser";
+<<<<<<< HEAD
+  public user: User; 
+  public register2 : string = "users";
+=======
   private register2: string = "users";
   public user: User;
+>>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
@@ -121,12 +126,17 @@ export class User {
   password: string;
   email: string;
   phone: string;
+  image : string; 
 
   
   private static instance: User = null;
   static isCreating: boolean = false;
 
+<<<<<<< HEAD
+  constructor(id: string = "-1", name: string = "", gender: string = "ذكر", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array() , image : string = "") {
+=======
   constructor(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "",lName :string ="",fName: string = "",address: Address[] = new Array()) {
+>>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
    
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");

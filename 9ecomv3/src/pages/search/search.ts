@@ -62,7 +62,7 @@ export class SearchPage {
           }
         }
       }
-      this.results = this.allProduct.slice(0,20);
+      this.results = this.allProduct;
       //console.log(this.results);
       this.Ready=true;
    
@@ -92,8 +92,7 @@ export class SearchPage {
   }
   doInfinite($event){
     setTimeout(()=>{
-      this.results = this.allProduct;
-      $event.complete();
+     
     })
   }
 

@@ -9,9 +9,10 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title></ion-title>
+    
+    <div>{{product.name}}</div>
     <ion-buttons end> 
-      
+       
       <button class="heart-button" ion-button icon-only [class.wish]="product.love" (tap)="loveIt()">
         <ion-icon name="heart"></ion-icon>
       </button> 
