@@ -63,14 +63,9 @@ export class SignupPage {
       loading.present();
       //console.log(this.gender);
       //console.log(this.location)
-<<<<<<< HEAD
-     //email: string, password: string, name: string, lname : string , gender: string, location: string, phone: string
-      let bool = await this.userProvider.Regester(this.registerForm.value.email, this.registerForm.value.password, this.registerForm.value.name,this.registerForm.value.firstname,this.registerForm.value.lastname ,this.registerForm.value.gender, this.registerForm.value.location, this.registerForm.value.phone)  
-=======
      
       let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
       loading.dismiss();
->>>>>>> 4981a318977b52cd33bff4d259af016e70bac67f
       if(bool == true){
         this.navCtrl.setRoot(TabsPage);
       }else{
