@@ -22,7 +22,9 @@ export class CategoryProvider {
 
   public async getCompany() : Promise<any>{
     return new Promise((resolve)=>{
-      this.http.get(`${RootProvider.APIURL3}company`).map(res=><any>res.json()).subscribe(
+      let tempData=`${RootProvider.APIURL3}company`;
+      console.log(tempData);
+      this.http.get(tempData).map(res=><any>res.json()).subscribe(
         data=>{
           if(data ==undefined || data.length == 0 ){
             resolve([])
