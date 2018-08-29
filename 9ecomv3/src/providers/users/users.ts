@@ -25,11 +25,11 @@ export class UsersProvider extends RootProvider {
   public async login(name: string, password: string) : Promise<any> {
     return new Promise((resolve)=>{
       let temp = `${RootProvider.APIURL3}${this.logIn2}?user_name=${name}&user_password=${password}`;
-      //console.log(temp);
+      console.log(temp);
       this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
           if(data != null)
-
-        {  if(data.length > 0){
+          {  
+            if(data.length > 0){
           let tempGender = data[0].user_type==1 ? 'Male': 'Female'; 
           this.user = User.getInstance(data[0].id,data[0].user_name,tempGender,data[0].user_password,data[0].user_email,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
           console.log(User.getInstance());
@@ -43,6 +43,8 @@ export class UsersProvider extends RootProvider {
           resolve(false);
         }
 
+      }else{
+        resolve(false);
       }
       },err=>{
         alert(err);
