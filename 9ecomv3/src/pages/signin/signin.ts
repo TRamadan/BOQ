@@ -63,13 +63,17 @@ export class SigninPage {
   public async onLogin() {
     let loading = this.loadCtrl.create({
       content: 'Logging in ,Please Wait'
-    });
+    }); 
+    
     if (this.loginForm.valid) {
-      loading.present();
+      loading.present(); 
+      
       let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password)
       console.log(temp);
       if (temp ==true) {
-        loading.dismiss();
+        console.log("kfjakjfkaj")
+        loading.dismiss(); 
+
         this.user = User.getInstance();
         this.storage.set('user',this.user);
         this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
