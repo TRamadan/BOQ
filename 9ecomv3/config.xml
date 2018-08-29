@@ -85,6 +85,6 @@
     <allow-navigation href="http://10.0.1.10:8004" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <engine name="browser" spec="~5.0.3" />
-    <engine name="android" spec="7.0.0" /> 
-    <preference name="Fullscreen" value="true" />
+    <engine name="android" spec="7.0.0" />
+    <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
 </widget>

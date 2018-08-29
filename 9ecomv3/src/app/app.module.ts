@@ -18,8 +18,8 @@ import { CategoryProvider} from '../providers/category/category';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
-import { ComponentsModule } from '../components/components.module';
-
+import { ComponentsModule } from '../components/components.module'; 
+import { Keyboard } from "@ionic-native";
 @NgModule({
   declarations: [
     Ecom9App,
@@ -60,6 +60,7 @@ import { ComponentsModule } from '../components/components.module';
     InAppBrowser,
     Database, 
     NativeStorage,
+    Keyboard,
     RootProvider,
     UsersProvider,
     CategoryProvider,

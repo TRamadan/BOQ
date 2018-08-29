@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , MenuController} from 'ionic-angular';
 import { Cart } from '../../providers/cart/cart';
+import { Keyboard } from "ionic-native";
+
 
 /**
  * Generated class for the Tabs tabs.
@@ -19,18 +21,25 @@ export class TabsPage {
   tab2Root: string = 'HotoffersPage';
   tab3Root: string = 'MyCartPage';
   tab4Root: string = 'SearchPage';
-  tab5Root: string = 'ProfilePage';
+  tab5Root: string = 'ProfilePage'; 
+
+  public valueforngif : boolean = true;
 
   detail: NavParams;
   selectedIndex: number;
   cart: Cart;
-  constructor(public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
+  constructor(  public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
     this.menuCtrl.enable(true);
     this.selectedIndex = params.get('tabIndex') || 0;
     this.detail = params;
-    this.cart = Cart.getInstance();
+    this.cart = Cart.getInstance(); 
    
   }
+ 
+  ionViewDidEnter(){
+    Keyboard.onKeyboardShow().subscribe(()=>{this.valueforngif=false})
+    Keyboard.onKeyboardHide().subscribe(()=>{this.valueforngif=true})
+} 
 
   public navTo(tabIndex: any){
     this.selectedIndex=tabIndex;
