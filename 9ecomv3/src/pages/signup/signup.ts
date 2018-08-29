@@ -73,7 +73,7 @@ export class SignupPage {
       }
       
   }else{
-    alert("Invaled fealds");
+    alert("Invaled fields");
   }
   /*
   register() {
