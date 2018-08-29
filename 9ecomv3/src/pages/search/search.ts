@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, Renderer } from '@angular/core';
+import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Category} from '../../providers/category/category';
 import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
-import {Database} from '../../providers/database';
+import {Database} from '../../providers/database'; 
+
 /**
  * Generated class for the Search page.
  *
@@ -26,7 +27,8 @@ export class SearchPage {
   constructor(
     public storage: Storage,
     public navCtrl: NavController,
-    public navParams: NavParams
+    public navParams: NavParams,
+
   ) { 
     this.mark="";
     this.allProduct = new Array<Product>();
@@ -36,14 +38,15 @@ export class SearchPage {
     this.dataBase =Database.getInstance();
 
     this.initializeItems();
-    console.log(this.dataBase);
+    console.log(this.dataBase); 
+    
 
   }
 
   ionViewDidLoad() {
    
     console.log('ionViewDidLoad SearchPage');
-  }
+  } 
 
   initializeItems() {
     //let db = Database.getInstance();
@@ -87,7 +90,7 @@ export class SearchPage {
       //console.log(this.results);
     } else {
       this.results = this.allProduct;
-    }
+    } 
     //console.log(this.allProduct.length);
   }
   doInfinite($event){
