@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , MenuController} from 'ionic-angular';
 import { Cart } from '../../providers/cart/cart';
-import { Keyboard } from "ionic-native";
+import { Keyboard } from "@ionic-native/keyboard";
 
 
 /**
@@ -13,7 +13,8 @@ import { Keyboard } from "ionic-native";
 @IonicPage()
 @Component({
   selector: 'page-tabs',
-  templateUrl: 'tabs.html'
+  templateUrl: 'tabs.html', 
+  providers: [Keyboard]
 })
 export class TabsPage {
   
@@ -28,17 +29,27 @@ export class TabsPage {
   detail: NavParams;
   selectedIndex: number;
   cart: Cart;
-  constructor(  public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
+  constructor(public kb : Keyboard ,   public navCtrl: NavController, private params: NavParams,public menuCtrl : MenuController) {
     this.menuCtrl.enable(true);
     this.selectedIndex = params.get('tabIndex') || 0;
     this.detail = params;
-    this.cart = Cart.getInstance(); 
+    this.cart = Cart.getInstance();  
+
+    this.ionViewDidEnter();
+    
    
   }
  
   ionViewDidEnter(){
-    Keyboard.onKeyboardShow().subscribe(()=>{this.valueforngif=false})
-    Keyboard.onKeyboardHide().subscribe(()=>{this.valueforngif=true})
+    this.kb.onKeyboardShow().subscribe(()=>{
+      this.valueforngif=false; 
+      console.log("heyeee")
+    })
+    this.kb.onKeyboardHide().subscribe(()=>{
+      this.valueforngif=true;
+      console.log("hooooy");
+    
+    })
 } 
 
   public navTo(tabIndex: any){

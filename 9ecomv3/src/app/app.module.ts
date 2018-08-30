@@ -19,7 +19,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
 import { ComponentsModule } from '../components/components.module'; 
-import { Keyboard } from "@ionic-native";
+import { Keyboard } from "@ionic-native/keyboard";
 @NgModule({
   declarations: [
     Ecom9App,
@@ -60,7 +60,6 @@ import { Keyboard } from "@ionic-native";
     InAppBrowser,
     Database, 
     NativeStorage,
-    Keyboard,
     RootProvider,
     UsersProvider,
     CategoryProvider,
