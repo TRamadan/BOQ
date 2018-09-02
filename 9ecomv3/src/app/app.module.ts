@@ -18,8 +18,13 @@ import { CategoryProvider} from '../providers/category/category';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
+<<<<<<< .merge_file_a12652
 import { ComponentsModule } from '../components/components.module';
 
+=======
+import { ComponentsModule } from '../components/components.module'; 
+import { Keyboard } from "@ionic-native/keyboard";
+>>>>>>> .merge_file_a12992
 @NgModule({
   declarations: [
     Ecom9App,
