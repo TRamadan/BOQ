@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, IonicPage, NavController, NavParams, Select , PopoverController  } from 'ionic-angular';
+import { App, IonicPage, NavController, NavParams, Select, PopoverController, ModalController } from 'ionic-angular';
 import { Database } from '../../providers/database';
 import { Product } from '../../providers/product/product';
 import { Cart} from '../../providers/cart/cart';
 import { TabsPage } from '../tabs/tabs';
-import {QuantitymodalPage } from '../quantitymodal/quantitymodal';
+import {QuantitymodalPage } from '../quantitymodal/quantitymodal'; 
+import { InquiryPage } from "../pages/inquiry/inquiry";
 /** 
  * Generated class for the Product page.
  *
@@ -35,6 +36,7 @@ export class ProductPage {
     , public navCtrl: NavController
     , public navParams: NavParams
     , public popoverCtrl : PopoverController
+    , public modalctrl : ModalController
   ) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.product = this.navParams.get('product');
@@ -137,4 +139,10 @@ export class ProductPage {
     }, 300);
   }
 
+  openinquiry(product) 
+  { 
+    let iquirymodal = this.modalctrl.create('InquiryPage', {'product' : product});
+    iquirymodal.present();
+    //console.log("openned");
+  } 
 }

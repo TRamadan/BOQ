@@ -102,15 +102,6 @@ export class UsersProvider extends RootProvider {
 
 
 }
-
-
-
-
-
-
-
-
-
 export class User {
   id: string;
   name: string;

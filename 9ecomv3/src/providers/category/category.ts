@@ -134,9 +134,34 @@ private async getSubCategories  () :Promise<any>{
 
 }
 
+/**
+ * new parameters for category from the final api
+ * 
+ * 
+Description	
+CategoryTemplateId	
+MetaKeywords	
+MetaDescription	
+MetaTitle	
+ParentCategoryId	
+PictureId	
+PageSize	
+AllowCustomersToSelectPageSize	
+PageSizeOptions	
+PriceRanges	
+ShowOnHomePage	
+IncludeInTopMenu	
+SubjectToAcl	
+LimitedToStores	
+Published	     
+Deleted	
+DisplayOrder	
+CreatedOnUtc	
+UpdatedOnUtc
+ */
 
+export class Category{ 
 
-export class Category{
   public static URLNAME = RootProvider.APIURL3;
   id:string;
   name: string;
@@ -145,15 +170,21 @@ export class Category{
   parentShow?: boolean = false;
   image:String;
   open : boolean;
-  constructor(NewsCategory : string = "" , NewsCategoryID : string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
+  catetemplateID : string;
+  description : string; 
+  published : boolean;
+
+  constructor(Name : string = "" , ID : string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" , Description : string = "")
   { 
-    this.name = NewsCategory;
-    this.id = NewsCategoryID;  
+    this.name = Name;
+    this.id = ID;  
     this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?RootProvider.imageUrl+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
     this.parentShow = false;
     this.parent = Parent; 
     this.open = false;
-    this.children = children? children : new Array();
+    this.children = children? children : new Array(); 
+    this.description = Description;
+
   }
   
 

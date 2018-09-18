@@ -1,0 +1,110 @@
+<!--
+  Generated template for the InquiryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Send Inquiry</ion-title>
+    <ion-buttons start>
+      <button ion-button (tap)="close()">Close</button>
+    </ion-buttons>
+
+    <ion-buttons end>
+      <button class="heart-button" clear ion-button icon-only (tap)="send()">
+            <ion-icon color="yellow" name="done-all"></ion-icon>
+          </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-list no-lines>
+    <ion-item>
+      <div>
+        <h4>
+          Send to company: {{product.company_name}}
+        </h4>
+      </div>
+      <br>
+      <div>
+        <ion-item>
+          <ion-thumbnail item-start>
+            <!-- here will be the product image -->
+            <img [src] = "product.image1" />
+          </ion-thumbnail>
+          <h4>
+            {{product.name}}
+          </h4>
+        </ion-item>
+      </div>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h4>
+          Select template(s) for an inquiry:
+        </h4>
+      </ion-label>
+
+      <ion-select [(ngModel)]="selectInquiry" interface="popover" multiple="true">
+        <ion-option value="price">
+          Product Price Inquiry
+        </ion-option>
+        <ion-option value="quantity">
+          Min.Order Quantity
+        </ion-option>
+        <ion-option value="catalogs">
+          Price Inquiry
+        </ion-option>
+        <ion-option value="sample">
+          Request sample
+        </ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-label>
+      <h5 style="text-align :center">
+        Inquiry form
+      </h5>
+      <hr>
+    </ion-label>
+    <textarea style="border: 1px solid black; padding-left:10px;" placeholder="Please write your inquiry , no-more than 4000 character ..."
+      #myInput id="myInput" rows="1" maxLength="4000" (keyup)="resize()" [(ngModel)]="myStuff"></textarea>
+    <form>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-select interface="popover">
+              <ion-option value="master" check="true">
+                Mr.
+              </ion-option>
+              <ion-option value="mss">
+                Ms.
+              </ion-option>
+              <ion-option value="mrss">
+                Mrs
+              </ion-option>
+              <ion-option value="miss">
+                Miss
+              </ion-option>
+            </ion-select>
+          </ion-col> 
+          <ion-col>
+            <ion-input floating type="text" value="" placeholder="Your Name">
+            </ion-input>
+          </ion-col>
+        </ion-row> 
+        <ion-row>
+          <ion-input floating type="email" value="" placeholder="Your Email"></ion-input>
+        </ion-row> 
+
+        <ion-row>
+          <ion-input floating type="text" value="" placeholder="Company name"></ion-input>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-list>
+</ion-content>

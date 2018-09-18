@@ -21,6 +21,6 @@ export class RootProvider {
   
   constructor(public http: Http ) {
     console.log('Hello RootProvider Provider');
-  }
+  } 
  
 }
