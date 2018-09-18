@@ -21,59 +21,121 @@ export class ProductProvider extends RootProvider {
 
 
 export class Product {
-  public static URLNAME = RootProvider.APIURL3;
   id: string;
-  product_subcat ? : number;
-  image1 ? : string;
-  image2 ? : string;  
-  quant ? : number;
-  measure_u? : string;
-  description? : string;
-  distributerId : number;
+
+  productSubcat:string;
+
+  images: Array<ImageConverter>;
+  quant: number;
+  shortDescr: string;
+  fullDescr: string;
+  distributerId: string;
   price: number;
   currentPrice: number;
-  distributorId: string;
   distributerLinkId: string;
   discountPercentage:number;
-//////////////////////////////
   name: string;
-  discount: number = 0;
-  image: string; 
-  
-  //colors: string[];
-  //sizes: string[];
-  //descriptions: string[];
-  categories: Category[]; 
-  company_id: string;
-  love?: boolean = false;
+  companyId:string;
+  companyName: string;
+  love: boolean = false;
   status?: string; 
-  offer_id : string; 
-  offer_name : string; 
-  company_name : string;
+  //offer_id: string; 
+  //offer_name: string;
+  approvedRatingSum:number;
+  notApprovedRatingSum:number;
+  isFreeShipping:boolean;
+  orderMinimumQuantity:number;
+  orderMaximumQuantity:number;
+  isNew :boolean;
+  specs:Specs;
 
-   constructor(prod_name : string,itemId : string , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : string , prod_desc : string  , distributorId : number , price : number  , offer_id : string , offer_name : string,discount_percentage:number,item_distributor_id:string,compantyId:string ="") { 
-    this.name = prod_name;
-    this.id = itemId; 
-    this.product_subcat = prod_sub_category;
-    this.image1 = (prod_image1 !=null &&prod_image1.length > 0)?RootProvider.imageUrl+prod_image1.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
-    this.image2 = (prod_image2 !=null &&prod_image2.length > 0)?RootProvider.imageUrl+prod_image2.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
-    this.quant = quantity;
-    this.measure_u = measure_unit;
-    this.description = prod_desc; 
-    this.distributerId = distributorId;
-    this.price = price;
-    this.status = "in"; 
-    this.offer_id  = offer_id; 
-    this.offer_name = offer_name;
-    this.discountPercentage = discount_percentage;
-    this.distributerLinkId=item_distributor_id;
-    this.currentPrice=this.discountPercentage == null ? this.price : (this.price-((this.price*this.discountPercentage)/100));
-    this.company_id= compantyId;
-//////////////////////////////////////////////
-   //  this.categories = new Array<Category>();
-   // this.colors = new Array<string>();
-   // this.sizes = new Array<string>();
-   // this.descriptions = new Array<string>();
+
+   constructor(ProductTypeId:string
+    ,Name:string
+    ,ShortDescription:string
+    ,FullDescription:string
+    ,VendorId:string
+    ,ApprovedRatingSum:number
+    ,NotApprovedRatingSum:number
+    ,StockQuantity:number
+    ,OrderMinimumQuantity:number
+    ,OrderMaximumQuantity:number
+    ,Price:number
+    ,OldPrice:number
+    ,Weight:number
+    ,Length:number
+    ,Width:number
+    ,Height:number
+    ,CategoryId:string
+    ,ManufacturerId:string
+    ,MimeType:string
+    ,PictureBinary:string
+    ,IsNew:boolean
+  ) { 
+    this.images = new Array<ImageConverter>();
+    
+    this.name = Name;
+    this.id = ProductTypeId; 
+    this.shortDescr = ShortDescription;
+    this.fullDescr = FullDescription;
+
+    this.productSubcat = CategoryId;
+    this.images.push(new ImageConverter(MimeType,PictureBinary));
+    //this.image1 = (prod_image1 !=null &&prod_image1.length > 0)?RootProvider.imageUrl+prod_image1.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    //this.image2 = (prod_image2 !=null &&prod_image2.length > 0)?RootProvider.imageUrl+prod_image2.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    
+    this.quant = StockQuantity;
+    this.orderMaximumQuantity = OrderMaximumQuantity;
+    this.orderMinimumQuantity = OrderMinimumQuantity;
+    this.distributerId = VendorId;
+
+    this.price = OldPrice;
+    this.currentPrice = Price;
+    this.approvedRatingSum = ApprovedRatingSum;
+    this.notApprovedRatingSum = NotApprovedRatingSum;
+    this.companyId= ManufacturerId;
+    this.isNew = IsNew;
+
+    this.specs = new Specs(Width,Length,Weight,Height);
+
+  }
+}
+
+export class Specs{
+  Width: number;
+  Length: number;
+  Weight: number;
+  Height: number;
+  additionlSpecs: Array<SpecialSpec>;
+  constructor(Width,Length,weight,height){
+    this.Weight=weight;
+    this.Width=Width;
+    this.Length=Length;
+    this.Height=height
+    this.additionlSpecs= new Array<SpecialSpec>();
+  }
+
+}
+
+export class SpecialSpec{
+  name: string;
+  value: any;
+  constructor(){
+
+  }
+}
+
+class ImageConverter{
+  base: string;
+  mimeType: string;
+  imageData: string;
+  constructor(mimeType:string,imageData,base:string="base64"){
+    this.base = base;
+    this.mimeType = mimeType;
+    this.imageData = imageData;
+  }
+  Create(){
+    return "data:"+this.mimeType+";"+this.base+","+this.imageData;
   }
 }
 

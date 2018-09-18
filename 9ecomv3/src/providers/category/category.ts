@@ -44,8 +44,8 @@ export class CategoryProvider {
   private async getItems() : Promise<any>{
     let comps = <Array<Company>> await this.getCompany();
     return new Promise((resolve)=>{
-      console.log(`${RootProvider.APIURL3}item`);
-      this.http.get(`${RootProvider.APIURL3}item`).map(res=><any>res.json()).subscribe(data=>{
+      console.log(`${RootProvider.APIURL4}item`);
+      this.http.get(`${RootProvider.APIURL4}product`).map(res=><any>res.json()).subscribe(data=>{
         if(data== undefined || data.length == 0)
   {
      resolve([]);
@@ -53,10 +53,31 @@ export class CategoryProvider {
   else{
     let items : Product[] = new Array();
     for(let i = 0 ; i < data.length ; i++){
-      items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].item_long_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id,data[i].company_id);
+      items[i] = new Product(data[i].ProductTypeId
+        ,data[i].Name
+        ,data[i].ShortDescription
+        ,data[i].FullDescription
+        ,data[i].VendorId
+        ,data[i].ApprovedRatingSum
+        ,data[i].NotApprovedRatingSum
+        ,data[i].StockQuantity
+        ,data[i].OrderMinimumQuantity
+        ,data[i].OrderMaximumQuantity
+        ,data[i].Price
+        ,data[i].OldPrice
+        ,data[i].Weight
+        ,data[i].Length
+        ,data[i].Width
+        ,data[i].Height
+        ,data[i].CategoryId
+        ,data[i].ManufacturerId
+        ,data[i].MimeType
+        ,data[i].PictureBinary
+        ,data[i].IsNew
+      );
       for(let j = 0 ; j< comps.length ; j++){
-        if(items[i].company_id == comps[j].id){
-          items[i].company_name = comps[j].name;
+        if(items[i].companyId == comps[j].id){
+          items[i].companyName = comps[j].name;
           break;
         }
       }
