@@ -112,10 +112,12 @@ export class Ecom9App {
     this.platform.ready().then(() => {
 
       //console.log(new Date().toJSON());
+      let date = new Date();
+      console.log(date.toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
-      this.menuItems = this.database.parentCategory();
-      this.catProv.getCategories().then(data=>{
+      this.menuItems = this.database.categories;
+      this.catProv.getCategoriesNop().then(data=>{
         this.database.categories = data;
         this.catArray = this.database.categories;
       });
@@ -140,7 +142,7 @@ export class Ecom9App {
     })
   }
 
-  /////////////////////////////////////
+  /////////////////////////////////////////////
 
   toggleItems2(i) {
 

@@ -8,7 +8,7 @@
     <ion-list class="menu-list">
       <div *ngFor="let c of catArray; let i = index;">
         <ion-row>
-          <ion-col col-auto><img class="menu-thumbnail-img" [src]="icons[i].url"></ion-col>
+          <!--<ion-col col-auto><img class="menu-thumbnail-img" [src]="icons[i].url"></ion-col> -->
           <ion-col>
               <button detail-none class="parent" ion-item (tap)="toggleItems2(i)" *ngIf="c.open">
                   {{c.name}}

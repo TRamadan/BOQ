@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RootProvider } from '../root/root';
 import { Storage } from '@ionic/storage';
+import { resolve } from 'url';
 /*
   Generated class for the UsersProvider provider.
 
@@ -21,6 +22,43 @@ export class UsersProvider extends RootProvider {
     this.user = User.getInstance();
   }
 
+  public async RegesterNop(Username:string,password:string,email:string): Promise<any>{
+    return new Promise((resolve)=>{
+      let date = new Date();
+      console.log(date);
+      let F = false;
+      let T = true;
+      let temp = `${RootProvider.APIURL4}users?Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data != undefined && data.length>0){
+          this.user = User.getInstance(data[0].ID,Username,password,email);
+          resolve(data[0].ID);
+
+        }else{
+          resolve("-1")
+        }
+      })
+    })
+  }
+
+  public async loginNop(email:string,password:string): Promise<any>{
+    return new Promise((resolve)=>{
+      let temp = `${RootProvider.APIURL4}users?Email=${email}&Password=${password}`;
+      console.log(temp);
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data != undefined && data.length>0){
+          this.user = User.getInstance(data[0].Id,data[0].Username,data[0].Password,data[0].Email);
+          console.log(this.user);
+          resolve(true);
+        }else{
+          resolve(false)
+        }
+      })
+    })
+  }
+
+  
+
  
   public async login(name: string, password: string) : Promise<any> {
     return new Promise((resolve)=>{
@@ -31,7 +69,7 @@ export class UsersProvider extends RootProvider {
           {  
             if(data.length > 0){
           let tempGender = data[0].user_type==1 ? 'Male': 'Female'; 
-          this.user = User.getInstance(data[0].id,data[0].user_name,tempGender,data[0].user_password,data[0].user_email,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
+          this.user = User.getInstance(data[0].id,data[0].user_name,data[0].user_password,data[0].user_email,tempGender,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
           console.log(User.getInstance());
           this.storage.set('user', this.user); 
           console.log(data);
@@ -139,7 +177,7 @@ export class User {
     }
   }
 
-  public setData(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", address: Address[] = new Array()) {
     
     this.id = id;
     this.name = name;
@@ -151,7 +189,7 @@ export class User {
     this.phone = phone;
   }
 
-  static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
+  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "ذكر", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
     if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
       User.instance = new User(id, name, gender, password, email, phone,lName,fName, address);

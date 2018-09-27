@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { DomSanitizer, SafeUrl } from '../../../node_modules/@angular/platform-browser';
 @Pipe({ name: 'byCategory' })
 export class ByCategoryPipe implements PipeTransform {
   transform(products: Product[], category: Category) {
@@ -53,9 +54,19 @@ export class CategoriesPage {
     private menu: MenuController,
     private modalCtrl: ModalController,
     public storage: Storage
+    , private sanitizer: DomSanitizer
+
   ) {
 
-    this.itemsArray = new Array();
+    this.items = new Array();
+    this.viewItems = new Array();
+    this.db = Database.getInstance();
+    this.products = this.db.allProduct();
+
+    
+
+    console.log();
+
 
     //this.items = this.navParams.get('subcategory');
 
@@ -76,14 +87,11 @@ export class CategoriesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
-
-    this.db = Database.getInstance();
-    this.products = this.db.allProduct();
-
     var subcat = this.navParams.get('subcat');
     this.menus = this.navParams.get('category');
     this.name = this.menus.name;
-    //console.log(this.menus);
+    console.log(this.menus);
+    console.log(subcat);
     if (this.menus) {
       this.categories = this.menus.children;
       this.menus.children.forEach(menu => {
@@ -92,16 +100,17 @@ export class CategoriesPage {
 
       for (var i = 0; i < this.tabs.length; i++) {
         if (this.tabs[i].name.toLowerCase() === subcat.name.toLowerCase()) {
-          this.items = subcat.Items;
+          this.items = subcat.children;
+          console.log(this.items);
           this.viewItems = this.items;
           this.selectedTabNum = i;
           this.scrollTab.go2Tab(i);
         }
       }
+      this.ItemsReady=true;
+      console.log(this.viewItems);
     }
-
-   // console.log(this.scrollTab);
-
+    
   }
 
   tabChange(data: any) {
@@ -109,13 +118,19 @@ export class CategoriesPage {
     this.content.scrollToTop();
     for(let i = 0 ;i< this.menus.children.length;i++){
         if(this.menus.children[i].name.toLowerCase() === this.selectedTab.name.toLowerCase() ){
-          this.items = this.menus.children[i].Items;
+          this.items = this.menus.children[i].children;
           this.viewItems = this.items;
           this.selectedTabNum=i;
         }
     }
 
   }
+
+  
+  getImgContent(imageData: string):SafeUrl{
+    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+}
+
 
   swipeEvent($e) {
    // console.log('before', $e.direction);

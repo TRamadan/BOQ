@@ -52,7 +52,7 @@ export class WelcomePage {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
     this.loadProgress=30;
-    this.catProv.getCategories().then(data=>{
+    this.catProv.getCategoriesNop().then(data=>{
       this.db.categories = data;
       this.loadProgress=50;
       console.log(this.loadProgress);

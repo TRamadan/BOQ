@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 
 import {RootProvider} from '../root/root';
 import {subcategory} from '../sub-categories/sub-categories';
-import {Product}  from '../product/product';
+import {Product , ImageProcess, Specs}  from '../product/product';
 
 /*
   Generated class for the CategoriesProvider provider.
@@ -41,6 +41,7 @@ export class CategoryProvider {
     })
   }
 
+
   private async getItems() : Promise<any>{
     let comps = <Array<Company>> await this.getCompany();
     return new Promise((resolve)=>{
@@ -53,13 +54,13 @@ export class CategoryProvider {
   else{
     let items : Product[] = new Array();
     for(let i = 0 ; i < data.length ; i++){
-      items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].item_long_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id,data[i].company_id);
-      for(let j = 0 ; j< comps.length ; j++){
-        if(items[i].company_id == comps[j].id){
-          items[i].company_name = comps[j].name;
-          break;
-        }
-      }
+     // items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].item_long_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id,data[i].company_id);
+     // for(let j = 0 ; j< comps.length ; j++){
+      //  if(items[i].company_id == comps[j].id){
+       //   items[i].company_name = comps[j].name;
+       //   break;
+      //  }
+     // }
     }
     resolve(items);
     }
@@ -70,7 +71,153 @@ export class CategoryProvider {
 }
 
 
-public async getCategories( ) : Promise<any>{
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+public async getItemsNop() : Promise<any>{
+  //let comps = <Array<Company>> await this.getCompany();
+  return new Promise((resolve)=>{
+    console.log(`${RootProvider.APIURL4}Product`);
+    this.http.get(`${RootProvider.APIURL4}product`).map(res=><any>res.json()).subscribe(data=>{
+      if(data== undefined || data.length == 0)
+{
+   resolve([]);
+}
+else{
+  let items : Product[] = new Array();
+  //for(let i = 0 ; i < data.length ; i++){
+  //  items[i] = new Product(data[i].item_name,data[i].item_id,data[i].item_type_id,data[i].item_img1,data[i].item_img2,data[i].inventory,data[i].measure_unit,data[i].item_long_desc,data[i].distributor_id,data[i].price ,data[i].offer_id , data[i].offer_name,data[i].discount_percentage,data[i].item_distributor_id,data[i].company_id);
+    
+  //}
+  for(let i=0;i<data.length;i++){
+    let specs = new Specs(data[i].Weight,data[i].Length,data[i].Height,data[i].Width);
+    items.push(new Product(data[i].Name
+    ,data[i].ProductTypeId
+    ,data[i].CategoryId
+    ,data[i].StockQuantity
+    ,specs
+    ,data[i].ShortDescription
+    ,data[i].VendorId
+    ,data[i].Price
+    ,data[i].FullDescription
+    ,data[i].ShowOnHomePage
+    ,data[i].AllowCustomerReviews
+    ,data[i].ApprovedRatingSum
+    ,data[i].NotApprovedRatingSum
+    ,data[i].IsShipEnabled
+    ,data[i].IsFreeShipping
+    ,data[i].AdditionalShippingCharge
+    ,data[i].DeliveryDateId
+    ,data[i].OrderMaximumQuantity
+    ,data[i].OrderMinimumQuantity
+    ,data[i].OldPrice
+    ,data[i].IsNew
+    ,data[i].MarkAsNewStartDateTimeUtc
+    ,data[i].MarkAsNewEndDateTimeUtc
+    ,data[i].PictureBinary
+    ,data[i].MimeType
+  ))
+  }
+ 
+  resolve(items);
+  }
+  })
+
+})
+
+}
+
+
+
+public async getSubCategoriesNop  () :Promise<any>{
+  let items = await this.getItemsNop();
+  return new Promise((resolve)=>{
+    this.http.get(`${RootProvider.APIURL4}sub_category`).map(res => <any>res.json()).subscribe(data => {
+      if (data == null || data.length == 0 || items.length==0) {
+        resolve([]);
+      }
+      else {
+        let subcat = new Array()
+        for (let i = 0; i < data.length; i++) {
+          let Subitems = new Array();
+          for (let j = 0; j < items.length; j++) {
+
+            if (data[i].Id == items[j].product_subcat) {
+              Subitems.push(items[j])
+            }
+            subcat[i] = new Category(data[i].Name, data[i].Id,Subitems, data[i].PictureId,data[i].ParentCategoryId)
+          }
+
+
+        }
+        resolve(subcat);
+       // console.log(subcat);
+
+      }
+    })
+  })
+
+}
+
+public async getCategoriesNop() : Promise<any>{
+  let subcat = await this.getSubCategoriesNop();
+  return new Promise((resolve)=>{
+    this.http.get(`${RootProvider.APIURL4}maincategory`).map(res => <any>res.json()).subscribe(data => {
+      if (data == null || data.length == 0 || subcat.length ==0) {
+       resolve([])
+      }
+      else {
+        let catArray = new Array<Category>();
+          for (let i = 0; i < data.length; i++) {
+            let tempcats = new Array();
+            for (let j = 0; j < subcat.length; j++) {
+
+              if (data[i].Id == subcat[j].parent) {
+                tempcats.push(subcat[j]);
+
+                //console.log(tempcats);
+              }
+              catArray[i] = new Category(data[i].Name, data[i].Id,tempcats, data[i].PictureId,data[i].ParentCategoryId)
+            }
+
+
+          }
+          resolve(catArray);
+        //  console.log(this.catArray);
+         // this.storage.set("appData", this.catArray);
+        
+      }
+    })
+  })
+
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public async getCategories() : Promise<any>{
   let subcat = await this.getSubCategories();
   return new Promise((resolve)=>{
     this.http.get(`${RootProvider.APIURL3}main`).map(res => <any>res.json()).subscribe(data => {
@@ -137,18 +284,24 @@ private async getSubCategories  () :Promise<any>{
 
 
 export class Category{
-  public static URLNAME = RootProvider.APIURL3;
+  
+  
+ 
+  
+  parentShow?: boolean = false;
+  image:String;
+  open : boolean;
+
+  //////////////////////////////////////////
   id:string;
   name: string;
   parent?: string;
   children?: any[];
-  parentShow?: boolean = false;
-  image:String;
-  open : boolean;
-  constructor(NewsCategory : string = "" , NewsCategoryID : string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
+
+  constructor(name : string = "" ,id: string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
   { 
-    this.name = NewsCategory;
-    this.id = NewsCategoryID;  
+    this.name = name;
+    this.id = id;  
     this.image = (NewsCategoryImage !=null &&NewsCategoryImage.length > 0)?RootProvider.imageUrl+NewsCategoryImage.substring(1,NewsCategoryImage.length) : ""
     this.parentShow = false;
     this.parent = Parent; 

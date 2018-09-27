@@ -82,7 +82,7 @@
   </div> -->
 
 
-
+<!--
    <ion-item no-lines *ngFor = "let cat of category_array ; let item = index;">
     <ion-card (tap) = "categories(cat.id)">
       <img  *ngIf = "cat.image" [src] = "cat.image"/> 
@@ -95,10 +95,21 @@
     </div> 
   </ion-card>
    </ion-item>
+-->
 
-  <div *ngIf="ReadyCats">
-    <div *ngFor="let item of items">
-     {{item.name}}
-    </div>
+  <div *ngIf="ReadyProds">
+    <ion-item no-lines *ngFor = "let prod of prods ; let item = index;">
+      <ion-card >
+        <img  *ngIf = "prod.image1" [src] = "getImgContent(prod.image1)"/> 
+        <img  *ngIf = "!prod.image1" src = "assets/img/nophoto.jpg"/>
+      
+      <div class="ads-wrapper">
+        <div class="ads-box">
+          <div class="ads-title">{{prod.name}}</div>
+        </div>
+      </div> 
+    </ion-card>
+     </ion-item>
   </div>
+
 </ion-content>

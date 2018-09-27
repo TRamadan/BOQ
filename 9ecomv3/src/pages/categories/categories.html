@@ -23,18 +23,21 @@
   <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
    
       <ion-scroll scrollY="true" scrollX="true" class="content-wrapper">
-        
-          <div class="card9-container" *ngFor="let item of viewItems">
+        <div *ngIf="ItemsReady">
+          <div class="card9-container" *ngFor="let item of items">
+           
             <div (tap)="toProduct(item)">
-            <div class="pic-box" >
-              <img [src]="item.image1">
+            
+              <div class="pic-box" >
+              <img [src] = "getImgContent(item.image1)">
             </div>
             <div class="title">
               {{item.name}}
             </div>
-            <div class="temp">
+            <!--<div class="temp">
               {{item.company_name}}
-            </div>
+            </div>-->
+
             <div class="price-box" *ngIf="item.price != item.currentPrice">
               <span class="price">{{item.currentPrice}} LE<span class="old-price">{{item.price}} LE</span></span>
               
@@ -55,7 +58,7 @@
 
           </div>
           </div>
-        
+        </div>
       </ion-scroll>
     
   </div>    

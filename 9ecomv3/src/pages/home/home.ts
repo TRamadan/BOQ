@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { Storage } from "@ionic/storage";
-import { Category } from '../../providers/category/category';
+import { Category, CategoryProvider } from '../../providers/category/category';
 import { Database} from '../../providers/database';
 
 import {Order} from '../../providers/order/order';
@@ -67,19 +67,36 @@ export class HomePage {
   //this variable is to get the all the categories with all items and all subcategories
   category_array = [];
 
+
   //this is a variable
 
   //this is a flag to show that the categories are ready to be loaded 
-  //ReadyCats : boolean = false; 
+    ReadyProds : boolean = false; 
+    prods: any;
 
   @ViewChild('sliders') slider: Slides;
-  constructor(public storage : Storage , public navCtrl: NavController, public navParams: NavParams, private sanitizer: DomSanitizer) {
+  constructor(public storage : Storage 
+    , public navCtrl: NavController
+    , public navParams: NavParams
+    , public catProv: CategoryProvider
+    , private sanitizer: DomSanitizer,
+
+  ) {
     
     // getting all the categories saved in the storage
     this.dataBase = Database.getInstance();
     console.log(this.dataBase);
     this.category_array = this.dataBase.categories;
     console.log(this.category_array)
+    this.catProv.getItemsNop().then(data=>{
+      this.prods=data;
+      this.ReadyProds=true;
+      console.log(this.prods);
+    })
+    this.catProv.getCategoriesNop().then(data=>{
+      console.log(data);
+    })
+    
     
 
    
@@ -106,7 +123,12 @@ export class HomePage {
       this.navParams.data.detail = undefined;
       this.navCtrl.push('CategoriesPage', {menus: Category, select: subcategories});
     }
+    
   }
+
+  getImgContent(imageData: string):SafeUrl{
+    return this.sanitizer.bypassSecurityTrustUrl(imageData);
+}
 
   ionViewDidLoad() {
     console.log('HomePage');
@@ -130,7 +152,7 @@ export class HomePage {
         this.navCtrl.push('CategoriesPage', {'category': item, 'subcat': item.children[0]});
       }
     })
-  } 
+  }
   
  
 

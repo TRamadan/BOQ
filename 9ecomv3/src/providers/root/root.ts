@@ -17,6 +17,8 @@ export class RootProvider {
   
   public static APIURL3 = "http://nemooo-001-site1.atempurl.com/api/";
 
+  public static APIURL4 = "http://localhost:16502/api/";
+
   public static imageUrl = "http://nemo0o-001-site1.gtempurl.com/";
   
   constructor(public http: Http ) {
