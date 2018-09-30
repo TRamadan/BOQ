@@ -15,6 +15,15 @@ export class UsersProvider extends RootProvider {
   private logIn2: string = "users";
   private register: string = "AddNewUser";
   private register2: string = "users";
+
+  private userApiController:string = 'users/';
+  
+  private logInActionString = "user_login?";
+  private regesterActionString = "user_reg?"
+
+  private addressApiController = "address/";
+  private addAddressActionString = "add_address?"
+
   public user: User;
 
   constructor(public http: Http, public storage: Storage) {
@@ -28,7 +37,7 @@ export class UsersProvider extends RootProvider {
       console.log(date);
       let F = false;
       let T = true;
-      let temp = `${RootProvider.APIURL4}users?Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         if(data != null && data != undefined && data.length>0){
           this.user = User.getInstance(data[0].ID,Username,password,email);
@@ -43,7 +52,7 @@ export class UsersProvider extends RootProvider {
 
   public async loginNop(email:string,password:string): Promise<any>{
     return new Promise((resolve)=>{
-      let temp = `${RootProvider.APIURL4}users?Email=${email}&Password=${password}`;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.logInActionString}Email=${email}&Password=${password}`;
       console.log(temp);
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         if(data != null && data != undefined && data.length>0){
@@ -127,8 +136,12 @@ export class UsersProvider extends RootProvider {
     return User.getInstance();
   }
 
-  public addAddress(address : Address){
+  public  addAddress(address : Address , zipCode : string,email:string ,stateId :string){
+    let temp = `${RootProvider.APIURL4}${this.addressApiController}${this.addAddressActionString}Email=${email}&Company=""&StateProvinceId=${stateId}&Address1=${address.toString()}&Address2=""&ZipPostalCode=${zipCode}&PhoneNumber=""&FaxNumber=""`;
+    
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
 
+      })
     this.user.addSavedAddress(address);
     this.storage.set('user' , this.user)
     
@@ -243,6 +256,27 @@ export class Address {
 
   toString(): string{
     return this.houseNum + "," + this.street + "," + this.Block + "," + this.district + "," + this.city + "," + this.country;
+  }
+  fromString(address : string){
+     let temp = new Array();
+     let start = 0 ;
+     let end = 0;
+     for(let i = 0; i<=address.length;i++){
+       if(address[i] == ','){
+         temp.push(address.slice(start,i))
+         start=i+1;
+       }
+       if(i == address.length){
+        temp.push(address.slice(start,i));
+       }
+       
+     }
+     this.houseNum = temp[0];
+     this.street = temp[1];
+     this.Block = temp[2];
+     this.district = temp[3];
+     this.city = temp[4];
+     this.country = temp[5];
   }
 }
 

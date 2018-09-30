@@ -150,7 +150,7 @@ export class CheckoutPage {
       if (this.selectedTab === this.tabs[0]) {
         let flgFound = false;
         this.savedAddresses.forEach(addr => {
-          if (addr === this.newAddress) {
+          if (addr.toString() === this.newAddress.toString()) {
             flgFound = true;
           }
         });
@@ -260,7 +260,6 @@ export class CheckoutPage {
     }
   }
   isValid() {
-    console.log(this.newAddress);
     return (this.newAddress.street !== '' && this.newAddress.houseNum !== undefined)
       && (this.newAddress.city !== '' && this.newAddress.country !== undefined)
       && (this.newAddress.district !== '' && this.newAddress.zipCode !== undefined)

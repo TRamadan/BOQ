@@ -73,6 +73,7 @@ export class SigninPage {
       if(bool == true){
         loading.dismiss(); 
          this.user = User.getInstance();
+         this.storage.set('user',this.user);
          this.navCtrl.setRoot(TabsPage);
       }else{
         loading.dismiss();

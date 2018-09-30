@@ -21,8 +21,7 @@ export class ProductProvider extends RootProvider {
 
 
 export class Product {
-  public static URLNAME = RootProvider.APIURL3;
-  
+
   
   image2 ? : string;  
   

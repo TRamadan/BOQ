@@ -16,6 +16,16 @@ import {Product , ImageProcess, Specs}  from '../product/product';
 @Injectable()
 export class CategoryProvider {
 
+  private productApiController: string = "product/";
+  private productsActionString: string = "get_all_products?";
+
+  private categoriesApiController: string = "maincategory/";
+  private categoriesActionString:string ="get_main_category?";
+
+  private subCategoriesApiController: string ="sub_category/"
+  private subCategoriesActionString: string ="get_sub_category?"
+  
+
   constructor(public http: Http) {
     console.log('Hello SubCategoriesProvider Provider');
   }
@@ -86,7 +96,7 @@ public async getItemsNop() : Promise<any>{
   //let comps = <Array<Company>> await this.getCompany();
   return new Promise((resolve)=>{
     console.log(`${RootProvider.APIURL4}Product`);
-    this.http.get(`${RootProvider.APIURL4}product`).map(res=><any>res.json()).subscribe(data=>{
+    this.http.get(`${RootProvider.APIURL4}${this.productApiController}${this.productsActionString}product`).map(res=><any>res.json()).subscribe(data=>{
       if(data== undefined || data.length == 0)
 {
    resolve([]);
@@ -140,7 +150,7 @@ else{
 public async getSubCategoriesNop  () :Promise<any>{
   let items = await this.getItemsNop();
   return new Promise((resolve)=>{
-    this.http.get(`${RootProvider.APIURL4}sub_category`).map(res => <any>res.json()).subscribe(data => {
+    this.http.get(`${RootProvider.APIURL4}${this.subCategoriesApiController}${this.subCategoriesActionString}`).map(res => <any>res.json()).subscribe(data => {
       if (data == null || data.length == 0 || items.length==0) {
         resolve([]);
       }
@@ -170,7 +180,7 @@ public async getSubCategoriesNop  () :Promise<any>{
 public async getCategoriesNop() : Promise<any>{
   let subcat = await this.getSubCategoriesNop();
   return new Promise((resolve)=>{
-    this.http.get(`${RootProvider.APIURL4}maincategory`).map(res => <any>res.json()).subscribe(data => {
+    this.http.get(`${RootProvider.APIURL4}${this.categoriesApiController}${this.categoriesActionString}`).map(res => <any>res.json()).subscribe(data => {
       if (data == null || data.length == 0 || subcat.length ==0) {
        resolve([])
       }
