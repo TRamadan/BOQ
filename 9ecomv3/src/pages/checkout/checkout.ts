@@ -49,7 +49,8 @@ export class CheckoutPage {
   districts: string[];
   countries: string[];
   zipcodes: string[];
-  savedAddresses: Address[]; 
+  savedAddresses: Address[];  
+  public var : string = "";
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
@@ -78,7 +79,7 @@ export class CheckoutPage {
     //this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
     this.cart = Cart.getInstance();
-    this.shipping(0);
+    this.shipping(0); 
   }
 
   ionViewWillLeave() {
@@ -157,8 +158,9 @@ export class CheckoutPage {
         if (!flgFound) {
           if (this.isValid()) {
             console.log(this.newAddress.toString());
-            this.userProv.addAddress(this.newAddress);
-            this.scrollTab.nextTab();
+            this.userProv.addAddress(this.newAddress.toString(),this.newAddress.zipCode,this.user.email,this.var);
+   
+          this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
               title: 'Address Information 1',

@@ -24,7 +24,9 @@ export class UsersProvider extends RootProvider {
   private addressApiController = "address/";
   private addAddressActionString = "add_address?"
 
-  public user: User;
+  public user: User; 
+
+  public getStatues : string = "get_statues";
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
@@ -129,6 +131,26 @@ export class UsersProvider extends RootProvider {
     })
     })
     
+  }
+
+  public async getState() :Promise<any>{
+    let temp = `${RootProvider.APIURL3}${this.getStatues}`; 
+    return new Promise ((resolve)=>{
+      this.http.get(temp).map(res => <any>res.json().subscribe(data => {
+        console.log(data);
+        if(data.length > 0)
+        {
+          resolve (true && temp);
+        }else{ 
+          alert("No data here");
+          resolve(false);
+        }
+      },err =>{
+        alert(err); 
+        resolve(false);
+      }
+    ))
+    })
   }
   
 
