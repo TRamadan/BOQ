@@ -158,16 +158,30 @@ public async getSubCategoriesNop  () :Promise<any>{
         let subcat = new Array()
         for (let i = 0; i < data.length; i++) {
           let Subitems = new Array();
+          if(data[i].Deleted == false){
           for (let j = 0; j < items.length; j++) {
-
+            
+            
             if (data[i].Id == items[j].product_subcat) {
               Subitems.push(items[j])
             }
-            subcat[i] = new Category(data[i].Name, data[i].Id,Subitems, data[i].PictureId,data[i].ParentCategoryId)
+           
           }
+          subcat.push(new Category(data[i].Name, data[i].Id,Subitems, data[i].PictureId,data[i].ParentCategoryId,data[i].Deleted))
+      
+        }
+
 
 
         }
+        for(let i = 0 ; i<subcat.length;i++){
+          for(let j = 0 ; j<subcat.length;j++){
+            if(subcat[i].id === subcat[j].parent){
+              subcat[i].children.push(subcat[j]);
+            }
+          }
+        }
+        console.log(subcat);
         resolve(subcat);
        // console.log(subcat);
 
@@ -188,6 +202,7 @@ public async getCategoriesNop() : Promise<any>{
         let catArray = new Array<Category>();
           for (let i = 0; i < data.length; i++) {
             let tempcats = new Array();
+            if(data[i].Deleted == false){
             for (let j = 0; j < subcat.length; j++) {
 
               if (data[i].Id == subcat[j].parent) {
@@ -195,14 +210,16 @@ public async getCategoriesNop() : Promise<any>{
 
                 //console.log(tempcats);
               }
-              catArray[i] = new Category(data[i].Name, data[i].Id,tempcats, data[i].PictureId,data[i].ParentCategoryId)
+             
             }
-
+            catArray.push(new Category(data[i].Name, data[i].Id,tempcats, data[i].PictureId,data[i].ParentCategoryId,data[i].Deleted))
+          }
 
           }
+          console.log(catArray);
+ 
           resolve(catArray);
-        //  console.log(this.catArray);
-         // this.storage.set("appData", this.catArray);
+                // this.storage.set("appData", this.catArray);
         
       }
     })
@@ -245,7 +262,7 @@ public async getCategories() : Promise<any>{
 
                 //console.log(tempcats);
               }
-              catArray[i] = new Category(data[i].NewsCategory, data[i].NewsCategoryID, tempcats,data[i].NewsCategoryImage);
+              catArray[i] = new Category(data[i].NewsCategory, data[i].NewsCategoryID, tempcats,data[i].NewsCategoryImage,"",data[i].Deleted);
             }
 
 
@@ -307,8 +324,8 @@ export class Category{
   name: string;
   parent?: string;
   children?: any[];
-
-  constructor(name : string = "" ,id: string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "" )
+  deleted :boolean;
+  constructor(name : string = "" ,id: string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "",deleted : boolean )
   { 
     this.name = name;
     this.id = id;  
@@ -316,6 +333,7 @@ export class Category{
     this.parentShow = false;
     this.parent = Parent; 
     this.open = false;
+    this.deleted =deleted;
     this.children = children? children : new Array();
   }
   

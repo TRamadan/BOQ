@@ -34,9 +34,10 @@
           </ion-segment-button>
         </ion-segment>
       </div>
-
+      <div *ngIf="ready">
       <div [ngSwitch]="address">
         <div class="new-address" *ngSwitchCase="'new'">
+         
           <ion-list class="address-form">
             <ion-row>
               <ion-col>
@@ -65,10 +66,15 @@
               <ion-col>
                 <ion-item>
                   <ion-label stacked>City</ion-label>
+                 
+                    <ion-select [(ngModel)]="newAddress.city" >
+                      <ion-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</ion-option>
+                    </ion-select>
                   
-                    <ion-input type="text" [(ngModel)]="newAddress.city"></ion-input>
+                    
                   
                 </ion-item>
+              
               </ion-col>
             </ion-row>
 
@@ -115,7 +121,8 @@
             <ion-list class="address-list">
               <ion-item-sliding *ngFor="let addr of savedAddresses">
                 <ion-item class="address-list-item" (tap)="chooseAddress(addr)">
-                <h2>{{addr.houseNum}} {{addr.street}}</h2>
+                
+                  <h2>{{addr.houseNum}} {{addr.street}}</h2>
                   <div class="detail">{{addr.Block}},</div>
                   <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
                   <div item-right class="right-bag">
@@ -131,6 +138,7 @@
             </ion-list>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <!-- END SHIPPING SECTION -->

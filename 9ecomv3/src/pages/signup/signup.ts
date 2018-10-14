@@ -63,9 +63,9 @@ export class SignupPage {
       loading.present();
       //console.log(this.gender);
       //console.log(this.location)
-       let id = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email);
+       let add = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email);
        loading.dismiss();
-       if(id!= "-1"){
+       if(add!= "-1"){
         
         console.log(this.userProvider.user);
         this.navCtrl.setRoot(TabsPage);

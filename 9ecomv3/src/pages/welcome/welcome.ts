@@ -70,12 +70,15 @@ export class WelcomePage {
           console.log(this.loadProgress);
           
             this.db = Database.getInstance();
+            /*
             this.order.getUserOrders(this.userData.id).then(data=>{
               this.loadProgress= this.loadProgress+ 20;
               console.log(this.loadProgress);
               this.db.orders = data;
-              this.navCtrl.setRoot('TabsPage');
+             
             });
+            */
+            this.navCtrl.setRoot('TabsPage');
             
           
         }else{

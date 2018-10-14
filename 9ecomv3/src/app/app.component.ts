@@ -14,6 +14,7 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { Category ,CategoryProvider } from '../providers/category/category';
 
 import {TabsPage} from '../pages/tabs';
+import { SubCateListPage } from "../pages/sub-cate-list/sub-cate-list";
 
 
 export interface PageInterface {
@@ -119,7 +120,12 @@ export class Ecom9App {
       this.menuItems = this.database.categories;
       this.catProv.getCategoriesNop().then(data=>{
         this.database.categories = data;
-        this.catArray = this.database.categories;
+        for(let i =0 ; i < this.database.categories.length;i++){
+          if(!this.database.categories[i].deleted){
+            this.catArray.push(this.database.categories[i]);
+          }  
+        }
+       
       });
       
      
@@ -176,6 +182,18 @@ export class Ecom9App {
     
     this.nav.push(CategoriesPage, {  'tabIndex': 0, 'category': selectedCategory, 'subcat': selectedSubCat });
   }
+
+
+  goToSubCat(subCat:any){
+    this.menu.close();
+    this.nav.push(SubCateListPage,{'Category' : subCat});
+  }
+
+  hasImage( category : Category){
+    return category.image == "" ? false : true ; 
+
+  }
+
 
   /**
    * This function is to load the subcategories for the main categories  

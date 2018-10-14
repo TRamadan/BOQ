@@ -7,14 +7,15 @@
   <ion-content class="menu">
     <ion-list class="menu-list">
       <div *ngFor="let c of catArray; let i = index;">
-        <ion-row>
-          <!--<ion-col col-auto><img class="menu-thumbnail-img" [src]="icons[i].url"></ion-col> -->
+        <ion-row (tap)="toggleItems2(i)">
+          <ion-col col-auto *ngIf="hasImage(c)"><img class="menu-thumbnail-img" [src]="c.image"></ion-col> 
+          <ion-col col-auto *ngIf="!hasImage(c)"><img class="menu-thumbnail-img" src="../assets/img/nophoto.jpg"></ion-col> 
           <ion-col>
-              <button detail-none class="parent" ion-item (tap)="toggleItems2(i)" *ngIf="c.open">
+              <button detail-none class="parent" ion-item  *ngIf="c.open">
                   {{c.name}}
                   <ion-icon  item-right name="remove"></ion-icon> 
                 </button>
-                <button detail-none  ion-item (tap)="toggleItems2(i)" *ngIf="!c.open">
+                <button detail-none  class="parent"  ion-item *ngIf="!c.open">
                     
                     {{c.name}}
                     
@@ -30,10 +31,18 @@
             <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
 -->      
 
-        <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child" >
-          <button detail-none class="child" ion-item *ngFor="let child of c.children ; let j = index" (tap) = "categories(i,j)">
+        <ion-list class="menu-child-list" *ngIf="c.open === true" class="child" >
+          <div *ngFor="let child of c.children ; let j = index">
+            <ion-row (tap)="goToSubCat(child)">
+                <ion-col col-auto *ngIf="hasImage(child)"><img class="menu-thumbnail-img" [src]="child.image"></ion-col> 
+                <ion-col col-auto *ngIf="!hasImage(child)"><img class="menu-thumbnail-img" src="../assets/img/nophoto.jpg"></ion-col>
+          <ion-col>
+          <button detail-none  ion-item >
             {{child.name}}
           </button>
+        </ion-col>
+          </ion-row>
+          </div>
         </ion-list>
     
       </div>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../users/users';
 import { RootProvider } from '../root/root';
-import { CartProduct } from '../cart/cart';
+import { CartProduct, Cart } from '../cart/cart';
 /*
   Generated class for the OrderProvider provider.
 
@@ -16,11 +16,49 @@ export class Order extends RootProvider {
   orderAPi: string = "main";
   getUserOrderApi: string ="users"
 
+  
+  private orderApiConntroller = "orders/";
+  private addOrderActionString = "add_order?";
+  private addItemOrderActionString = "add_item_to_order?";
+
+
   orderData: OrderData;
+
 
   constructor(http : Http) {
     super(http);
     
+  }
+  public async sendOrder(userId:string,addressId:string,totalPrice:number) :Promise<any>{
+   
+    
+    let status = "10" //10 for pending
+    let temp = `${RootProvider.APIURL4}${this.orderApiConntroller}${this.addOrderActionString}CustomerId=${userId}&BillingAddressId=${addressId}&OrderStatusId=${status}&ShippingStatusId=${status}&PaymentStatusId=${status}&OrderSubtotalInclTax=${totalPrice}&OrderSubtotalExclTax=${totalPrice}&OrderTotal=${totalPrice}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data);
+        if(data !=undefined && data.length>0){
+         resolve(data[0].Id);  
+          
+        }else{
+        resolve("-1");
+      }
+      },err=>{
+        console.log(err);
+        resolve("-2");
+      })
+    })
+  }
+
+  public async orderItem(orderId:string,itemId:string,quantity:number,itemprice:number,totalPrice):Promise<any>{
+    let temp = `${RootProvider.APIURL4}${this.orderApiConntroller}${this.addItemOrderActionString}OrderId=${orderId}&ProductId=${itemId}&Quantity=${quantity}&UnitPriceInclTax=${itemprice}&UnitPriceExclTax=${itemprice}&PriceInclTax=${totalPrice}&PriceExclTax=${totalPrice}`;
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        resolve(data)
+      },err=>{
+        resolve(err);
+      })
+    })
   }
 
  

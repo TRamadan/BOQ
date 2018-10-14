@@ -24,9 +24,16 @@ export class UsersProvider extends RootProvider {
   private addressApiController = "address/";
   private addAddressActionString = "add_address?"
 
+  private stateApiController = "State/";
+  private getStatesActionString = "get_states?";
+
+  private addressUserLinkActionString = "link_user_address?";
+
+  private getUserAddressActionString = "get_user_address?";
+
   public user: User; 
 
-  public getStatues : string = "get_statues";
+  
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
@@ -134,40 +141,121 @@ export class UsersProvider extends RootProvider {
   }
 
   public async getState() :Promise<any>{
-    let temp = `${RootProvider.APIURL3}${this.getStatues}`; 
+    let temp = `${RootProvider.APIURL4}${this.stateApiController}${this.getStatesActionString}`; 
+    let states = new Array<state>();
+    
     return new Promise ((resolve)=>{
-      this.http.get(temp).map(res => <any>res.json().subscribe(data => {
+      this.http.get(temp).map(res => <any>res.json()).subscribe(data => {
         console.log(data);
-        if(data.length > 0)
+        if(data != undefined && data.length > 0)
         {
-          resolve (true && temp);
+          for(let i =0;i<data.length;i++){
+            states.push(new state(data[i].Id,data[i].CountryId,data[i].Name));
+          }
+          
+          resolve(states)
         }else{ 
-          alert("No data here");
-          resolve(false);
+          
+          resolve([]);
         }
       },err =>{
-        alert(err); 
-        resolve(false);
+       console.log(err);
+        resolve([]);
       }
-    ))
+    )
     })
   }
+
+  public getStateById(states:Array<state>,id:string): state{
+    let chosen ;
+    states.forEach(element => {
+      if(element.id == id){
+        chosen = element;
+      }
+      
+    });
+    return chosen
+  }
+
+  public getStateByName(states:Array<state>,name:string):state{
+    let chosen ;
+    states.forEach(element=>{
+     
+      if(element.name.toLowerCase() === name.toLowerCase())
+      { console.log(element.name.toLowerCase() === name.toLowerCase());
+        chosen = element;
+      }
+    });
+    return chosen;
+  }
+
   
 
   public getUser(){
     return User.getInstance();
   }
 
-  public  addAddress(address : Address , zipCode : string,email:string ,stateId :string){
-    let temp = `${RootProvider.APIURL4}${this.addressApiController}${this.addAddressActionString}Email=${email}&Company=""&StateProvinceId=${stateId}&Address1=${address.toString()}&Address2=""&ZipPostalCode=${zipCode}&PhoneNumber=""&FaxNumber=""`;
-    
-      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+  public async addAddress(address : Address , zipCode : string,email:string ,stateId :string,userId:string):Promise<any>{
 
+    let temp = `${RootProvider.APIURL4}${this.addressApiController}${this.addAddressActionString}Email=${email}&Company=""&StateProvinceId=${stateId}&Address1=${address.toString()}&Address2=""&ZipPostalCode=${zipCode}&PhoneNumber=""&FaxNumber=""`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data!=undefined && data.length>0){
+          address.id=data[0].ID;
+          this.user.addSavedAddress(address);
+          this.storage.set('user' , this.user);
+          let userLinkApi=`${RootProvider.APIURL4}${this.addressApiController}${this.addressUserLinkActionString}Customer_Id=${userId}&Address_Id=${address.id}`;
+          this.http.get(userLinkApi).map(res=><any>res.json()).subscribe(data=>{
+            console.log(data);
+            resolve(address);
+          })
+          
+        }
+        resolve(null)
       })
-    this.user.addSavedAddress(address);
-    this.storage.set('user' , this.user)
+      resolve(null);
+    })
+      
     
   }
+
+  public async getAddress(userId:string):Promise<any> {
+    let temp=`${RootProvider.APIURL4}${this.addressApiController}${this.getUserAddressActionString}Customer_Id=${userId}`
+    console.log(temp);
+    return new Promise((resolve)=>{
+      
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data);
+        if(data != undefined && data.length > 0){
+          let userAddress = new Array<Address>();
+          for(let i = 0 ;i < data.length ; i++){
+            userAddress.push(new Address());
+            userAddress[i].fromString(data[i].Address1);
+            userAddress[i].id=data[i].Address_Id;
+            userAddress[i].zipCode=data[i].ZipPostalCode;
+          }
+          this.user.addresses = userAddress;
+          resolve(userAddress);
+          
+        }else{
+          resolve('test');
+        }
+
+      }),err=>{
+        resolve(err);
+      }
+      
+    })
+  }
+
+
+  
+
+
+
+
+   
   public removeAddress(address : Address){
     this.user.removeSavedAddress(address);
     this.storage.set('user',this.user);
@@ -258,6 +346,7 @@ export class User {
 
 }
 export class Address {
+  id:string;
   houseNum: string;
   street: string;
   Block: string;
@@ -299,6 +388,18 @@ export class Address {
      this.district = temp[3];
      this.city = temp[4];
      this.country = temp[5];
+  }
+}
+
+export class state{
+  public id : string;
+  public countryId: string
+  public name : string;
+  constructor(id:string,counteryId,name:string){
+    this.id=id;
+    this.countryId=counteryId;
+    this.name=name;
+
   }
 }
 

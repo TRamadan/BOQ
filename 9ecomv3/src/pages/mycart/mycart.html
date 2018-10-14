@@ -37,8 +37,8 @@
         <h2>{{item.product.name}}</h2>
         
         <div class="price-wrapper">
-          <div class="price"> {{item.product.price - item.product.discount}} LE</div>
-          <div *ngIf="item.product.discount==0" class="old-price"> {{item.product.discount}} LE</div>
+          <div class="price"> {{item.product.currentPrice}} LE</div>
+          <div *ngIf="item.product.price!=0" class="old-price"> {{item.product.price}} LE</div>
           
         </div>
         <div item-right class="right-bag">
