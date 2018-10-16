@@ -15,6 +15,7 @@ import { Category ,CategoryProvider } from '../providers/category/category';
 
 import {TabsPage} from '../pages/tabs';
 import { SubCateListPage } from "../pages/sub-cate-list/sub-cate-list";
+import { Product } from '../providers/product/product';
 
 
 export interface PageInterface {
@@ -184,6 +185,7 @@ export class Ecom9App {
   }
 
 
+
   goToSubCat(subCat:any){
     this.menu.close();
     this.nav.push(SubCateListPage,{'Category' : subCat});
@@ -194,6 +196,21 @@ export class Ecom9App {
 
   }
 
+
+  testRecursion(cate:Category,products:Array<Product>):Product[]{
+    if(cate.hasSubCates){
+      console.log(cate);
+      for(let i =0;i<cate.children.length;i++){
+        this.testRecursion(cate.children[i],products);
+      }
+      return products;
+     
+    }else{
+      products.push(...<Array<Product>> cate.children);
+      return products
+    }
+    
+  }
 
   /**
    * This function is to load the subcategories for the main categories  

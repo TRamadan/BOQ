@@ -63,9 +63,6 @@ export class CategoriesPage {
     this.db = Database.getInstance();
     this.products = this.db.allProduct();
 
-    
-
-    console.log();
 
 
     //this.items = this.navParams.get('subcategory');
@@ -93,38 +90,14 @@ export class CategoriesPage {
     console.log(this.menus);
     console.log(subcat);
     if (this.menus) {
-      this.categories = this.menus.children;
-      this.menus.children.forEach(menu => {
-        this.tabs.push({ name: menu.name });
-      });
-
-      for (var i = 0; i < this.tabs.length; i++) {
-        if (this.tabs[i].name.toLowerCase() === subcat.name.toLowerCase()) {
-          this.items = subcat.children;
-          console.log(this.items);
-          this.viewItems = this.items;
-          this.selectedTabNum = i;
-          this.scrollTab.go2Tab(i);
-        }
-      }
+      this.items = this.menus.children;
       this.ItemsReady=true;
       console.log(this.viewItems);
     }
     
   }
 
-  tabChange(data: any) {
-    this.selectedTab = data.selectedTab;
-    this.content.scrollToTop();
-    for(let i = 0 ;i< this.menus.children.length;i++){
-        if(this.menus.children[i].name.toLowerCase() === this.selectedTab.name.toLowerCase() ){
-          this.items = this.menus.children[i].children;
-          this.viewItems = this.items;
-          this.selectedTabNum=i;
-        }
-    }
-
-  }
+  
 
   
   getImgContent(imageData: string):SafeUrl{

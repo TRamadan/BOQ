@@ -235,6 +235,8 @@ export class UsersProvider extends RootProvider {
             userAddress[i].id=data[i].Address_Id;
             userAddress[i].zipCode=data[i].ZipPostalCode;
           }
+          this.user = this.getUser();
+          console.log(this.user);
           this.user.addresses = userAddress;
           resolve(userAddress);
           

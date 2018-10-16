@@ -14,9 +14,53 @@
 
 
 <ion-content padding>
-  <ion-list>
+    <form action="">
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    </form>
+    <div class="delivery">
+        <div class="action-button-wrapper">
+          <div class="action-button-box" (tap)="changeListed(0)">
+            <button ion-button clear tap>SubCategories</button>
+           
+          </div>
+          <div class="action-button-box" (tap)="changeListed(1)" >
+            <button ion-button clear>All Products</button>
+            
+          </div>
+        </div>
+      </div>
+
+
+
+
+  <ion-list *ngIf="listSelected === 0">
     <ion-item *ngFor="let subCat of category.children">
       <ion-label (tap)="openSubCate(subCat)">{{subCat.name}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+
+
+
+
+  <ion-list *ngIf="listSelected === 1" >
+    <ion-item class="cart-list-item" *ngFor="let product of products" (tap)="toProduct(product)">
+      <ion-thumbnail item-left>
+          <img [src]="product.image1">
+      </ion-thumbnail>
+        <h2 [innerHTML]="decorateTitle(product.name)"></h2>
+        
+      <div class="price-wrapper" *ngIf="product.price !=0">
+        <div class="price">{{product.currentPrice}} LE</div>
+        <div class="old-price">{{product.price}} LE</div>
+      </div>
+      <div class="price-wrapper" *ngIf="product.price === 0">
+        <div class="price">{{product.currentPrice}} LE</div>     
+      </div>
+      <div item-right class="right-bag">
+        <div *ngIf="product.status === 'in'" class="available">In stock</div>
+        <div *ngIf="product.status === 'out'" class="notavailable">Out of stock</div>
+      </div>
     </ion-item>
   </ion-list>
 

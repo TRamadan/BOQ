@@ -30,6 +30,9 @@ export class CategoryProvider {
     console.log('Hello SubCategoriesProvider Provider');
   }
 
+
+  public getCategoryItems(category,items){}
+
   public async getCompany() : Promise<any>{
     return new Promise((resolve)=>{
       let tempData=`${RootProvider.APIURL3}company`;
@@ -85,8 +88,6 @@ export class CategoryProvider {
 
 
 
-
-
 ////////////////////////////////////////////////////////////////////////////
 
 
@@ -110,7 +111,7 @@ else{
   for(let i=0;i<data.length;i++){
     let specs = new Specs(data[i].Weight,data[i].Length,data[i].Height,data[i].Width);
     items.push(new Product(data[i].Name
-    ,data[i].ProductTypeId
+    ,data[i].Id
     ,data[i].CategoryId
     ,data[i].StockQuantity
     ,specs
@@ -174,11 +175,19 @@ public async getSubCategoriesNop  () :Promise<any>{
 
 
         }
+       
         for(let i = 0 ; i<subcat.length;i++){
+          let tempChildren = new Array();
           for(let j = 0 ; j<subcat.length;j++){
             if(subcat[i].id === subcat[j].parent){
-              subcat[i].children.push(subcat[j]);
+              tempChildren.push(subcat[j])
+              
             }
+          }
+          if(tempChildren.length>0){
+            subcat[i].hasSubCates = true;
+            subcat[i].children = new Array();
+            subcat[i].children = tempChildren;
           }
         }
         console.log(subcat);
@@ -212,7 +221,8 @@ public async getCategoriesNop() : Promise<any>{
               }
              
             }
-            catArray.push(new Category(data[i].Name, data[i].Id,tempcats, data[i].PictureId,data[i].ParentCategoryId,data[i].Deleted))
+            catArray.push(new Category(data[i].Name, data[i].Id,tempcats, data[i].PictureId,data[i].ParentCategoryId,data[i].Deleted,true))
+          
           }
 
           }
@@ -306,6 +316,22 @@ private async getSubCategories  () :Promise<any>{
 
 }
 
+
+getCateItem(cate:Category,products:Array<Product>):Product[]{
+  if(cate.hasSubCates){
+    console.log(cate);
+    for(let i =0;i<cate.children.length;i++){
+      this.getCateItem(cate.children[i],products);
+    }
+    return products;
+   
+  }else{
+    products.push(...<Array<Product>> cate.children);
+    return products
+  }
+  
+}
+
 }
 
 
@@ -324,8 +350,9 @@ export class Category{
   name: string;
   parent?: string;
   children?: any[];
+  hasSubCates:boolean;
   deleted :boolean;
-  constructor(name : string = "" ,id: string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "",deleted : boolean )
+  constructor(name : string = "" ,id: string = "" ,children : any ,NewsCategoryImage : string = "" , Parent : string = "",deleted : boolean,hasSubCate:boolean=false )
   { 
     this.name = name;
     this.id = id;  
@@ -335,6 +362,7 @@ export class Category{
     this.open = false;
     this.deleted =deleted;
     this.children = children? children : new Array();
+    this.hasSubCates=hasSubCate;
   }
   
 

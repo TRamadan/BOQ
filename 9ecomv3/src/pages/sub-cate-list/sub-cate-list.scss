@@ -1,3 +1,44 @@
 page-sub-cate-list {
 
+    
+      
+        .title {
+          font-size: 1.38rem;
+          font-weight: 500;
+          padding-left: 5vw;
+        }
+        .action-button-wrapper {
+          padding-top: 2vh;
+          width: 93vw;
+          text-align: center;
+          .action-button-box {
+            margin: 1vh 3vw 1vh 3vw;
+            display: inline-block;
+            width: 40vw;
+            border: 1px solid color($colors, lightdark);
+            border-radius: 5px;
+            background-color: color($colors, pearl);
+            button {
+              color: color($colors, dark);
+              font-size: 1.5rem;
+              font-weight: 500;
+              margin-top: 0;
+              margin-bottom: 0;
+              padding-bottom: 0;
+            }
+            .delivery-type {
+              margin-top: -1vh;
+              padding: 0 3vw 3vw 3vw;
+              font-size: 1.206rem;
+            }
+          }
+          .action-button-box.checked {
+            border: 1px solid color($colors, primary);
+            button {
+              color: color($colors, secondary);
+            }
+          }
+        }
+      
+
 }

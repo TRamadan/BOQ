@@ -4,8 +4,9 @@ import { Storage} from '@ionic/storage';
 
 import { Order} from '../../providers/order/order';
 import { Database }from '../../providers/database';
-import { User } from '../../providers/users/users';
-import {  CategoryProvider } from '../../providers/category/category';
+import { User,UsersProvider } from '../../providers/users/users';
+import {  CategoryProvider, Category } from '../../providers/category/category';
+import { Product } from '../../providers/product/product';
 interface shopSlider {
   image: string;
 }
@@ -48,6 +49,7 @@ export class WelcomePage {
     , public storage: Storage
     , public order: Order
     , public catProv : CategoryProvider
+    , public userProv: UsersProvider
   ) {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
@@ -70,7 +72,13 @@ export class WelcomePage {
           console.log(this.loadProgress);
           
             this.db = Database.getInstance();
-            /*
+            this.userProv.getAddress(this.userData.id).then(data=>{
+              this.userData.Addresses = data;
+              console.log(this.db.Addresses);
+              this.navCtrl.setRoot('TabsPage');
+
+          })
+           /*
             this.order.getUserOrders(this.userData.id).then(data=>{
               this.loadProgress= this.loadProgress+ 20;
               console.log(this.loadProgress);
@@ -78,13 +86,13 @@ export class WelcomePage {
              
             });
             */
-            this.navCtrl.setRoot('TabsPage');
+            
             
           
         }else{
           console.log(this.loadProgress);
           this.loadProgress=100;
-          this.navCtrl.setRoot('SigninPage');
+         this.navCtrl.setRoot('SigninPage');
         }
        
   
@@ -99,7 +107,7 @@ export class WelcomePage {
 
     
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
   }

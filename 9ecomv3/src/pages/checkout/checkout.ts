@@ -215,7 +215,7 @@ export class CheckoutPage {
         }
         //onsole.log(output);
         if(orderId != "-1" && orderId != "-2"){
-          this.db.categories= await this.catProv.getCategories(); 
+          this.db.categories= await this.catProv.getCategoriesNop(); 
           this.cart.clear();
           loading.dismiss();
           //console.log(this.db.categories);

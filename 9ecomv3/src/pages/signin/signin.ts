@@ -75,6 +75,7 @@ export class SigninPage {
          this.user = User.getInstance();
          this.storage.set('user',this.user);
          this.navCtrl.setRoot(TabsPage);
+         this.dataBase.Addresses = await this.userProvider.getAddress(this.user.id);
       }else{
         loading.dismiss();
          alert('Wrong user name or password')

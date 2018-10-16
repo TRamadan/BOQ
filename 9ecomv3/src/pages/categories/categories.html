@@ -16,12 +16,14 @@
       </button>
     </ion-buttons>
   </ion-navbar>
-  <scroll-tabs *ngIf="show" #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+  <!--<scroll-tabs *ngIf="show" #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs> -->
+
 </ion-header>
 
 <ion-content  class="page-categories">
-  <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
-   
+    <form action="">
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    </form>
       <ion-scroll scrollY="true" scrollX="true" class="content-wrapper">
         <div *ngIf="ItemsReady">
           <div class="card9-container" *ngFor="let item of items">
@@ -38,7 +40,7 @@
               {{item.company_name}}
             </div>-->
 
-            <div class="price-box" *ngIf="item.price != item.currentPrice">
+            <div class="price-box" *ngIf="item.price != 0">
               <span class="price">{{item.currentPrice}} LE<span class="old-price">{{item.price}} LE</span></span>
               
               
@@ -47,7 +49,7 @@
               </span>
             </div>
 
-            <div class="price-box" *ngIf="item.price == item.currentPrice">
+            <div class="price-box" *ngIf="item.price ==0">
                 <span class="price">{{item.currentPrice}} LE</span>
                 
                 
@@ -61,5 +63,5 @@
         </div>
       </ion-scroll>
     
-  </div>    
+ 
 </ion-content>
