@@ -56,6 +56,7 @@ export class WelcomePage {
     this.loadProgress=30;
     this.catProv.getCategoriesNop().then(data=>{
       this.db.categories = data;
+      console.log(data);
       this.loadProgress=50;
       console.log(this.loadProgress);
       this.ready = true;

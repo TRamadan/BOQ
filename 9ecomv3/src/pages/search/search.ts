@@ -1,7 +1,7 @@
 import { Component, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { Category} from '../../providers/category/category';
+import { Category , CategoryProvider} from '../../providers/category/category';
 import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
 import {Database} from '../../providers/database'; 
@@ -28,6 +28,7 @@ export class SearchPage {
     public storage: Storage,
     public navCtrl: NavController,
     public navParams: NavParams,
+    public catProv : CategoryProvider
 
   ) { 
     this.mark="";
@@ -52,19 +53,15 @@ export class SearchPage {
     //let db = Database.getInstance();
     //this.results = db.allProduct();
     
-      this.catsArr = this.dataBase.allCategory();
-     
-      for (let i =0 ;i<this.catsArr.length;i++) {
-        
-        for(let j =0 ;j<this.catsArr[i].children.length;j++){
-         
-          for(let k = 0;k<this.catsArr[i].children[j].Items.length;k++){
-            
-            this.allProduct.push(this.catsArr[i].children[j].Items[k]);
-            
-          }
-        }
+      this.catsArr = this.dataBase.categories;
+      console.log(this.catsArr);
+      for(let i = 0 ; i < this.catsArr.length;i++){
+        let tempArr = new Array<Product>();
+        tempArr =this.catProv.getCateItem(this.catsArr[i],tempArr);
+        console.log(tempArr);
+        this.allProduct.push(...tempArr);
       }
+      console.log(this.allProduct);
       this.results = this.allProduct;
       //console.log(this.results);
       this.Ready=true;

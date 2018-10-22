@@ -28,12 +28,12 @@
             <img [src]="product.image1">
         </ion-thumbnail>
           <h2 [innerHTML]="decorateTitle(product.name)"></h2>
-          <h3 [innerHTML]="decorateTitle(product.company_name)"></h3>
-        <div class="price-wrapper" *ngIf="product.price != product.currentPrice">
+          
+        <div class="price-wrapper" *ngIf="product.price != 0">
           <div class="price">{{product.currentPrice}} LE</div>
           <div class="old-price">{{product.price}} LE</div>
         </div>
-        <div class="price-wrapper" *ngIf="product.price == product.currentPrice">
+        <div class="price-wrapper" *ngIf="product.price ==0">
           <div class="price">{{product.currentPrice}} LE</div>
           
         </div>

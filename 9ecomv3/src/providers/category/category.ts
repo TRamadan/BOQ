@@ -31,8 +31,6 @@ export class CategoryProvider {
   }
 
 
-  public getCategoryItems(category,items){}
-
   public async getCompany() : Promise<any>{
     return new Promise((resolve)=>{
       let tempData=`${RootProvider.APIURL3}company`;

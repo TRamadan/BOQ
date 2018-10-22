@@ -34,6 +34,7 @@ export class Order extends RootProvider {
     
     let status = "10" //10 for pending
     let temp = `${RootProvider.APIURL4}${this.orderApiConntroller}${this.addOrderActionString}CustomerId=${userId}&BillingAddressId=${addressId}&OrderStatusId=${status}&ShippingStatusId=${status}&PaymentStatusId=${status}&OrderSubtotalInclTax=${totalPrice}&OrderSubtotalExclTax=${totalPrice}&OrderTotal=${totalPrice}`;
+    console.log(temp);
     return new Promise((resolve)=>{
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         console.log(data);

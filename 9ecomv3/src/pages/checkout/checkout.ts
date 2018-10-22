@@ -165,11 +165,14 @@ export class CheckoutPage {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
         let flgFound = false;
+        console.log(this.savedAddresses);
+        if(this.savedAddresses != undefined && this.savedAddresses.length>0){
         this.savedAddresses.forEach(addr => {
           if (addr.toString() === this.newAddress.toString()) {
             flgFound = true;
           }
         });
+      }
         if (!flgFound) {
           if (this.isValid()) {
             console.log(this.newAddress.toString());
@@ -290,5 +293,9 @@ export class CheckoutPage {
     return (this.newAddress.street !== '' && this.newAddress.houseNum !== undefined)
       && (this.newAddress.city !== '' && this.newAddress.country !== undefined)
       && (this.newAddress.district !== '' && this.newAddress.zipCode !== undefined)
+  }
+
+  hasAddress(){
+    return this.user.addresses!= undefined && this.user.addresses.length > 0 ? true : false;
   }
 }

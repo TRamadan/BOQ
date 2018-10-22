@@ -19,7 +19,8 @@ export class UsersProvider extends RootProvider {
   private userApiController:string = 'users/';
   
   private logInActionString = "user_login?";
-  private regesterActionString = "user_reg?"
+  private regesterActionString = "user_reg?";
+  private getSaltActionString = "get_salt?";
 
   private addressApiController = "address/";
   private addAddressActionString = "add_address?"
@@ -47,7 +48,9 @@ export class UsersProvider extends RootProvider {
       let F = false;
       let T = true;
       let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
+      console.log(temp);
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data);
         if(data != null && data != undefined && data.length>0){
           this.user = User.getInstance(data[0].ID,Username,password,email);
           resolve(data[0].ID);
@@ -59,12 +62,13 @@ export class UsersProvider extends RootProvider {
     })
   }
 
-  public async loginNop(email:string,password:string): Promise<any>{
+  public async loginNop(email:string,password:string,salt:any): Promise<any>{
     return new Promise((resolve)=>{
-      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.logInActionString}Email=${email}&Password=${password}`;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.logInActionString}Email=${email}&Password=${password}&salt=${salt}`;
       console.log(temp);
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         if(data != null && data != undefined && data.length>0){
+          console.log(data[0].Id+ "  : "+data[0].Username+"  :  "+data[0].Password+"  :  "+data[0].Email)
           this.user = User.getInstance(data[0].Id,data[0].Username,data[0].Password,data[0].Email);
           console.log(this.user);
           resolve(true);
@@ -78,66 +82,22 @@ export class UsersProvider extends RootProvider {
   
 
  
-  public async login(name: string, password: string) : Promise<any> {
+ 
+  public async getSualt(email:string){
+    let temp =`${RootProvider.APIURL4}${this.userApiController}${this.getSaltActionString}Email=${email}&Username=""`
+    console.log(temp);
     return new Promise((resolve)=>{
-      let temp = `${RootProvider.APIURL3}${this.logIn2}?user_name=${name}&user_password=${password}`;
-      console.log(temp);
-      this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
-          if(data != null)
-          {  
-            if(data.length > 0){
-          let tempGender = data[0].user_type==1 ? 'Male': 'Female'; 
-          this.user = User.getInstance(data[0].id,data[0].user_name,data[0].user_password,data[0].user_email,tempGender,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
-          console.log(User.getInstance());
-          this.storage.set('user', this.user); 
-          console.log(data);
-          resolve(true);
-          
-        } 
-        else{
-          alert("Worng User Name Or Password");
-          resolve(false);
-        }
-
-      }else{
-        resolve(false);
-      }
-      },err=>{
-        alert(err);
-         resolve(false);
-      });
-  
-    })
-    
-   
-  }
-
-  public async Regester(userName:string,password:string,fname:string,lname:string,userImage:string,userPhone:string,userEmail:string,usertype:string): Promise<any> {
-    let temp = `${RootProvider.APIURL3}${this.register2}?user_name=${userName}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_img=""&user_phone=${userPhone},&user_email=${userEmail}&user_type=${usertype}`;
-    //console.log(temp);
-    
-    return new Promise ((resolve)=>{
-    this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
-      console.log(data);
-      if (data.length > 0) {
-        if(data[0].error_name == "done"){
-          let temp =this.login(userName,password);
-          resolve(true && temp);
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data){
+          resolve(data[0].PasswordSalt);
         }else{
-          alert("this Email has been regestered before")
-          resolve(false);
-
+          resolve(-1);
         }
-      } else {
-        alert("Server Error");
-        resolve(false)
-      }
-    }, err => {
-      alert(err);
-      resolve(false)
+      },err=>{
+        console.log(err);
+        resolve(-1)
+      })
     })
-    })
-    
   }
 
   public async getState() :Promise<any>{
@@ -203,9 +163,11 @@ export class UsersProvider extends RootProvider {
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         if(data!=undefined && data.length>0){
           address.id=data[0].ID;
+          this.user =this.getUser();
           this.user.addSavedAddress(address);
           this.storage.set('user' , this.user);
           let userLinkApi=`${RootProvider.APIURL4}${this.addressApiController}${this.addressUserLinkActionString}Customer_Id=${userId}&Address_Id=${address.id}`;
+          console.log(userLinkApi);
           this.http.get(userLinkApi).map(res=><any>res.json()).subscribe(data=>{
             console.log(data);
             resolve(address);
@@ -227,8 +189,9 @@ export class UsersProvider extends RootProvider {
       
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         console.log(data);
+        let userAddress = new Array<Address>();
         if(data != undefined && data.length > 0){
-          let userAddress = new Array<Address>();
+          
           for(let i = 0 ;i < data.length ; i++){
             userAddress.push(new Address());
             userAddress[i].fromString(data[i].Address1);
@@ -241,7 +204,7 @@ export class UsersProvider extends RootProvider {
           resolve(userAddress);
           
         }else{
-          resolve('test');
+          resolve(userAddress);
         }
 
       }),err=>{
@@ -297,7 +260,7 @@ export class User {
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, gender, password, email, phone,address);
+      this.setData(id, name, password, email,gender, phone,address);
       User.isCreating = true;
     }
   }
@@ -321,7 +284,7 @@ export class User {
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name, gender,password, email, phone,address);
+      User.instance.setData(id, name,password, email,gender, phone,address);
     }
     return User.instance;
   }

@@ -23,15 +23,19 @@ export class SubCateListPage {
   products: Array<Product>;
   mark="";
   results:Array<any>;
-  listSelected=0;
+  listSelected=-1;
+  name="";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public CateProv : CategoryProvider) {
-
+    
     this.category = this.navParams.get('Category');
+    this.name =this.category.name;
     this.products = new Array();
     console.log(this.category);
     this.products = this.CateProv.getCateItem(this.category,this.products);
     console.log(this.products);
+    this.results = this.category.children;
+    this.changeListed(0);
   }
 
   ionViewDidLoad() {
@@ -41,7 +45,7 @@ export class SubCateListPage {
   openSubCate(subCate : Category){
     console.log(subCate);
     //console.log(subCate.children[0] instanceof Category );
-    if(subCate.children[0] instanceof Category ){
+    if(subCate.children != undefined && subCate.children[0] instanceof Category ){
       this.navCtrl.push(SubCateListPage,{'Category': subCate});
     }else{
       
@@ -95,7 +99,16 @@ export class SubCateListPage {
 
 
   changeListed(choise:number){
-    this.listSelected = choise;
+    if(this.category.children[0] instanceof Product && choise == 0 ){
+    this.listSelected = -1;
+    }else if(choise == 1){
+      this.listSelected = choise;
+      this.results = this.products;
+    }else{
+      this.listSelected = choise;
+      this.results = this.category.children;
+    }
+
   }
 
 

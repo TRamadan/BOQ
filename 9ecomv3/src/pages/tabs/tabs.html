@@ -1,7 +1,8 @@
 <ion-tabs color="primary" id="tabs" #mainTabs class="page-tabs" [selectedIndex]="selectedIndex">
-  <ion-tab [root]="tab1Root" tabTitle="Home" [rootParams]="detail" tabIcon="home"></ion-tab>
+  <!--<ion-tab [root]="tab1Root" tabTitle="Home" [rootParams]="detail" tabIcon="home"></ion-tab>-->
   <!--<ion-tab [root]="tab2Root" tabTitle="Hot Offer" tabIcon="flame"></ion-tab>-->
+  <ion-tab [root]="tab4Root" tabTitle="Home" tabIcon="home"></ion-tab> 
   <ion-tab [root]="tab3Root" tabTitle="Mycart" tabIcon="cart" [tabBadge]="cart.count()" tabBadgeStyle="secondary"></ion-tab>
-  <!--<ion-tab [root]="tab4Root" tabTitle="Search" tabIcon="search"></ion-tab> -->
+  
   <ion-tab [root]="tab5Root" tabTitle="Profile" [rootParams]="detail" tabIcon="person"></ion-tab>
 </ion-tabs>

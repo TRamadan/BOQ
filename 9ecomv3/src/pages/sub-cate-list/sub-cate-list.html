@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>subCateList</ion-title>
+    <ion-title>{{name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -34,7 +34,7 @@
 
 
   <ion-list *ngIf="listSelected === 0">
-    <ion-item *ngFor="let subCat of category.children">
+    <ion-item *ngFor="let subCat of results">
       <ion-label (tap)="openSubCate(subCat)">{{subCat.name}}</ion-label>
     </ion-item>
   </ion-list>
@@ -44,7 +44,7 @@
 
 
   <ion-list *ngIf="listSelected === 1" >
-    <ion-item class="cart-list-item" *ngFor="let product of products" (tap)="toProduct(product)">
+    <ion-item class="cart-list-item" *ngFor="let product of results" (tap)="toProduct(product)">
       <ion-thumbnail item-left>
           <img [src]="product.image1">
       </ion-thumbnail>

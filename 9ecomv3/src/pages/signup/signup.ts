@@ -64,6 +64,7 @@ export class SignupPage {
       //console.log(this.gender);
       //console.log(this.location)
        let add = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email);
+       console.log(add);
        loading.dismiss();
        if(add!= "-1"){
         

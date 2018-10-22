@@ -119,6 +119,7 @@
         <div class="saved-address" *ngSwitchCase="'saved'">
           <div class="address-container">
             <ion-list class="address-list">
+              <div *ngIf="hasAddress()">
               <ion-item-sliding *ngFor="let addr of savedAddresses">
                 <ion-item class="address-list-item" (tap)="chooseAddress(addr)">
                 
@@ -135,6 +136,7 @@
                   </button>
                 </ion-item-options>
               </ion-item-sliding>
+            </div>
             </ion-list>
           </div>
         </div>
