@@ -6,12 +6,12 @@ page-profile {
     .title {
       font-size: 1.68rem;
       font-weight: 500;
-      color: color($colors, secondary);
+      color: color($colors, light);
     }
     .no-items-round {
       width: 80vw;
       margin-left: 5vw;
-      background-color: color($colors, primary);
+      background-color: color($colors, secondary);
       border-radius: 20px;
       margin-top: 2vh;
     }

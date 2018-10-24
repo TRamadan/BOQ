@@ -21,12 +21,12 @@
         padding-right: 1px;
         margin-right: 2vw;
         margin-left: 2vw;
-        color: color($colors, dark);
+        color: color($colors, light);
         text-transform: none !important;
       }
       .tab9-button.selected {
-        color: color($colors, primary);
-        border-bottom: 3px solid color($colors, secondary);
+        color: color($colors, secondary);
+        border-bottom: 3px solid color($colors, dark);
       }
       .tab9-button.three {
         width: 29vw;

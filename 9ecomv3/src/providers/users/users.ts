@@ -161,6 +161,7 @@ export class UsersProvider extends RootProvider {
     console.log(temp);
     return new Promise((resolve)=>{
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data.length);
         if(data!=undefined && data.length>0){
           address.id=data[0].ID;
           this.user =this.getUser();
@@ -170,7 +171,7 @@ export class UsersProvider extends RootProvider {
           console.log(userLinkApi);
           this.http.get(userLinkApi).map(res=><any>res.json()).subscribe(data=>{
             console.log(data);
-            resolve(address);
+            resolve(address.id);
           })
           
         }

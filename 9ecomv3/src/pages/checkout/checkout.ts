@@ -179,7 +179,7 @@ export class CheckoutPage {
             let tempState = this.userProv.getStateByName(this.cities,this.newAddress.city);
             console.log(tempState);
             this.cityID = tempState.id;
-            this.newAddress =await this.userProv.addAddress(this.newAddress,this.newAddress.zipCode,this.user.email,this.cityID,this.user.id);
+            this.newAddress.id =await this.userProv.addAddress(this.newAddress,this.newAddress.zipCode,this.user.email,this.cityID,this.user.id);
             
           this.scrollTab.nextTab();
           } else {

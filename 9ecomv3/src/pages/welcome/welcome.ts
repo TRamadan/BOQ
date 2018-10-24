@@ -24,19 +24,19 @@ interface shopSlider {
 export class WelcomePage {
   shopSliders: shopSlider[] = [
     {
-      image: 'assets/img/welcome/welcome.png',
+      image: 'assets/img/welcome/welcome1.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome1.png',
+      image: 'assets/img/welcome/welcome2.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome2.png',
+      image: 'assets/img/welcome/welcome3.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome3.png',
+      image: 'assets/img/welcome/welcome4.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome4.png',
+      image: 'assets/img/welcome/welcome5.jpg',
     },
   ];
   public ready = false;
@@ -67,7 +67,7 @@ export class WelcomePage {
         if(data != null){
           //console.log("test");
           this.userData = <User> data;
-          User.getInstance(this.userData.id,this.userData.name,this.userData.gender,this.userData.password,this.userData.email,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
+          User.getInstance(this.userData.id,this.userData.name,this.userData.password,this.userData.email,this.userData.gender,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
           //console.log(User.getInstance())
           this.loadProgress= this.loadProgress+ 30;
           console.log(this.loadProgress);
