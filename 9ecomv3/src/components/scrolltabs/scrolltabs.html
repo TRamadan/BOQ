@@ -8,7 +8,11 @@
 <div class="scroll-tabs">
   <ion-scroll #scrollTab id="scrollTab" class="scroll-container" scrollX="true">
     <div class="section" *ngFor="let tab of tabs">
-      <button class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear (click)="tabChange(tab)">
+      <!-- <button class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear (click)="tabChange(tab)">
+        {{tab.name}}
+      </button> -->
+    
+      <button class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear>
         {{tab.name}}
       </button>
     </div>
