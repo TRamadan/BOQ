@@ -1,0 +1,30 @@
+{
+    "sideMenu":{
+        "title": "Categories"
+    },
+    "tabs":{
+        "home": "Home",
+        "search": "Search",
+        "myCart": "MyCart",
+        "profile": "Profile",
+        "offers": "Offers"
+    },
+    "myCartPage":{
+        "noItemHeader": "No Items In Cart",
+        "redirectButton": "Continue Shopping"
+    },
+    "profilePage":{
+        "title": "Account Details",
+        "segments":{
+            "profile":"Profile",
+            "myOrders": "My Orders",
+            "wishList": "Wish List",
+            "address": "My Address"
+        },
+        "profileSegment":{
+            "logOutButton": "SignOut"
+        }
+
+
+    }
+}

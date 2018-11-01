@@ -15,7 +15,7 @@
     
   </ion-navbar>
   <div>
-    <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+    <scroll-tabs #scrollTab  [tabs]="tabs" [selectEnable]="isTabsSelectable" (onSelectedTab)="tabChange($event)"></scroll-tabs>
   </div>
   
 

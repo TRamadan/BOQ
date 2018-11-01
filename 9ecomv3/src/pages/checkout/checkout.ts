@@ -53,6 +53,7 @@ export class CheckoutPage {
   savedAddresses: Address[];  
   public cityID : string = "";
   ready:boolean=false;
+  isTabsSelectable=false;
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
@@ -74,7 +75,7 @@ export class CheckoutPage {
     this.savedAddresses = new Array();
     this.db = Database.getInstance();
     this.user = this.userProv.getUser();
-    
+     
     this.SetData();
 
     //console.log(this.savedAddresses);

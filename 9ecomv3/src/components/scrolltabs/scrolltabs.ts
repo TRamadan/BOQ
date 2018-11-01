@@ -13,11 +13,13 @@ import { Scroll } from 'ionic-angular';
 })
 export class ScrollTabsComponent implements OnChanges, AfterViewChecked {
   @Input('tabs') tabs;
+  @Input('selectEnable')selectedEnable;
   @ViewChild('scrollTab') scroll: Scroll;
   @Output() onSelectedTab = new EventEmitter();
   position: number = 0;
   currentTab: any;
   constructor() {
+    
 
   }
 
@@ -30,6 +32,7 @@ export class ScrollTabsComponent implements OnChanges, AfterViewChecked {
   }
   
   ngAfterViewInit() {
+    console.log(this.selectedEnable);
     if (this.tabs) {
       if (this.tabs.length > 0) {
         this.tabs.forEach(tab => {

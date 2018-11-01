@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { Ecom9App } from './app.component';
 
@@ -19,6 +21,13 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { Order } from '../providers/order/order';
 import { FiltersProvider } from '../providers/filters/filters';
 import { ComponentsModule } from '../components/components.module';
+import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { TranslatorProvider } from '../providers/translator/translator';
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -26,6 +35,7 @@ import { ComponentsModule } from '../components/components.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     HttpModule,
     ComponentsModule,
     IonicModule.forRoot(Ecom9App, {
@@ -45,13 +55,21 @@ import { ComponentsModule } from '../components/components.module';
         }
       }
     }),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forRoot({
+      loader:{
+        provide : TranslateLoader,
+        useFactory : HttpLoaderFactory,
+        deps : [HttpClient]
+      }
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     Ecom9App,
     
   ],
+
   providers: [
     StatusBar,
     SplashScreen,
@@ -64,8 +82,10 @@ import { ComponentsModule } from '../components/components.module';
     UsersProvider,
     CategoryProvider,
     Order,
-
-    FiltersProvider
+    FiltersProvider,
+    TranslatorProvider,
+    HttpClient,
+    
   ]
 })
 export class AppModule {}

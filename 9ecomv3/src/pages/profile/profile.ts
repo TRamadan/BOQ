@@ -36,7 +36,8 @@ export class ProfilePage {
     {
       name: 'Saved Address',
     },
-  ]; 
+  ];
+  isTabsSelectable=true;
 
   quantity : number = 1;
   selectedTab: IScrollTab;
@@ -65,6 +66,7 @@ export class ProfilePage {
     this.wishProducts = this.db.allWishList(); 
     this.orders = this.db.allOrders();  
     console.log(this.user);
+    console.log(this.isTabsSelectable);
     
   }
 
