@@ -1,0 +1,47 @@
+{
+    "language": "English",
+    "sideMenu":{
+        "title": "الفئات"
+    },
+    "tabs":{
+        "home": "الرئيسيه",
+        "search": "بحث",
+        "myCart": "عربه التسوق",
+        "profile": "الملف الشخصي",
+        "offers": "العروض "
+    },
+    "myCartPage":{
+        "title": "سله التسوق",
+        "noItemHeader": "لا توجد عناصر في سلة التسوق",
+
+        "redirectButton": "متابعة التسوق"
+    },
+    "profilePage":{
+        "title": "تفاصيل الحساب",
+        "segments":{
+            "profile":"الملف الشخصي",
+            "myOrders": "طلباتي",
+            "wishList": "المفضل",
+            "address": "عنواني"
+        },
+        "profileSegment":{
+            "logOutButton": "تسجيل خروج"
+        },
+        "myOrdersSegment":{
+            "noOrders":  "لا طلبات الشراء"
+        },
+        "wishListSegment":{
+            "noWishList": "لا توجد عناصر"
+        },
+        "savedAddressSegment":{
+            "noAddress": "لاعناوين"
+        }
+
+
+    },
+    "SubCateListPage":{
+        "subCategoriesButton": "الفئات الفرعيه",
+        "allProductsButton": "جميع المنتجات"
+    }
+}
+    

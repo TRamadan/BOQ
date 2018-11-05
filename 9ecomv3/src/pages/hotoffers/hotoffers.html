@@ -9,16 +9,17 @@
     <button ion-button menuToggle>
       <img src="assets/img/menu.png" class="menu-image">
     </button>
-    <ion-title>
-      <div>B<span>OQ</span>
-      </div>
-    </ion-title>
-  </ion-navbar>
+    
+      <img src="assets/img/Logo.png"  class="menu-logo-img">
+    
+    
+  </ion-navbar> 
+ 
 </ion-header>
 
 
 <ion-content class="page-hotoffers">
-  <div *ngIf="ReadyOffers">
+  <!-- <div *ngIf="ReadyOffers">
     <ion-slides loop="false" pager="false" parallax="true" dir="ltr" slidesPerView='4'>
       <ion-slide class="cat-slide" (tap)="filter()">
         <div *ngIf="Activenow == -1" class="cat-slide-activated">
@@ -50,7 +51,7 @@
                 {{item.name}}
               </h3>
             </ion-card-header>
-            <!-- here will be the image of the item --> 
+            
             <img [src]="item.image1" />
             <ion-card-content>
                 <h4 style="text-align:center;">Offer information</h4> 
@@ -62,11 +63,43 @@
         </ion-item>
       </ion-list>
     </div>
-    <!--
-  <div *ngFor="let o of get_offers">
-    {{o.offer_name}}
-  </div>-->
+    
 
-  </div> 
+  </div>  -->
+  <!-- <div>
+    <ion-list *ngFor="let item of filtered_Array " no-lines>
+      <ion-item>
+        <ion-card style="border-radius:20px;" >
+          <ion-card-header>
+            <h3>
+              {{item.name}}
+            </h3>
+          </ion-card-header>
+          
+          <img [src]="item.image1" />
+          <ion-card-content>
+              <h4 style="text-align:center;">Offer information</h4> 
+              <hr>
+            <h5 style="font-weight:bold;">Offer name :</h5> <h5>{{item.offer_name}}</h5>
+           <h5 style="font-weight:bold;">Price :</h5> <h5>{{item.currentPrice}} LE</h5>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </div> -->
+  <ion-list no-lines>
+    <ion-card style="border-radius:20px;" >
+      <img src="assets/img/venus1.jpg" />
+    </ion-card>
+    <ion-card style="border-radius:20px;" >
+      <img src="assets/img/venus2.jpg" />
+    </ion-card>
+    <ion-card style="border-radius:20px;" >
+      <img src="assets/img/philips1.jpg" />
+    </ion-card>
+    <ion-card style="border-radius:20px;" >
+      <img src="assets/img/philips2.jpg" />
+    </ion-card>
+  </ion-list>
 
 </ion-content>

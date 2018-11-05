@@ -15,26 +15,37 @@ import { TranslateService } from '@ngx-translate/core';
 export class TranslatorProvider {
   translateHttpLoader;
   public langs : Array<string>;
+  public side: string;
 
   constructor(public http: HttpClient,private tarnslateService : TranslateService , private platform : Platform) {
-    this.translateHttpLoader = new TranslateHttpLoader(http);
+    this.translateHttpLoader = new TranslateHttpLoader(http, 'assets/i18n/', '.json');
     this.langs = new Array();
     this.langs.push('en');
     this.langs.push('ar');
     this.tarnslateService.setDefaultLang('en');
+    this.switchLang();
   }
-switchLang(lang : string = 'en'){
-  this.tarnslateService.use(lang);
-  this.changeDir(lang);
+public switchLang(){
+  if(this.getLang() == 'en'){
+  this.tarnslateService.use('ar');
+  this.changeDir('ar');
+  }else{
+  this.tarnslateService.use('en');
+  this.changeDir('en');
+  }
+  
 }
 public changeDir(lang) {
   if (lang === 'ar') {
     this.platform.setDir('rtl', true);
-    
+    this.side ='right';
     
   } else {
     this.platform.setDir('ltr', true);
-    
+    this.side = 'left';
   }
+}
+public getLang(){
+  return this.tarnslateService.currentLang;
 }
 }

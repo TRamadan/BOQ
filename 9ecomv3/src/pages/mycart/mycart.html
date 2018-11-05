@@ -10,7 +10,7 @@
       <img src="assets/img/menu.png" class="menu-image">
     </button>
     <ion-title>
-      Shopping bag
+     {{'myCartPage.title' | translate}}
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,13 +19,13 @@
 <ion-content class="page-mycart">
   <div class="no-items" *ngIf="cart.products.length === 0">
     <div class="title">
-      No Item in Cart
+     {{'myCartPage.noItemHeader' | translate}}
     </div>
     <div class="no-items-image">
       <img src="assets/img/thankyou.png">
     </div>
     <div class="no-items-round">
-      <button ion-button clear (tap)="shopping()">Continue Shopping</button>
+      <button ion-button clear (tap)="shopping()">{{'myCartPage.noItemHeader' | translate}}</button>
     </div>
   </div>
   <ion-list class="cart-list">
@@ -75,7 +75,7 @@
   <div class="place-order-wrapper" *ngIf="cart.products.length>0">
     <div class="place-order-round">
       <div class="place-order">
-        <button ion-button clear (tap)="placeOrder()">Place this order</button>
+        <button ion-button clear (tap)="placeOrder()">{{'myCartpage.placeOrderButton' | translate}}</button>
       </div>
       <div class="order-price">
         {{cart.total()}} LE

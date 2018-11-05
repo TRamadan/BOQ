@@ -28,7 +28,7 @@
         <ion-thumbnail item-left>
             <img [src]="product.image1">
         </ion-thumbnail>
-          <h2 [innerHTML]="decorateTitle(product.name)"></h2>
+          <h2 [innerHTML]="product.name"></h2>
           
         <div class="price-wrapper" *ngIf="product.price != 0">
           <div class="price">{{product.currentPrice}} LE</div>

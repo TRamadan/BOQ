@@ -4,9 +4,9 @@
   See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
   for more info on Angular 2 Components.
 -->
-
 <div class="scroll-tabs">
   <ion-scroll #scrollTab id="scrollTab" class="scroll-container" scrollX="true">
+    <div *ngIf="lang == 'en'">
     <div class="section" *ngFor="let tab of tabs">
       <button *ngIf="selectedEnable" class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear (click)="tabChange(tab)">
         {{tab.name}}
@@ -15,6 +15,18 @@
       <button *ngIf="!selectedEnable" class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear>
         {{tab.name}}
       </button>
+    </div>
+  </div>
+  <div *ngIf="lang == 'ar'">
+      <div class="section" *ngFor="let tab of tabs">
+        <button *ngIf="selectedEnable" class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear (click)="tabChange(tab)">
+          {{tab.nameAr}}
+        </button>
+      
+        <button *ngIf="!selectedEnable" class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear>
+          {{tab.nameAr}}
+        </button>
+      </div>
     </div>
   </ion-scroll>
 </div>

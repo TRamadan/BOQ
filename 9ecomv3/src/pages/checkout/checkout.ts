@@ -25,13 +25,16 @@ export class CheckoutPage {
   tabs: IScrollTab[] = [
     {
       name: 'Shipping',
+      nameAr: "الشحن",
       selected: true
     },
     {
       name: 'Payment',
+      nameAr:"الدفع"
     },
     {
       name: 'Confirmation',
+      nameAr:"تأكيد"
     },
   ];
   newAddress: Address;

@@ -1,4 +1,5 @@
 {
+    "language": "العربيه",
     "sideMenu":{
         "title": "Categories"
     },
@@ -10,8 +11,10 @@
         "offers": "Offers"
     },
     "myCartPage":{
+        "title": "Shopping bag",
         "noItemHeader": "No Items In Cart",
-        "redirectButton": "Continue Shopping"
+        "redirectButton": "Continue Shopping",
+        "placeOrderButton": "Place this order"
     },
     "profilePage":{
         "title": "Account Details",
@@ -23,8 +26,21 @@
         },
         "profileSegment":{
             "logOutButton": "SignOut"
+        },
+        "myOrdersSegment":{
+            "noOrders":  "No Orders Made"
+        },
+        "wishListSegment":{
+            "noWishList": "No Items"
+        },
+        "savedAddressSegment":{
+            "noAddress": "No Address"
         }
 
 
+    },
+    "SubCateListPage":{
+        "subCategoriesButton": "SubCategories",
+        "allProductsButton": "All Products"
     }
 }

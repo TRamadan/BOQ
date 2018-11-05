@@ -211,6 +211,12 @@ export class Ecom9App {
     }
     
   }
+  changelang(){
+    this.trnasProv.switchLang();
+  }
+  getSideOfCurLang(){
+    return this.trnasProv.side;
+  }
 
   /**
    * This function is to load the subcategories for the main categories  
