@@ -42,6 +42,10 @@
     "SubCateListPage":{
         "subCategoriesButton": "الفئات الفرعيه",
         "allProductsButton": "جميع المنتجات"
+    },
+    "homePage":{
+        "BrowseBySupplier": "الموزعين",
+        "BrowseByCategory": "الفئات"
     }
 }
     

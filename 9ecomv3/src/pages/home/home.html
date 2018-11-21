@@ -13,10 +13,14 @@
       <div>B<span>OQ</span></div>
     </ion-title>
   </ion-navbar>
+  
 </ion-header>
 
 
-<ion-content center  class="page-home pane no-scroll">
+<ion-content center class="page-home pane no-scroll">
+    <form action="">
+        <ion-searchbar ></ion-searchbar>
+    </form>
   
   <!--
   <ion-slides #sliders class="ads-slider" pager="true">
@@ -96,7 +100,7 @@
   </ion-card>
    </ion-item>
 -->
-
+<!-- 
   <div *ngIf="ReadyProds">
     <ion-item no-lines *ngFor = "let prod of prods ; let item = index;">
       <ion-card >
@@ -110,6 +114,143 @@
       </div> 
     </ion-card>
      </ion-item>
+  </div> -->
+
+
+  <div>
+    <ion-slides dir="auto" autoplay="3000" loop="true" speed="1000" class="slides" pager="false">
+      <ion-slide *ngFor="let Image of adsSliders">
+         <img src="{{Image.image}}" alt="Product Image">
+      </ion-slide>
+ </ion-slides>
   </div>
 
+  <div>
+    <button  class="deals-button"ion-button>Deals & Offers</button>
+  </div>
+
+  <div class="slides-wrapper" (swipe)="swipe($event ,0)">
+     <div class="slider-header">{{'homePage.BrowseByCategory' | translate}}</div>
+      <ion-grid class="grid">
+        <ion-row class="grid-row">
+          <ion-col class="main-item" col-7>
+            <img class="slider-main-img" src = "{{category_array[0].image}}">
+          </ion-col>
+          <ion-col class="sliding-items-col" >
+             <ion-row  class="sliding-items-row" *ngFor="let item of categorySlider.itemCol1" >
+               <ion-col class="sliding-item">
+                  <img class="category-img" src = "{{item.image}}">
+               </ion-col>
+             </ion-row>
+            </ion-col>
+
+            <ion-col  class="sliding-items-col">
+              <ion-row  class="sliding-items-row"  *ngFor="let item of categorySlider.itemCol2">
+                <ion-col class="sliding-item">
+                  <img class="category-img" src = "{{item.image}}">
+               </ion-col>
+              </ion-row>
+          </ion-col>
+                  <!-- <ion-row >
+                      <ion-col *ngFor="let item of slider1 ;let i = index">
+                          <img src = "{{item.image}}">
+                      </ion-col>
+          
+                    </ion-row>
+                    <ion-row >
+                        <ion-col *ngFor="let item of slider2 ;let i = index">
+                            <img src = "{{item.image}}">
+                        </ion-col>
+            </ion-row> -->
+
+                     
+                      
+                        
+          
+                </ion-row>
+              
+            
+      </ion-grid>
+    
+    </div>
+
+
+    <div class="slides-wrapper"  (swipe)="swipe($event ,1)">
+      <div class="slider-header">{{'homePage.BrowseBySupplier' | translate}}</div>
+      <ion-grid class="grid">
+        <ion-row class="grid-row">
+          <ion-col class="main-item" col-7>
+            <img  class="slider-main-img"  src= "{{vendorsArray[0].image}}">
+          </ion-col>
+          <ion-col class="sliding-items-col" >
+             <ion-row  class="sliding-items-row" *ngFor="let item of vendorSlider.itemCol1" >
+               <ion-col class="sliding-item">
+                  <img class="category-img" src = "{{item.image}}">
+               </ion-col>
+             </ion-row>
+            </ion-col>
+
+            <ion-col  class="sliding-items-col">
+              <ion-row  class="sliding-items-row"  *ngFor="let item of vendorSlider.itemCol2">
+                <ion-col class="sliding-item">
+                  <img class="category-img"  src = "{{item.image}}">
+               </ion-col>
+              </ion-row>
+          </ion-col>
+                  <!-- <ion-row >
+                      <ion-col *ngFor="let item of slider1 ;let i = index">
+                          <img src = "{{item.image}}">
+                      </ion-col>
+          
+                    </ion-row>
+                    <ion-row >
+                        <ion-col *ngFor="let item of slider2 ;let i = index">
+                            <img src = "{{item.image}}">
+                        </ion-col>
+            </ion-row> -->
+
+                     
+                      
+                        
+          
+                </ion-row>
+              
+            
+      </ion-grid>
+    
+    </div>
+
+    <!-- <div (swipe)="swipe($event ,2)">
+     
+        <ion-grid class="grid">
+          <ion-row>
+            <ion-col class="main-item">
+              <img src = "{{adsSliders[0].image}}">
+            </ion-col>
+            <ion-col>
+               
+                    <ion-row >
+                        <ion-col *ngFor="let item of slider1 ;let i = index">
+                            <img src = "{{item.image}}">
+                        </ion-col>
+            
+                      </ion-row>
+                      <ion-row >
+                          <ion-col *ngFor="let item of slider2 ;let i = index">
+                              <img src = "{{item.image}}">
+                          </ion-col>
+              </ion-row>
+  
+                       
+                        
+                          
+                    </ion-col>
+                  </ion-row>
+                
+              
+        </ion-grid>
+      
+      </div>
+   -->
+  
 </ion-content>

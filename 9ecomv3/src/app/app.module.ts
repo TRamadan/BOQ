@@ -23,6 +23,7 @@ import { FiltersProvider } from '../providers/filters/filters';
 import { ComponentsModule } from '../components/components.module';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { TranslatorProvider } from '../providers/translator/translator';
+import { SearchProvider } from '../providers/search/search';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -85,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FiltersProvider,
     TranslatorProvider,
     HttpClient,
+    SearchProvider,
     
   ]
 })

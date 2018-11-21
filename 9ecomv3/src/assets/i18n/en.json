@@ -42,5 +42,9 @@
     "SubCateListPage":{
         "subCategoriesButton": "SubCategories",
         "allProductsButton": "All Products"
+    },
+    "homePage":{
+        "BrowseBySupplier": "Suppliers",
+        "BrowseByCategory": "Categories"
     }
 }

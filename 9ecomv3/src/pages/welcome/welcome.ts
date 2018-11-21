@@ -54,53 +54,7 @@ export class WelcomePage {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
     this.loadProgress=30;
-    this.catProv.getCategoriesNop().then(data=>{
-      this.db.categories = data;
-      console.log(data);
-      this.loadProgress=50;
-      console.log(this.loadProgress);
-      this.ready = true;
-
-      this.storage.get('user').then(data=>{
-        console.log(data);
-
-        if(data != null){
-          //console.log("test");
-          this.userData = <User> data;
-          User.getInstance(this.userData.id,this.userData.name,this.userData.password,this.userData.email,this.userData.gender,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
-          //console.log(User.getInstance())
-          this.loadProgress= this.loadProgress+ 30;
-          console.log(this.loadProgress);
-          
-            this.db = Database.getInstance();
-            this.userProv.getAddress(this.userData.id).then(data=>{
-              this.userData.Addresses = data;
-              console.log(this.db.Addresses);
-              this.navCtrl.setRoot('TabsPage');
-
-          })
-           /*
-            this.order.getUserOrders(this.userData.id).then(data=>{
-              this.loadProgress= this.loadProgress+ 20;
-              console.log(this.loadProgress);
-              this.db.orders = data;
-             
-            });
-            */
-            
-            
-          
-        }else{
-          console.log(this.loadProgress);
-          this.loadProgress=100;
-         this.navCtrl.setRoot('SigninPage');
-        }
-       
-  
-       
-      })
-
-    });
+    this.getData();
 
 
 
@@ -111,6 +65,66 @@ export class WelcomePage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
+  }
+  public async getData(){ 
+    this.db.categories = await this.catProv.getCategoriesNop();
+     
+      console.log(this.db.categories);
+      this.loadProgress=50;
+      console.log(this.loadProgress);
+      this.ready = true;
+      this.db.vendors = await this.catProv.getVendors();
+      let data = await this.getUserData();
+    console.log(data);
+      if(data !=  undefined ){
+        //console.log("test");
+        this.userData = <User> data;
+        User.getInstance(this.userData.id,this.userData.name,this.userData.password,this.userData.email,this.userData.gender,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
+        //console.log(User.getInstance())
+        this.loadProgress= this.loadProgress+ 30;
+        console.log(this.loadProgress);
+        
+          this.db = Database.getInstance();
+          this.userData.Addresses = await this.userProv.getAddress(this.userData.id);
+          console.log(this.userData.Addresses);
+          this.navCtrl.setRoot('TabsPage');
+
+        
+         /*
+          this.order.getUserOrders(this.userData.id).then(data=>{
+            this.loadProgress= this.loadProgress+ 20;
+            console.log(this.loadProgress);
+            this.db.orders = data;
+           
+          });
+          */
+          
+          
+        
+      }else{
+        console.log(this.loadProgress);
+        this.loadProgress=100;
+       this.navCtrl.setRoot('SigninPage');
+      }
+
+  }
+
+
+
+
+  public async getUserData():Promise<any>{
+
+    return new Promise((resolve)=>{
+      this.storage.get('user').then(data=>{
+        console.log(data)
+        resolve(data);
+        
+      },err=>{
+        resolve(undefined);
+        console.log(err);
+      })
+    })
+   
   }
 
   

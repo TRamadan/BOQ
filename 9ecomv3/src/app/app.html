@@ -7,21 +7,21 @@
   <ion-content class="menu">
     <ion-list class="menu-list">
       <div *ngFor="let c of catArray; let i = index;">
-        <ion-row (tap)="toggleItems2(i)">
+        <ion-row (tap)="goToSubCat(c)">
           <ion-col col-auto *ngIf="hasImage(c)"><img class="menu-thumbnail-img" [src]="c.image"></ion-col> 
           <ion-col col-auto *ngIf="!hasImage(c)"><img class="menu-thumbnail-img" src="assets/img/nophoto.jpg"></ion-col> 
           <ion-col>
-              <button detail-none class="parent" ion-item  *ngIf="c.open">
+              <button detail-none class="parent" ion-item >
                   {{c.name}}
-                  <ion-icon  item-right name="remove"></ion-icon> 
+                  <!-- <ion-icon  item-right name="remove"></ion-icon>  -->
                 </button>
-                <button detail-none  class="parent"  ion-item *ngIf="!c.open">
+                <!-- <button detail-none  class="parent"  ion-item *ngIf="!c.open">
                     
                     {{c.name}}
                     
                     <ion-icon item-right name="add"></ion-icon>
                     
-                  </button>
+                  </button> -->
           </ion-col>
         </ion-row>
           
@@ -31,11 +31,11 @@
             <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
 -->      
 
-        <ion-list class="menu-child-list" *ngIf="c.open === true" class="child" >
+        <!-- <ion-list class="menu-child-list" *ngIf="c.open === true" class="child" >
           <div *ngFor="let child of c.children ; let j = index">
             <ion-row (tap)="goToSubCat(child)">
                 <ion-col col-auto *ngIf="hasImage(child)"><img class="menu-thumbnail-img" [src]="child.image"></ion-col> 
-                <ion-col col-auto *ngIf="!hasImage(child)"><img class="menu-thumbnail-img" src="../assets/img/nophoto.jpg"></ion-col>
+                <ion-col col-auto *ngIf="!hasImage(child)"><img class="menu-thumbnail-img" src="assets/img/nophoto.jpg"></ion-col>
           <ion-col>
           <button detail-none  ion-item >
             {{child.name}}
@@ -43,7 +43,7 @@
         </ion-col>
           </ion-row>
           </div>
-        </ion-list>
+        </ion-list> -->
     
       </div>
 
