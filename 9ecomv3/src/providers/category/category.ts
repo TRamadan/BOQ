@@ -45,7 +45,7 @@ export class CategoryProvider {
           let vendors = new Array<Vendor>();
           for(let i = 0 ;i< data.length;i++){
             
-            data[i].Deleted == false ? vendors.push(new Vendor(data[i].Name,data[i].Description,data[i].Deleted,data[i].PictureBinary,data[i].AltAttribute,data[i].TitleAttribute,data[i].IsNew,data[i].Email)) : '';
+            data[i].Deleted == false ? vendors.push(new Vendor(data[i].vendor_id,data[i].Name,data[i].Description,data[i].Deleted,data[i].PictureBinary,data[i].AltAttribute,data[i].TitleAttribute,data[i].IsNew,data[i].Email)) : '';
           }
           resolve(vendors);
         }
@@ -56,7 +56,7 @@ export class CategoryProvider {
   }
 
   public async getItemsNop(): Promise<any> {
-    //let comps = <Array<Vendor>> await this.getVendors();
+    let comps = <Array<Vendor>> await this.getVendors();
     return new Promise((resolve) => {
       console.log(`${RootProvider.APIURL4}Product`);
       this.http.get(`${RootProvider.APIURL4}${this.productApiController}${this.productsActionString}product`).map(res => <any>res.json()).subscribe(data => {
@@ -96,9 +96,19 @@ export class CategoryProvider {
               , data[i].MarkAsNewEndDateTimeUtc
               , data[i].PictureBinary
               , data[i].MimeType
+              , data[i].rating
+              , data[i].num_of_customers
             ))
+          
           }
-
+          for(let i =0; i< items.length;i++)
+          {
+            for(let j = 0 ; j< comps.length;j++){
+              if(items[i].distributerId == comps[j].id){
+                items[i].company_name = comps[j].name;
+              }
+            }
+          }          
           resolve(items);
         }
       })
@@ -253,6 +263,7 @@ export class Category {
 
 export class Vendor {
 
+  id: string;
   email: string;
   deleted: boolean;
   image: string;
@@ -261,7 +272,8 @@ export class Vendor {
   isNew: boolean;
   name: string;
   descr: string;
-  constructor(name: string
+  constructor(id:string
+    ,name: string
     , descrpition: string
     , deleted: boolean
     , pictureBinary: string
@@ -270,6 +282,7 @@ export class Vendor {
     , isNew: boolean
     , email: string
   ) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.descr = descrpition;

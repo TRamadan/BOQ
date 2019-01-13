@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { SubCateListPage } from './sub-cate-list';
+import { ReviewPage } from './review';
 import { ComponentsModule} from '../../components/components.module';
+
 @NgModule({
   declarations: [
-    SubCateListPage,
+    ReviewPage,
+    
   ],
   imports: [
-    ComponentsModule,
-    IonicPageModule.forChild(SubCateListPage),
+    IonicPageModule.forChild(ReviewPage),
+    ComponentsModule
   ],
-  exports: [
-    SubCateListPage
+  exports:[
+    ReviewPage
   ]
 })
-export class SubCateListPageModule {}
+export class ReviewPageModule {}

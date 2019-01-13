@@ -32,6 +32,9 @@ export class UsersProvider extends RootProvider {
 
   private getUserAddressActionString = "get_user_address?";
 
+  private rateApiController = 'product/';
+  private rateActionString = "add_review?";
+
   public user: User; 
 
   
@@ -216,6 +219,20 @@ export class UsersProvider extends RootProvider {
   }
 
 
+  public async rate(productId,rate,title,body){
+    let temp=`${RootProvider.APIURL4}${this.rateApiController}${this.rateActionString}CustomerId=${this.user.id}&ProductId=${productId}&Rating=${rate}&Title=${title}&ReviewText=${body}`;
+    console.log(temp); 
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        resolve(data);
+
+      },err=>{
+        resolve(err);
+      })
+    })
+  }
+
+
   
 
 
@@ -308,6 +325,8 @@ export class User {
       this.addresses.splice(pos, 1);
     }
   }
+
+
 
 
 }

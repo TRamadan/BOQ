@@ -11,8 +11,31 @@ import { subcategory } from '../sub-categories/sub-categories';
 */
 @Injectable()
 export class ProductProvider extends RootProvider {
+  private getReviewsAPiController:string ='product/';
+  private getReviewsActionString: string ='get_comments?';
   constructor(public http: Http) {
     super(http);
+  }
+  getReviews(prodId:string):Promise<any>{
+    let temp = `${RootProvider.APIURL4}${this.getReviewsAPiController}${this.getReviewsActionString}ProductId=${prodId}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data.length >0){
+          let reviews = new Array<review>();
+          for(let i = 0 ; i< data.length;i++){
+            reviews.push(new review(data[i].Username,data[i].ReviewText,data[i].Title,data[i].CreatedOnUtc));
+          }
+          resolve(reviews)
+        }else{
+          resolve([])
+        }
+      },err=>{
+        console.log(err);
+        resolve([])
+      })
+    })
+
   }
 
   
@@ -42,7 +65,6 @@ export class Product {
   status?: string; 
   offer_id : string; 
   offer_name : string; 
-  company_name : string;
 
 
   /////////////////////////////////
@@ -71,6 +93,9 @@ export class Product {
   newToUTC:Date;
   image1 ? : string;//
   specs: Specs//
+  company_name : string;//
+  rating: number ; //
+  customerCount: number;//
 
    constructor(prod_name : string
     , itemId : string
@@ -97,6 +122,8 @@ export class Product {
     , newToUTC:Date
     , prod_image1 : string
     , imageMimeType:string
+    , rating:number
+    , customerCount:number
   ) { 
    
     
@@ -128,6 +155,8 @@ export class Product {
     this.newFromUTC=newFromUTC;
     this.newToUTC=newToUTC;
     this.price=oldPrice;
+    this.rating = (rating == null)? 0 : rating;
+    this.customerCount = customerCount;
 
 
 
@@ -147,7 +176,7 @@ export class Specs{
     this.height=height;
     this.width=width;
     this.additionalSpecs=new Array();
-    this.additionalSpecs=additonalSpecs
+    this.additionalSpecs=additonalSpecs;
   }
   
 }
@@ -166,6 +195,20 @@ export class ImageProcess{
   static stringToImage(imageData:string,mimeType:string,base:string="base64"):string{
     return "data:"+mimeType+";"+base+","+imageData;
   }
+}
+
+export class review{
+  writerName:string;
+  reviewTitle: string;
+  reviewBody:string;
+  creationDate:Date;
+  constructor(wName:string,rTitle:string,rBody:string,date:Date){
+    this.writerName = wName;
+    this.reviewTitle = rTitle;
+    this.reviewBody = rBody;
+    this.creationDate = date;
+  }
+
 }
 
 

@@ -25,7 +25,7 @@
       <img src="assets/img/thankyou.png">
     </div>
     <div class="no-items-round">
-      <button ion-button clear (tap)="shopping()">{{'myCartPage.noItemHeader' | translate}}</button>
+      <button ion-button clear (tap)="shopping()">{{'myCartPage.redirectButton' | translate}}</button>
     </div>
   </div>
   <ion-list class="cart-list">
@@ -75,7 +75,7 @@
   <div class="place-order-wrapper" *ngIf="cart.products.length>0">
     <div class="place-order-round">
       <div class="place-order">
-        <button ion-button clear (tap)="placeOrder()">{{'myCartpage.placeOrderButton' | translate}}</button>
+        <button ion-button clear (tap)="placeOrder()">{{'myCartPage.placeOrderButton' | translate}}</button>
       </div>
       <div class="order-price">
         {{cart.total()}} LE

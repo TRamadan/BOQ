@@ -1,8 +1,28 @@
 page-product {
+  .specs{
+    width: 100wv;
+    display: block inline;
+    .specs-row{
+      width: 100vw;
+      .specs-col{
+        width: 100vw;
+        font-size: 2rem;
+        padding-left: 2vw;
+    }
+    }
+  }
+  .product-rating{
+    width: 38%;
+    margin: auto;
+  }
+  ion-icon {
+    display: inline-block;
+    font-size: 2.2em;
+}
   margin-top: 0;
   .toolbar {
     .toolbar-background {
-      background: transparent !important;
+      //background: transparent !important;
       border: none;
     }
   }
@@ -21,7 +41,7 @@ page-product {
     margin-left: -10px;
   }
   .product-slider {
-    height: 46vh;
+    height: 38vh;
   }
   .product-wrapper {
     width: 100vw;
@@ -32,7 +52,11 @@ page-product {
     img {
       margin: 0 0 -3px 0 !important;
       padding: 0 0 0 0 !important;
-      height: 46vh;
+      height: 38vh;
+    }
+
+    .product-rating{
+      width:100%;
     }
   }
   .swiper-pagination {
@@ -45,17 +69,24 @@ page-product {
   }
   .product-detail-wrapper {
     .title {
-      margin-top: 3.6vh;
+      // margin-top: 3.6vh;
       padding: 0 15vw 0px 15vw;
       text-align: center;
       font-size: 1.68rem;
       font-weight: 300;
     }
+    .company{
+      padding: 0 15vw 0px 15vw;
+      text-align: center;
+      font-size: 1.68rem;
+      font-weight: 300;
+     color: color($colors,golden);
+    }
     .price-wrapper {
       margin-top: 2.06vh;
       width: 100vw;
       .sale-price {
-        width: 55vw;
+        width: 60vw;
         text-align: right;
         display: inline-block;
         color: color($colors, primary);
@@ -207,10 +238,10 @@ page-product {
     height: 42px;
     .button-left {
       display: inline-block;
-      background-color: color($colors, primarydark);
+      background-color: color($colors, pearl);
       button {
         height: 42px;
-        color: color($colors, pearl);
+        color: color($colors, primary);
         font-size: 1.5rem;
         width: 32vw;
         margin: 0 0 0 0;
@@ -236,4 +267,132 @@ page-product {
       }
     }
   }
+
+
+
+  .tabs-wrapper {
+    width: 100vw;
+    padding: 2vh 0vw 0vh 0vw;
+    .tabs-round {
+      width: 95vw;
+      margin-left: 2.5vw;
+      //background-color: color($colors, primary);
+      border-radius: 7px;
+      button {
+        // padding: 0px 10vw 0 10vw;
+       
+        
+        color: color($colors, pearl);
+        height: 36px;
+        font-weight: 800;
+        font-size: 1.3rem;
+        margin: 0 0px 0 -1vw;
+        text-transform: uppercase;
+      }
+      .tab-selected-des{
+        display: inline-block;
+        width: 31.5vw;
+        text-align: right;
+        /* border-right: 2px dotted #ffffff; */
+        background-color: color($colors, dark);
+        border-bottom-left-radius: 7px;
+        border-top-left-radius: 7px;
+        border: solid thin;
+        button {
+          
+          color: color($colors, pearl);
+          
+        }
+      }
+      .tab-notselected-des{
+        display: inline-block;
+        width: 31.5vw;
+        text-align: right;
+        /* border-right: 2px dotted #ffffff; */
+        background-color: color($colors, pearl);
+        border-bottom-left-radius: 7px;
+        border-top-left-radius: 7px;
+        border: solid thin;
+        button {
+          
+          color: color($colors, dark);
+          
+        }
+      }
+
+      .tab-notselected-rev {
+        display: inline-block;
+        width: 31.5vw;
+         text-align: center;
+        position: absolute;
+        display: inline-block;
+        background-color: color($colors, pearl);
+        border-bottom-right-radius: 7px;
+        border-top-right-radius: 7px;
+        border: solid thin;
+        button {
+          margin: 0 0px 0 -1vw;
+          color: color($colors, dark);
+          
+        }
+        
+      }
+      
+      .tab-selected-rev{
+        display: inline-block;
+        width: 31.5vw;
+        text-align: center;
+        position: absolute;
+        display: inline-block;
+        background-color: color($colors, dark);
+        border-bottom-right-radius: 7px;
+        border-top-right-radius: 7px;
+        border: solid thin;
+        button {
+          
+          color: color($colors, pearl);
+          
+        }
+
+        
+      }
+      .tab-selected-spec{
+        display: inline-block;
+        width: 31.5vw;
+        text-align: center;
+        // position: absolute;
+        display: inline-block;
+        background-color: color($colors, dark);
+        border: solid thin;
+        margin: 0vh 0vw 0vh -1vw;
+        button {
+          
+          color: color($colors, pearl);
+          
+        }
+
+        
+      }
+      .tab-notselected-spec{
+        display: inline-block;
+        width: 31.5vw;
+         text-align: center;
+        // position: absolute;
+        display: inline-block;
+        background-color: color($colors, pearl);
+        border: solid thin;
+        margin: 0vh 0vw 0vh -1vw;
+        button {
+          
+          color: color($colors, dark);
+          
+        }
+
+        
+      }
+      
+    }
+  }
+
+  
 }

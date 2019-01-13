@@ -11,8 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { IonicStorageModule } from '@ionic/storage';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-// Mock Data
+import {AutoCompleteModule} from 'ionic2-auto-complete';
 import { Database } from '../providers/database';
 import { RootProvider } from '../providers/root/root';
 import { UsersProvider } from '../providers/users/users';
@@ -24,6 +23,7 @@ import { ComponentsModule } from '../components/components.module';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { TranslatorProvider } from '../providers/translator/translator';
 import { SearchProvider } from '../providers/search/search';
+import { ProductProvider } from '../providers/product/product';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -39,6 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     HttpModule,
     ComponentsModule,
+    AutoCompleteModule,
     IonicModule.forRoot(Ecom9App, {
       scrollPadding: false,
       scrollAssist: true, 
@@ -87,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslatorProvider,
     HttpClient,
     SearchProvider,
+    ProductProvider
     
   ]
 })

@@ -37,12 +37,19 @@
     </ion-slide>
   </ion-slides>
   <div class="product-detail-wrapper">
+    <div class="product-rating" (tap)="goToReview()"><rating rating="{{product.rating}}" cCount="{{product.customerCount}}"></rating></div>
+      
     <div class="title">
       {{product.name}}
     </div>
-    <!-- <div class="title">
+     <div class="company">
       {{product.company_name}}
-    </div> -->
+    </div>
+    <div class="company">
+      Left : {{product.quant}}
+    </div>
+   
+
     <div class="price-wrapper" *ngIf="product.price != 0">
       
       <div class="sale-price">
@@ -52,15 +59,56 @@
         <!-- put here the price of the discount 'if there is a discount on this item' -->
          {{product.price}} LE
       </div>
+      <h5>
+      </h5>
     </div>
     <div class="price-wrapper" *ngIf="product.price == 0">
       
       <div class="sale-price">
          {{product.currentPrice}} LE
-      </div> 
-      
-    </div>
  
+      </div> 
+
+    </div>
+
+ 
+    <div class="tabs-wrapper" >
+      <div class="tabs-round" *ngIf="viewNum == '0' ">
+        <div  class="tab-selected-des">
+          <button ion-button clear (tap)="changeView('0')" >Description</button>
+        </div>
+        <div  class="tab-notselected-spec">
+            <button ion-button clear (tap)="changeView('1')" >Specefication</button>
+          </div>
+          <div  class="tab-notselected-rev">
+            <button ion-button clear (tap)="changeView('2')" >Reviews</button>
+          </div>
+      </div>
+      <div  class="tabs-round" *ngIf="viewNum == '1'">
+        <div  class="tab-notselected-des">
+            <button ion-button clear (tap)="changeView('0')" >Description</button>
+          </div>
+        <div class="tab-selected-spec">
+          <button ion-button clear (tap)="changeView('1')" >Specefication</button>
+        </div>
+        <div  class="tab-notselected-rev">
+          <button ion-button clear (tap)="changeView('2')" >Reviews</button>
+        </div>
+    </div>
+      <div  class="tabs-round" *ngIf="viewNum == '2'">
+          <div  class="tab-notselected-des">
+              <button ion-button clear (tap)="changeView('0')" >Description</button>
+            </div>
+          <div class="tab-notselected-spec">
+            <button ion-button clear (tap)="changeView('1')" >Specefication</button>
+          </div>
+          <div  class="tab-selected-rev">
+            <button ion-button clear (tap)="changeView('2')" >Reviews</button>
+          </div>
+      </div>
+      
+    </div> 
+   
  
     <!--
     <div *ngIf="product.sizes.length > 0" class="size-wrapper">
@@ -68,19 +116,44 @@
         <button class="size-button" ion-button round small outline [class.checked]="size[i]" (click)="clearSize(i)">{{oSize}}</button>
       </span>
     </div> -->
-    <div class="description">
-      <div class="description-title">
+    <div class="description" *ngIf="viewNum == '0'">
+      <!-- <div class="description-title">
         Full Description
-      </div>
-      <ul>
-        <li>{{product.description}}</li> 
-        <li>
-          <h5>
-            Quantity left : {{product.quant}}
-          </h5>
-        </li>
-      </ul>
+      </div> -->
+      
+        <p>{{product.description}}</p> 
     </div>
+    <div class="specs" *ngIf="viewNum == '1'">
+        <ul class="specs-row">
+            <li class="specs-col">Height: {{product.specs.height}}</li>
+            <li class="specs-col">Length: {{product.specs.length}}</li>
+            <li class="specs-col">weight: {{product.specs.weight}} </li>
+            <li class="specs-col">width: {{product.specs.width}} </li>
+          </ul>
+     
+    </div>
+    <div class="reviews" *ngIf="viewNum == '2'">
+      <div *ngIf="reviewsReady">
+
+          <ion-card *ngFor="let item of reviews">
+
+              <ion-item >
+                <h2>{{item.writerName}}</h2>
+                <p>{{item.creationDate}}</p>
+              </ion-item>
+
+              <ion-card-content>
+                <h3>{{item.reviewTitle}}</h3>
+                <p>{{item.reviewBody}}</p>
+              </ion-card-content>
+            
+              
+            
+            </ion-card>
+
+      </div>
+    </div>
+
   </div>
 </ion-content>
 <ion-footer>

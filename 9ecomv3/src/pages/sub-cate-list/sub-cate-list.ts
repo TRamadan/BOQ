@@ -28,7 +28,7 @@ export class SubCateListPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public CateProv : CategoryProvider) {
     
-    this.category = this.navParams.get('Category');
+    this.category = this.navParams.get('data');
     this.name =this.category.name;
     this.products = new Array();
     console.log(this.category);
@@ -46,10 +46,10 @@ export class SubCateListPage {
     console.log(subCate);
     //console.log(subCate.children[0] instanceof Category );
     if(subCate.children != undefined && subCate.children[0] instanceof Category ){
-      this.navCtrl.push(SubCateListPage,{'Category': subCate});
+      this.navCtrl.push(SubCateListPage,{'data': subCate});
     }else{
       
-      this.navCtrl.push(CategoriesPage,{'category':subCate});
+      this.navCtrl.push(CategoriesPage,{'data':subCate});
     }
   }
 
@@ -61,7 +61,7 @@ export class SubCateListPage {
   }
 
   toProduct(prod: Product) {
-    this.navCtrl.push(ProductPage, {product: prod});
+    this.navCtrl.push(ProductPage, {'data': prod});
   }
 
   getItems(ev: any) {

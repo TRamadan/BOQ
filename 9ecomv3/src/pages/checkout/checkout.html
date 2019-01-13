@@ -6,16 +6,16 @@
 -->
 <ion-header no-border>
   <ion-navbar>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Checkout</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="information()">
-        <ion-icon name="information-circle"></ion-icon>
-      </button>
-    </ion-buttons>
+
+  <div>
+    <ion-title>
+      <img  src="assets/img/Logo.PNG" class="menu-image">
+    
+    </ion-title>
+  </div>
+ 
   </ion-navbar>
+
   <scroll-tabs #scrollTab [selectEnable]="isTabsSelectable" [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
 </ion-header>
 

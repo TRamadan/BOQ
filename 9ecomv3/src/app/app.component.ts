@@ -181,14 +181,14 @@ export class Ecom9App {
     let selectedSubCat = selectedCategory.children[subcatid];
     this.menu.close(); 
     
-    this.nav.push(CategoriesPage, {  'tabIndex': 0, 'category': selectedCategory, 'subcat': selectedSubCat });
+    this.nav.push(CategoriesPage, {  'tabIndex': 0, 'data': selectedCategory, 'subcat': selectedSubCat });
   }
 
 
 
   goToSubCat(subCat:any){
     this.menu.close();
-    this.nav.push(SubCateListPage,{'Category' : subCat});
+    this.nav.push(SubCateListPage,{'data' : subCat});
   }
 
   hasImage( category : Category){

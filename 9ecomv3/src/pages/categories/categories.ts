@@ -84,11 +84,11 @@ export class CategoriesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
-    var subcat = this.navParams.get('subcat');
-    this.menus = this.navParams.get('category');
+   
+    this.menus = this.navParams.get('data');
     this.name = this.menus.name;
     console.log(this.menus);
-    console.log(subcat);
+    
     if (this.menus) {
       this.items = this.menus.children;
       this.ItemsReady=true;
@@ -118,7 +118,7 @@ export class CategoriesPage {
   }
 
   filterModal() {
-    let modal = this.modalCtrl.create('FilterModalPage', { 'products': this.items });
+    let modal = this.modalCtrl.create('FilterModalPage', { 'data': this.items });
     modal.onDidDismiss(data => {
       if (data) {
       //  console.log(data);

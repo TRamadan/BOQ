@@ -5,6 +5,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Storage } from "@ionic/storage";
 import { Category, CategoryProvider, Vendor } from '../../providers/category/category';
 import { Database} from '../../providers/database';
+import { SubCateListPage } from '../sub-cate-list/sub-cate-list';
 
 
 
@@ -21,7 +22,8 @@ import { Database} from '../../providers/database';
 })
 export class HomePage {
   @ViewChild(Scroll) scrollElement: Scroll;
-
+  tempRating:number=250;
+  cCount:number = 80;
   adsSliders = [
     {
       image: 'assets/img/jotun.jpg',
@@ -60,6 +62,7 @@ export class HomePage {
   //this variable is to get the all the categories with all items and all subcategories
   category_array : Array<Category>;
   vendorsArray : Array<Vendor>;
+  viewNum:number=0;
 
 
   //this is a variable
@@ -73,7 +76,9 @@ export class HomePage {
     , public navCtrl: NavController
     , public navParams: NavParams
     , public catProv: CategoryProvider
-    , private sanitizer: DomSanitizer,
+    , private sanitizer: DomSanitizer
+
+    
 
   ) {
     
@@ -94,11 +99,10 @@ export class HomePage {
     // this.catProv.getCategoriesNop().then(data=>{
     //   console.log(data);
     // })
-
+    console.log(this.tempRating);
     this.categorySlider= new customSlider(this.category_array.slice(1,5),4,1);
     this.vendorSlider = new customSlider(this.vendorsArray.slice(1,5),4,1);
     console.log(this.categorySlider)
-
     /*
     this.smallAds.forEach(ads => {
       ads.forEach(item => {
@@ -143,14 +147,10 @@ export class HomePage {
     console.log(this.smallAds[this.adsCount][0]);
   } */
 
-  categories(id: string) {
+  categories(cate : Category) {
    // console.log(this.category_array);
    // console.log(id);
-    this.category_array.forEach(item => {
-      if(item.id === id) {
-        this.navCtrl.push('CategoriesPage', {'category': item, 'subcat': item.children[0]});
-      }
-    })
+    this.navCtrl.push(SubCateListPage,{'data':cate})
   }
 
   swipe(event, number)
@@ -202,7 +202,13 @@ export class HomePage {
   }
 
 
-
+  toSearchPage(){
+    this.navCtrl.push('SearchPage');
+  }
+  changeView(number:any){
+    this.viewNum=number;
+    console.log(this.viewNum);
+  }
   
 
 
@@ -239,5 +245,7 @@ class customSlider{
     this.itemCol1= this.items.slice(0,this.items.length/2);
     this.itemCol2= this.items.slice(this.items.length/2, this.items.length);
   }
+  
 }
+
   

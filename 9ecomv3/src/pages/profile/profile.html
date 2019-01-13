@@ -30,7 +30,7 @@
           <div class="avatar-container">
             <div class="avatar-cropper">
               
-              <img *ngIf="user.gender  == 'Male'" src="assets/img/signup_male.png">
+              <img src="assets/img/signup_male.png">
               <img *ngIf="user.gender  == 'Female'" src="assets/img/signup_female.png">
             </div>
           </div>
@@ -39,7 +39,7 @@
         <ion-list class="info-list">
           <ion-item>
             <ion-icon class="info-icon" item-left name="person"></ion-icon>
-            <div class="info-detail">{{user.name}}</div>
+            <div class="info-detail">{{user.userName}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>

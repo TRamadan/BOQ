@@ -8,6 +8,7 @@ import {Cart} from './cart/cart';
 import { OrderData} from './order/order';
 import { Address} from './users/users';
 import { Category, Vendor } from './category/category';
+import { searchable } from './search/search';
 
 
 
@@ -39,6 +40,7 @@ export class Database {
   vendors: Vendor[];
 
   products: Product[];
+  searchableObjects:Array<searchable>;
   //Addresses : Address[];
   //cities: string[];
   //district: string[];
@@ -61,6 +63,7 @@ export class Database {
       this.wishproducts = new Array<Product>();
       this.orders = new Array<OrderData>();
       this.filterTypes = new Array<any>();
+      this.searchableObjects= new Array<searchable>();
       // this.cities = new Array<string>();
       // this.district = new Array<string>();
       // this.countries = new Array<string>();

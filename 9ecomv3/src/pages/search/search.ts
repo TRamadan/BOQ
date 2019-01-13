@@ -1,7 +1,7 @@
 import { Component, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, Keyboard } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import { Category , CategoryProvider} from '../../providers/category/category';
+import { Category , CategoryProvider, Vendor} from '../../providers/category/category';
 import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
 import {Database} from '../../providers/database'; 
@@ -18,12 +18,15 @@ import {Database} from '../../providers/database';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-  results: Product[];
+  resultsProd: any[];
+  resultsVend: any[];
   catsArr: Category[];
   allProduct: Array<Product>;
+  allVendors:Array<Vendor>;
   mark: string;
   Ready: boolean;
   dataBase : Database;
+  searchSegment:string="";
   constructor(
     public storage: Storage,
     public navCtrl: NavController,
@@ -33,12 +36,15 @@ export class SearchPage {
   ) { 
     this.mark="";
     this.allProduct = new Array<Product>();
-    this.results = new Array<Product>();
+    this.resultsProd = new Array<Product>();
     this.catsArr = new Array<Category>();
+    this.allVendors= new Array<Vendor>();
     this.Ready=false;
     this.dataBase =Database.getInstance();
 
     this.initializeItems();
+    this.allVendors=this.dataBase.vendors;
+    this.searchSegment="Products";
     console.log(this.dataBase); 
     
 
@@ -51,7 +57,7 @@ export class SearchPage {
 
   initializeItems() {
     //let db = Database.getInstance();
-    //this.results = db.allProduct();
+    //this.resultsProd = db.allProduct();
     
       this.catsArr = this.dataBase.categories;
       console.log(this.catsArr);
@@ -62,8 +68,8 @@ export class SearchPage {
         this.allProduct.push(...tempArr);
       }
       console.log(this.allProduct);
-      this.results = this.allProduct;
-      //console.log(this.results);
+      //this.resultsProd = this.allProduct;
+      //console.log(this.resultsProd);
       this.Ready=true;
    
   }
@@ -76,17 +82,22 @@ export class SearchPage {
     let val = ev.target.value;
 
     // if the value is an empty string  list all items
-    this.results = new Array();
-    //console.log(this.results.length);
+    this.resultsProd = new Array();
+    //console.log(this.resultsProd.length);
+   
     if (val && val.trim() != '') {
       this.mark = val;
      
-      this.results = this.allProduct.filter((item) => {
+      this.resultsProd = this.allProduct.filter((item) => {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
-      //console.log(this.results);
+      this.resultsVend= this.allVendors.filter((item) => {
+        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+      //console.log(this.resultsProd);
     } else {
-      this.results = this.allProduct;
+      this.resultsProd = new Array();
+      this.resultsVend = new Array();
     } 
     //console.log(this.allProduct.length);
   }
@@ -97,8 +108,8 @@ export class SearchPage {
   }
 
   allDataExist():boolean{
-    console.log(this.results.length == this.allProduct.length ? true : false);
-    return this.results.length == this.allProduct.length ? true : false;
+    console.log(this.resultsProd.length == this.allProduct.length ? true : false);
+    return this.resultsProd.length == this.allProduct.length ? true : false;
   }
   
   decorateTitle(title: string): string {
@@ -107,8 +118,11 @@ export class SearchPage {
     return str;
   }
 
-  toProduct(prod: Product) {
-    this.navCtrl.push(ProductPage, {product: prod});
+  toProduct(prod: any) {
+    this.navCtrl.push(ProductPage, {data: prod});
+  }
+  toVendor(vendor: any){
+    console.log(vendor);
   }
 }
 

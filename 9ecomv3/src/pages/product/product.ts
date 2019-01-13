@@ -1,10 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
 import {App, IonicPage, NavController, NavParams, Select , PopoverController  } from 'ionic-angular';
 import { Database } from '../../providers/database';
-import { Product } from '../../providers/product/product';
+import { ProductProvider,Product, review } from '../../providers/product/product';
 import { Cart} from '../../providers/cart/cart';
 import { TabsPage } from '../tabs/tabs';
 import {QuantitymodalPage } from '../quantitymodal/quantitymodal';
+import { ReviewPage } from '../review/review';
 /** 
  * Generated class for the Product page.
  *
@@ -20,6 +21,7 @@ export class ProductPage {
   cb: boolean[] = [false, true, false, false, false]
   size: boolean[] = [false, true, false, false, false]
   public specific_item : any;
+  public viewNum: number;
   @ViewChild('qtySelect') qtySelect: Select; 
 
   currentQty: string = 'Qty: 1';
@@ -31,13 +33,21 @@ export class ProductPage {
   product: Product;
   cart: Cart;
   db: Database;
+  reviews:Array<review>;
+  reviewsReady:Boolean=false;
   constructor(public app : App 
     , public navCtrl: NavController
     , public navParams: NavParams
     , public popoverCtrl : PopoverController
+    , public prodProv : ProductProvider
   ) {
+    this.changeView('0');
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
-    this.product = this.navParams.get('product');
+    this.product = this.navParams.get('data');
+    this.reviews = new Array();
+    this.getReviews().then(data=>{
+      this.reviewsReady=true;
+    });
     
     //this.cart.clear();
     //this.specific_item = this.navParams.get('product');
@@ -135,6 +145,20 @@ export class ProductPage {
     setTimeout(() => {
       this.navCtrl.pop();
     }, 300);
+  }
+
+  goToReview(){
+    this.navCtrl.push(ReviewPage,{'product': this.product});
+  }
+
+  changeView(number:any){
+    this.viewNum=number;
+    console.log(this.viewNum);
+  }
+
+  async getReviews(){
+  this.reviews = await  this.prodProv.getReviews(this.product.id);
+  console.log(this.reviews);
   }
 
 }

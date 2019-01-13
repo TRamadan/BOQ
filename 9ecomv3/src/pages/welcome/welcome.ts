@@ -7,6 +7,7 @@ import { Database }from '../../providers/database';
 import { User,UsersProvider } from '../../providers/users/users';
 import {  CategoryProvider, Category } from '../../providers/category/category';
 import { Product } from '../../providers/product/product';
+import{SearchProvider} from '../../providers/search/search';
 interface shopSlider {
   image: string;
 }
@@ -50,6 +51,7 @@ export class WelcomePage {
     , public order: Order
     , public catProv : CategoryProvider
     , public userProv: UsersProvider
+    , public searchProv: SearchProvider
   ) {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
@@ -72,6 +74,8 @@ export class WelcomePage {
       console.log(this.db.categories);
       this.loadProgress=50;
       console.log(this.loadProgress);
+      this.db.searchableObjects = this.searchProv.setSearchbleData();
+      console.log(this.db.searchableObjects);
       this.ready = true;
       this.db.vendors = await this.catProv.getVendors();
       let data = await this.getUserData();

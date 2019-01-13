@@ -32,23 +32,29 @@ ion-card img {
 // The "primary" color is the only required color in the map.
 
 $colors: ( 
-   primary: #333333,
-   secondary: #e0a018,
+   primary: #e94d3a,
+   secondary: #e94d3a,
    danger: #f15a67,
    light: #f4f4f4,
-   dark: #e2c12b,
-   pearl: #ffffff,
+   dark: #000000,
+   pearl: #e9eaea,
    primarydark:#0081b1,
    lightdark: #d9d9d9,
    greydark: #858585,
-   processing: #e0a018
+   processing: #e0a018,
+   golden: #c99234
   );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+ion-navbar.toolbar{
+  background-color: color($colors,primary);
+}
+.toolbar-background-md{
+  background-color: color($colors,primary) !important;
+}
 .tabs-ios .tabbar{
   color: color($colors, primary);
   background: color($colors, primary)!important;
@@ -315,3 +321,15 @@ $tabs-background: color($colors, dark);
  .swiper-container-android .swiper-slide, .swiper-wrapper{
   transform: translate3d(0, 0, 0) ;
  }
+
+ .toolbar-title-md {
+  padding: 0 12px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+  color: #ffffff !important;
+  background-color: transparent;
+}

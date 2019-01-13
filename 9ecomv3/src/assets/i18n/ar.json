@@ -14,7 +14,8 @@
         "title": "سله التسوق",
         "noItemHeader": "لا توجد عناصر في سلة التسوق",
 
-        "redirectButton": "متابعة التسوق"
+        "redirectButton": "متابعة التسوق",
+        "placeOrderButton": "اطلب"
     },
     "profilePage":{
         "title": "تفاصيل الحساب",
