@@ -9,6 +9,7 @@ import { Address ,UsersProvider, User ,state} from '../../providers/users/users'
 import { TabsPage } from '../tabs/tabs';
 import { CategoryProvider} from '../../providers/category/category'; 
 import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
+import { ThankPage } from '../thank/thank';
 
 /**
  * Generated class for the Checkout page.
@@ -226,7 +227,7 @@ export class CheckoutPage {
           this.cart.clear();
           loading.dismiss();
           //console.log(this.db.categories);
-          this.navCtrl.setRoot(TabsPage,{"tabIndex":1})
+          this.navCtrl.push(ThankPage,{"orderid":orderId})
           
         }else{
            

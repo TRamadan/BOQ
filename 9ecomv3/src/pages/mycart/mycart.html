@@ -6,12 +6,8 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="assets/img/menu.png" class="menu-image">
-    </button>
-    <ion-title>
-     {{'myCartPage.title' | translate}}
-    </ion-title>
+    
+    <img src="assets/img/Logo.PNG"  class="menu-logo-img">
   </ion-navbar>
 </ion-header>
 
@@ -30,7 +26,7 @@
   </div>
   <ion-list class="cart-list">
     <ion-item-sliding *ngFor="let item of cart.products; let i = index;">
-      <ion-item class="cart-list-item" [class.odd]="i%2!==0">
+      <ion-item class="cart-list-item" [class.odd]="i%2!==0 " (tap)="toProduct(item)">
         <ion-thumbnail item-left>
           <img [src]="item.product.image1">
         </ion-thumbnail>

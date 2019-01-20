@@ -8,8 +8,17 @@ page-sub-cate-list {
     border-radius: 13px;
     }
   }
-  .item-name{
-    
+  .order-button{
+    width: 100%;
+    border: thin solid #e94d3a;
+    color: #e94d3a;
+    text-align: center;
+    height: 4vh;
+    .order-text{
+      font-size: 1.2rem;
+      margin-top: 1vh;
+    }
+
   }
   .label-md {
     height: 100%;
@@ -17,7 +26,8 @@ page-sub-cate-list {
 }
 .price-wrapper{
   display: inline-block;
-  width: 20%;
+  width: 37%;
+  text-align: center;
   .price {
     font-size: 1.68rem;
     font-weight: 500;
@@ -42,7 +52,7 @@ page-sub-cate-list {
 }
 .item-name-container{
   margin: 1.3vh 0 0 0;
-  width: 75%;
+  width: 61%;
   white-space: normal;
   display: inline-block;
 }
@@ -95,6 +105,104 @@ page-sub-cate-list {
           font-size: 3rem;
           font-weight: 800;
           color: #ffffff;
+      }
+
+
+      .tabs-wrapper {
+        width: 100vw;
+        padding: 2vh 0vw 0vh 0vw;
+        .tabs-round {
+          width: 95vw;
+          margin-left: -2vw;
+          //background-color: color($colors, primary);
+          border-radius: 7px;
+          button {
+            padding: 0px 10vw 0 10vw;
+            height: 36px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: color($colors, pearl);
+            text-transform: uppercase;
+          }
+          .tab-selected-cat{
+            display: inline-block;
+            width: 47.5vw;
+            text-align: right;
+            /* border-right: 2px dotted #ffffff; */
+            background-color: color($colors, primary);
+            border-bottom-left-radius: 7px;
+            border-top-left-radius: 7px;
+            border: solid thin;
+            button {
+              
+              color: color($colors, pearl);
+              
+            }
+          }
+          .tab-notselected-cat{
+            display: inline-block;
+            width: 47.5vw;
+            text-align: right;
+            /* border-right: 2px dotted #ffffff; */
+            background-color: color($colors, pearl);
+            border-bottom-left-radius: 7px;
+            border-top-left-radius: 7px;
+            border: solid thin;
+            button {
+              
+              color: color($colors, primary);
+              
+            }
+          }
+    
+          .tab-notselected-prod {
+            display: inline-block;
+            width: 47.5vw;
+            text-align: right;
+            position: absolute;
+            display: inline-block;
+            background-color: color($colors, pearl);
+            border-bottom-right-radius: 7px;
+            border-top-right-radius: 7px;
+            border: solid thin;
+            button {
+              
+              color: color($colors, primary);
+              
+            }
+            
+          }
+          
+          .tab-selected-prod{
+            display: inline-block;
+            width: 47.5vw;
+            text-align: right;
+            position: absolute;
+            display: inline-block;
+            background-color: color($colors, primary);
+            border-bottom-right-radius: 7px;
+            border-top-right-radius: 7px;
+            border: solid thin;
+            button {
+              
+              color: color($colors, pearl);
+              
+            }
+            
+          }
+          
+          
+          .order-price {
+          
+         
+            font-size: 1.83rem;
+            font-weight: 500;
+            width: 47.5vw;
+            color: color($colors, pearl);
+            position: absolute;
+            display: inline-block;
+          }
+        }
       }
       
 

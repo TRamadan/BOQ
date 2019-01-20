@@ -6,7 +6,9 @@ background-color: #fff;
 //   bottom: 3vh;
 //   width: 100%;
 // }
-
+.search-change{
+  font-size: 1.6em;
+}
 
   .card9-container {
     display: inline-block;
@@ -39,15 +41,7 @@ background-color: #fff;
    
      
   }
-  ion-navbar{
-    background-color: color($colors,primary);
-  }
-  .toolbar-background-md{
-    background-color: inherit;
-  }
-  .toolbar-background-ios{
-    background-color: inherit;
-  }
+
   
   .list-container{
     padding-left: 2.5vw;
@@ -86,7 +80,7 @@ background-color: #fff;
         width: 47.5vw;
         text-align: right;
         /* border-right: 2px dotted #ffffff; */
-        background-color: color($colors, dark);
+        background-color: color($colors, primary);
         border-bottom-left-radius: 7px;
         border-top-left-radius: 7px;
         border: solid thin;
@@ -107,7 +101,7 @@ background-color: #fff;
         border: solid thin;
         button {
           
-          color: color($colors, dark);
+          color: color($colors, primary);
           
         }
       }
@@ -124,7 +118,7 @@ background-color: #fff;
         border: solid thin;
         button {
           
-          color: color($colors, dark);
+          color: color($colors, primary);
           
         }
         
@@ -136,7 +130,7 @@ background-color: #fff;
         text-align: right;
         position: absolute;
         display: inline-block;
-        background-color: color($colors, dark);
+        background-color: color($colors, primary);
         border-bottom-right-radius: 7px;
         border-top-right-radius: 7px;
         border: solid thin;
@@ -204,21 +198,22 @@ background-color: #fff;
   }
 
   .listbox {
-    top: 83%;
+    
     left: 0%;
     padding: 0vw 0vw 2vw 0vw;
-    position: absolute;
+   
     width: 100%;
     display: inline-block;
     /* margin-bottom: 4vh; */
     border-bottom-right-radius:13px;
     border-bottom-left-radius: 13px;
-    background-color: rgba(34, 35, 33, 0.85);
+    // background-color: rgba(34, 35, 33, 0.85);
+    background-color: color($colors,wight);
     .title {
       font-size: 1.26em;
       text-transform: uppercase;
       font-weight: 500;
-      color: #fff;
+      color: color($colors,primary);
       white-space: normal;
       span {
         font-size: 1.36em;

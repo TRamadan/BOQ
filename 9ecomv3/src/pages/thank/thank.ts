@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the Thank page.
@@ -14,8 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ThankPage {
   tabBarElement: any;
+  orderId: any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
+    this.orderId=this.navParams.get('orderid');
   }
 
   ionViewWillLeave() {
@@ -30,9 +33,7 @@ export class ThankPage {
   }
 
   shopping() {
-    this.navCtrl.parent.select(2);
-    setTimeout(() => {
-      this.navCtrl.parent.select(0);
-    }, 150)
+    this.navCtrl.setRoot(TabsPage,{"tabIndex":1})
+    
   }
 }

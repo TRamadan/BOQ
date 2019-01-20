@@ -13,106 +13,9 @@
   </ion-navbar> 
 </ion-header>
 <ion-content center class="page-home pane no-scroll">
-    <!-- <search></search> -->
-
-  
 
         <ion-searchbar (tap)="toSearchPage()"></ion-searchbar>
 
-
-  <!--
-  <ion-slides #sliders class="ads-slider" pager="true">
-    <ion-slide *ngFor="let slide of adsSliders">
-      <img [src]="slide.image">
-      
-      <a (click)="categories(slide.category)"> 
-        <div class="ads-wrapper">
-          <div class="ads-box">
-            <div class="ads-title" [innerHTML]="slide.title"></div>
-            <div class="ads-description">{{slide.description}}</div>
-          </div>
-        </div>
-      </a> 
-      <div class="fade-away"></div>
-    </ion-slide>
-  </ion-slides>  -->
-
-  <!--
-  <div class="small-ads-wrapper"> 
-    <ion-list>
-      <ion-row>
-        <ion-col *ngFor="let cat of category_array; let item = index;">
-          <ion-avatar item-start>
-              <div>
-                  <img (tap) = "categories(cat.id)" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="cat.image" [src]="cat.image"/>
-                  <img (tap) = "categories(cat.id)" alt = "Avatar" style="border-radius:50%; width:100px;" *ngIf="!cat.image" src="assets/img/nophoto.jpg"/> 
-                  <h4 style="color:rgba(25, 206, 238, 0.719);">
-                    {{cat.name}}
-                  </h4>
-              </div>
-          </ion-avatar> 
-          
-        </ion-col> 
-      </ion-row>
-
-    </ion-list>  
-
-    <div *ngIf="ReadyCats">
-      <div *ngFor="let item of items">
-       {{item.name}}
-      </div>
-    </div>
-  </div> --> 
-
-  <!--
-<ion-list no-lines>
-  <ion-item *ngFor = "let cat of category_array ; let item = index;">  
-    <img (tap) = "categories(cat.id)" *ngIf = "cat.image" [src] = "cat.image"/> 
-    <img (tap) = "categories(cat.id)" *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
-    <div class="ads-wrapper">
-        <div class="ads-box">
-          <div class="ads-title">{{cat.name}}</div>
-        </div>
-      </div>
-  </ion-item>
-</ion-list> 
-
-<div *ngIf="ReadyCats">
-    <div *ngFor="let item of items">
-     {{item.name}}
-    </div>
-  </div> -->
-
-
-<!--
-   <ion-item no-lines *ngFor = "let cat of category_array ; let item = index;">
-    <ion-card (tap) = "categories(cat.id)">
-      <img  *ngIf = "cat.image" [src] = "cat.image"/> 
-      <img  *ngIf = "!cat.image" src = "assets/img/nophoto.jpg"/>
-    
-    <div class="ads-wrapper">
-      <div class="ads-box">
-        <div class="ads-title">{{cat.name}}</div>
-      </div>
-    </div> 
-  </ion-card>
-   </ion-item>
--->
-<!-- 
-  <div *ngIf="ReadyProds">
-    <ion-item no-lines *ngFor = "let prod of prods ; let item = index;">
-      <ion-card >
-        <img  *ngIf = "prod.image1" [src] = "getImgContent(prod.image1)"/> 
-        <img  *ngIf = "!prod.image1" src = "assets/img/nophoto.jpg"/>
-      
-      <div class="ads-wrapper">
-        <div class="ads-box">
-          <div class="ads-title">{{prod.name}}</div>
-        </div>
-      </div> 
-    </ion-card>
-     </ion-item>
-  </div> -->
 
 
   <div>
@@ -123,131 +26,21 @@
  </ion-slides>
   </div>
 
-  <!-- <div>
-    <button  class="deals-button"ion-button>Deals & Offers</button>
-  </div> -->
-
-  <!-- <div class="slides-wrapper" (swipe)="swipe($event ,0)">
-     <div class="slider-header">{{'homePage.BrowseByCategory' | translate}}</div>
-      <ion-grid class="grid">
-        <ion-row class="grid-row">
-          <ion-col class="main-item" col-7>
-            <img class="slider-main-img" src = "{{category_array[0].image}}">
-          </ion-col>
-          <ion-col class="sliding-items-col" >
-             <ion-row  class="sliding-items-row" *ngFor="let item of categorySlider.itemCol1" >
-               <ion-col class="sliding-item">
-                  <img class="category-img" src = "{{item.image}}">
-               </ion-col>
-             </ion-row>
-            </ion-col>
-
-            <ion-col  class="sliding-items-col">
-              <ion-row  class="sliding-items-row"  *ngFor="let item of categorySlider.itemCol2">
-                <ion-col class="sliding-item">
-                  <img class="category-img" src = "{{item.image}}">
-               </ion-col>
-              </ion-row>
-          </ion-col>
-
-                </ion-row>
-              
-            
-      </ion-grid>
-    
-    </div> -->
 
 
-    <!-- <div class="slides-wrapper"  (swipe)="swipe($event ,1)">
-      <div class="slider-header">{{'homePage.BrowseBySupplier' | translate}}</div>
-      <ion-grid class="grid">
-        <ion-row class="grid-row">
-          <ion-col class="main-item" col-7>
-            <img  class="slider-main-img"  src= "{{vendorsArray[0].image}}">
-          </ion-col>
-          <ion-col class="sliding-items-col" >
-             <ion-row  class="sliding-items-row" *ngFor="let item of vendorSlider.itemCol1" >
-               <ion-col class="sliding-item">
-                  <img class="category-img" src = "{{item.image}}">
-               </ion-col>
-             </ion-row>
-            </ion-col>
 
-            <ion-col  class="sliding-items-col">
-              <ion-row  class="sliding-items-row"  *ngFor="let item of vendorSlider.itemCol2">
-                <ion-col class="sliding-item">
-                  <img class="category-img"  src = "{{item.image}}">
-               </ion-col>
-              </ion-row>
-          </ion-col>
-              
-                      
-                        
-          
-                </ion-row>
-              
-            
-      </ion-grid>
-    
-    </div> -->
-
-    <!-- <div (swipe)="swipe($event ,2)">
-     
-        <ion-grid class="grid">
-          <ion-row>
-            <ion-col class="main-item">
-              <img src = "{{adsSliders[0].image}}">
-            </ion-col>
-            <ion-col>
-               
-                    <ion-row >
-                        <ion-col *ngFor="let item of slider1 ;let i = index">
-                            <img src = "{{item.image}}">
-                        </ion-col>
-            
-                      </ion-row>
-                      <ion-row >
-                          <ion-col *ngFor="let item of slider2 ;let i = index">
-                              <img src = "{{item.image}}">
-                          </ion-col>
-              </ion-row>
-  
-                       
-                        
-                          
-                    </ion-col>
-                  </ion-row>
-                
-              
-        </ion-grid>
-      
-      </div>
-   -->
-
-   
-  <div class="tabs-wrapper" >
-    <div class="tabs-round" *ngIf="viewNum == '0' ">
-      <div  class="tab-selected-cat">
-        <button ion-button clear (tap)="changeView('0')" >Categories</button>
-      </div>
-     
-      <div  class="tab-notselected-ven">
-          <button ion-button clear (tap)="changeView('1')" >Vendors</button>
-        </div>
-    </div>
-    <div  class="tabs-round" *ngIf="viewNum == '1'">
-        <div  class="tab-notselected-cat">
-            <button ion-button clear (tap)="changeView('0')" >Categories</button>
-          </div>
-        <div class="tab-selected-ven">
-          <button ion-button clear (tap)="changeView('1')" >Vendors</button>
-        </div>
-    </div>
-    
-  </div>
+  <ion-segment [(ngModel)]="viewNum" color="secondary">
+  <ion-segment-button value="0">
+    <div class="search-change">Categories</div>
+  </ion-segment-button>
+  <ion-segment-button value="1">
+    <div class="search-change">Vendors</div>
+  </ion-segment-button>
+</ion-segment>
 
 
-  <div class="list-container" *ngIf="viewNum == '0'">
+<div [ngSwitch]="viewNum">
+  <div class="list-container" *ngSwitchCase="'0'">
   <div class="card9-container" *ngFor="let item of category_array">
            
     <div (tap)="categories(item)">
@@ -255,19 +48,17 @@
       <div class="pic-box" >
       <img [src] = "getImgContent(item.image)">
    
-        <span class="listbox">
-          <span class="title">{{item.name}}</span>
-        </span>
+        <div class="listbox">
+          <div class="title">{{item.name}}</div>
+        </div>
       </div>
     </div>
     
-    <!--<div class="temp">
-      {{item.company_name}}
-    </div>-->
+   
   </div>
 </div>
 
-<div class="list-container" *ngIf="viewNum == '1'">
+<div class="list-container" *ngSwitchCase="'1'">
   <div class="card9-container" *ngFor="let item of vendorsArray">
            
     <div>
@@ -282,5 +73,6 @@
 
   </div>
   </div>
+</div>
 </div>
 </ion-content>

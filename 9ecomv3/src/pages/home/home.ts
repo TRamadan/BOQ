@@ -42,12 +42,6 @@ export class HomePage {
       title: 'Crazy <span>65%</span> off',
       description: 'on international brands',
       
-    },
-    {
-      image: 'assets/img/philips2.jpg',
-      title: 'One <span>$</span> per item',
-      description: 'on international brands',
-      
     }
   ];
 
@@ -62,7 +56,7 @@ export class HomePage {
   //this variable is to get the all the categories with all items and all subcategories
   category_array : Array<Category>;
   vendorsArray : Array<Vendor>;
-  viewNum:number=0;
+  viewNum:any='0';
 
 
   //this is a variable
@@ -89,6 +83,7 @@ export class HomePage {
     this.vendorsArray =new Array();
     this.category_array = this.dataBase.categories;
     this.vendorsArray = this.dataBase.vendors;
+    this.viewNum=0;
     console.log(this.category_array)
     console.log(this.vendorsArray);
     // this.catProv.getItemsNop().then(data=>{
@@ -115,7 +110,9 @@ export class HomePage {
    
   
 
-  ionViewDidEnter() { 
+  ionViewDidEnter() {
+    this.viewNum='0';
+    console.log(this.viewNum);
     // this variable is to get the subcategories, when the categoriespage is pushed , 
     // the subcategories is loaded as needed
     // var subcategories = this.navParams.get('subcat'); 
@@ -209,19 +206,10 @@ export class HomePage {
     this.viewNum=number;
     console.log(this.viewNum);
   }
+
+  }
   
 
-
-
-  
- 
-
-  /*
-  getPrevious(){
-    return this.navCtrl.getPrevious().component.navto(2)
-  */
-
-}
 
 
 class customSlider{

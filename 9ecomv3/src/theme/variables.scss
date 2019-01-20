@@ -42,7 +42,9 @@ $colors: (
    lightdark: #d9d9d9,
    greydark: #858585,
    processing: #e0a018,
-   golden: #c99234
+   golden: #f9a618,
+   wight: #ffffff
+
   );
 
 
@@ -79,12 +81,25 @@ ion-navbar.toolbar{
 
 
 .tabs-md .tabbar{
-  color: color($colors, primary);
-  background: color($colors, primary)!important;
+  color: color($colors, wight);
+  background: color($colors, wight)!important;
 }
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
-  color:color($colors, dark)!important;
+  color:color($colors, golden)!important;
 }
+
+.tabs-md .tab-button[aria-selected=true] {
+  color: color($colors, golden)!important;
+}
+.tabs-md .tab-button .tab-button-icon {
+  color:color($colors, primary)!important;
+}
+
+.tabs-md-primary .tab-button, .tabs-md-primary .tab-button-icon {
+  color:color($colors, primary)!important;
+}
+
+
 
 // App Windows Variables
 // --------------------------------------------------
@@ -116,30 +131,41 @@ ion-navbar.toolbar{
 
 @import "roboto";
 @import "noto-sans";
-$tabs-background: color($colors, dark);
+$tabs-background: color($colors, primary);
  
- $tabs-wp-tab-color: color($colors, lightdark);
- $tabs-wp-tab-icon-color: color($colors, lightdark);
+ $tabs-wp-tab-color: color($colors, primary);
+ $tabs-wp-tab-icon-color: color($colors, primary);
  $tabs-wp-tab-color-active: color($colors, primary);
  $tabs-wp-tab-icon-color-active: color($colors, primary);
 
- $tabs-md-tab-icon-color: color($colors, lightdark);
- $tabs-md-tab-text-color: color($colors, lightdark);
+ $tabs-md-tab-icon-color: color($colors, primary);
+ $tabs-md-tab-text-color: color($colors, primary);
  $tabs-md-tab-icon-color-active: color($colors, primary);
  $tabs-md-tab-text-color-active: color($colors, primary);
 
- $tabs-ios-tab-text-color: color($colors, lightdark);
- $tabs-ios-tab-icon-color: color($colors, lightdark);
+ $tabs-ios-tab-text-color: color($colors, primary);
+ $tabs-ios-tab-icon-color: color($colors, primary);
  $tabs-ios-tab-icon-color-active: color($colors, primary);
  $tabs-ios-tab-text-color-active: color($colors, primary);
  
  /* Header Toolbar */
  
- $toolbar-background: color($colors, pearl);
+ $toolbar-background: color($colors, primary);
  $toolbar-border-color: transparent;
  .toolbar-white-button {
    color: #fff;
  }
+
+
+ ion-navbar{
+  background-color: color($colors,wight) !important;
+}
+.toolbar-background-md{
+  background-color: color($colors,wight) !important;
+}
+.toolbar-background-ios{
+  background-color:  color($colors,wight) !important;
+}
  
  ion-title {
    div {
@@ -330,6 +356,6 @@ $tabs-background: color($colors, dark);
 }
 
 .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
-  color: #ffffff !important;
+  color: color($colors,primary) !important ;
   background-color: transparent;
 }

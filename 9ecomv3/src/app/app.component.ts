@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav  ,AlertController} from 'ionic-angular';
 import { RootProvider } from "../providers/root/root";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -41,6 +41,8 @@ export class Ecom9App {
   public subcatArray: Array<any>;
   public open: boolean;
   public category: string = "main";
+
+  public backButtonActive: boolean=false;
   @ViewChild(Nav) nav: Nav;
   database: Database;
   cart: Cart;
@@ -92,7 +94,8 @@ export class Ecom9App {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public catProv: CategoryProvider,
-    public trnasProv: TranslatorProvider
+    public trnasProv: TranslatorProvider,
+    public alertCtrl : AlertController
   ) {
 
 
@@ -136,6 +139,37 @@ export class Ecom9App {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+  
+    this.platform.registerBackButtonAction(()=>{
+      if(this.nav.canGoBack()){
+        this.nav.pop();
+      }else{
+        if(this.backButtonActive ==false){
+          this.backButtonActive=true;
+          const alert = this.alertCtrl.create({
+            title: 'Exit App',
+            message: 'Press Exit to Close The App',
+            buttons:[{
+              text: "Cancel",
+              role: "cancel",
+              handler: ()=>{
+                this.backButtonActive=false;
+              }
+            },{
+              text: 'Exit',
+              handler: ()=>{
+                  this.platform.exitApp();
+              }
+            }]
+          })
+          alert.present();
+        }
+      
+        
+      }
+    });
+  
   }
   //////////////////////////////////////
 

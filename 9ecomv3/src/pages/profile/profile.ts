@@ -23,6 +23,7 @@ import { TranslatorProvider } from '../../providers/translator/translator';
 export class ProfilePage { 
 
   u : any;
+  tabNum:any;
   tabs: IScrollTab[] = [
     {
       name: 'Profile',
@@ -73,6 +74,7 @@ export class ProfilePage {
     this.orders = this.db.allOrders();  
     console.log(this.user);
     console.log(this.isTabsSelectable);
+    this.tabNum='0';
     
   }
 

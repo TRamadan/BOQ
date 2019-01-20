@@ -8,23 +8,37 @@
   <ion-navbar>
     
    <button ion-button menuToggle><img src="assets/img/menu.png" class="menu-image"></button>
-      <ion-title>{{ 'profilePage.title' | translate }}</ion-title>
+   <img src="assets/img/Logo.PNG"  class="menu-logo-img">
    
     
    
     
   </ion-navbar>
-  <div>
+  <!-- <div>
     <scroll-tabs #scrollTab  [tabs]="tabs" [selectEnable]="isTabsSelectable" (onSelectedTab)="tabChange($event)"></scroll-tabs>
-  </div>
+  </div> -->
+  <ion-segment [(ngModel)]="tabNum" color="secondary">
+    <ion-segment-button value="0" >
+      <div class="search-change">Profile</div>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <div class="search-change">My orders</div>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <div class="search-change">Wishlist</div>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <div class="search-change">Saved Address</div>
+    </ion-segment-button>
+  </ion-segment>
   
 
 </ion-header>
 
 <ion-content class="page-profile">
-  <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
+  <div [ngSwitch]="tabNum">
     <!-- PROFILE -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[0]">
+    <div class="content-wrapper" *ngSwitchCase="0">
       <div class="profile">
         <div class="avatar-image">
           <div class="avatar-container">
@@ -39,7 +53,7 @@
         <ion-list class="info-list">
           <ion-item>
             <ion-icon class="info-icon" item-left name="person"></ion-icon>
-            <div class="info-detail">{{user.userName}}</div>
+            <div class="info-detail">{{user.name}}</div>
           </ion-item>
           <ion-item>
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>
@@ -61,7 +75,7 @@
     <!-- END PROFILE -->
 
     <!-- MY ORDERS -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[1]">
+    <div class="content-wrapper" *ngSwitchCase="1">
       <div class="order">
         <ion-list class="order-list"> 
             <div *ngIf="orders.length == 0">  
@@ -85,7 +99,7 @@
     <!-- END MY ORDERS -->
 
     <!-- WISHLIST --> 
-    <div class="content-wrapper" *ngSwitchCase="tabs[2]">
+    <div class="content-wrapper" *ngSwitchCase="2">
       <div class="wishlist">
         <ion-list class="cart-list"> 
             <div *ngIf="wishProducts.length == 0">  
@@ -128,7 +142,7 @@
     <!-- END WISHLIST -->
 
     <!-- SAVED ADDRESS -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[3]">
+    <div class="content-wrapper" *ngSwitchCase="3">
       <div class="address-container">
         <ion-list class="address-list"> 
           <div *ngIf="savedAddresses.length == 0">  

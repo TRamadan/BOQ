@@ -6,6 +6,7 @@ import {  Database } from '../../providers/database';
 import {TabsPage} from '../tabs/tabs';
 import { Events } from 'ionic-angular';
 import { Cart } from '../../providers/cart/cart';
+import { ProductPage } from '../product/product';
 
 /**
  * Generated class for the Mycart page.
@@ -60,5 +61,11 @@ export class MyCartPage {
     //console.log(p);
     this.cart.removeItem(p);
   }
+
+
+  toProduct(prod: any) {
+    this.navCtrl.push(ProductPage, {'data': prod.product});
+  }
+
  
 }

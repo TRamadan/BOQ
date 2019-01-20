@@ -70,35 +70,39 @@ export class CategoryProvider {
 
           //}
           for (let i = 0; i < data.length; i++) {
-            let specs = new Specs(data[i].Weight, data[i].Length, data[i].Height, data[i].Width);
-            items.push(new Product(data[i].Name
-              , data[i].Id
-              , data[i].CategoryId
-              , data[i].StockQuantity
-              , specs
-              , data[i].ShortDescription
-              , data[i].VendorId
-              , data[i].Price
-              , data[i].FullDescription
-              , data[i].ShowOnHomePage
-              , data[i].AllowCustomerReviews
-              , data[i].ApprovedRatingSum
-              , data[i].NotApprovedRatingSum
-              , data[i].IsShipEnabled
-              , data[i].IsFreeShipping
-              , data[i].AdditionalShippingCharge
-              , data[i].DeliveryDateId
-              , data[i].OrderMaximumQuantity
-              , data[i].OrderMinimumQuantity
-              , data[i].OldPrice
-              , data[i].IsNew
-              , data[i].MarkAsNewStartDateTimeUtc
-              , data[i].MarkAsNewEndDateTimeUtc
-              , data[i].PictureBinary
-              , data[i].MimeType
-              , data[i].rating
-              , data[i].num_of_customers
-            ))
+            if(!data[i].Deleted){
+              let specs = new Specs(data[i].Weight, data[i].Length, data[i].Height, data[i].Width);
+              items.push(new Product(data[i].Name
+                , data[i].Id
+                , data[i].CategoryId
+                , data[i].StockQuantity
+                , specs
+                , data[i].ShortDescription
+                , data[i].VendorId
+                , data[i].Price
+                , data[i].FullDescription
+                , data[i].ShowOnHomePage
+                , data[i].AllowCustomerReviews
+                , data[i].ApprovedRatingSum
+                , data[i].NotApprovedRatingSum
+                , data[i].IsShipEnabled
+                , data[i].IsFreeShipping
+                , data[i].AdditionalShippingCharge
+                , data[i].DeliveryDateId
+                , data[i].OrderMaximumQuantity
+                , data[i].OrderMinimumQuantity
+                , data[i].OldPrice
+                , data[i].IsNew
+                , data[i].MarkAsNewStartDateTimeUtc
+                , data[i].MarkAsNewEndDateTimeUtc
+                , data[i].PictureBinary
+                , data[i].MimeType
+                , data[i].rating
+                , data[i].num_of_customers
+              ))
+
+            }
+           
           
           }
           for(let i =0; i< items.length;i++)
