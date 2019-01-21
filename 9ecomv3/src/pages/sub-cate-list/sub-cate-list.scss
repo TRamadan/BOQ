@@ -24,6 +24,10 @@ page-sub-cate-list {
     height: 100%;
      margin:0;
 }
+.label-ios {
+  height: 100%;
+   margin:0;
+}
 .price-wrapper{
   display: inline-block;
   width: 37%;
@@ -58,6 +62,9 @@ page-sub-cate-list {
 }
 
 .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left], .item-md ion-avatar[item-start], .item-md ion-thumbnail[item-start] {
+  margin: 8px 9px 8px 0;
+}
+.item-ios ion-avatar[item-left], .item-ios ion-thumbnail[item-left], .item-ios ion-avatar[item-start], .item-ios ion-thumbnail[item-start] {
   margin: 8px 9px 8px 0;
 }
     
