@@ -1,40 +1,27 @@
-<ion-menu [content]="content" id="BOQ">
+<!-- <ion-menu  [content]="content" id="BOQ">
 
   <ion-header>
-<div class="menu-header">Categories</div>
+<div class="menu-header">{{ 'sideMenu.title' | translate }}</div>
+<button ion-button (tap)="changelang()">{{'language' | translate}}</button>
   </ion-header>
-
   <ion-content class="menu">
     <ion-list class="menu-list">
       <div *ngFor="let c of catArray; let i = index;">
-        <ion-row>
-          <ion-col col-auto><img class="menu-thumbnail-img" [src]="icons[i].url"></ion-col>
+        <ion-row (tap)="goToSubCat(c)">
+          <ion-col col-auto *ngIf="hasImage(c)"><img class="menu-thumbnail-img" [src]="c.image"></ion-col> 
+          <ion-col col-auto *ngIf="!hasImage(c)"><img class="menu-thumbnail-img" src="assets/img/nophoto.jpg"></ion-col> 
           <ion-col>
-              <button detail-none class="parent" ion-item (tap)="toggleItems2(i)" *ngIf="c.open">
+              <button detail-none class="parent" ion-item >
                   {{c.name}}
-                  <ion-icon  item-right name="remove"></ion-icon> 
+                
                 </button>
-                <button detail-none  ion-item (tap)="toggleItems2(i)" *ngIf="!c.open">
-                    
-                    {{c.name}}
-                    
-                    <ion-icon item-right name="add"></ion-icon>
-                    
-                  </button>
+             
           </ion-col>
         </ion-row>
           
             
           
-<!--
-            <img class="menu-thumbnail-img" *ngIf="menuItem.image" [src]="menuItem.image">
--->      
 
-        <ion-list class="menu-child-list" *ngIf="c.open === true" class="menu-child" >
-          <button detail-none class="child" ion-item *ngFor="let child of c.children ; let j = index" (tap) = "categories(i,j)">
-            {{child.name}}
-          </button>
-        </ion-list>
     
       </div>
 
@@ -43,6 +30,6 @@
     </ion-list>
   </ion-content>
 
-</ion-menu>
+</ion-menu> -->
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

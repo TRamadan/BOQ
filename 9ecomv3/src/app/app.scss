@@ -14,9 +14,13 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@import "../../node_modules/ionic2-auto-complete/auto-complete";
+
+
 .menu-header{
   color: color($colors,dark);
-  color: #e2c12b;
+  
   font-size: 2.36rem;
   text-align: center;
   padding: 1rem;
@@ -27,11 +31,11 @@
     padding-top: 5vh;
   }
   .parent{
-    color: color($colors,dark)!important;
+    color: color($colors,secondary)!important;
 
   }
   .menu-list .item:active {
-    color: color($colors, dark);
+    color: color($colors, secondary);
     font-size: 1.36rem;
     background: transparent;
     border: none;
@@ -41,6 +45,7 @@
       padding-top: 3px;
     }
   }
+  
   .menu-thumbnail-img{
     width: 9vw;
     height: 5vh;
@@ -85,7 +90,6 @@
 }
 
 .child {
-    background: #e8e7e6;
     color: #000;
     margin-bottom: 4px;
 }

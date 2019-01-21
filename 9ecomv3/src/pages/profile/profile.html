@@ -8,29 +8,43 @@
   <ion-navbar>
     
    <button ion-button menuToggle><img src="assets/img/menu.png" class="menu-image"></button>
-      <ion-title>Account Details</ion-title>
+   <img src="assets/img/Logo.PNG"  class="menu-logo-img">
    
     
    
     
   </ion-navbar>
-  <div>
-    <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
-  </div>
+  <!-- <div>
+    <scroll-tabs #scrollTab  [tabs]="tabs" [selectEnable]="isTabsSelectable" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+  </div> -->
+  <ion-segment [(ngModel)]="tabNum" color="secondary">
+    <ion-segment-button value="0" >
+      <div class="search-change">Profile</div>
+    </ion-segment-button>
+    <ion-segment-button value="1">
+      <div class="search-change">My orders</div>
+    </ion-segment-button>
+    <ion-segment-button value="2">
+      <div class="search-change">Wishlist</div>
+    </ion-segment-button>
+    <ion-segment-button value="3">
+      <div class="search-change">Saved Address</div>
+    </ion-segment-button>
+  </ion-segment>
   
 
 </ion-header>
 
 <ion-content class="page-profile">
-  <div [ngSwitch]="selectedTab" (swipe)="swipeEvent($event)">
+  <div [ngSwitch]="tabNum">
     <!-- PROFILE -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[0]">
+    <div class="content-wrapper" *ngSwitchCase="0">
       <div class="profile">
         <div class="avatar-image">
           <div class="avatar-container">
             <div class="avatar-cropper">
               
-              <img *ngIf="user.gender  == 'Male'" src="assets/img/signup_male.png">
+              <img src="assets/img/signup_male.png">
               <img *ngIf="user.gender  == 'Female'" src="assets/img/signup_female.png">
             </div>
           </div>
@@ -45,10 +59,7 @@
             <ion-icon class="info-icon" item-left name="mail"></ion-icon>
             <div class="info-detail">{{user.email}}</div>
           </ion-item>
-          <ion-item>
-            <ion-icon class="info-icon" item-left name="phone-portrait"></ion-icon>
-            <div class="info-detail">{{user.phone}}</div>
-          </ion-item> 
+         
           
           <button class="sign-out" ion-button (tap)="signOut()">SignOut</button>
           <!--
@@ -64,7 +75,7 @@
     <!-- END PROFILE -->
 
     <!-- MY ORDERS -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[1]">
+    <div class="content-wrapper" *ngSwitchCase="1">
       <div class="order">
         <ion-list class="order-list"> 
             <div *ngIf="orders.length == 0">  
@@ -88,7 +99,7 @@
     <!-- END MY ORDERS -->
 
     <!-- WISHLIST --> 
-    <div class="content-wrapper" *ngSwitchCase="tabs[2]">
+    <div class="content-wrapper" *ngSwitchCase="2">
       <div class="wishlist">
         <ion-list class="cart-list"> 
             <div *ngIf="wishProducts.length == 0">  
@@ -131,7 +142,7 @@
     <!-- END WISHLIST -->
 
     <!-- SAVED ADDRESS -->
-    <div class="content-wrapper" *ngSwitchCase="tabs[3]">
+    <div class="content-wrapper" *ngSwitchCase="3">
       <div class="address-container">
         <ion-list class="address-list"> 
           <div *ngIf="savedAddresses.length == 0">  

@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RootProvider } from '../root/root';
 import { Storage } from '@ionic/storage';
+import { resolve } from 'url';
 /*
   Generated class for the UsersProvider provider.
 
@@ -14,87 +15,230 @@ export class UsersProvider extends RootProvider {
   private logIn2: string = "users";
   private register: string = "AddNewUser";
   private register2: string = "users";
-  public user: User;
+
+  private userApiController:string = 'users/';
+  
+  private logInActionString = "user_login?";
+  private regesterActionString = "user_reg?";
+  private getSaltActionString = "get_salt?";
+
+  private addressApiController = "address/";
+  private addAddressActionString = "add_address?"
+
+  private stateApiController = "State/";
+  private getStatesActionString = "get_states?";
+
+  private addressUserLinkActionString = "link_user_address?";
+
+  private getUserAddressActionString = "get_user_address?";
+
+  private rateApiController = 'product/';
+  private rateActionString = "add_review?";
+
+  public user: User; 
+
+  
 
   constructor(public http: Http, public storage: Storage) {
     super(http);
     this.user = User.getInstance();
   }
 
- 
-  public async login(name: string, password: string) : Promise<any> {
+  public async RegesterNop(Username:string,password:string,email:string): Promise<any>{
     return new Promise((resolve)=>{
-      let temp = `${RootProvider.APIURL3}${this.logIn2}?user_name=${name}&user_password=${password}`;
+      let date = new Date();
+      console.log(date);
+      let F = false;
+      let T = true;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
       console.log(temp);
-      this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
-          if(data != null)
-          {  
-            if(data.length > 0){
-          let tempGender = data[0].user_type==1 ? 'Male': 'Female'; 
-          this.user = User.getInstance(data[0].id,data[0].user_name,tempGender,data[0].user_password,data[0].user_email,data[0].user_phone,data[0].user_last_name,data[0].user_first_name);
-          console.log(User.getInstance());
-          this.storage.set('user', this.user); 
-          console.log(data);
-          resolve(true);
-          
-        } 
-        else{
-          alert("Worng User Name Or Password");
-          resolve(false);
-        }
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data);
+        if(data != null && data != undefined && data.length>0){
+          this.user = User.getInstance(data[0].ID,Username,password,email);
+          resolve(data[0].ID);
 
-      }else{
-        resolve(false);
-      }
-      },err=>{
-        alert(err);
-         resolve(false);
-      });
-  
+        }else{
+          resolve("-1")
+        }
+      })
     })
-    
-   
   }
 
-  public async Regester(userName:string,password:string,fname:string,lname:string,userImage:string,userPhone:string,userEmail:string,usertype:string): Promise<any> {
-    let temp = `${RootProvider.APIURL3}${this.register2}?user_name=${userName}&user_password=${password}&user_first_name=${fname}&user_last_name=${lname}&user_img=""&user_phone=${userPhone},&user_email=${userEmail}&user_type=${usertype}`;
-    //console.log(temp);
+  public async loginNop(email:string,password:string,salt:any): Promise<any>{
+    return new Promise((resolve)=>{
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.logInActionString}Email=${email}&Password=${password}&salt=${salt}`;
+      console.log(temp);
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data != undefined && data.length>0){
+          console.log(data[0].Id+ "  : "+data[0].Username+"  :  "+data[0].Password+"  :  "+data[0].Email)
+          this.user = User.getInstance(data[0].Id,data[0].Username,data[0].Password,data[0].Email);
+          console.log(this.user);
+          resolve(true);
+        }else{
+          resolve(false)
+        }
+      })
+    })
+  }
+
+  
+
+ 
+ 
+  public async getSualt(email:string){
+    let temp =`${RootProvider.APIURL4}${this.userApiController}${this.getSaltActionString}Email=${email}&Username=""`
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data){
+          resolve(data[0].PasswordSalt);
+        }else{
+          resolve(-1);
+        }
+      },err=>{
+        console.log(err);
+        resolve(-1)
+      })
+    })
+  }
+
+  public async getState() :Promise<any>{
+    let temp = `${RootProvider.APIURL4}${this.stateApiController}${this.getStatesActionString}`; 
+    let states = new Array<state>();
     
     return new Promise ((resolve)=>{
-    this.http.get(temp).map(res => <any>res.json()).subscribe(data=>{
-      console.log(data);
-      if (data.length > 0) {
-        if(data[0].error_name == "done"){
-          let temp =this.login(userName,password);
-          resolve(true && temp);
-        }else{
-          alert("this Email has been regestered before")
-          resolve(false);
-
+      this.http.get(temp).map(res => <any>res.json()).subscribe(data => {
+        console.log(data);
+        if(data != undefined && data.length > 0)
+        {
+          for(let i =0;i<data.length;i++){
+            states.push(new state(data[i].Id,data[i].CountryId,data[i].Name));
+          }
+          
+          resolve(states)
+        }else{ 
+          
+          resolve([]);
         }
-      } else {
-        alert("Server Error");
-        resolve(false)
+      },err =>{
+       console.log(err);
+        resolve([]);
       }
-    }, err => {
-      alert(err);
-      resolve(false)
+    )
     })
-    })
-    
   }
+
+  public getStateById(states:Array<state>,id:string): state{
+    let chosen ;
+    states.forEach(element => {
+      if(element.id == id){
+        chosen = element;
+      }
+      
+    });
+    return chosen
+  }
+
+  public getStateByName(states:Array<state>,name:string):state{
+    let chosen ;
+    states.forEach(element=>{
+     
+      if(element.name.toLowerCase() === name.toLowerCase())
+      { console.log(element.name.toLowerCase() === name.toLowerCase());
+        chosen = element;
+      }
+    });
+    return chosen;
+  }
+
   
 
   public getUser(){
     return User.getInstance();
   }
 
-  public addAddress(address : Address){
+  public async addAddress(address : Address , zipCode : string,email:string ,stateId :string,userId:string):Promise<any>{
 
-    this.user.addSavedAddress(address);
-    this.storage.set('user' , this.user)
+    let temp = `${RootProvider.APIURL4}${this.addressApiController}${this.addAddressActionString}Email=${email}&Company=""&StateProvinceId=${stateId}&Address1=${address.toString()}&Address2=""&ZipPostalCode=${zipCode}&PhoneNumber=""&FaxNumber=""`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data.length);
+        if(data!=undefined && data.length>0){
+          address.id=data[0].ID;
+          this.user =this.getUser();
+          this.user.addSavedAddress(address);
+          this.storage.set('user' , this.user);
+          let userLinkApi=`${RootProvider.APIURL4}${this.addressApiController}${this.addressUserLinkActionString}Customer_Id=${userId}&Address_Id=${address.id}`;
+          console.log(userLinkApi);
+          this.http.get(userLinkApi).map(res=><any>res.json()).subscribe(data=>{
+            console.log(data);
+            resolve(address.id);
+          })
+          
+        }
+        resolve(null)
+      })
+      resolve(null);
+    })
+      
     
   }
+
+  public async getAddress(userId:string):Promise<any> {
+    let temp=`${RootProvider.APIURL4}${this.addressApiController}${this.getUserAddressActionString}Customer_Id=${userId}`
+    console.log(temp);
+    return new Promise((resolve)=>{
+      
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        console.log(data);
+        let userAddress = new Array<Address>();
+        if(data != undefined && data.length > 0){
+          
+          for(let i = 0 ;i < data.length ; i++){
+            userAddress.push(new Address());
+            userAddress[i].fromString(data[i].Address1);
+            userAddress[i].id=data[i].Address_Id;
+            userAddress[i].zipCode=data[i].ZipPostalCode;
+          }
+          this.user = this.getUser();
+          console.log(this.user);
+          this.user.addresses = userAddress;
+          resolve(userAddress);
+          
+        }else{
+          resolve(userAddress);
+        }
+
+      }),err=>{
+        resolve(err);
+      }
+      
+    })
+  }
+
+
+  public async rate(productId,rate,title,body){
+    let temp=`${RootProvider.APIURL4}${this.rateApiController}${this.rateActionString}CustomerId=${this.user.id}&ProductId=${productId}&Rating=${rate}&Title=${title}&ReviewText=${body}`;
+    console.log(temp); 
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        resolve(data);
+
+      },err=>{
+        resolve(err);
+      })
+    })
+  }
+
+
+  
+
+
+
+
+   
   public removeAddress(address : Address){
     this.user.removeSavedAddress(address);
     this.storage.set('user',this.user);
@@ -134,12 +278,12 @@ export class User {
     if (User.isCreating) {
       throw new Error("An Instance Of User Singleton Already Exists");
     } else {
-      this.setData(id, name, gender, password, email, phone,address);
+      this.setData(id, name, password, email,gender, phone,address);
       User.isCreating = true;
     }
   }
 
-  public setData(id: string = "-1", name: string = "", gender: string = "Male", password: string = "", email: string = "", phone: string = "", address: Address[] = new Array()) {
+  public setData(id: string = "-1", name: string = "", password: string = "", email: string = "", gender: string = "Male", phone: string = "", address: Address[] = new Array()) {
     
     this.id = id;
     this.name = name;
@@ -151,14 +295,14 @@ export class User {
     this.phone = phone;
   }
 
-  static getInstance(id: string = "-1", name: string = "", gender: string = "ذكر",  password: string = "", email: string = "", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
+  static getInstance(id: string = "-1", name: string = "",  password: string = "", email: string = "",gender: string = "ذكر", phone: string = "",fName:string="",lName:string="",address: Address[] = new Array()) {
     if (User.isCreating === false && id !="-1") {
       //User.isCreating = false;
       User.instance = new User(id, name, gender, password, email, phone,lName,fName, address);
       console.log(console.log(User.instance));
     }
     if (id != "-1") {
-      User.instance.setData(id, name, gender,password, email, phone,address);
+      User.instance.setData(id, name,password, email,gender, phone,address);
     }
     return User.instance;
   }
@@ -183,8 +327,11 @@ export class User {
   }
 
 
+
+
 }
 export class Address {
+  id:string;
   houseNum: string;
   street: string;
   Block: string;
@@ -205,6 +352,39 @@ export class Address {
 
   toString(): string{
     return this.houseNum + "," + this.street + "," + this.Block + "," + this.district + "," + this.city + "," + this.country;
+  }
+  fromString(address : string){
+     let temp = new Array();
+     let start = 0 ;
+     let end = 0;
+     for(let i = 0; i<=address.length;i++){
+       if(address[i] == ','){
+         temp.push(address.slice(start,i))
+         start=i+1;
+       }
+       if(i == address.length){
+        temp.push(address.slice(start,i));
+       }
+       
+     }
+     this.houseNum = temp[0];
+     this.street = temp[1];
+     this.Block = temp[2];
+     this.district = temp[3];
+     this.city = temp[4];
+     this.country = temp[5];
+  }
+}
+
+export class state{
+  public id : string;
+  public countryId: string
+  public name : string;
+  constructor(id:string,counteryId,name:string){
+    this.id=id;
+    this.countryId=counteryId;
+    this.name=name;
+
   }
 }
 

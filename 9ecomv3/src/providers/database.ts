@@ -7,7 +7,8 @@ import {Product} from './product/product';
 import {Cart} from './cart/cart';
 import { OrderData} from './order/order';
 import { Address} from './users/users';
-import { Category } from './category/category';
+import { Category, Vendor } from './category/category';
+import { searchable } from './search/search';
 
 
 
@@ -31,17 +32,20 @@ import { Category } from './category/category';
 export class Database {
   storage : Storage;
   categories: Category[];
-  products: Product[];
+ 
   wishproducts: Product[];
   orders: OrderData[];
   cart: Cart;
   filterTypes: any[];
+  vendors: Vendor[];
 
-  Addresses : Address[];
-  cities: string[];
-  district: string[];
-  countries: string[];
-  zipcodes: string[];
+  products: Product[];
+  searchableObjects:Array<searchable>;
+  //Addresses : Address[];
+  //cities: string[];
+  //district: string[];
+ // countries: string[];
+  //zipcodes: string[];
   http:Http;
 
   
@@ -59,11 +63,12 @@ export class Database {
       this.wishproducts = new Array<Product>();
       this.orders = new Array<OrderData>();
       this.filterTypes = new Array<any>();
-      this.cities = new Array<string>();
-      this.district = new Array<string>();
-      this.countries = new Array<string>();
-      this.zipcodes = new Array<string>();
-      this.Addresses = new Array<Address>();
+      this.searchableObjects= new Array<searchable>();
+      // this.cities = new Array<string>();
+      // this.district = new Array<string>();
+      // this.countries = new Array<string>();
+      // this.zipcodes = new Array<string>();
+      // this.vendors = new Array<Vendor>();
       this.initialize();
     }
   }
@@ -80,27 +85,7 @@ export class Database {
 
   private initialize() {
     //console.log('Initialize Database');
-    this.countries.push('USA');
-    this.district = [
-      'New York',
-      'California',
-      'Indiana',
-      'Washington',
-    ];
-    this.cities = [
-      'New York',
-      'Los Angeles',
-      'San Diego',
-      'Seattle',
-      'Indianapolis',
-      'Oakland'
-    ];
-    this.zipcodes = [
-      '100000',
-      '200000',
-      '300000'
-    ];
-    
+    //this.countries.push('مصر');
     let now = new Date();
     let day = 24 * 60 * 60 * 1000;
     
@@ -128,10 +113,10 @@ export class Database {
   SaveAll(): void{
     let storage : Storage;
     this.storage = storage;
-    this.district != undefined && this.district.length > 0 ? this.storage.set('district',this.district): null;
-    this.cities != undefined && this.cities.length > 0 ? this.storage.set('cities',this.cities) : null ;
-    this.countries != undefined && this.countries.length > 0 ? this.storage.set('countries',this.countries) : null;
-    this.zipcodes != undefined && this.zipcodes.length > 0 ? this.storage.set('zipcodes',this.zipcodes) : null;
+    // this.district != undefined && this.district.length > 0 ? this.storage.set('district',this.district): null;
+    // this.cities != undefined && this.cities.length > 0 ? this.storage.set('cities',this.cities) : null ;
+    // this.countries != undefined && this.countries.length > 0 ? this.storage.set('countries',this.countries) : null;
+    // this.zipcodes != undefined && this.zipcodes.length > 0 ? this.storage.set('zipcodes',this.zipcodes) : null;
     this.filterTypes != undefined && this.filterTypes.length > 0 ? this.storage.set('fileterTypes',this.filterTypes) : null;
   }
 
@@ -175,21 +160,21 @@ export class Database {
     console.log(this.wishproducts);
   }
 
-  allCities(): string[] {
-    return this.cities;
-  }
+  // allCities(): string[] {
+  //   return this.cities;
+  // }
 
-  alldistrict(): string[] {
-    return this.district;
-  }
+  // alldistrict(): string[] {
+  //   return this.district;
+  // }
   
-  allCountries(): string[] {
-    return this.countries;
-  }
+  // allCountries(): string[] {
+  //   return this.countries;
+  // }
 
-  allZipCodes(): string [] {
-    return this.zipcodes;
-  }
+  // allZipCodes(): string [] {
+  //   return this.zipcodes;
+  // }
 
   
 
@@ -199,21 +184,21 @@ export class Database {
 
   //Delete only one single item from the cart 
 
-  delet_specific_item(prod : Product)
-  { 
-    let pro = -1;
-    for(let i = 0; i < this.products.length; i++)
-    {
-      if(this.products[i] === prod)
-      {
-        pro = i;
-      } 
-      if(pro >= 0)
-      {
-        this.products.splice(pro , 1);
-      }
-    }
-  }
+  // delet_specific_item(prod : Product)
+  // { 
+  //   let pro = -1;
+  //   for(let i = 0; i < this.products.length; i++)
+  //   {
+  //     if(this.products[i] === prod)
+  //     {
+  //       pro = i;
+  //     } 
+  //     if(pro >= 0)
+  //     {
+  //       this.products.splice(pro , 1);
+  //     }
+  //   }
+  // }
 
   
 
@@ -243,9 +228,9 @@ export class Database {
     return this.products;
   }
 
-  categoryProducts(category: Category): Product[] {
-    return this.products;
-  }
+  // categoryProducts(category: Category): Product[] {
+  //   return category.children;
+  // }
 
   
 }

@@ -1,0 +1,58 @@
+<!-- Generated template for the RatingComponent component -->
+<div *ngIf="!readyToRate">
+<div class="rating-container" *ngIf="!ratable">
+  <div *ngFor="let item of fullStartsArr">
+      <ion-icon  name="ios-star"></ion-icon>
+  </div>
+<div *ngIf="halfStar" >
+    <ion-icon name="ios-star-half"></ion-icon>
+</div>
+  <div *ngFor="let item of emptySartsArr ">
+      <ion-icon name="ios-star-outline"></ion-icon>
+  </div>
+  
+
+</div>
+<div class="rating-container" *ngIf="ratable">
+    <div class="star full-star" *ngFor="let item of fullStartsArr;let i = index">
+        <ion-icon  name="ios-star" (tap)="rate(i,0)"></ion-icon>
+    </div>
+  <div class="star half-star" *ngIf="halfStar" >
+      <ion-icon name="ios-star-half" (tap)="rate(-1,1)"></ion-icon>
+  </div>
+    <div class="star empty-star" *ngFor="let item of emptySartsArr; let i = index ">
+        <ion-icon name="ios-star-outline" (tap)="rate(i,2)"></ion-icon>
+    </div>
+</div>
+  
+  </div>
+  <div *ngIf="readyToRate">
+    <div class="rated-container">
+        <div *ngFor="let item of fullStartsArr ; let i = index" >
+            <ion-icon name="ios-star" (tap)="rate(i,0)"></ion-icon>
+        </div>
+
+        <div *ngFor="let item of emptySartsArr ; let i = index ">
+            <ion-icon name="ios-star-outline" (tap)="rate(i,2)"></ion-icon>
+        </div>
+        
+      
+      </div>
+
+      <div class="comment-container">
+        <div class="comment-header">
+            <ion-item>
+            <ion-label floating>Review title</ion-label>
+            <ion-input [(ngModel)]="title" type="text"></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-label floating>Review Body</ion-label>
+              <ion-textarea [(ngModel)]="body"  type="text"></ion-textarea>
+            </ion-item>
+            <button ion-button full clear (tap)="addReview()">Submit</button>
+        </div>
+      </div>
+
+
+  </div>
+  

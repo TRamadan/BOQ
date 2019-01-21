@@ -17,6 +17,6 @@ progress-bar {
         overflow: hidden;
         padding: 5px;
         border-radius: 20px;
-        background-color: map-get($colors, primary);
+        background-color: map-get($colors, secondary);
     }
 }

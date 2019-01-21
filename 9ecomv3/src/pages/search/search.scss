@@ -1,4 +1,37 @@
 page-search {
+  .search-change-button{
+
+  }
+  .search-change-wrapper{
+    width :100%;
+    display: inline;
+  }
+  .search-change-round{
+    width : 80vw;
+  }
+  .search-change{
+    font-size: 1.6em;
+  }
+  .price-wrapper{
+    display: inline-block;
+    width: 20%;      
+    .price {
+      font-size: 1.68rem;
+      font-weight: 500;
+      color: color($colors, primary);
+      display: inline-block;
+    }
+    .old-price {
+      margin-left: 3vw;
+      margin-top: 3px;
+      font-size: 1.26rem;
+      font-weight: 400;
+      color: color($colors, lightdark);
+      text-decoration: line-through;
+      position: absolute;
+      display: inline-block;
+    }
+  }
   .result-list {
     width: 100vw;
     min-height: 90vh;
@@ -35,25 +68,7 @@ page-search {
             margin-left: 5vw;
           }
         }
-        .price-wrapper {
-          padding-top: 1vh;
-          .price {
-            font-size: 1.68rem;
-            font-weight: 500;
-            color: color($colors, primary);
-            display: inline-block;
-          }
-          .old-price {
-            margin-left: 3vw;
-            margin-top: 3px;
-            font-size: 1.26rem;
-            font-weight: 400;
-            color: color($colors, lightdark);
-            text-decoration: line-through;
-            position: absolute;
-            display: inline-block;
-          }
-        }
+        
         .add-button {
           margin-top: 2vh;
           text-transform: uppercase;
@@ -110,5 +125,15 @@ page-search {
   }
   h2{
     white-space: normal;
+  }
+
+  .item-vendor{
+    color: #d4902a;
+  }
+  .item-name-container{
+    margin: 1.3vh 0 0 0;
+    width: 75%;
+    white-space: normal;
+    display: inline-block;
   }
 }

@@ -79,7 +79,7 @@ export class Cart {
   total(): number {
     let sum: number = 0;
     this.products.forEach(item => {
-      sum = parseInt(sum.toString()) + (parseInt(item.quantity.toString()) * (item.product.price - item.product.discount));
+      sum = parseInt(sum.toString()) + (parseInt(item.quantity.toString()) * (item.product.currentPrice ));
     });
 
     return sum;
@@ -88,7 +88,7 @@ export class Cart {
   promoTotal(): number {
     let sum: number = 0;
     this.products.forEach(item => {
-      sum = parseInt(sum.toString()) + (parseInt(item.quantity.toString()) * (item.product.price - item.product.discount));
+      sum = parseInt(sum.toString()) + (parseInt(item.quantity.toString()) * (item.product.currentPrice));
     });
     sum = parseInt(sum.toString()) - parseInt(this.promotion.toString());
     return sum;

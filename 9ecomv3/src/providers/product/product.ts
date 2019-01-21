@@ -11,8 +11,31 @@ import { subcategory } from '../sub-categories/sub-categories';
 */
 @Injectable()
 export class ProductProvider extends RootProvider {
+  private getReviewsAPiController:string ='product/';
+  private getReviewsActionString: string ='get_comments?';
   constructor(public http: Http) {
     super(http);
+  }
+  getReviews(prodId:string):Promise<any>{
+    let temp = `${RootProvider.APIURL4}${this.getReviewsAPiController}${this.getReviewsActionString}ProductId=${prodId}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+        if(data != null && data.length >0){
+          let reviews = new Array<review>();
+          for(let i = 0 ; i< data.length;i++){
+            reviews.push(new review(data[i].Username,data[i].ReviewText,data[i].Title,data[i].CreatedOnUtc));
+          }
+          resolve(reviews)
+        }else{
+          resolve([])
+        }
+      },err=>{
+        console.log(err);
+        resolve([])
+      })
+    })
+
   }
 
   
@@ -21,22 +44,15 @@ export class ProductProvider extends RootProvider {
 
 
 export class Product {
-  public static URLNAME = RootProvider.APIURL3;
-  id: string;
-  product_subcat ? : number;
-  image1 ? : string;
+
+  
   image2 ? : string;  
-  quant ? : number;
+  
   measure_u? : string;
-  description? : string;
-  distributerId : number;
-  price: number;
-  currentPrice: number;
-  distributorId: string;
   distributerLinkId: string;
   discountPercentage:number;
 //////////////////////////////
-  name: string;
+  
   discount: number = 0;
   image: string; 
   
@@ -49,31 +65,152 @@ export class Product {
   status?: string; 
   offer_id : string; 
   offer_name : string; 
-  company_name : string;
 
-   constructor(prod_name : string,itemId : string , prod_sub_category : number  , prod_image1 : string  , prod_image2 : string  , quantity : number , measure_unit : string , prod_desc : string  , distributorId : number , price : number  , offer_id : string , offer_name : string,discount_percentage:number,item_distributor_id:string,compantyId:string ="") { 
-    this.name = prod_name;
-    this.id = itemId; 
-    this.product_subcat = prod_sub_category;
-    this.image1 = (prod_image1 !=null &&prod_image1.length > 0)?RootProvider.imageUrl+prod_image1.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
-    this.image2 = (prod_image2 !=null &&prod_image2.length > 0)?RootProvider.imageUrl+prod_image2.substring(2,prod_image1.length) : 'assets/img/categories/girl/jewellery/jewellery01.jpg';
-    this.quant = quantity;
-    this.measure_u = measure_unit;
-    this.description = prod_desc; 
-    this.distributerId = distributorId;
-    this.price = price;
-    this.status = "in"; 
-    this.offer_id  = offer_id; 
-    this.offer_name = offer_name;
-    this.discountPercentage = discount_percentage;
-    this.distributerLinkId=item_distributor_id;
-    this.currentPrice=this.discountPercentage == null ? this.price : (this.price-((this.price*this.discountPercentage)/100));
-    this.company_id= compantyId;
+
+  /////////////////////////////////
+  id: string; //
+  name: string; //
+  product_subcat ? : number;//
+  description? : string;//
+  longDescription: string;//
+  distributerId : string;//
+  showOnHome: boolean;//
+  //metaKeywords: string;
+  allowCustomerReviews: boolean;//
+  approvedRatingSum: number;//
+  notApprovedRattingSum: number;//
+  isShipEnabled: boolean;//
+  isFreeShipping:boolean;//
+  additionalShippingCharge: number;//
+  DeliveryDateId: string;//
+  quant ? : number;//
+  orderMaxQuant: number;//
+  orderMinQuant: number;//
+  price: number;//
+  currentPrice: number;//
+  isNew: boolean;//
+  newFromUTC: Date;
+  newToUTC:Date;
+  image1 ? : string;//
+  specs: Specs//
+  company_name : string;//
+  rating: number ; //
+  customerCount: number;//
+
+   constructor(prod_name : string
+    , itemId : string
+    , prod_sub_category : number
+    , quantity : number
+    , specs : Specs
+    , prod_desc : string
+    , distributorId : string
+    , price : number
+    , longDesc: string
+    , showOnHome:boolean
+    , allaCustomerReview:boolean
+    , approvedRatingSum:number
+    , notApprovedRattingSum:number
+    , isShipEnabled: boolean
+    , isFreeShipping:boolean
+    , additionalShippingCharge:number
+    , DeliveryDateId:string
+    , orderMaxQuant:number
+    , orderMinQuant:number
+    , oldPrice:number
+    , New:boolean
+    , newFromUTC: Date
+    , newToUTC:Date
+    , prod_image1 : string
+    , imageMimeType:string
+    , rating:number
+    , customerCount:number
+  ) { 
+   
+    
+    
 //////////////////////////////////////////////
-   //  this.categories = new Array<Category>();
-   // this.colors = new Array<string>();
-   // this.sizes = new Array<string>();
-   // this.descriptions = new Array<string>();
+
+
+    this.id = itemId; 
+    this.name = prod_name;
+    this.description = prod_desc; 
+    this.specs =specs;
+    this.image1 = ImageProcess.stringToImage(prod_image1,imageMimeType); //'assets/img/categories/girl/jewellery/jewellery01.jpg';
+    this.quant = quantity;
+    this.distributerId = distributorId;
+    this.product_subcat = prod_sub_category;
+    this.currentPrice=price;
+    this.longDescription=longDesc;
+    this.showOnHome=showOnHome;
+    this.allowCustomerReviews=allaCustomerReview;
+    this.approvedRatingSum=approvedRatingSum;
+    this.notApprovedRattingSum=notApprovedRattingSum;
+    this.isShipEnabled=isShipEnabled;
+    this.isNew=New;
+    this.isFreeShipping=isFreeShipping;
+    this.additionalShippingCharge=additionalShippingCharge;
+    this.DeliveryDateId=DeliveryDateId;
+    this.orderMaxQuant=orderMaxQuant;
+    this.orderMinQuant=orderMinQuant;
+    this.newFromUTC=newFromUTC;
+    this.newToUTC=newToUTC;
+    this.price=oldPrice;
+    this.rating = (rating == null)? 0 : rating;
+    this.customerCount = customerCount;
+
+
+
   }
 }
+
+
+export class Specs{
+  weight: number;
+  length: number;
+  height: number;
+  width: number;
+  additionalSpecs: Array<specialSpecs>;
+  constructor(weight:number,length:number,height:number,width:number,additonalSpecs:Array<specialSpecs>=new Array()){
+    this.weight=weight;
+    this.length=length;
+    this.height=height;
+    this.width=width;
+    this.additionalSpecs=new Array();
+    this.additionalSpecs=additonalSpecs;
+  }
+  
+}
+
+export class specialSpecs{
+  name:string;
+  val:any;
+}
+
+export class ImageProcess{
+
+  constructor(){
+
+  }
+
+  static stringToImage(imageData:string,mimeType:string,base:string="base64"):string{
+    return "data:"+mimeType+";"+base+","+imageData;
+  }
+}
+
+export class review{
+  writerName:string;
+  reviewTitle: string;
+  reviewBody:string;
+  creationDate:Date;
+  constructor(wName:string,rTitle:string,rBody:string,date:Date){
+    this.writerName = wName;
+    this.reviewTitle = rTitle;
+    this.reviewBody = rBody;
+    this.creationDate = date;
+  }
+
+}
+
+
+
 

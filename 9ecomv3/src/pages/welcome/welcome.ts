@@ -4,8 +4,10 @@ import { Storage} from '@ionic/storage';
 
 import { Order} from '../../providers/order/order';
 import { Database }from '../../providers/database';
-import { User } from '../../providers/users/users';
-import {  CategoryProvider } from '../../providers/category/category';
+import { User,UsersProvider } from '../../providers/users/users';
+import {  CategoryProvider, Category } from '../../providers/category/category';
+import { Product } from '../../providers/product/product';
+import{SearchProvider} from '../../providers/search/search';
 interface shopSlider {
   image: string;
 }
@@ -23,19 +25,19 @@ interface shopSlider {
 export class WelcomePage {
   shopSliders: shopSlider[] = [
     {
-      image: 'assets/img/welcome/welcome.png',
+      image: 'assets/img/welcome/welcome1.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome1.png',
+      image: 'assets/img/welcome/welcome2.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome2.png',
+      image: 'assets/img/welcome/welcome3.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome3.png',
+      image: 'assets/img/welcome/welcome4.jpg',
     },
     {
-      image: 'assets/img/welcome/welcome4.png',
+      image: 'assets/img/welcome/welcome5.jpg',
     },
   ];
   public ready = false;
@@ -48,47 +50,13 @@ export class WelcomePage {
     , public storage: Storage
     , public order: Order
     , public catProv : CategoryProvider
+    , public userProv: UsersProvider
+    , public searchProv: SearchProvider
   ) {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
     this.loadProgress=30;
-    this.catProv.getCategories().then(data=>{
-      this.db.categories = data;
-      this.loadProgress=50;
-      console.log(this.loadProgress);
-      this.ready = true;
-
-      this.storage.get('user').then(data=>{
-        console.log(data);
-
-        if(data != null){
-          //console.log("test");
-          this.userData = <User> data;
-          User.getInstance(this.userData.id,this.userData.name,this.userData.gender,this.userData.password,this.userData.email,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
-          //console.log(User.getInstance())
-          this.loadProgress= this.loadProgress+ 30;
-          console.log(this.loadProgress);
-          
-            this.db = Database.getInstance();
-            this.order.getUserOrders(this.userData.id).then(data=>{
-              this.loadProgress= this.loadProgress+ 20;
-              console.log(this.loadProgress);
-              this.db.orders = data;
-              this.navCtrl.setRoot('TabsPage');
-            });
-            
-          
-        }else{
-          console.log(this.loadProgress);
-          this.loadProgress=100;
-          this.navCtrl.setRoot('SigninPage');
-        }
-       
-  
-       
-      })
-
-    });
+    this.getData();
 
 
 
@@ -96,9 +64,71 @@ export class WelcomePage {
 
     
   }
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad WelcomePage');
+  }
+  public async getData(){ 
+    this.db.categories = await this.catProv.getCategoriesNop();
+     
+      console.log(this.db.categories);
+      this.loadProgress=50;
+      console.log(this.loadProgress);
+      this.db.searchableObjects = this.searchProv.setSearchbleData();
+      console.log(this.db.searchableObjects);
+      this.ready = true;
+      this.db.vendors = await this.catProv.getVendors();
+      let data = await this.getUserData();
+    console.log(data);
+      if(data !=  undefined ){
+        //console.log("test");
+        this.userData = <User> data;
+        User.getInstance(this.userData.id,this.userData.name,this.userData.password,this.userData.email,this.userData.gender,this.userData.phone,this.userData.fName,this.userData.lName,this.userData.addresses);
+        //console.log(User.getInstance())
+        this.loadProgress= this.loadProgress+ 30;
+        console.log(this.loadProgress);
+        
+          this.db = Database.getInstance();
+          this.userData.Addresses = await this.userProv.getAddress(this.userData.id);
+          console.log(this.userData.Addresses);
+          this.navCtrl.setRoot('TabsPage');
+
+        
+         /*
+          this.order.getUserOrders(this.userData.id).then(data=>{
+            this.loadProgress= this.loadProgress+ 20;
+            console.log(this.loadProgress);
+            this.db.orders = data;
+           
+          });
+          */
+          
+          
+        
+      }else{
+        console.log(this.loadProgress);
+        this.loadProgress=100;
+       this.navCtrl.setRoot('SigninPage');
+      }
+
+  }
+
+
+
+
+  public async getUserData():Promise<any>{
+
+    return new Promise((resolve)=>{
+      this.storage.get('user').then(data=>{
+        console.log(data)
+        resolve(data);
+        
+      },err=>{
+        resolve(undefined);
+        console.log(err);
+      })
+    })
+   
   }
 
   

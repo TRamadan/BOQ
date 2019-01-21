@@ -1,19 +1,20 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import { Platform, MenuController, Nav  ,AlertController} from 'ionic-angular';
 import { RootProvider } from "../providers/root/root";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Storage } from '@ionic/storage';
 import { Database } from '../providers/database';
 import { Cart } from '../providers/cart/cart';
-import { User} from '../providers/users/users';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { CategoriesPage } from '../pages/categories/categories';
 import { Category ,CategoryProvider } from '../providers/category/category';
+import { TranslatorProvider } from '../providers/translator/translator';
+import { SubCateListPage } from "../pages/sub-cate-list/sub-cate-list";
+import { Product } from '../providers/product/product';
 
-import {TabsPage} from '../pages/tabs';
 
 
 export interface PageInterface {
@@ -40,6 +41,8 @@ export class Ecom9App {
   public subcatArray: Array<any>;
   public open: boolean;
   public category: string = "main";
+
+  public backButtonActive: boolean=false;
   @ViewChild(Nav) nav: Nav;
   database: Database;
   cart: Cart;
@@ -91,13 +94,14 @@ export class Ecom9App {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public catProv: CategoryProvider,
+    public trnasProv: TranslatorProvider,
+    public alertCtrl : AlertController
   ) {
 
 
 
     this.catArray = new Array();
     this.subcatArray = new Array();
-
 
 
 
@@ -110,14 +114,22 @@ export class Ecom9App {
 
   initializeApp() {
     this.platform.ready().then(() => {
-
       //console.log(new Date().toJSON());
+      //this.trnasProv.changeDir('ar');
+
+      let date = new Date();
+      console.log(date.toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
-      this.menuItems = this.database.parentCategory();
-      this.catProv.getCategories().then(data=>{
+      this.menuItems = this.database.categories;
+      this.catProv.getCategoriesNop().then(data=>{
         this.database.categories = data;
-        this.catArray = this.database.categories;
+        for(let i =0 ; i < this.database.categories.length;i++){
+          if(!this.database.categories[i].deleted){
+            this.catArray.push(this.database.categories[i]);
+          }  
+        }
+       
       });
       
      
@@ -127,6 +139,37 @@ export class Ecom9App {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
+  
+    this.platform.registerBackButtonAction(()=>{
+      if(this.nav.canGoBack()){
+        this.nav.pop();
+      }else{
+        if(this.backButtonActive ==false){
+          this.backButtonActive=true;
+          const alert = this.alertCtrl.create({
+            title: 'Exit App',
+            message: 'Press Exit to Close The App',
+            buttons:[{
+              text: "Cancel",
+              role: "cancel",
+              handler: ()=>{
+                this.backButtonActive=false;
+              }
+            },{
+              text: 'Exit',
+              handler: ()=>{
+                  this.platform.exitApp();
+              }
+            }]
+          })
+          alert.present();
+        }
+      
+        
+      }
+    });
+  
   }
   //////////////////////////////////////
 
@@ -140,7 +183,7 @@ export class Ecom9App {
     })
   }
 
-  /////////////////////////////////////
+  /////////////////////////////////////////////
 
   toggleItems2(i) {
 
@@ -172,7 +215,41 @@ export class Ecom9App {
     let selectedSubCat = selectedCategory.children[subcatid];
     this.menu.close(); 
     
-    this.nav.push(CategoriesPage, {  'tabIndex': 0, 'category': selectedCategory, 'subcat': selectedSubCat });
+    this.nav.push(CategoriesPage, {  'tabIndex': 0, 'data': selectedCategory, 'subcat': selectedSubCat });
+  }
+
+
+
+  goToSubCat(subCat:any){
+    this.menu.close();
+    this.nav.push(SubCateListPage,{'data' : subCat});
+  }
+
+  hasImage( category : Category){
+    return category.image == "" ? false : true ; 
+
+  }
+
+
+  testRecursion(cate:Category,products:Array<Product>):Product[]{
+    if(cate.hasSubCates){
+      console.log(cate);
+      for(let i =0;i<cate.children.length;i++){
+        this.testRecursion(cate.children[i],products);
+      }
+      return products;
+     
+    }else{
+      products.push(...<Array<Product>> cate.children);
+      return products
+    }
+    
+  }
+  changelang(){
+    this.trnasProv.switchLang();
+  }
+  getSideOfCurLang(){
+    return this.trnasProv.side;
   }
 
   /**

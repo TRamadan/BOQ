@@ -1,6 +1,7 @@
 import { Component, ViewChild, AfterViewChecked, Input, OnChanges, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { Scroll } from 'ionic-angular';
-
+import { TranslatorProvider } from '../../providers/translator/translator';
+ 
 /*
   Generated class for the Scrolltabs component.
 
@@ -13,11 +14,17 @@ import { Scroll } from 'ionic-angular';
 })
 export class ScrollTabsComponent implements OnChanges, AfterViewChecked {
   @Input('tabs') tabs;
+  @Input('selectEnable')selectedEnable;
   @ViewChild('scrollTab') scroll: Scroll;
   @Output() onSelectedTab = new EventEmitter();
   position: number = 0;
   currentTab: any;
-  constructor() {
+  lang : string;
+  constructor(public transProv: TranslatorProvider) {
+
+    this.lang= this.transProv.getLang();
+    console.log(this.lang);
+
 
   }
 
@@ -30,6 +37,7 @@ export class ScrollTabsComponent implements OnChanges, AfterViewChecked {
   }
   
   ngAfterViewInit() {
+    console.log(this.selectedEnable);
     if (this.tabs) {
       if (this.tabs.length > 0) {
         this.tabs.forEach(tab => {

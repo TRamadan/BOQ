@@ -56,7 +56,8 @@ export class SigninPage {
     this.loginForm = this.formBuilder.group({
 
       password: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(6)]],
-      userName: ['', [Validators.required]]
+      
+      email: ['', [Validators.required, Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
     })
   }
 
@@ -65,25 +66,44 @@ export class SigninPage {
       content: 'Logging in ,Please Wait'
     }); 
     
+    
     if (this.loginForm.valid) {
-      loading.present(); 
+      loading.present();
+      let salt = await this.userProvider.getSualt(this.loginForm.value.email);
+      console.log(salt);
+      let bool=false;
+      if(salt != -1 && salt != -2){
+        bool = await this.userProvider.loginNop(this.loginForm.value.email,this.loginForm.value.password,salt);
+      }
       
-      let temp = await this.userProvider.login(this.loginForm.value.userName, this.loginForm.value.password)
-      console.log(temp);
-      if (temp ==true) {
-        console.log("kfjakjfkaj")
+      if(bool == true){
         loading.dismiss(); 
-
-        this.user = User.getInstance();
-        this.storage.set('user',this.user);
-        this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
-        this.navCtrl.setRoot(TabsPage);
+         this.user = User.getInstance();
+         this.storage.set('user',this.user);
+         this.navCtrl.setRoot(TabsPage);
+         this.user.addresses = await this.userProvider.getAddress(this.user.id);
       }else{
         loading.dismiss();
-        alert('Wrong user name or password')
-      }
+         alert('Wrong user name or password')
+       }
     }else{
       alert('Wrong user name or password')
-    }
+     }
+      //let temp = await this.userProvider.login(this.loginForm.value.email, this.loginForm.value.password)
+      //console.log(temp);
+     // if (temp ==true) {
+     //   loading.dismiss(); 
+     // this.user = User.getInstance();
+       
+       // this.storage.set('user',this.user);
+        //this.dataBase.orders = await this.orderProv.getUserOrders(this.user.id);
+       // this.navCtrl.setRoot(TabsPage);
+     // }else{
+     //   loading.dismiss();
+    //    alert('Wrong user name or password')
+    //  }
+   // }else{
+   //   alert('Wrong user name or password')
+  //  }
   }
 }

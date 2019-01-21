@@ -33,19 +33,19 @@ export class HotoffersPage {
 
   menuItems: Category[];
   constructor(public storage : Storage ,  public navCtrl: NavController, public navParams: NavParams) {
-    let db = Database.getInstance();
-    this.menuItems = db.parentCategory();
-    this.cats= db.allCategory();
-    this.allOfferd = new Array();
-     this.filtered_Array = new Array();
-     this.allOffers = new Array();
-     this.getOferedItems()
-    //iterate over the category hirerachy ..
-    // passing through the categories , subcategories , items and product
+    // let db = Database.getInstance();
+    // this.menuItems = db.parentCategory();
+    // this.cats= db.allCategory();
+    // this.allOfferd = new Array();
+    //  this.filtered_Array = new Array();
+    //  this.allOffers = new Array();
+    //  this.getOferedItems()
+    // //iterate over the category hirerachy ..
+    // // passing through the categories , subcategories , items and product
    
-    this.filter();
-    this.getAllOffers(this.allOfferd);
-    this.ReadyOffers = true;
+    // this.filter();
+    // this.getAllOffers(this.allOfferd);
+    // this.ReadyOffers = true;
    
   }
 

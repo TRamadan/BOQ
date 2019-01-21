@@ -5,9 +5,11 @@ import { IScrollTab, ScrollTabsComponent } from '../../components/scrolltabs';
 import {Database } from '../../providers/database'
 import { Cart } from '../../providers/cart/cart';
 import { Order } from '../../providers/order/order';
-import { Address ,UsersProvider, User} from '../../providers/users/users';
+import { Address ,UsersProvider, User ,state} from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 import { CategoryProvider} from '../../providers/category/category'; 
+import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
+import { ThankPage } from '../thank/thank';
 
 /**
  * Generated class for the Checkout page.
@@ -24,13 +26,16 @@ export class CheckoutPage {
   tabs: IScrollTab[] = [
     {
       name: 'Shipping',
+      nameAr: "الشحن",
       selected: true
     },
     {
       name: 'Payment',
+      nameAr:"الدفع"
     },
     {
       name: 'Confirmation',
+      nameAr:"تأكيد"
     },
   ];
   newAddress: Address;
@@ -45,11 +50,14 @@ export class CheckoutPage {
   cart: Cart;
   user : User;
   db: Database;
-  cities: string[];
+  cities: Array<state>;
   districts: string[];
   countries: string[];
   zipcodes: string[];
-  savedAddresses: Address[]; 
+  savedAddresses: Address[];  
+  public cityID : string = "";
+  ready:boolean=false;
+  isTabsSelectable=false;
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
@@ -67,18 +75,31 @@ export class CheckoutPage {
         
     this.tabBarElement = document.querySelector('.tabbar.show-tabbar');
     this.newAddress = new Address();
-    
+    this.cities=  new Array();
+    this.savedAddresses = new Array();
     this.db = Database.getInstance();
     this.user = this.userProv.getUser();
-    this.savedAddresses = this.user.addresses;
-    console.log
+     
+    this.SetData();
+
+    //console.log(this.savedAddresses);
+    
+    
     //this.cities = this.db.allCities();
     //this.districts = this.db.alldistrict();
     //this.countries = this.db.allCountries();
     //this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
     this.cart = Cart.getInstance();
-    this.shipping(0);
+    this.shipping(0); 
+  }
+
+  async SetData(){
+    this.cities = await this.userProv.getState();
+    this.savedAddresses = await this.userProv.getAddress(this.user.id);
+    console.log(this.savedAddresses);
+    this.ready=true;
+    
   }
 
   ionViewWillLeave() {
@@ -149,16 +170,23 @@ export class CheckoutPage {
     if (this.selectedTab !== this.tabs[2]) {
       if (this.selectedTab === this.tabs[0]) {
         let flgFound = false;
+        console.log(this.savedAddresses);
+        if(this.savedAddresses != undefined && this.savedAddresses.length>0){
         this.savedAddresses.forEach(addr => {
-          if (addr === this.newAddress) {
+          if (addr.toString() === this.newAddress.toString()) {
             flgFound = true;
           }
         });
+      }
         if (!flgFound) {
           if (this.isValid()) {
             console.log(this.newAddress.toString());
-            this.userProv.addAddress(this.newAddress);
-            this.scrollTab.nextTab();
+            let tempState = this.userProv.getStateByName(this.cities,this.newAddress.city);
+            console.log(tempState);
+            this.cityID = tempState.id;
+            this.newAddress.id =await this.userProv.addAddress(this.newAddress,this.newAddress.zipCode,this.user.email,this.cityID,this.user.id);
+            
+          this.scrollTab.nextTab();
           } else {
             let alert = this.alertCtrl.create({
               title: 'Address Information 1',
@@ -185,20 +213,26 @@ export class CheckoutPage {
           content: 'Send Order Please Wait'
         });
         loading.present();
-        let output =false;
-         output =await this.order.addOrder(this.cart.total(),this.newAddress.toString(),this.cart.products);
+        //let output =false;
+         console.log(this.newAddress);
+        //output =await this.order.addOrder(this.cart.total(),this.newAddress.toString(),this.cart.products);
+         let orderId = await this.order.sendOrder(this.user.id,this.newAddress.id,this.cart.total());
+         for(let i=0 ; i <this.cart.products.length;i++){
+          let output = await this.order.orderItem(orderId,this.cart.products[i].product.id,this.cart.products[i].quantity,this.cart.products[i].product.currentPrice,this.cart.total());
+        console.log(output);
+        }
         //onsole.log(output);
-        if(output){
-          this.db.categories= await this.catProv.getCategories(); 
+        if(orderId != "-1" && orderId != "-2"){
+          this.db.categories= await this.catProv.getCategoriesNop(); 
           this.cart.clear();
           loading.dismiss();
           //console.log(this.db.categories);
-          this.navCtrl.setRoot(TabsPage,{"tabIndex":2})
+          this.navCtrl.push(ThankPage,{"orderid":orderId})
           
         }else{
            
         setTimeout(()=>{
-          if(!output){
+          if(orderId == "-1" || orderId == "-2"){
             alert('Connection Error Please Try again');
           }
           loading.dismiss()
@@ -214,6 +248,7 @@ export class CheckoutPage {
   chooseAddress(addr : Address) {
     console.log(addr);
     this.newAddress = new Address(addr.houseNum,addr.street,addr.Block,addr.district,addr.city,addr.country,addr.zipCode);
+    this.newAddress.id = addr.id;
     console.log(this.newAddress);
     this.address = 'new';
   }
@@ -260,9 +295,12 @@ export class CheckoutPage {
     }
   }
   isValid() {
-    console.log(this.newAddress);
     return (this.newAddress.street !== '' && this.newAddress.houseNum !== undefined)
       && (this.newAddress.city !== '' && this.newAddress.country !== undefined)
       && (this.newAddress.district !== '' && this.newAddress.zipCode !== undefined)
+  }
+
+  hasAddress(){
+    return this.user.addresses!= undefined && this.user.addresses.length > 0 ? true : false;
   }
 }

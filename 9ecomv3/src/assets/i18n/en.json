@@ -1,0 +1,50 @@
+{
+    "language": "العربيه",
+    "sideMenu":{
+        "title": "Categories"
+    },
+    "tabs":{
+        "home": "Home",
+        "search": "Search",
+        "myCart": "MyCart",
+        "profile": "Profile",
+        "offers": "Offers"
+    },
+    "myCartPage":{
+        "title": "Shopping bag",
+        "noItemHeader": "No Items In Cart",
+        "redirectButton": "Continue Shopping",
+        "placeOrderButton": "Place this order"
+    },
+    "profilePage":{
+        "title": "Account Details",
+        "segments":{
+            "profile":"Profile",
+            "myOrders": "My Orders",
+            "wishList": "Wish List",
+            "address": "My Address"
+        },
+        "profileSegment":{
+            "logOutButton": "SignOut"
+        },
+        "myOrdersSegment":{
+            "noOrders":  "No Orders Made"
+        },
+        "wishListSegment":{
+            "noWishList": "No Items"
+        },
+        "savedAddressSegment":{
+            "noAddress": "No Address"
+        }
+
+
+    },
+    "SubCateListPage":{
+        "subCategoriesButton": "SubCategories",
+        "allProductsButton": "All Products"
+    },
+    "homePage":{
+        "BrowseBySupplier": "Suppliers",
+        "BrowseByCategory": "Categories"
+    }
+}

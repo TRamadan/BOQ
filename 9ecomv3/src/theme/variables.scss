@@ -32,23 +32,31 @@ ion-card img {
 // The "primary" color is the only required color in the map.
 
 $colors: ( 
-   primary: #333333,
-   secondary: #e0a018,
+   primary: #e94d3a,
+   secondary: #e94d3a,
    danger: #f15a67,
    light: #f4f4f4,
-   dark: #e2c12b,
-   pearl: #ffffff,
+   dark: #000000,
+   pearl: #e9eaea,
    primarydark:#0081b1,
    lightdark: #d9d9d9,
    greydark: #858585,
-   processing: #e0a018
+   processing: #e0a018,
+   golden: #f9a618,
+   wight: #ffffff
+
   );
 
 
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
+ion-navbar.toolbar{
+  background-color: color($colors,primary);
+}
+.toolbar-background-md{
+  background-color: color($colors,primary) !important;
+}
 .tabs-ios .tabbar{
   color: color($colors, primary);
   background: color($colors, primary)!important;
@@ -73,12 +81,25 @@ $colors: (
 
 
 .tabs-md .tabbar{
-  color: color($colors, primary);
-  background: color($colors, primary)!important;
+  color: color($colors, wight);
+  background: color($colors, wight)!important;
 }
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
-  color:color($colors, dark)!important;
+  color:color($colors, golden)!important;
 }
+
+.tabs-md .tab-button[aria-selected=true] {
+  color: color($colors, golden)!important;
+}
+.tabs-md .tab-button .tab-button-icon {
+  color:color($colors, primary)!important;
+}
+
+.tabs-md-primary .tab-button, .tabs-md-primary .tab-button-icon {
+  color:color($colors, primary)!important;
+}
+
+
 
 // App Windows Variables
 // --------------------------------------------------
@@ -110,30 +131,41 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
-$tabs-background: color($colors, dark);
+$tabs-background: color($colors, primary);
  
- $tabs-wp-tab-color: color($colors, lightdark);
- $tabs-wp-tab-icon-color: color($colors, lightdark);
+ $tabs-wp-tab-color: color($colors, primary);
+ $tabs-wp-tab-icon-color: color($colors, primary);
  $tabs-wp-tab-color-active: color($colors, primary);
  $tabs-wp-tab-icon-color-active: color($colors, primary);
 
- $tabs-md-tab-icon-color: color($colors, lightdark);
- $tabs-md-tab-text-color: color($colors, lightdark);
+ $tabs-md-tab-icon-color: color($colors, primary);
+ $tabs-md-tab-text-color: color($colors, primary);
  $tabs-md-tab-icon-color-active: color($colors, primary);
  $tabs-md-tab-text-color-active: color($colors, primary);
 
- $tabs-ios-tab-text-color: color($colors, lightdark);
- $tabs-ios-tab-icon-color: color($colors, lightdark);
+ $tabs-ios-tab-text-color: color($colors, primary);
+ $tabs-ios-tab-icon-color: color($colors, primary);
  $tabs-ios-tab-icon-color-active: color($colors, primary);
  $tabs-ios-tab-text-color-active: color($colors, primary);
  
  /* Header Toolbar */
  
- $toolbar-background: color($colors, pearl);
+ $toolbar-background: color($colors, primary);
  $toolbar-border-color: transparent;
  .toolbar-white-button {
    color: #fff;
  }
+
+
+ ion-navbar{
+  background-color: color($colors,wight) !important;
+}
+.toolbar-background-md{
+  background-color: color($colors,wight) !important;
+}
+.toolbar-background-ios{
+  background-color:  color($colors,wight) !important;
+}
  
  ion-title {
    div {
@@ -148,8 +180,14 @@ $tabs-background: color($colors, dark);
  }
  
  .menu-image {
-   height: 3.6vw;
+   height: 2.6vh;
  }
+ .menu-logo-img{
+  height: 7vh;
+  width: 36vw;
+  margin: auto;
+  display: block;
+}
  
  /*.no-scroll .scroll-content {
    overflow: hidden;
@@ -304,3 +342,20 @@ $tabs-background: color($colors, dark);
    border-bottom-color: transparent !important;
    box-shadow: none !important;
  }
+
+
+ .swiper-container-android .swiper-slide, .swiper-wrapper{
+  transform: translate3d(0, 0, 0) ;
+ }
+
+ .toolbar-title-md {
+  padding: 0 12px;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+  color: color($colors,primary) !important ;
+  background-color: transparent;
+}

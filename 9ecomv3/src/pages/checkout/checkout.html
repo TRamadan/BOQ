@@ -6,17 +6,17 @@
 -->
 <ion-header no-border>
   <ion-navbar>
-    <button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Checkout</ion-title>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="information()">
-        <ion-icon name="information-circle"></ion-icon>
-      </button>
-    </ion-buttons>
+
+  <div>
+    <ion-title>
+      <img src="assets/img/Logo.PNG"  class="menu-logo-img">
+    
+    </ion-title>
+  </div>
+ 
   </ion-navbar>
-  <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+
+  <scroll-tabs #scrollTab [selectEnable]="isTabsSelectable" [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
 </ion-header>
 
 
@@ -34,9 +34,10 @@
           </ion-segment-button>
         </ion-segment>
       </div>
-
+      <div *ngIf="ready">
       <div [ngSwitch]="address">
         <div class="new-address" *ngSwitchCase="'new'">
+         
           <ion-list class="address-form">
             <ion-row>
               <ion-col>
@@ -65,10 +66,15 @@
               <ion-col>
                 <ion-item>
                   <ion-label stacked>City</ion-label>
+                 
+                    <ion-select [(ngModel)]="newAddress.city" >
+                      <ion-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</ion-option>
+                    </ion-select>
                   
-                    <ion-input type="text" [(ngModel)]="newAddress.city"></ion-input>
+                    
                   
                 </ion-item>
+              
               </ion-col>
             </ion-row>
 
@@ -91,6 +97,7 @@
               </ion-col>
             </ion-row>
           </ion-list>
+          <!--
           <div class="delivery">
             <div class="title">Delivery</div>
             <div class="action-button-wrapper">
@@ -108,14 +115,17 @@
               </div>
             </div>
           </div>
+          -->
         </div>
 
         <div class="saved-address" *ngSwitchCase="'saved'">
           <div class="address-container">
             <ion-list class="address-list">
+              <div *ngIf="hasAddress()">
               <ion-item-sliding *ngFor="let addr of savedAddresses">
                 <ion-item class="address-list-item" (tap)="chooseAddress(addr)">
-                <h2>{{addr.houseNum}} {{addr.street}}</h2>
+                
+                  <h2>{{addr.houseNum}} {{addr.street}}</h2>
                   <div class="detail">{{addr.Block}},</div>
                   <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
                   <div item-right class="right-bag">
@@ -128,9 +138,11 @@
                   </button>
                 </ion-item-options>
               </ion-item-sliding>
+            </div>
             </ion-list>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <!-- END SHIPPING SECTION -->
@@ -163,15 +175,15 @@
 
             <ion-item>
               <ion-icon [class.selected]="paymentType==='wallet'" item-left name="closed-captioning"></ion-icon>
-              <ion-label [class.selected]="paymentType==='wallet'">E-wallet</ion-label>
+              <ion-label [class.selected]="paymentType==='wallet'">Fawry</ion-label>
               <ion-radio value="2"></ion-radio>
             </ion-item>
 
-            <ion-item>
+            <!-- <ion-item>
               <ion-icon [class.selected]="paymentType==='card'" item-left name="card"></ion-icon>
               <ion-label [class.selected]="paymentType==='card'">Credit Card</ion-label>
               <ion-radio value="3"></ion-radio>
-            </ion-item>
+            </ion-item> -->
           </ion-list>
         </div>
         <div class="payment-footer">
@@ -216,7 +228,7 @@
               <h2>{{item.product.name}}</h2>
               
               <div class="price-wrapper">
-                <div class="price">LE {{item.product.price - item.product.discount}}</div>
+                <div class="price">LE {{item.product.currentPrice}}</div>
               </div>
             </ion-item>
           </ion-list>

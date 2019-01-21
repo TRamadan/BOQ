@@ -63,14 +63,25 @@ export class SignupPage {
       loading.present();
       //console.log(this.gender);
       //console.log(this.location)
-     
-      let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
-      loading.dismiss();
-      if(bool == true){
+       let add = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email);
+       console.log(add);
+       loading.dismiss();
+       if(add!= "-1"){
+        
+        console.log(this.userProvider.user);
         this.navCtrl.setRoot(TabsPage);
+        
       }else{
         alert("this user name is used Please try a new one");
       }
+       
+      //let bool = await this.userProvider.Regester(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.fname,this.registerForm.value.lname,"",this.registerForm.value.phone,this.registerForm.value.email,'1');  
+     
+     // if(bool == true){
+     //  
+     // }else{
+      // 
+     // }
       
   }else{
     alert("Invaled fields");

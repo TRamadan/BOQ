@@ -6,12 +6,11 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="assets/img/menu.png" class="menu-image">
-    </button>
-    <ion-title>
-      <div>B<span>OQ</span></div>
-    </ion-title>
+   
+    
+    <img src="assets/img/Logo.PNG"  class="menu-logo-img">
+    
+    
   </ion-navbar> 
   <form action="">
       <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
@@ -20,6 +19,70 @@
 
 
 <ion-content class="page-search">
+
+    <ion-segment [(ngModel)]="searchSegment" color="secondary">
+        <ion-segment-button value="Products">
+          <div class="search-change">Products</div>
+        </ion-segment-button>
+        <ion-segment-button value="Vendors">
+          <div class="search-change">Vendors</div>
+        </ion-segment-button>
+      </ion-segment>
+
+     
+      <div *ngIf="searchSegment == 'Products' ">
+          <ion-list class="cart-list" >
+              <ion-item class="cart-list-item" *ngFor="let product of resultsProd " (tap)="toProduct(product)">
+                <ion-thumbnail item-left class="item-thumbnail">
+                  <img class="img" [src]="product.image1">
+              </ion-thumbnail>
+              <div class="item-name-container">
+                <div class="item-name">{{product.name}}</div>
+                <div class="item-vendor">{{product.company_name}}</div>
+                <rating rating="{{product.rating}}" cCount="{{product.customerCount}}"></rating>
+              </div>
+              <div class="price-wrapper" *ngIf="product.price !=0">
+                <div class="price">{{product.currentPrice}}</div> <div class="">LE</div>
+                <div class="old-price">{{product.price}} </div> <div>LE</div>
+              </div>
+              <div class="price-wrapper" *ngIf="product.price === 0">
+                <div class="price">{{product.currentPrice}}</div>    
+                <div class="">LE</div> 
+              </div>
+              <div item-right class="right-bag">
+                <div *ngIf="product.status === 'in'" class="available">In stock</div>
+                <div *ngIf="product.status === 'out'" class="notavailable">Out of stock</div>
+              </div>
+              </ion-item>
+            </ion-list>
+            
+      </div>
+      <div *ngIf="searchSegment == 'Vendors'">
+        <ion-list class="cart-list" >
+            <ion-item class="cart-list-item" *ngFor="let Vendor of resultsVend " (tap)="toVendor(Vendor)">
+              <ion-thumbnail item-left>
+                  <img [src]="Vendor.image">
+              </ion-thumbnail>
+                <h2 [innerHTML]="Vendor.name"></h2>
+                
+            </ion-item>
+          </ion-list>
+          
+    </div>
+    <!-- <div class="search-change-wrapper">
+        <div class="search-change-round">
+          <div class="search-change">
+            <button ion-button class="change-button" >Products</button>
+          </div>
+          <div class="search-change">
+              <button ion-button class="change-button" >Vendor</button>
+          </div>
+        </div>
+      </div> -->
+
+
+
+  <!--   
   <div class="result-list">
 
     <ion-list class="cart-list" [virtualScroll]="results" [approxItemHeight]="'88px'">
@@ -27,13 +90,13 @@
         <ion-thumbnail item-left>
             <img [src]="product.image1">
         </ion-thumbnail>
-          <h2 [innerHTML]="decorateTitle(product.name)"></h2>
-          <h3 [innerHTML]="decorateTitle(product.company_name)"></h3>
-        <div class="price-wrapper" *ngIf="product.price != product.currentPrice">
+          <h2 [innerHTML]="product.name"></h2>
+          
+        <div class="price-wrapper" *ngIf="product.price != 0">
           <div class="price">{{product.currentPrice}} LE</div>
           <div class="old-price">{{product.price}} LE</div>
         </div>
-        <div class="price-wrapper" *ngIf="product.price == product.currentPrice">
+        <div class="price-wrapper" *ngIf="product.price ==0">
           <div class="price">{{product.currentPrice}} LE</div>
           
         </div>
@@ -46,5 +109,5 @@
     
     
      
-  </div>
+  </div> -->
 </ion-content>

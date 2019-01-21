@@ -6,12 +6,8 @@
 -->
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <img src="assets/img/menu.png" class="menu-image">
-    </button>
-    <ion-title>
-      Shopping bag
-    </ion-title>
+    
+    <img src="assets/img/Logo.PNG"  class="menu-logo-img">
   </ion-navbar>
 </ion-header>
 
@@ -19,26 +15,26 @@
 <ion-content class="page-mycart">
   <div class="no-items" *ngIf="cart.products.length === 0">
     <div class="title">
-      No Item in Cart
+     {{'myCartPage.noItemHeader' | translate}}
     </div>
     <div class="no-items-image">
       <img src="assets/img/thankyou.png">
     </div>
     <div class="no-items-round">
-      <button ion-button clear (tap)="shopping()">Continue Shopping</button>
+      <button ion-button clear (tap)="shopping()">{{'myCartPage.redirectButton' | translate}}</button>
     </div>
   </div>
   <ion-list class="cart-list">
     <ion-item-sliding *ngFor="let item of cart.products; let i = index;">
-      <ion-item class="cart-list-item" [class.odd]="i%2!==0">
+      <ion-item class="cart-list-item" [class.odd]="i%2!==0 " (tap)="toProduct(item)">
         <ion-thumbnail item-left>
           <img [src]="item.product.image1">
         </ion-thumbnail>
         <h2>{{item.product.name}}</h2>
         
         <div class="price-wrapper">
-          <div class="price"> {{item.product.price - item.product.discount}} LE</div>
-          <div *ngIf="item.product.discount==0" class="old-price"> {{item.product.discount}} LE</div>
+          <div class="price"> {{item.product.currentPrice}} LE</div>
+          <div *ngIf="item.product.price!=0" class="old-price"> {{item.product.price}} LE</div>
           
         </div>
         <div item-right class="right-bag">
@@ -75,7 +71,7 @@
   <div class="place-order-wrapper" *ngIf="cart.products.length>0">
     <div class="place-order-round">
       <div class="place-order">
-        <button ion-button clear (tap)="placeOrder()">Place this order</button>
+        <button ion-button clear (tap)="placeOrder()">{{'myCartPage.placeOrderButton' | translate}}</button>
       </div>
       <div class="order-price">
         {{cart.total()}} LE

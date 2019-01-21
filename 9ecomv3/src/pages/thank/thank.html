@@ -5,6 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+    <img src="assets/img/Logo.PNG"  class="menu-logo-img">
 </ion-header>
 
 
@@ -18,7 +19,7 @@
     </div>
   </div>
   <div class="order">
-    Order number: <span>#SC1234535</span>
+    Order number: <span>#{{orderId}}</span>
   </div>
   <div class="thank-image">
     <img src="assets/img/thankyou.png">
@@ -33,14 +34,8 @@
   </div>
 </ion-content>
 
-<ion-footer class="clear-gap" no-border>
+<ion-footer class="clear-gap thanks-footer" >
   <div class="track-order-wrapper">
-    <div class="track-order">
-      <button ion-button round full color="dark">Track your order here</button>
-    </div>
-    <div class="andor">
-      or
-    </div>
   </div>
   <div class="action-button">
     <button ion-button full (click)="shopping()">Continue Shopping <ion-icon name="arrow-round-forward"></ion-icon></button>

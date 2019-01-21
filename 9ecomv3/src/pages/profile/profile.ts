@@ -7,6 +7,7 @@ import { Cart,CartProduct} from '../../providers/cart/cart';
 import { User , Address ,UsersProvider} from '../../providers/users/users';
 import { Product } from '../../providers/product/product';
 import { OrderData } from '../../providers/order/order';
+import { TranslatorProvider } from '../../providers/translator/translator';
 /**
  * Generated class for the Profile page.
  *
@@ -22,21 +23,27 @@ import { OrderData } from '../../providers/order/order';
 export class ProfilePage { 
 
   u : any;
+  tabNum:any;
   tabs: IScrollTab[] = [
     {
       name: 'Profile',
+      nameAr: 'الملف الشخصي',
       selected: true
     },
     {
       name: 'My orders',
+      nameAr: 'طلباتي'
     },
     {
       name: 'Wishlist',
+      nameAr: 'المفضل'
     },
     {
       name: 'Saved Address',
+      nameAr: 'عنواني'
     },
-  ]; 
+  ];
+  isTabsSelectable=true;
 
   quantity : number = 1;
   selectedTab: IScrollTab;
@@ -56,6 +63,7 @@ export class ProfilePage {
     , public userProv : UsersProvider
     , public storage: Storage
     , public app: App
+    , public transProv: TranslatorProvider
   ) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
@@ -65,6 +73,8 @@ export class ProfilePage {
     this.wishProducts = this.db.allWishList(); 
     this.orders = this.db.allOrders();  
     console.log(this.user);
+    console.log(this.isTabsSelectable);
+    this.tabNum='0';
     
   }
 
