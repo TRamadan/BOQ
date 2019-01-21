@@ -44,7 +44,7 @@
         "allProductsButton": "All Products"
     },
     "homePage":{
-        "BrowseBySupplier": "Suppliers",
-        "BrowseByCategory": "Categories"
+        "Supplier": "Suppliers",
+        "Category": "Categories"
     }
 }

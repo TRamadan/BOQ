@@ -9,7 +9,7 @@
     
       <img src="assets/img/Logo.PNG"  class="menu-logo-img">
     
-    
+    <button ion-button (tap)="changelang()">{{'language' | translate}}</button>
   </ion-navbar> 
 </ion-header>
 <ion-content center class="page-home pane no-scroll">
@@ -29,12 +29,12 @@
 
 
 
-  <ion-segment [(ngModel)]="viewNum" color="secondary">
+  <ion-segment mode="md" [(ngModel)]="viewNum" color="secondary">
   <ion-segment-button value="0">
-    <div class="search-change">Categories</div>
+    <div class="search-change">{{'homePage.Category' | translate}}</div>
   </ion-segment-button>
   <ion-segment-button value="1">
-    <div class="search-change">Vendors</div>
+    <div class="search-change">{{'homePage.Supplier' | translate}}</div>
   </ion-segment-button>
 </ion-segment>
 
@@ -67,10 +67,7 @@
       <img [src] = "getImgContent(item.image)">
     </div>
   
-    <!--<div class="temp">
-      {{item.company_name}}
-    </div>-->
-
+   
   </div>
   </div>
 </div>

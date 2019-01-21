@@ -78,20 +78,7 @@ ion-navbar.toolbar{
 .toolbar-background-ios{
   background-color: color($colors,primary) !important;
 }
-.tabs-ios .tabbar{
-  color: color($colors, primary);
-  background: color($colors, primary)!important;
-}
-.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
-  color:color($colors, dark)!important;
-}
-.tabs-ios .tab-button[aria-selected=true] {
-  color: color($colors, dark)!important;
-}
-.button-ios{
-  background: color($colors,primary);
-  color: color($colors,dark)!important;
-}
+
 
 
 

@@ -6,6 +6,7 @@ import { Storage } from "@ionic/storage";
 import { Category, CategoryProvider, Vendor } from '../../providers/category/category';
 import { Database} from '../../providers/database';
 import { SubCateListPage } from '../sub-cate-list/sub-cate-list';
+import { TranslatorProvider } from '../../providers/translator/translator';
 
 
 
@@ -71,6 +72,7 @@ export class HomePage {
     , public navParams: NavParams
     , public catProv: CategoryProvider
     , private sanitizer: DomSanitizer
+    , private trnasProv: TranslatorProvider
 
     
 
@@ -206,6 +208,9 @@ export class HomePage {
     this.viewNum=number;
     console.log(this.viewNum);
   }
+  changelang(){
+    this.trnasProv.switchLang();
+  }
 
   }
   
@@ -233,6 +238,9 @@ class customSlider{
     this.itemCol1= this.items.slice(0,this.items.length/2);
     this.itemCol2= this.items.slice(this.items.length/2, this.items.length);
   }
+
+
+  
   
 }
 

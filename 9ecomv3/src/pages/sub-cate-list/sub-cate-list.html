@@ -18,7 +18,7 @@
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     </form>
 
-    <ion-segment [(ngModel)]="listSelected" color="secondary">
+    <ion-segment mode="md" [(ngModel)]="listSelected" color="secondary">
       <ion-segment-button value="0" >
         <div class="search-change">Categories</div>
       </ion-segment-button>

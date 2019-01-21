@@ -45,8 +45,8 @@
         "allProductsButton": "جميع المنتجات"
     },
     "homePage":{
-        "BrowseBySupplier": "الموزعين",
-        "BrowseByCategory": "الفئات"
+        "Supplier": "الموزعين",
+        "Category": "الفئات"
     }
 }
     
