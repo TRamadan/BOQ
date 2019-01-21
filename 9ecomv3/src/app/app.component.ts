@@ -116,7 +116,7 @@ export class Ecom9App {
     this.platform.ready().then(() => {
       //console.log(new Date().toJSON());
       //this.trnasProv.changeDir('ar');
-
+      this.changelang();
       let date = new Date();
       console.log(date.toJSON());
       this.database = Database.getInstance();
@@ -228,22 +228,6 @@ export class Ecom9App {
   hasImage( category : Category){
     return category.image == "" ? false : true ; 
 
-  }
-
-
-  testRecursion(cate:Category,products:Array<Product>):Product[]{
-    if(cate.hasSubCates){
-      console.log(cate);
-      for(let i =0;i<cate.children.length;i++){
-        this.testRecursion(cate.children[i],products);
-      }
-      return products;
-     
-    }else{
-      products.push(...<Array<Product>> cate.children);
-      return products
-    }
-    
   }
   changelang(){
     this.trnasProv.switchLang();

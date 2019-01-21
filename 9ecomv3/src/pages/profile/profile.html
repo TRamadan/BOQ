@@ -19,16 +19,16 @@
   </div> -->
   <ion-segment [(ngModel)]="tabNum" color="secondary">
     <ion-segment-button value="0" >
-      <div class="search-change">Profile</div>
+      <div class="search-change">{{'profilePage.segments.profile' | translate}}</div>
     </ion-segment-button>
     <ion-segment-button value="1">
-      <div class="search-change">My orders</div>
+      <div class="search-change">{{'profilePage.segments.myOrders' | translate}}</div>
     </ion-segment-button>
     <ion-segment-button value="2">
-      <div class="search-change">Wishlist</div>
+      <div class="search-change">{{'profilePage.segments.wishList' | translate}}</div>
     </ion-segment-button>
     <ion-segment-button value="3">
-      <div class="search-change">Saved Address</div>
+      <div class="search-change">{{'profilePage.segments.address' | translate}}</div>
     </ion-segment-button>
   </ion-segment>
   
@@ -158,9 +158,9 @@
               <h2>{{addr.houseNum}} {{addr.street}}</h2>
               <div class="detail">{{addr.Block}},</div>
               <div class="detail">{{addr.city}}, {{addr.district}}, {{addr.country}} {{addr.zipCode}}</div>
-              <div item-right class="right-bag">
+              <!-- <div item-right class="right-bag">
                 <button ion-button clear (click)="editAddress(addr)">Edit</button>
-              </div>
+              </div> -->
             </ion-item>
             <ion-item-options class="actiion-button" side="right">
               <button ion-button icon-only color="danger" (click)="removeAddress(addr)">
