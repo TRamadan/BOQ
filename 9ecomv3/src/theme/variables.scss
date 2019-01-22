@@ -192,7 +192,6 @@ $tabs-background: color($colors, primary);
  }
  .menu-logo-img{
   height: 7vh;
-  width: 36vw;
   margin: auto;
   display: block;
 }
@@ -390,6 +389,13 @@ $tabs-background: color($colors, primary);
  .swiper-container-android .swiper-slide, .swiper-wrapper{
   transform: translate3d(0, 0, 0) ;
  }
+
+ .toolbar-content-md{
+  display: inherit !important;
+}
+.toolbar-content-ios{
+  display: inherit;
+}
 
  .toolbar-title-md {
   padding: 0 12px;
