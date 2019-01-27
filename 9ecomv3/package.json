@@ -68,7 +68,7 @@
       "locator": "ios"
     }
   ],
-  "description": "nicecommerce: is a Premium Ionic2 Ecommerce, mCommerce Themes, Categories, Products, Products/Ads, Cart, Filters, Profile, Register, Login, Search",
+  "description": "BOQ: Market place for constructions in egypt",
   "cordova": {
     "plugins": {
       "cordova-plugin-inappbrowser": {},
