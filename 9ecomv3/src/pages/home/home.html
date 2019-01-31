@@ -61,7 +61,7 @@
 <div class="list-container" *ngSwitchCase="'1'">
   <div class="card9-container" *ngFor="let item of vendorsArray">
            
-    <div>
+    <div (tap)="vendor(item)">
     
       <div class="pic-box" >
       <img [src] = "getImgContent(item.image)">

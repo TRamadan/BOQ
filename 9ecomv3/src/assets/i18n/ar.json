@@ -47,6 +47,10 @@
     "homePage":{
         "Supplier": "الموزعين",
         "Category": "الفئات"
+    },
+    "subCategories":{
+        "Product": "السلعات",
+        "Category": "الفئات"
     }
 }
     

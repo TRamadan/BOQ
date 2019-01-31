@@ -28,10 +28,10 @@ export class TranslatorProvider {
 public switchLang(){
   if(this.getLang() == 'en'){
   this.tarnslateService.use('ar');
-  this.changeDir('ar');
+  //this.changeDir('ar');
   }else{
   this.tarnslateService.use('en');
-  this.changeDir('en');
+  //this.changeDir('en');
   }
   
 }

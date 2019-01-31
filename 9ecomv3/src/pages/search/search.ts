@@ -5,6 +5,7 @@ import { Category , CategoryProvider, Vendor} from '../../providers/category/cat
 import { Product} from '../../providers/product/product';
 import {ProductPage }from '../product/product';
 import {Database} from '../../providers/database'; 
+import { Cart } from '../../providers/cart/cart';
 
 /**
  * Generated class for the Search page.
@@ -27,6 +28,7 @@ export class SearchPage {
   Ready: boolean;
   dataBase : Database;
   searchSegment:string="";
+  cart : Cart;
   constructor(
     public storage: Storage,
     public navCtrl: NavController,
@@ -40,6 +42,7 @@ export class SearchPage {
     this.catsArr = new Array<Category>();
     this.allVendors= new Array<Vendor>();
     this.Ready=false;
+    this.cart = Cart.getInstance();
     this.dataBase =Database.getInstance();
 
     this.initializeItems();
@@ -124,6 +127,24 @@ export class SearchPage {
   toVendor(vendor: any){
     console.log(vendor);
   }
+  add2Cart(product:any) { 
+    let flgFound = false;
+    this.cart.products.forEach(specific_item => {
+      //console.log(specific_item)
+
+      if (specific_item.product != undefined && specific_item.product.id === product.id) {
+        flgFound = true;
+        specific_item.quantity = parseInt(specific_item.quantity.toString()) + 1;
+      }
+      
+    })
+    
+    if (!flgFound) {
+      this.cart.products.push({ product: product, quantity: 1 });
+    }
+  
+  }
 }
+
 
 

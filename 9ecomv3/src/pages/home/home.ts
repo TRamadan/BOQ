@@ -7,6 +7,7 @@ import { Category, CategoryProvider, Vendor } from '../../providers/category/cat
 import { Database} from '../../providers/database';
 import { SubCateListPage } from '../sub-cate-list/sub-cate-list';
 import { TranslatorProvider } from '../../providers/translator/translator';
+import { VendorPage } from '../vendor/vendor';
 
 
 
@@ -203,6 +204,9 @@ export class HomePage {
 
   toSearchPage(){
     this.navCtrl.push('SearchPage');
+  }
+  vendor(item){
+    this.navCtrl.push(VendorPage,{'vendor' : item});
   }
   changeView(number:any){
     this.viewNum=number;
