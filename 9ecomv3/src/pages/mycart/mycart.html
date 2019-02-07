@@ -27,13 +27,13 @@
   </div>
   <ion-list class="cart-list">
     <ion-item-sliding *ngFor="let item of cart.products; let i = index;">
-      <ion-item class="cart-list-item" [class.odd]="i%2!==0 " (tap)="toProduct(item)">
-        <ion-thumbnail item-left>
+      <ion-item class="cart-list-item" [class.odd]="i%2!==0 ">
+        <ion-thumbnail item-left  (tap)="toProduct(item)">
           <img [src]="item.product.image1">
         </ion-thumbnail>
-        <h2>{{item.product.name}}</h2>
+        <h2  (tap)="toProduct(item)">{{item.product.name}}</h2>
         
-        <div class="price-wrapper">
+        <div class="price-wrapper"  (tap)="toProduct(item)">
           <div class="price"> {{item.product.currentPrice}} LE</div>
           <div *ngIf="item.product.price!=0" class="old-price"> {{item.product.price}} LE</div>
           

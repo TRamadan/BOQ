@@ -33,7 +33,7 @@ export class ThankPage {
   }
 
   shopping() {
-    this.navCtrl.setRoot(TabsPage,{"tabIndex":1})
+    this.navCtrl.setRoot(TabsPage,{"tabIndex":0})
     
   }
 }

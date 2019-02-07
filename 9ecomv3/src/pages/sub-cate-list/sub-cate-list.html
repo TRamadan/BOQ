@@ -8,16 +8,17 @@
 
   <ion-navbar>
       <img src="assets/img/small-logo.png"  class="menu-logo-img">
+      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <form action="">
-        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-    </form>
-
+    
+        
     <ion-segment mode="md" [(ngModel)]="listSelected" color="secondary">
       <ion-segment-button value="0" >
         <div class="search-change">{{'subCategories.Category' | translate}}</div>
