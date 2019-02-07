@@ -5,14 +5,10 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+
   <ion-navbar>
-    
-   <button ion-button menuToggle><img src="assets/img/menu.png" class="menu-image"></button>
-   <img src="assets/img/logo.png"  class="menu-logo-img">
-   
-    
-   
-    
+   <img src="assets/img/small-logo.png"  class="menu-logo-img"> 
+   <ion-searchbar (tap)="toSearchPage()"></ion-searchbar>
   </ion-navbar>
   <!-- <div>
     <scroll-tabs #scrollTab  [tabs]="tabs" [selectEnable]="isTabsSelectable" (onSelectedTab)="tabChange($event)"></scroll-tabs>
@@ -62,6 +58,7 @@
          
           
           <button class="sign-out" ion-button (tap)="signOut()">SignOut</button>
+          <button ion-button (tap)="changelang()">{{'language' | translate}}</button>
           <!--
           <ion-item>
             <ion-icon class="info-icon" item-left name="lock"></ion-icon>
@@ -76,7 +73,7 @@
 
     <!-- MY ORDERS -->
     <div class="content-wrapper" *ngSwitchCase="1">
-      <div class="order">
+      <div class="order" >
         <ion-list class="order-list"> 
             <div *ngIf="orders.length == 0">  
                 <div class="no-items">
@@ -86,13 +83,15 @@
                 </div>
                
               </div>
-          <button ion-item *ngFor="let order of orders">
-            <div class="date">{{order.orderDate | date: 'dd-MMM-yyyy'}}</div>
-            <div class="order-number">Order id #{{order.invoiceId}}</div>
-            <ion-note [class.processing]="order.status !== 'Delivered'" [class.delivered]="order.status === 'Delivered'" item-right>
-              {{order.status}}
+              <div *ngIf="ordersReady">
+          <button ion-item *ngFor="let order of orders" (tap)="openOrder(order)">
+            <div class="date">{{order.createdOn | date: 'dd-MMM-yyyy'}}</div>
+            <div class="order-number">Order id #{{order.ID}}</div>
+            <ion-note [class.processing]="order.statusId !== '10'" [class.delivered]="order.statusId === '10'" item-right>
+              {{order.statusId}}
             </ion-note>
           </button>
+        </div>
         </ion-list>
       </div>
     </div>

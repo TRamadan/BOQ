@@ -4,8 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UsersProvider } from '../../providers/users/users';
 import { TabsPage } from '../tabs/tabs';
 import { Storage } from "@ionic/storage";
-import { Observable } from 'rxjs/Observable'; 
-import { SigninPage } from "../signin/signin";
+
 
 /**
  * Generated class for the Signup page.
@@ -63,7 +62,7 @@ export class SignupPage {
       loading.present();
       //console.log(this.gender);
       //console.log(this.location)
-       let add = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email);
+       let add = await this.userProvider.RegesterNop(this.registerForm.value.name,this.registerForm.value.password,this.registerForm.value.email,this.registerForm.value.phone);
        console.log(add);
        loading.dismiss();
        if(add!= "-1"){

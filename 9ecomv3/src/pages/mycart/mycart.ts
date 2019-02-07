@@ -62,6 +62,10 @@ export class MyCartPage {
     this.cart.removeItem(p);
   }
 
+  toSearchPage(){
+    this.navCtrl.push('SearchPage');
+  }
+
 
   toProduct(prod: any) {
     this.navCtrl.push(ProductPage, {'data': prod.product});

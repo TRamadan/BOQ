@@ -21,6 +21,8 @@ export class UsersProvider extends RootProvider {
   private logInActionString = "user_login?";
   private regesterActionString = "user_reg?";
   private getSaltActionString = "get_salt?";
+  private customerRoleActionString = "custmoer_role?";
+  private addPhonenumber = "add_phone?";
 
   private addressApiController = "address/";
   private addAddressActionString = "add_address?"
@@ -44,17 +46,26 @@ export class UsersProvider extends RootProvider {
     this.user = User.getInstance();
   }
 
-  public async RegesterNop(Username:string,password:string,email:string): Promise<any>{
+  public async RegesterNop(Username:string,password:string,email:string,PhoneNumber:string): Promise<any>{
     return new Promise((resolve)=>{
       let date = new Date();
       console.log(date);
       let F = false;
       let T = true;
-      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${Username}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${email}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
       console.log(temp);
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         console.log(data);
         if(data != null && data != undefined && data.length>0){
+          let customerRoleTemp= `${RootProvider.APIURL4}${this.userApiController}${this.customerRoleActionString}customer_id=${data[0].ID}`;
+          this.http.get(customerRoleTemp).map(res=><any>res.json()).subscribe(d2=>{
+            console.log(d2);
+          })
+          let customerPhoneTemp= `${RootProvider.APIURL4}${this.userApiController}${this.addPhonenumber}EntityId=${data[0].ID}&Value=${PhoneNumber}`;
+          console.log(customerPhoneTemp);
+          this.http.get(customerPhoneTemp).map(res=><any>res.json()).subscribe(data=>{
+            console.log(data);
+          })
           this.user = User.getInstance(data[0].ID,Username,password,email);
           resolve(data[0].ID);
 

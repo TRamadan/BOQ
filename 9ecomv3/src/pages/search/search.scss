@@ -2,6 +2,7 @@ page-search {
   .search-change-button{
 
   }
+
   .search-change-wrapper{
     width :100%;
     display: inline;
@@ -32,6 +33,18 @@ page-search {
       display: inline-block;
     }
   }
+  .order-button{
+    width: 100%;
+    border: thin solid #e94d3a;
+    color: #e94d3a;
+    text-align: center;
+    height: 4vh;
+    .order-text{
+      font-size: 1.2rem;
+      margin-top: 1vh;
+    }
+
+  }
   .result-list {
     width: 100vw;
     min-height: 90vh;
@@ -46,18 +59,7 @@ page-search {
           border-radius: 13px;
           }
         }
-        .order-button{
-          width: 100%;
-          border: thin solid #e94d3a;
-          color: #e94d3a;
-          text-align: center;
-          height: 4vh;
-          .order-text{
-            font-size: 1.2rem;
-            margin-top: 1vh;
-          }
-      
-        }
+        
         .label-md {
           height: 100%;
            margin:0;

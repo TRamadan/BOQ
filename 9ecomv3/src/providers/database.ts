@@ -205,7 +205,7 @@ export class Database {
   addOrder(order: OrderData) {
     this.orders.push(order); 
     console.log(order);
-    this.orders = this.orders.sort((a, b) => { return b.orderDate.getTime() - a.orderDate.getTime() });
+    // this.orders = this.orders.sort((a, b) => { return b.orderDate.getTime() - a.orderDate.getTime() });
   }
 
   parentCategory(): Category[] {

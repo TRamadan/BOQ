@@ -7,14 +7,14 @@
 <ion-header>
   <ion-navbar>
     
-      <img src="assets/img/logo.png"  class="menu-logo-img">
+      <img src="assets/img/small-logo.png"  class="menu-logo-img">
     
-    <button ion-button (tap)="changelang()">{{'language' | translate}}</button>
+      <ion-searchbar (tap)="toSearchPage()"></ion-searchbar>
   </ion-navbar> 
 </ion-header>
 <ion-content center class="page-home pane no-scroll">
 
-        <ion-searchbar (tap)="toSearchPage()"></ion-searchbar>
+       
 
 
 

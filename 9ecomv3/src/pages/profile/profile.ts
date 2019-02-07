@@ -6,8 +6,9 @@ import { Database } from '../../providers/database';
 import { Cart,CartProduct} from '../../providers/cart/cart';
 import { User , Address ,UsersProvider} from '../../providers/users/users';
 import { Product } from '../../providers/product/product';
-import { OrderData } from '../../providers/order/order';
+import { OrderData, Order } from '../../providers/order/order';
 import { TranslatorProvider } from '../../providers/translator/translator';
+import { OrderDetailsPage } from '../order-details/order-details';
 /**
  * Generated class for the Profile page.
  *
@@ -55,6 +56,7 @@ export class ProfilePage {
   orders: OrderData[];
   cart: Cart; 
   user : User;
+  ordersReady=false;
   
   // this a flag to show the user is exists or not to show his data in the profile
   constructor(public navCtrl: NavController
@@ -64,6 +66,7 @@ export class ProfilePage {
     , public storage: Storage
     , public app: App
     , public transProv: TranslatorProvider
+    , public orderProv: Order
   ) {
     this.selectedTab = this.tabs[0];
     this.db = Database.getInstance();
@@ -75,6 +78,11 @@ export class ProfilePage {
     console.log(this.user);
     console.log(this.isTabsSelectable);
     this.tabNum='0';
+    this.orderProv.getUserOrders(this.user.id).then(data=>{
+      this.orders=data;
+      console.log(this.orders);
+      this.ordersReady=true;
+    });
     
   }
 
@@ -157,6 +165,9 @@ export class ProfilePage {
   removeWish(wish: Product) {
     this.db.removeWish(wish);
   }
+  openOrder(order:OrderData){
+    this.navCtrl.push(OrderDetailsPage,{'order': order});
+  }
   signOut(){
       this.storage.remove('user');
       if(this.app.getActiveNavs()!= undefined &&this.app.getActiveNavs().length >0)
@@ -167,5 +178,12 @@ export class ProfilePage {
        
       }
      
+  }
+  toSearchPage(){
+    this.navCtrl.push('SearchPage');
+  }
+
+  changelang(){
+    this.transProv.switchLang();
   }
 }

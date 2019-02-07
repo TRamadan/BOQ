@@ -8,13 +8,12 @@
   <ion-navbar>
    
     
-    <img src="assets/img/logo.png"  class="menu-logo-img">
-    
-    
+    <img src="assets/img/small-logo.png"  class="menu-logo-img">
+
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   </ion-navbar> 
-  <form action="">
-      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
-  </form>
+      
+
 </ion-header>
 
 

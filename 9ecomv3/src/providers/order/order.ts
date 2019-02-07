@@ -1,9 +1,13 @@
 import { Http } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 
 import { User } from '../users/users';
 import { RootProvider } from '../root/root';
 import { CartProduct, Cart } from '../cart/cart';
+import { Item } from 'ionic-angular';
+import {CategoryProvider} from '../category/category';
+import {Database} from '../database';
+import { Product } from '../product/product';
 /*
   Generated class for the OrderProvider provider.
 
@@ -13,10 +17,9 @@ import { CartProduct, Cart } from '../cart/cart';
 @Injectable()
 export class Order extends RootProvider {
   user: User;
-  orderAPi: string = "main";
-  getUserOrderApi: string ="users"
-
-  
+  db: Database;
+  catProv : CategoryProvider;
+  private getUserOrderActionString: string ="get_user_orders?"
   private orderApiConntroller = "orders/";
   private addOrderActionString = "add_order?";
   private addItemOrderActionString = "add_item_to_order?";
@@ -26,7 +29,10 @@ export class Order extends RootProvider {
 
 
   constructor(http : Http) {
+
     super(http);
+
+    this.catProv = new CategoryProvider(http);
     
   }
   public async sendOrder(userId:string,addressId:string,totalPrice:number) :Promise<any>{
@@ -66,71 +72,56 @@ export class Order extends RootProvider {
 
 
 
-  public async addOrder(totalPrice : number
-    ,deleveryAddress:string
-    ,items : Array<CartProduct>
-    ,paymentId :string ='1'
-    ,shippingId : string = '1'
-    ,long : string ='0'
-    ,latt : string ='0'
-  ) : Promise<any> {
-    this.user = User.getInstance();
-    this.orderData = new OrderData(this.user.id,paymentId,shippingId,totalPrice,new Date(),deleveryAddress,long,latt,items);
-    let count = 0;
-    for(let i = 0;i<this.orderData.items.length;i++){
-      let totalItemPrice= this.orderData.items[i].product.price * this.orderData.items[i].quantity;
-      let bool = await this.sendSingleItem(this.orderData.items[i].product.distributerLinkId ,this.orderData.items[i].quantity,totalItemPrice);
-      if(bool == true){
-        count++;
-      }
+ 
+
+
+  public async getUserOrders (userId:string) : Promise<any>{
+    this.db= Database.getInstance();
+    let categories= this.db.categories;
+    let items = new Array();
+    for(let i = 0 ;i<categories.length;i++){
+      let tempArr = new Array<Product>();
+        tempArr =this.catProv.getCateItem(categories[i],tempArr);
+       
+        items.push(...tempArr);
+
     }
-    console.log(count)
-    console.log(this.orderData.items.length)
+    
     return new Promise((resolve)=>{
-      if(count == this.orderData.items.length){
-        console.log("all orders sent");
-        resolve (true);
-      }
-      resolve(false)
-    })
-    
-    
-
-    
-  }
-
-  private async sendSingleItem(itemId:string,quantity: number,totalItemPrice) :Promise<any>{
-    return new Promise((resolve)=>{
+      let str = `${RootProvider.APIURL4}${this.orderApiConntroller}${this.getUserOrderActionString}CustomerId=${userId}`;
       
-      let str = `${RootProvider.APIURL3}${this.orderAPi}?item_id=${itemId}&user_id=${this.orderData.userId}&payment_id=${this.orderData.paymentId}&shipping_id=${this.orderData.shippingId}&quantity=${quantity}&total_price=${totalItemPrice}&invoice_id=${this.orderData.invoiceId}&order_datetime=${this.orderData.orderDate.toJSON()}&deliver_address=${this.orderData.deleveryAddress}&deliver_long=${this.orderData.deleveryLong}&deliver_latt=${this.orderData.deleverLatt}`;
-      console.log(str);
-      this.http.get(str).subscribe(data=>{
-        
-        resolve(true)
-      },err=>{
-        console.error(err);
-        resolve(false);
-      }
-      )
-    })
-  }
-
-
-  public async getUserOrders(userId:string) : Promise<any>{
-    return new Promise((resolve)=>{
-      let str = `${RootProvider.APIURL3}${this.getUserOrderApi}?user_id=${userId}`;
-      console.log(str);
       this.http.get(str).map(res=><any>res.json()).subscribe(data=>{
         let Orders= new Array<OrderData>();
         if(data != null && data.length != 0){
-          console.log(data);
           
-          for(let i = 0 ; i <data.length ; i++){
-            Orders.push(new OrderData(userId,data[i].payment_id,data[i].shipping_id,data[i].total_price,new Date(data[i].order_datetime),data[i].deliver_to,data[i].deliver_long,data[i].deliver_latt,new Array<CartProduct>(),data[i].invoice_id));
+          let counter=0;
+          for(let i = 0 ; i <data.length ; i=i+1+counter){
+            let orderItems = new Array<OrderItem>();
+            counter=0;
             
+            for(let j=i;j<data.length;j++)
+            {
+              
+              if(data[j].Id == data[i].Id){
+                counter++
+               
+                for(let k=0 ; k<items.length;k++){
+                  if(items[k].id == data[j].ProductId){
+                    orderItems.push(new OrderItem(data[j].ProductId,items[k].image1,data[j].UnitPriceInclTax,data[j].Quantity,items[k].name));
+                  }
+                }
+              }
+              
+              
+            }
+
+            Orders.push(new OrderData(data[i].Id,data[i].CreatedOnUtc,data[i].OrderGuid,data[i].OrderTotal,data[i].ShippingStatusId,orderItems));
+           
+           
           }
          
         }
+        console.log(Orders);
         resolve(Orders);
       
       },err=>{
@@ -142,46 +133,40 @@ export class Order extends RootProvider {
 
 }
 export class OrderData {
-  userId: string
-  paymentId: string
-  shippingId: string
-  totalPrice: number
-  invoiceId: string
-  orderDate: Date
-  deleveryAddress: String
-  deleveryLong: string
-  deleverLatt: string
-  items: Array<CartProduct>;
-
-  constructor(userId:string
-    ,paymentId:string
-    ,shippingId:string
-    ,totalPrice:number
-    ,orderDate: Date
-    ,deleveryAddress:string
-    ,deleveryLong:string
-    ,delevertlatt:string
-    ,items:Array<CartProduct>
-    ,invoiceId:string =""
+  ID: string;
+  createdOn: string;
+  Guid: string;
+  totalPrice: number;
+  statusId:string;
+  Items: Array<OrderItem>;
+  constructor(Id
+    ,createdOn
+    ,Guid
+    ,totalPrice
+    ,statusId
+    ,items
   ){
-    this.items = new Array<CartProduct>();
-    this.items = items;
-    this.userId= userId;
-    this.paymentId= paymentId;
-    this.shippingId=shippingId;
-    this.totalPrice= totalPrice;
-    this.invoiceId= invoiceId== "" ? this.genrateInvoiceId(orderDate, userId) : invoiceId;
-    this.orderDate= orderDate;
-    this.deleveryAddress= deleveryAddress;
-    this.deleveryLong= deleveryLong;
-    this.deleverLatt= delevertlatt;
+    this.ID=Id;
+    this.createdOn=createdOn;
+    this.Guid = Guid;
+    this.totalPrice=totalPrice;
+    this.statusId = statusId;
+    this.Items = items;
   }
+}
 
-  private genrateInvoiceId(date : Date, id : string) : string{
-    
-   
-    return id +  date.getMinutes().toString()+date.getHours().toString() + date.getSeconds().toString();
-
+export class OrderItem{
+  id:string;
+  image: string;
+  price: number;
+  Quantity: number;
+  name: string;
+  constructor(id,image,price,quantity,name){
+    this.id=id;
+    this.image=image;
+    this.price=price;
+    this.Quantity=quantity;
+    this.name=name;
   }
 }
 

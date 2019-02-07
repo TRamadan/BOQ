@@ -58,7 +58,7 @@ export class HomePage {
   //this variable is to get the all the categories with all items and all subcategories
   category_array : Array<Category>;
   vendorsArray : Array<Vendor>;
-  viewNum:any='0';
+  viewNum:any;
 
 
   //this is a variable
@@ -98,6 +98,7 @@ export class HomePage {
     //   console.log(data);
     // })
     console.log(this.tempRating);
+    
     this.categorySlider= new customSlider(this.category_array.slice(1,5),4,1);
     this.vendorSlider = new customSlider(this.vendorsArray.slice(1,5),4,1);
     console.log(this.categorySlider)
