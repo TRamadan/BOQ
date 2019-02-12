@@ -1,4 +1,7 @@
 page-sub-cate-list {
+  .item-name {
+    margin: 1.3vh 0 0 0;
+}
 .cart-list-item{
   width: 100%;
   border-bottom: thin solid #3b3b3b;
@@ -55,7 +58,7 @@ page-sub-cate-list {
   color: #d4902a;
 }
 .item-name-container{
-  margin: 1.3vh 0 0 0;
+  
   width: 61%;
   white-space: normal;
   display: inline-block;

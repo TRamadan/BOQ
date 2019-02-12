@@ -44,18 +44,17 @@
       <ion-thumbnail item-left class="item-thumbnail"  (tap)="toProduct(product)"> 
           <img class="img" [src]="product.image1">
       </ion-thumbnail>
+      <div    (tap)="toProduct(product)" class="item-name">{{product.name}}</div>
       <div class="item-name-container"  (tap)="toProduct(product)">
-        <div class="item-name">{{product.name}}</div>
         <div class="item-vendor">{{product.company_name}}</div>
         <rating rating="{{product.rating}}" cCount="{{product.customerCount}}"></rating>
       </div>
       <div class="price-wrapper" *ngIf="product.price !=0" (tap)="toProduct(product)">
-        <div class="price">{{product.currentPrice}}</div> <div class="">LE</div>
-        <div class="old-price">{{product.price}} </div> <div>LE</div>
+        <div class="price">{{product.currentPrice}} LE</div> 
+        <div class="old-price">{{product.price}} LE </div> 
       </div>
       <div class="price-wrapper" *ngIf="product.price === 0" (tap)="toProduct(product)">
-        <div class="price">{{product.currentPrice}}</div>    
-        <div class="">LE</div> 
+        <div class="price">{{product.currentPrice}} LE</div>    
         
       </div>
       <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">Add To Cart</div></div> 

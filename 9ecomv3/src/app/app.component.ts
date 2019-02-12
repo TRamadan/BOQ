@@ -138,10 +138,12 @@ export class Ecom9App {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      console.log(this.nav)
     });
 
   
     this.platform.registerBackButtonAction(()=>{
+      
       if(this.nav.canGoBack()){
         this.nav.pop();
       }else{

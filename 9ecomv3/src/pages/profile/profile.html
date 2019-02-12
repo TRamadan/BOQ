@@ -111,23 +111,25 @@
               </div>
           <ion-item-sliding *ngFor="let wish of wishProducts">
             <ion-item class="cart-list-item">
-              <ion-thumbnail item-left>
-                <img [src]="wish.image1">
+              <ion-thumbnail item-left class="item-thumbnail"  (tap)="toProduct(wish)"> 
+                  <img class="img" [src]="wish.image1">
               </ion-thumbnail>
-              <h2>{{wish.name}}</h2>
-        
-              <div class="price-wrapper">
-                <div class="price">LE {{wish.price - wish.discount}}</div>
-                <div class="old-price">LE {{wish.price}}</div>
+              <div class="item-name-container"  (tap)="toProduct(wish)">
+                <div class="item-name">{{wish.name}}</div>
+                <div class="item-vendor">{{wish.company_name}}</div>
+                <rating rating="{{wish.rating}}" cCount="{{wish.customerCount}}"></rating>
               </div>
-              <button *ngIf="wish.status === 'in'" class="add-button" round small ion-button clear (tap)="add2Cart(wish)">Add to cart</button>
-              <button *ngIf="wish.status === 'out'" round small ion-button clear></button>
+              <div class="price-wrapper" *ngIf="wish.price !=0" (tap)="toProduct(wish)">
+                <div class="price">{{wish.currentPrice}}</div> <div class="">LE</div>
+                <div class="old-price">{{wish.price}} </div> <div>LE</div>
+              </div>
+              <div class="price-wrapper" *ngIf="wish.price === 0" (tap)="toProduct(wish)">
+                <div class="price">{{wish.currentPrice}}</div>    
+                <div class="">LE</div> 
+                
+              </div>
+              <div  class="order-button" (tap)="add2Cart(wish)"><div class="order-text">Add To Cart</div></div> 
              
-              <!--
-              <div item-right class="right-bag">
-                <div *ngIf="wish.status === 'in'" class="available">In stock</div>
-                <div *ngIf="wish.status === 'out'" class="notavailable">Out of stock</div>
-              </div> --> 
             </ion-item>
             <ion-item-options class="actiion-button" side="right">
               <button ion-button icon-only color="danger" (tap)="removeWish(wish)">

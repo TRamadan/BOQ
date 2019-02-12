@@ -9,6 +9,7 @@ import { Product } from '../../providers/product/product';
 import { OrderData, Order } from '../../providers/order/order';
 import { TranslatorProvider } from '../../providers/translator/translator';
 import { OrderDetailsPage } from '../order-details/order-details';
+import { ProductPage } from '../product/product';
 /**
  * Generated class for the Profile page.
  *
@@ -74,9 +75,10 @@ export class ProfilePage {
     this.user = this.userProv.getUser();
     this.savedAddresses = this.user.addresses;
     this.wishProducts = this.db.allWishList(); 
+    
     this.orders = this.db.allOrders();  
     console.log(this.user);
-    console.log(this.isTabsSelectable);
+    console.log(this.wishProducts);
     this.tabNum='0';
     this.orderProv.getUserOrders(this.user.id).then(data=>{
       this.orders=data;
@@ -130,36 +132,21 @@ export class ProfilePage {
     this.userProv.removeAddress(addr);
   }
 
-  add2Cart(wish: Product) {
-    let cp: CartProduct;
-    cp = {
-      product: wish,
-      quantity: 1,
-     // color: wish.color,
-     // size: wish.size,
-    };
+  add2Cart(product:any) { 
     let flgFound = false;
-    console.log(wish);
-    this.cart.products.forEach(Wish => {
-      if (Wish.product.id === cp.product.id) {
-        flgFound = true;   
-        if(Wish.quantity >= wish.quant) 
-        {
-          Wish.quantity = wish.quant;
-          cp.quantity = 0;
-        }else if(Wish.quantity < 0) 
-        {
-          Wish.quantity = 0; 
-        }
-        
-       
-        Wish.quantity = parseInt(Wish.quantity.toString()) + parseInt(cp.quantity.toString());
+    this.cart.products.forEach(specific_item => {
+      //console.log(specific_item)
+
+      if (specific_item.product != undefined && specific_item.product.id === product.id) {
+        flgFound = true;
+        specific_item.quantity = parseInt(specific_item.quantity.toString()) + 1;
       }
+      
     })
-    if (!flgFound) {
-      this.cart.products.push(cp);  
-    } 
     
+    if (!flgFound) {
+      this.cart.products.push({ product: product, quantity: 1 });
+    }
   }
 
   removeWish(wish: Product) {
@@ -182,8 +169,13 @@ export class ProfilePage {
   toSearchPage(){
     this.navCtrl.push('SearchPage');
   }
+  toProduct(prod: Product) {
+    this.navCtrl.push(ProductPage, {'data': prod});
+  }
 
   changelang(){
     this.transProv.switchLang();
   }
+
+  
 }
