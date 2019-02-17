@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Platform, MenuController, Nav  ,AlertController} from 'ionic-angular';
+import { Platform, MenuController, Nav  ,AlertController, NavController} from 'ionic-angular';
 import { RootProvider } from "../providers/root/root";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -14,6 +14,7 @@ import { Category ,CategoryProvider } from '../providers/category/category';
 import { TranslatorProvider } from '../providers/translator/translator';
 import { SubCateListPage } from "../pages/sub-cate-list/sub-cate-list";
 import { Product } from '../providers/product/product';
+import { TabsPage } from '../pages/tabs/tabs';
 
 
 
@@ -44,6 +45,7 @@ export class Ecom9App {
 
   public backButtonActive: boolean=false;
   @ViewChild(Nav) nav: Nav;
+  @ViewChild(NavController) navCtrl: NavController;
   database: Database;
   cart: Cart;
   menuItems: Category[];
@@ -138,14 +140,14 @@ export class Ecom9App {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      console.log(this.nav)
+      console.log(this.navCtrl);
     });
 
   
     this.platform.registerBackButtonAction(()=>{
       
-      if(this.nav.canGoBack()){
-        this.nav.pop();
+      if(this.navCtrl.canGoBack()){
+        this.navCtrl.pop();
       }else{
         if(this.backButtonActive ==false){
           this.backButtonActive=true;
