@@ -39,16 +39,16 @@
           
         </div>
         <div item-right class="right-bag">
-          <div class="right-button">
-            <button ion-button clear (tap)="incQty(item)">
+          <div class="right-button"  (tap)="incQty(item)">
+            <button ion-button clear>
             <ion-icon class="add" name="add"></ion-icon>
           </button>
           </div>
           <div class="right-quantity">
             {{item.quantity}}
           </div>
-          <div class="right-button">
-            <button ion-button clear icon-only (tap)="decQty(item)">
+          <div class="right-button" (tap)="decQty(item)">
+            <button ion-button clear icon-only >
             <ion-icon name="remove"></ion-icon>
           </button>
           </div>
