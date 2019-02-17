@@ -52,7 +52,7 @@ export class UsersProvider extends RootProvider {
       console.log(date);
       let F = false;
       let T = true;
-      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${email}&Email=${email}&Password=${password}&PasswordFormatId=0&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
+      let temp = `${RootProvider.APIURL4}${this.userApiController}${this.regesterActionString}Username=${email}&Email=${email}&Password=${password}&PasswordFormatId=1&IsTaxExempt=${F}&AffiliateId=0&VendorId=0&HasShoppingCartItems=${F}&Active=${T}&Deleted=${F}&IsSystemAccount=${F}&LastActivityDateUtc=${date.toJSON()}`;
       console.log(temp);
       this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
         console.log(data);
