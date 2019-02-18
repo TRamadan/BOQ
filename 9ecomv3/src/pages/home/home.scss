@@ -6,6 +6,9 @@ background-color: #fff;
 //   bottom: 3vh;
 //   width: 100%;
 // }
+.slider-image{
+  width: 100%;
+}
 .search-change{
   font-size: 1.6em;
 }
@@ -14,7 +17,7 @@ background-color: #fff;
     display: inline-block;
     margin: 2vw 0 0 2vw;
     width: 29vw;
-    height: 19vh;
+    height: 14vh;
     background-color: color($colors, pearl);
     .pic-box {
       text-align: center;
@@ -24,7 +27,7 @@ background-color: #fff;
       img {
         border-radius: 13px;
 
-        height: 19vh;
+        height: 14vh;
       }
     }
     .title {
@@ -345,8 +348,16 @@ background-color: #fff;
     width: inherit;
     height: inherit;
   }
+  // .swiper-slide{
+  //   width: 150px !important;
+  // }
+  .slide-item{
+    width: 33vw!important;
+    padding-left: 6px;
+  }
   .slides{
     height: 23vh;
+    
   }
   .category-img{
     width: 100%;

@@ -59,6 +59,7 @@ export class HomePage {
   category_array : Array<Category>;
   vendorsArray : Array<Vendor>;
   viewNum:any;
+  viewType:number=0;
 
 
   //this is a variable
@@ -209,9 +210,8 @@ export class HomePage {
   vendor(item){
     this.navCtrl.push(VendorPage,{'vendor' : item});
   }
-  changeView(number:any){
-    this.viewNum=number;
-    console.log(this.viewNum);
+  changeView(){
+    this.viewType = (this.viewType==0)? 1 : 0;
   }
   changelang(){
     this.trnasProv.switchLang();

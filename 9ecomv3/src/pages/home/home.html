@@ -26,9 +26,12 @@
  </ion-slides>
   </div>
 
+  <div>
+    <button ion-button (tap)="changeView()">Change View Type</button>
+  </div>
 
 
-
+  <div  *ngIf="viewType==0">
   <ion-segment mode="md" [(ngModel)]="viewNum" color="secondary">
   <ion-segment-button value="0">
     <div class="search-change">{{'homePage.Category' | translate}}</div>
@@ -37,6 +40,8 @@
     <div class="search-change">{{'homePage.Supplier' | translate}}</div>
   </ion-segment-button>
 </ion-segment>
+
+
 
 
 <div [ngSwitch]="viewNum">
@@ -71,5 +76,27 @@
   </div>
   </div>
 </div>
+</div>
+</div>
+
+
+<div *ngIf="viewType==1">
+  <div>
+    <ion-slides dir="auto"  loop="true" class="slides" pager="true" [slidesPerView]="3">
+      <ion-slide (tap)="categories(Image)" *ngFor="let Image of category_array">
+         <img class="slider-image" src="{{Image.image}}" alt="Product Image">
+      </ion-slide>
+ </ion-slides>
+  </div>
+
+
+
+   <div>
+    <ion-slides dir="auto"  loop="true" class="slides" pager="true" [slidesPerView]="3">
+      <ion-slide (tap)="vendor(Image)"  *ngFor="let Image of vendorsArray">
+         <img class="slider-image" src="{{Image.image}}" alt="Product Image">
+      </ion-slide>
+ </ion-slides>
+  </div> 
 </div>
 </ion-content>
