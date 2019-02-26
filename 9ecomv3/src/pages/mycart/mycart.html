@@ -5,11 +5,11 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <!-- <ion-navbar>
     
     <img src="assets/img/small-logo.png"  class="menu-logo-img">
     <ion-searchbar (tap)="toSearchPage()"></ion-searchbar>
-  </ion-navbar>
+  </ion-navbar> -->
 </ion-header>
 
 
@@ -70,9 +70,9 @@
   </ion-list>
 
   <div class="place-order-wrapper" *ngIf="cart.products.length>0">
-    <div class="place-order-round">
+    <div class="place-order-round" (tap)="placeOrder()">
       <div class="place-order">
-        <button ion-button clear (tap)="placeOrder()">{{'myCartPage.placeOrderButton' | translate}}</button>
+        <button ion-button clear >{{'myCartPage.placeOrderButton' | translate}}</button>
       </div>
       <div class="order-price">
         {{cart.total()}} LE

@@ -31,7 +31,7 @@ export class CategoryProvider {
 
 
   constructor(public http: Http) {
-    console.log('Hello SubCategoriesProvider Provider');
+    //console.log('Hello SubCategoriesProvider Provider');
   }
 
 
@@ -58,7 +58,7 @@ export class CategoryProvider {
   public async getItemsNop(): Promise<any> {
     let comps = <Array<Vendor>> await this.getVendors();
     return new Promise((resolve) => {
-      console.log(`${RootProvider.APIURL4}Product`);
+     // console.log(`${RootProvider.APIURL4}Product`);
       this.http.get(`${RootProvider.APIURL4}${this.productApiController}${this.productsActionString}product`).map(res => <any>res.json()).subscribe(data => {
         if (data == undefined || data.length == 0) {
           resolve([]);
@@ -165,7 +165,7 @@ export class CategoryProvider {
               subcat[i].children = tempChildren;
             }
           }
-          console.log(subcat);
+         // console.log(subcat);
           resolve(subcat);
           // console.log(subcat);
 
@@ -201,7 +201,7 @@ export class CategoryProvider {
             }
 
           }
-          console.log(catArray);
+         // console.log(catArray);
 
           resolve(catArray);
           // this.storage.set("appData", this.catArray);
@@ -216,7 +216,7 @@ export class CategoryProvider {
 
   getCateItem(cate: Category, products: Array<Product>): Product[] {
     if (cate.hasSubCates) {
-      console.log(cate);
+     // console.log(cate);
       for (let i = 0; i < cate.children.length; i++) {
         this.getCateItem(cate.children[i], products);
       }

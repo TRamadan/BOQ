@@ -5,6 +5,7 @@ import { CategoriesPage } from '../categories/categories';
 import { Product } from '../../providers/product/product';
 import { ProductPage } from '../product/product';
 import { Cart } from '../../providers/cart/cart';
+import { timingSafeEqual } from 'crypto';
 
 /**
  * Generated class for the SubCateListPage page.
@@ -26,17 +27,18 @@ export class SubCateListPage {
   results:Array<any>;
   listSelected:any;
   name="";
+  route:Array<string>;
 
   cart: Cart;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public CateProv : CategoryProvider) {
-    
+   
     this.category = this.navParams.get('data');
     this.name =this.category.name;
     this.products = new Array();
-    console.log(this.category);
+    //console.log(this.category);
     this.products = this.CateProv.getCateItem(this.category,this.products);
-    console.log(this.products);
+    //console.log(this.products);
     this.results = this.category.children;
     this.listSelected='0';
   
@@ -45,18 +47,31 @@ export class SubCateListPage {
 
   ionViewDidLoad() {
     this.cart = Cart.getInstance();
-    console.log('ionViewDidLoad SubCateListPage');
+    this.route= new Array();
+    let routers = new Array();
+    routers = this.navParams.get('routes');
+    if(routers == undefined){
+      this.route.push(this.category.name);
+    }else{
+      this.route = routers
+      this.route.push(this.category.name);
+      }
+      console.log(this.route);
+    //console.log('ionViewDidLoad SubCateListPage');
+  }
+  ionViewDidEnter(){
+    console.log(this.navCtrl.config)
+    // if(this.route != undefined && this.route.length> 1 ){
+    //   this.route.pop();
+    // }
   }
 
   openSubCate(subCate : Category){
-    console.log(subCate);
+   // console.log(subCate);
     //console.log(subCate.children[0] instanceof Category );
-    if(subCate.children != undefined && subCate.children[0] instanceof Category ){
-      this.navCtrl.push(SubCateListPage,{'data': subCate});
-    }else{
-      
-      this.navCtrl.push(CategoriesPage,{'data':subCate});
-    }
+   
+      this.navCtrl.push(SubCateListPage,{'data': subCate , 'routes': this.route});
+   
   }
 
 
@@ -67,7 +82,7 @@ export class SubCateListPage {
   }
 
   toProduct(prod: Product) {
-    this.navCtrl.push(ProductPage, {'data': prod});
+    this.navCtrl.push(ProductPage, {'data': prod });
   }
 
   getItems(ev: any) {
@@ -134,7 +149,20 @@ export class SubCateListPage {
     if (!flgFound) {
       this.cart.products.push({ product: product, quantity: 1 });
     }
+    console.log(this.cart);
   
+  }
+
+  getProdQuant(id :any){
+    if(this.cart != undefined){
+      for(let i =0;i<this.cart.products.length;i++){
+        if(id== this.cart.products[i].product.id){
+          return this.cart.products[i].quantity;
+        }
+      }
+    }
+    
+    return 0;
   }
 
 

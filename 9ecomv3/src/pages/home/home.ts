@@ -116,7 +116,7 @@ export class HomePage {
   
 
   ionViewDidEnter() {
-    this.viewNum='0';
+   
     console.log(this.viewNum);
     // this variable is to get the subcategories, when the categoriespage is pushed , 
     // the subcategories is loaded as needed
@@ -136,6 +136,7 @@ export class HomePage {
 }
 
   ionViewDidLoad() {
+    this.viewNum='0';
     console.log('HomePage');
   }
  

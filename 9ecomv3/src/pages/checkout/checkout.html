@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header no-border>
-  <ion-navbar>
+  <!-- <ion-navbar>
 
   <div>
     <ion-title>
@@ -14,7 +14,7 @@
     </ion-title>
   </div>
  
-  </ion-navbar>
+  </ion-navbar> -->
 
   <scroll-tabs #scrollTab [selectEnable]="isTabsSelectable" [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
 </ion-header>
@@ -170,13 +170,13 @@
             <ion-item>
               <ion-icon [class.selected]="paymentType==='cash'" item-left name="cash"></ion-icon>
               <ion-label [class.selected]="paymentType==='cash'">Cash on delivery</ion-label>
-              <ion-radio value="1"></ion-radio>
+              <ion-radio value="cash"></ion-radio>
             </ion-item>
 
             <ion-item>
               <ion-icon [class.selected]="paymentType==='wallet'" item-left name="closed-captioning"></ion-icon>
               <ion-label [class.selected]="paymentType==='wallet'">Fawry</ion-label>
-              <ion-radio value="2"></ion-radio>
+              <ion-radio value="wallet"></ion-radio>
             </ion-item>
 
             <!-- <ion-item>

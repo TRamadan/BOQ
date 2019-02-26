@@ -6,8 +6,8 @@
 -->
 <ion-header>
     <ion-navbar>
-    <img src="assets/img/logo.png"  class="menu-logo-img">
-    <!-- <button ion-button class="skip" (click)="skip()">
+    <!-- <img src="assets/img/logo.png"  class="menu-logo-img">
+    <button ion-button class="skip" (click)="skip()">
         Back
     </button> -->
   </ion-navbar>
@@ -26,18 +26,24 @@
   </div>
   <ion-list class="clear-list"> 
     <form [formGroup]="registerForm" (ngSubmit)="onRegester()">
-
-    <ion-item>
-      <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
-      <ion-label floating>User name</ion-label>
-      <ion-input formControlName="name" type="text"></ion-input>
-    </ion-item>
+        <ion-item>
+            <ion-icon class="input-icon" ios="ios-mail-outline" md="md-mail" item-left></ion-icon>
+            <ion-label floating>Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
 
     <ion-item>
         <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
         <ion-label floating>Password</ion-label>
         <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
+
+    <ion-item>
+        <ion-icon class="input-icon" ios="ios-lock-outline" md="md-lock" item-left></ion-icon>
+        <ion-label floating>Confirm Password</ion-label>
+        <ion-input formControlName="passwordConfirm" type="password"></ion-input>
+    </ion-item>
+
 
     <ion-item>
         <ion-icon class="input-icon" ios="ios-person-outline" md="md-person" item-left></ion-icon>
@@ -51,11 +57,7 @@
           <ion-input formControlName="lname" type="text"></ion-input>
         </ion-item>
 
-    <ion-item>
-      <ion-icon class="input-icon" ios="ios-mail-outline" md="md-mail" item-left></ion-icon>
-      <ion-label floating>Email</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
-    </ion-item>
+    
 
     <ion-item>
       <ion-icon class="input-icon" ios="ios-phone-portrait-outline" md="md-phone-portrait" item-left></ion-icon>

@@ -90,6 +90,7 @@ export class CheckoutPage {
     //this.countries = this.db.allCountries();
     //this.zipcodes = this.db.allZipCodes();
     this.selectedTab = this.tabs[0];
+    
     this.cart = Cart.getInstance();
     this.shipping(0); 
   }
@@ -107,12 +108,16 @@ export class CheckoutPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CheckoutPage');
+    console.log('ionViewDidLoad CheckoutPage')
+    if(this.user.addresses.length > 0){
+      this.address ='saved';
+      console.log(this.address);
+    };
     this.tabBarElement.style.display = 'none';
   }
 
   ionViewDidEnter() {
-    this.menu.swipeEnable(false, 'ecom9');
+  
   }
 
   tabChange(data: any) {

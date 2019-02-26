@@ -17,9 +17,17 @@
 
 
 <ion-content padding>
+
+    <div>
+        <ion-slides dir="left"  loop="true" class="slides"[slidesPerView]="3">
+          <ion-slide class="slider-container" *ngFor="let item of results">
+             <div (tap)="openSubCate(item)" class="slider-div"><div class="slider-name">{{item.name}}</div></div>
+          </ion-slide>
+     </ion-slides>
+      </div>
     
         
-    <ion-segment mode="md" [(ngModel)]="listSelected" color="secondary">
+    <!-- <ion-segment mode="md" [(ngModel)]="listSelected" color="secondary">
       <ion-segment-button value="0" >
         <div class="search-change">{{'subCategories.Category' | translate}}</div>
       </ion-segment-button>
@@ -33,13 +41,16 @@
     <ion-item *ngFor="let subCat of results">
       <ion-label (tap)="openSubCate(subCat)">{{subCat.name}}</ion-label>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
 
 
 
 
-  <ion-list *ngSwitchCase="'1'" >
+  <!-- <ion-list *ngSwitchCase="'1'" > -->
+    <div class="scroll-container">
+      <ion-scroll scrollY="true" class="scroll-list">
+    <ion-list>
     <ion-item class="cart-list-item" *ngFor="let product of products">
       <ion-thumbnail item-left class="item-thumbnail"  (tap)="toProduct(product)"> 
           <img class="img" [src]="product.image1">
@@ -57,11 +68,11 @@
         <div class="price">{{product.currentPrice}} LE</div>    
         
       </div>
-      <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">Add To Cart</div></div> 
+      <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">Add To Cart</div> <ion-badge mod="ios" *ngIf="getProdQuant(product.id) > 0 " color="danger">{{ getProdQuant(product.id) }}</ion-badge></div> 
      
     </ion-item>
   </ion-list>
-
+</ion-scroll>
 </div>
 
 </ion-content>

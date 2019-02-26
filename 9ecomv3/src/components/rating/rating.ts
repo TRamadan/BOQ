@@ -52,19 +52,19 @@ export class RatingComponent {
   }
 
   create(){
-    console.log(this.customerCount);
-    console.log(this.rating);
+   // console.log(this.customerCount);
+   // console.log(this.rating);
     if(this.rating > 0 && this.customerCount > 0){
       this.fullStarts = Math.floor(this.rating/this.customerCount);
-      console.log(this.fullStarts);
+     // console.log(this.fullStarts);
       this.fullStartsArr.length=this.fullStarts;
       this.emptyStarts = this.starCount-this.fullStarts;
       this.emptySartsArr.length=this.emptyStarts;
-      console.log(this.rating/this.customerCount)
+     // console.log(this.rating/this.customerCount)
       if((this.rating/this.customerCount)!=this.fullStarts){
         this.halfStar =true;
         this.emptySartsArr.pop();
-        console.log(this.halfStar);
+       // console.log(this.halfStar);
       }else{
         this.halfStar = false
       }
@@ -94,7 +94,7 @@ export class RatingComponent {
        }
        
      }
-     console.log("rating is : "+ temp);
+    // console.log("rating is : "+ temp);
      this.ratedStars=temp;
      this.ratedStarsEmpty=this.starCount-this.ratedStars;
      
@@ -104,17 +104,17 @@ export class RatingComponent {
      this.readyToRate=true;
      this.doneRating=true;
      
-     console.log('ratedStars Are :'+ this.fullStartsArr.length);
-     console.log('emptyStars are :'+this.emptySartsArr.length);
+     //console.log('ratedStars Are :'+ this.fullStartsArr.length);
+     //console.log('emptyStars are :'+this.emptySartsArr.length);
 
    }
 
 
    async addReview(){
-    console.log(this.body);
-    console.log(this.title);
+     //console.log(this.body);
+    //console.log(this.title);
     let temp = await this.userProv.rate(this.prodId,this.ratedStars,this.body,this.title);
-    console.log(temp);
+   // console.log(temp);
     }
 
    
