@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , PopoverController } from 'ionic-angular';
 import { Category,CategoryProvider } from '../../providers/category/category';
 import { CategoriesPage } from '../categories/categories';
 import { Product } from '../../providers/product/product';
 import { ProductPage } from '../product/product';
 import { Cart } from '../../providers/cart/cart';
 import { timingSafeEqual } from 'crypto';
+import { CateListModalPage } from '../cate-list-modal/cate-list-modal';
 
 /**
  * Generated class for the SubCateListPage page.
@@ -31,7 +32,7 @@ export class SubCateListPage {
 
   cart: Cart;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public CateProv : CategoryProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public CateProv : CategoryProvider , public popoverCtrl : PopoverController) {
    
     this.category = this.navParams.get('data');
     this.name =this.category.name;
@@ -133,6 +134,15 @@ export class SubCateListPage {
   // }
 
 
+  hasCart(){
+    return this.cart==undefined||this.cart.products.length==0 ? false : true;
+  }
+
+  placeOrder() {
+    this.navCtrl.push('CheckoutPage');
+  }
+
+
 
   add2Cart(product:any) { 
     let flgFound = false;
@@ -163,6 +173,19 @@ export class SubCateListPage {
     }
     
     return 0;
+  }
+
+
+  openModal(){
+    let cate ;
+    let popover = this.popoverCtrl.create(CateListModalPage,{
+      'cates' : this.results
+    },{ enableBackdropDismiss: false })
+    popover.present();
+    popover.onDidDismiss((data)=>{
+      cate = data;
+      this.openSubCate(cate);
+    })
   }
 
 

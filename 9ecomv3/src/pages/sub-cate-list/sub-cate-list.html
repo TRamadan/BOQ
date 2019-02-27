@@ -16,15 +16,17 @@
 </ion-header>
 
 
-<ion-content padding>
-
+<ion-content >
+  <button ion-button class="button-left" (tap)="openModal()">Categories</button>
+  <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">Order</button>
+<!-- 
     <div>
         <ion-slides dir="left"  loop="true" class="slides"[slidesPerView]="3">
           <ion-slide class="slider-container" *ngFor="let item of results">
              <div (tap)="openSubCate(item)" class="slider-div"><div class="slider-name">{{item.name}}</div></div>
           </ion-slide>
      </ion-slides>
-      </div>
+      </div> -->
     
         
     <!-- <ion-segment mode="md" [(ngModel)]="listSelected" color="secondary">
