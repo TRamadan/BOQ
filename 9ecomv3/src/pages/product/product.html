@@ -72,42 +72,21 @@
     </div>
 
  
-    <div class="tabs-wrapper" >
-      <div class="tabs-round" *ngIf="viewNum == '0' ">
-        <div  class="tab-selected-des">
-          <button ion-button clear (tap)="changeView('0')" >Description</button>
-        </div>
-        <div  class="tab-notselected-spec">
-            <button ion-button clear (tap)="changeView('1')" >Specefication</button>
-          </div>
-          <div  class="tab-notselected-rev">
-            <button ion-button clear (tap)="changeView('2')" >Reviews</button>
-          </div>
-      </div>
-      <div  class="tabs-round" *ngIf="viewNum == '1'">
-        <div  class="tab-notselected-des">
-            <button ion-button clear (tap)="changeView('0')" >Description</button>
-          </div>
-        <div class="tab-selected-spec">
-          <button ion-button clear (tap)="changeView('1')" >Specefication</button>
-        </div>
-        <div  class="tab-notselected-rev">
-          <button ion-button clear (tap)="changeView('2')" >Reviews</button>
-        </div>
-    </div>
-      <div  class="tabs-round" *ngIf="viewNum == '2'">
-          <div  class="tab-notselected-des">
-              <button ion-button clear (tap)="changeView('0')" >Description</button>
-            </div>
-          <div class="tab-notselected-spec">
-            <button ion-button clear (tap)="changeView('1')" >Specefication</button>
-          </div>
-          <div  class="tab-selected-rev">
-            <button ion-button clear (tap)="changeView('2')" >Reviews</button>
-          </div>
-      </div>
+ 
+
+
+      <ion-segment mode="md" [(ngModel)]="viewNum" color="secondary">
+        <ion-segment-button value="0">
+          <div class="search-change">Description</div>
+        </ion-segment-button>
+        <ion-segment-button value="1">
+          <div class="search-change">Specefication</div>
+        </ion-segment-button>
+        <ion-segment-button value="2">
+          <div class="search-change">Reviews</div>
+        </ion-segment-button>
+      </ion-segment>
       
-    </div> 
    
  
     <!--
