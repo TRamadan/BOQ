@@ -1,6 +1,7 @@
 page-mycart {
   .cart-scroll{
-    height: 60vh;
+    height: 70vh;
+    margin-top: 2vh;
   }
   .no-items {
     width: 100vw;
@@ -122,6 +123,7 @@ page-mycart {
     border: none;
   }
   .place-order-wrapper {
+    margin-top: 2vh;
     width: 100vw;
     .place-order-round {
       width: 80vw;
