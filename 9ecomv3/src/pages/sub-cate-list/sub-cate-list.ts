@@ -180,11 +180,14 @@ export class SubCateListPage {
     let cate ;
     let popover = this.popoverCtrl.create(CateListModalPage,{
       'cates' : this.results
-    },{ enableBackdropDismiss: false })
+    },{ enableBackdropDismiss: true })
     popover.present();
     popover.onDidDismiss((data)=>{
-      cate = data;
-      this.openSubCate(cate);
+      if(data != null){
+        cate = data;
+        this.openSubCate(cate);
+      }
+     
     })
   }
 
