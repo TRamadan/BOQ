@@ -17,7 +17,7 @@
 
 
 <ion-content >
-  <button ion-button class="button-left" (tap)="openModal()">Categories</button>
+  <button *ngIf=" hasProduct()" ion-button class="button-left" (tap)="openModal()">Categories</button>
   <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">Order</button>
 <!-- 
     <div>

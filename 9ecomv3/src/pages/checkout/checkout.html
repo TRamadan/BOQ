@@ -201,19 +201,7 @@
     <!-- CONFIRMATION SECTION -->
     <div class="content-wrapper" *ngSwitchCase="tabs[2]">
       <div class="confirmation">
-        <div class="shipping">
-          <div class="title-wrapper">
-            <div class="title">Shipping to
-            </div>
-           
-          </div>
-          <div class="shipping-detail" *ngIf="isValid()">
-
-            <div class="state">
-              {{newAddress.toString()}}
-            </div>
-          </div>
-        </div>
+        
         <div class="order-detail">
           <div class="title-wrapper">
             <div class="title">Your order
@@ -239,6 +227,20 @@
             </div>
            
           </div>
+          <div class="shipping">
+            <div class="title-wrapper">
+              <div class="title">Shipping to
+              </div>
+             
+            </div>
+            <div class="shipping-detail" *ngIf="isValid()">
+  
+              <div class="state">
+                {{newAddress.toString()}}
+              </div>
+            </div>
+          </div>
+
           <div class="order-total">
             <div class="title">
               Order Total

@@ -16,6 +16,13 @@ export class ProductProvider extends RootProvider {
   constructor(public http: Http) {
     super(http);
   }
+
+  public weightRatio(width:number,height:number,length:number,weight : number){
+    let weightRatio =  ((width*height*length)/200) ;
+    return weightRatio > weight ? weightRatio : weight ;
+
+  }
+
   getReviews(prodId:string):Promise<any>{
     let temp = `${RootProvider.APIURL4}${this.getReviewsAPiController}${this.getReviewsActionString}ProductId=${prodId}`;
     console.log(temp);

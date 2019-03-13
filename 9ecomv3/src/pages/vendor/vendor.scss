@@ -60,4 +60,26 @@ page-vendor {
         white-space: normal;
         display: inline-block;
       }
+
+      .scroll-list{
+        height: 100%;
+      }
+      .order-button{
+        width: 100%;
+        border: thin solid #e94d3a;
+        color: #e94d3a;
+        text-align: center;
+        height: 4vh;
+        ion-badge {
+          position: absolute;
+          top: 7.1rem;
+          right: 0.8rem;
+          opacity: 0.9;
+        }
+        .order-text{
+          font-size: 1.2rem;
+          margin-top: 1vh;
+        }
+    
+      }
 }
