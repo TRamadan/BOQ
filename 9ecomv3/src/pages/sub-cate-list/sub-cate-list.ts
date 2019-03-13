@@ -57,11 +57,11 @@ export class SubCateListPage {
       this.route = routers
       this.route.push(this.category.name);
       }
-      console.log(this.route);
+
     //console.log('ionViewDidLoad SubCateListPage');
   }
   ionViewDidEnter(){
-    console.log(this.navCtrl.config)
+  
     // if(this.route != undefined && this.route.length> 1 ){
     //   this.route.pop();
     // }
@@ -133,9 +133,17 @@ export class SubCateListPage {
 
   // }
 
+  hasProduct(){
+    return this.results==undefined||this.results.length==0 ?false : true;
+
+  }
+
 
   hasCart(){
-    return this.cart==undefined||this.cart.products.length==0 ? false : true;
+   
+      return this.cart==undefined||this.cart.products.length==0 ? false : true;
+   
+   
   }
 
   placeOrder() {
@@ -159,7 +167,7 @@ export class SubCateListPage {
     if (!flgFound) {
       this.cart.products.push({ product: product, quantity: 1 });
     }
-    console.log(this.cart);
+    
   
   }
 
@@ -187,7 +195,7 @@ export class SubCateListPage {
         cate = data;
         this.openSubCate(cate);
       }
-     
+    
     })
   }
 

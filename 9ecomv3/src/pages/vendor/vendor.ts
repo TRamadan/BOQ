@@ -104,4 +104,18 @@ export class VendorPage {
   }
 
 
+  getProdQuant(id :any){
+    if(this.cart != undefined){
+      for(let i =0;i<this.cart.products.length;i++){
+        if(id== this.cart.products[i].product.id){
+          return this.cart.products[i].quantity;
+        }
+      }
+    }
+    
+    return 0;
+  }
+
+
+
 }
