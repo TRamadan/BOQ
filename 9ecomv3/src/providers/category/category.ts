@@ -57,6 +57,7 @@ export class CategoryProvider {
 
   public async getItemsNop(): Promise<any> {
     let comps = <Array<Vendor>> await this.getVendors();
+    console.log(comps);
     return new Promise((resolve) => {
      // console.log(`${RootProvider.APIURL4}Product`);
       this.http.get(`${RootProvider.APIURL4}${this.productApiController}${this.productsActionString}product`).map(res => <any>res.json()).subscribe(data => {
@@ -125,6 +126,7 @@ export class CategoryProvider {
 
   public async getSubCategoriesNop(): Promise<any> {
     let items = await this.getItemsNop();
+    console.log(items);
     return new Promise((resolve) => {
       this.http.get(`${RootProvider.APIURL4}${this.subCategoriesApiController}${this.subCategoriesActionString}`).map(res => <any>res.json()).subscribe(data => {
         if (data == null || data.length == 0 || items.length == 0) {
@@ -176,7 +178,9 @@ export class CategoryProvider {
   }
 
   public async getCategoriesNop(): Promise<any> {
+    console.log("test2");
     let subcat = await this.getSubCategoriesNop();
+    console.log(subcat);
     return new Promise((resolve) => {
       this.http.get(`${RootProvider.APIURL4}${this.categoriesApiController}${this.categoriesActionString}`).map(res => <any>res.json()).subscribe(data => {
         if (data == null || data.length == 0 || subcat.length == 0) {

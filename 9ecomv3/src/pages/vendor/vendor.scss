@@ -1,4 +1,18 @@
 page-vendor {
+  .button-right{
+    float: right;
+    width: 30vw;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+
+  }
+  .scroll-container{
+    margin-top: 60px;
+    height: calc(100% - 85px);
+  }
+  .scroll-list{
+    height: 100%;
+  }
     .cart-list-item{
         width: 100%;
         border-bottom: thin solid #3b3b3b;

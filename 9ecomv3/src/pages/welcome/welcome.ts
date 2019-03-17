@@ -56,7 +56,7 @@ export class WelcomePage {
     this.menuCtrl.enable(false);
     this.db = Database.getInstance();
     this.loadProgress=30;
-    this.getData();
+   this.getData();
 
 
 
@@ -69,6 +69,7 @@ export class WelcomePage {
     console.log('ionViewDidLoad WelcomePage');
   }
   public async getData(){ 
+      console.log("test");
     this.db.categories = await this.catProv.getCategoriesNop();
      
       console.log(this.db.categories);

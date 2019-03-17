@@ -123,16 +123,16 @@ export class Ecom9App {
       console.log(date.toJSON());
       this.database = Database.getInstance();
       this.cart = Cart.getInstance();
-      this.menuItems = this.database.categories;
-      this.catProv.getCategoriesNop().then(data=>{
-        this.database.categories = data;
-        for(let i =0 ; i < this.database.categories.length;i++){
-          if(!this.database.categories[i].deleted){
-            this.catArray.push(this.database.categories[i]);
-          }  
-        }
+      // this.menuItems = this.database.categories;
+      // this.catProv.getCategoriesNop().then(data=>{
+      //   this.database.categories = data;
+      //   for(let i =0 ; i < this.database.categories.length;i++){
+      //     if(!this.database.categories[i].deleted){
+      //       this.catArray.push(this.database.categories[i]);
+      //     }  
+      //   }
        
-      });
+      // });
       
      
       //console.log(this.database);
@@ -140,7 +140,7 @@ export class Ecom9App {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      console.log(this.navCtrl);
+      // console.log(this.navCtrl);
     });
 
   

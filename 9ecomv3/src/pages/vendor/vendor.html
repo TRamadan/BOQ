@@ -17,7 +17,9 @@
  
 </ion-header>
 
-<ion-content >
+<ion-content>
+    <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">Order</button>
+    <div class="scroll-container">
       <ion-scroll scrollY="true" class="scroll-list">
         <ion-list>
         <ion-item class="cart-list-item" *ngFor="let product of resultsProd">
@@ -42,5 +44,5 @@
         </ion-item>
       </ion-list>
     </ion-scroll>
-
+  </div>
 </ion-content>

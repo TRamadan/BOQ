@@ -102,6 +102,16 @@ export class VendorPage {
     }
   
   }
+  hasCart(){
+   
+    return this.cart==undefined||this.cart.products.length==0 ? false : true;
+ 
+ 
+}
+
+placeOrder() {
+  this.navCtrl.push('CheckoutPage');
+}
 
 
   getProdQuant(id :any){
