@@ -40,7 +40,7 @@ export class SubCateListPage {
     //console.log(this.category);
     this.products = this.CateProv.getCateItem(this.category,this.products);
     //console.log(this.products);
-    this.results = this.category.children;
+    this.results = this.products;
     this.listSelected='0';
   
     
@@ -96,12 +96,10 @@ export class SubCateListPage {
     // if the value is an empty string  list all items
     this.results = new Array();
     //console.log(this.results.length);
-    if(this.listSelected == 0){
-      this.fillData(val,this.category.children);
-  }else{
+    
     this.fillData(val,this.products);
 
-  }
+  
     //console.log(this.allProduct.length);
   }
 

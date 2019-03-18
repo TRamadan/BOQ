@@ -53,7 +53,7 @@
     <div class="scroll-container">
       <ion-scroll scrollY="true" class="scroll-list">
     <ion-list>
-    <ion-item class="cart-list-item" *ngFor="let product of products">
+    <ion-item class="cart-list-item" *ngFor="let product of results">
       <ion-thumbnail item-left class="item-thumbnail"  (tap)="toProduct(product)"> 
           <img class="img" [src]="product.image1">
       </ion-thumbnail>
