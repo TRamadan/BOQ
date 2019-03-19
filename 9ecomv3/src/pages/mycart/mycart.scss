@@ -1,7 +1,15 @@
 page-mycart {
+  .trash{
+    width: 6vw;
+    height: 5vh;
+    font-size: 2.2em;
+  }
   .cart-scroll{
     height: 70vh;
     margin-top: 2vh;
+  }
+  .item-vendor{
+    color: #d4902a;
   }
   .no-items {
     width: 100vw;
@@ -98,7 +106,7 @@ page-mycart {
         }
       }
     }
-    .actiion-button {
+    .action-button {
       button {
         width: 18vw;
       }

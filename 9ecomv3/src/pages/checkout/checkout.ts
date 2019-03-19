@@ -79,6 +79,7 @@ export class CheckoutPage {
     this.savedAddresses = new Array();
     this.db = Database.getInstance();
     this.user = this.userProv.getUser();
+  
      
     this.SetData();
 
@@ -89,16 +90,14 @@ export class CheckoutPage {
     //this.districts = this.db.alldistrict();
     //this.countries = this.db.allCountries();
     //this.zipcodes = this.db.allZipCodes();
-    this.selectedTab = this.tabs[0];
-    
-    this.cart = Cart.getInstance();
-    this.shipping(0); 
+  
   }
 
   async SetData(){
     this.cities = await this.userProv.getState();
     this.savedAddresses = await this.userProv.getAddress(this.user.id);
     console.log(this.savedAddresses);
+    this.address = this.hasAddress() ? "saved" : "new" ;  
     this.ready=true;
     
   }
@@ -108,11 +107,18 @@ export class CheckoutPage {
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad CheckoutPage')
-    if(this.user.addresses.length > 0){
-      this.address ='saved';
-      console.log(this.address);
-    };
+    this.SetData();
+    this.selectedTab = this.tabs[0];
+    
+    this.cart = Cart.getInstance();
+    console.log(this.cart);
+    this.shipping(0);
+    // if(this.user.addresses.length > 0){
+    //   this.address ='saved';
+    //   console.log(this.address);
+    // };
     this.tabBarElement.style.display = 'none';
   }
 

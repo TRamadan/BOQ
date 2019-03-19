@@ -19,7 +19,7 @@ export class ProductProvider extends RootProvider {
 
   public weightRatio(width:number,height:number,length:number,weight : number){
     let weightRatio =  ((width*height*length)/200) ;
-    return weightRatio > weight ? weightRatio : weight ;
+    return weightRatio > weight ? Math.round(weightRatio) : Math.round(weight) ;
 
   }
 

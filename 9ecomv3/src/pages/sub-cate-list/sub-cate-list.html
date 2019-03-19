@@ -17,8 +17,8 @@
 
 
 <ion-content >
-  <button *ngIf=" hasProduct()" ion-button class="button-left" (tap)="openModal()">Categories</button>
-  <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">Order</button>
+  <button *ngIf=" hasProduct()" ion-button class="button-left" (tap)="openModal()">{{'subCatePage.categories' | translate}}</button>
+  <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">{{'subCatePage.orderButton' | translate}}</button>
 <!-- 
     <div>
         <ion-slides dir="left"  loop="true" class="slides"[slidesPerView]="3">
@@ -70,7 +70,7 @@
         <div class="price">{{product.currentPrice}} LE</div>    
         
       </div>
-      <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">Add To Cart</div> <ion-badge mod="ios" *ngIf="getProdQuant(product.id) > 0 " color="danger">{{ getProdQuant(product.id) }}</ion-badge></div> 
+      <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">{{'subCatePage.add' | translate}}</div> <ion-badge mod="ios" *ngIf="getProdQuant(product.id) > 0 " color="danger">{{ getProdQuant(product.id) }}</ion-badge></div> 
      
     </ion-item>
   </ion-list>

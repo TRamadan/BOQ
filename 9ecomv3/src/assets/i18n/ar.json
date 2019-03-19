@@ -10,6 +10,11 @@
         "profile": "الملف الشخصي",
         "offers": "العروض "
     },
+    "subCatePage":{
+        "categories": "الفئات",
+        "orderButton":"اطلب",
+        "add" : "اضف لعربه التسوق"
+    },
     "myCartPage":{
         "title": "سله التسوق",
         "noItemHeader": "لا توجد عناصر في سلة التسوق",
@@ -40,17 +45,30 @@
 
 
     },
-    "SubCateListPage":{
-        "subCategoriesButton": "الفئات الفرعيه",
-        "allProductsButton": "جميع المنتجات"
-    },
     "homePage":{
         "Supplier": "الموزعين",
         "Category": "الفئات"
     },
-    "subCategories":{
-        "Product": "السلعات",
-        "Category": "الفئات"
+    "checkOutPage":{
+        "newAddress": "عنوان جديد",
+        "savedAddress": "العناوين المسجله",
+        "houseNum": "رقم البيت",
+        "street": "الشارع",
+        "block": "الحي",
+        "district": "المنطقه",
+        "city": "المدينه",
+        "country": "الدوله",
+        "zCode": "الكود البريدي",
+        "pCode":"رقم الهدايا",
+        "apply":"سجل",
+        "cOD":"دفع عند الاستلام",
+        "fawry":"فاوري",
+        "totalAmount":"السعر كامل",
+        "yourOrder":"طلباتك",
+        "paymentSummary":"",
+        "shippingTo":"عنوان التوصيل",
+        "orderTotal":"السعر كامل",
+        "deliveryCharge":"سعر التوصيل"
     }
 }
     

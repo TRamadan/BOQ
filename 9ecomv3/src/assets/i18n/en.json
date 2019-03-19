@@ -10,6 +10,11 @@
         "profile": "Profile",
         "offers": "Offers"
     },
+    "subCatePage":{
+        "categories": "الفئات",
+        "orderButton":"اطلب",
+        "add" : "Add To Cart"
+    },
     "myCartPage":{
         "title": "Shopping bag",
         "noItemHeader": "No Items In Cart",
@@ -47,8 +52,27 @@
         "Supplier": "Suppliers",
         "Category": "Categories"
     },
-    "subCategories":{
-        "Product": "Suppliers",
-        "Category": "Categories"
+    "checkOutPage":{
+        "newAddress": "New Address",
+        "savedAddress": "Saved Address",
+        "houseNum": "House Num",
+        "street": "Street",
+        "block": "Block",
+        "district": "District",
+        "city": "City",
+        "country": "Country",
+        "zCode": "Zip Code",
+        "pCode":" Promo code",
+        "apply":"Apply",
+        "cOD":"Cash on delivery",
+        "fawry":"Fawry",
+        "totalAmount":"Total Amount",
+        "yourOrder":"Your order",
+        "paymentSummary":"Payment summary",
+        "shippingTo":"Shipping to",
+        "orderTotal":"Order Total",
+        "deliveryCharge":"Delivery Charge"
+        
+
     }
 }

@@ -1,4 +1,9 @@
 page-order-details {
+  .total-price{
+    margin: auto;
+    font-size: 2.4rem;
+    color: color($colors,golden);
+  }
     .cart-list {
         border: none;
         .cart-list-item{
@@ -17,6 +22,7 @@ page-order-details {
             border-radius: 13px;
             }
           }
+          
           .order-button{
             width: 100%;
             border: thin solid #e94d3a;

@@ -27,10 +27,10 @@
       <div padding>
         <ion-segment  mode="md"[(ngModel)]="address">
           <ion-segment-button value="new">
-            New Address
+            {{'checkOutPage.newAddress' | translate}}
           </ion-segment-button>
           <ion-segment-button value="saved">
-            Saved Address
+            {{'checkOutPage.savedAddress' | translate}}
           </ion-segment-button>
         </ion-segment>
       </div>
@@ -42,30 +42,30 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>House Num</ion-label>
+                  <ion-label stacked>{{'checkOutPage.houseNum' | translate}}</ion-label>
                   <ion-input type="number" [(ngModel)]="newAddress.houseNum"></ion-input>
                 </ion-item>
               </ion-col>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>Street</ion-label>
+                  <ion-label stacked>{{'checkOutPage.street' | translate}}</ion-label>
                   <ion-input type="text" [(ngModel)]="newAddress.street"></ion-input>
                 </ion-item>
               </ion-col>
             </ion-row>
             <ion-item>
-              <ion-label stacked>Block</ion-label>
+              <ion-label stacked>{{'checkOutPage.block' | translate}}</ion-label>
               <ion-input type="text" [(ngModel)]="newAddress.Block"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label stacked>district</ion-label>
+              <ion-label stacked>{{'checkOutPage.district' | translate}}</ion-label>
               <ion-input type="text" [(ngModel)]="newAddress.district"></ion-input>
             </ion-item>
 
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>City</ion-label>
+                  <ion-label stacked>{{'checkOutPage.city' | translate}}</ion-label>
                  
                     <ion-select [(ngModel)]="newAddress.city" >
                       <ion-option *ngFor="let city of cities" [value]="city.name">{{city.name}}</ion-option>
@@ -81,7 +81,7 @@
             <ion-row>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>Country</ion-label>
+                  <ion-label stacked>{{'checkOutPage.country' | translate}}</ion-label>
                   
                     <ion-input type="text" [(ngModel)]="newAddress.country"></ion-input>
                   
@@ -89,7 +89,7 @@
               </ion-col>
               <ion-col>
                 <ion-item>
-                  <ion-label stacked>Zip Code</ion-label>
+                  <ion-label stacked>{{'checkOutPage.zCode' | translate}}</ion-label>
                 
                     <ion-input type="text" [(ngModel)]="newAddress.zipCode"></ion-input>
                   
@@ -152,14 +152,14 @@
       <div class="payment">
         <div class="promo">
           <div class="title">
-            Promo code
+            {{'checkOutPage.pCode' | translate}}
           </div>
           <div class="promo-form">
             <div class="promo-input">
               <ion-input type="text" placeholder="#1243" [(ngModel)]="promotionCode" [disabled]="applied"></ion-input>
             </div>
             <div class="promo-button">
-              <button ion-button full (click)="promotion()">Apply</button>
+              <button ion-button full (click)="promotion()"> {{'checkOutPage.apply' | translate}}</button>
             </div>
           </div>
         </div>
@@ -169,13 +169,13 @@
           <ion-list radio-group [(ngModel)]="paymentType">
             <ion-item>
               <ion-icon [class.selected]="paymentType==='cash'" item-left name="cash"></ion-icon>
-              <ion-label [class.selected]="paymentType==='cash'">Cash on delivery</ion-label>
+              <ion-label [class.selected]="paymentType==='cash'"> {{'checkOutPage.cOD' | translate}}</ion-label>
               <ion-radio value="cash"></ion-radio>
             </ion-item>
 
             <ion-item>
               <ion-icon [class.selected]="paymentType==='wallet'" item-left name="closed-captioning"></ion-icon>
-              <ion-label [class.selected]="paymentType==='wallet'">Fawry</ion-label>
+              <ion-label [class.selected]="paymentType==='wallet'"> {{'checkOutPage.fawry' | translate}}</ion-label>
               <ion-radio value="wallet"></ion-radio>
             </ion-item>
 
@@ -188,7 +188,7 @@
         </div>
         <div class="payment-footer">
           <div class="total">
-            Total Amount
+            {{'checkOutPage.totalAmount' | translate}}
           </div>
           <div class="amount">
             LE {{cart.promoTotal()}}
@@ -204,7 +204,7 @@
         
         <div class="order-detail">
           <div class="title-wrapper">
-            <div class="title">Your order
+            <div class="title">{{'checkOutPage.yourOrder' | translate}}
             </div>
             
           </div>
@@ -217,19 +217,20 @@
               
               <div class="price-wrapper">
                 <div class="price">LE {{item.product.currentPrice}}</div>
+                <div class="quantity">LE {{item.quantity}}</div>
               </div>
             </ion-item>
           </ion-list>
         </div>
         <div class="payment-summary">
           <div class="title-wrapper">
-            <div class="title">Payment summary
+            <div class="title">{{'checkOutPage.paymentSummary' | translate}}
             </div>
            
           </div>
           <div class="shipping">
             <div class="title-wrapper">
-              <div class="title">Shipping to
+              <div class="title">{{'checkOutPage.shippingTo' | translate}}
               </div>
              
             </div>
@@ -243,7 +244,7 @@
 
           <div class="order-total">
             <div class="title">
-              Order Total
+              {{'checkOutPage.orderTotal' | translate}}
             </div>
             <div class="amount">
               {{cart.promoTotal()}} LE
@@ -251,7 +252,7 @@
           </div>
           <div class="delivery-charge">
             <div class="title">
-              Delivery Charge
+              {{'checkOutPage.deliveryCharge' | translate}}
             </div>
             <div *ngIf="cart.delivery===0" class="amount">
               Free
@@ -262,7 +263,7 @@
           </div>
           <div class="payment-total">
             <div class="title">
-              Total Amount
+              {{'checkOutPage.totalAmount' | translate}}
             </div>
             <div class="amount">
                {{cart.promoTotal() + cart.delivery}} LE
