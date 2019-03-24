@@ -254,19 +254,17 @@
             <div class="title">
               {{'checkOutPage.deliveryCharge' | translate}}
             </div>
-            <div *ngIf="cart.delivery===0" class="amount">
-              Free
+            <div  class="amount">
+              {{shippingPrice}}
             </div>
-            <div *ngIf="cart.delivery>0" class="amount">
-              {{cart.delivery}}
-            </div>
+           
           </div>
           <div class="payment-total">
             <div class="title">
               {{'checkOutPage.totalAmount' | translate}}
             </div>
-            <div class="amount">
-               {{cart.promoTotal() + cart.delivery}} LE
+            <div class="amount" >
+               {{cart.promoTotal() + shippingPrice}} LE
             </div>
           </div>
         </div>

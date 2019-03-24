@@ -89,11 +89,11 @@ export class Order extends RootProvider {
     
     return new Promise((resolve)=>{
       let str = `${RootProvider.APIURL4}${this.orderApiConntroller}${this.getUserOrderActionString}CustomerId=${userId}`;
-      
+      console.log(str)
       this.http.get(str).map(res=><any>res.json()).subscribe(data=>{
         let Orders= new Array<OrderData>();
         if(data != null && data.length != 0){
-          
+          console.log(data);
           let counter=0;
           for(let i = 0 ; i <data.length ; i=i+1+counter){
             let orderItems = new Array<OrderItem>();

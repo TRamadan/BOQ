@@ -1,3 +1,4 @@
+import { ProductProvider } from './../../providers/product/product';
 import { Component, ViewChild } from '@angular/core';
 import {Nav, IonicPage, NavController, NavParams, MenuController, Content, AlertController , LoadingController, Alert} from 'ionic-angular';
 
@@ -54,6 +55,8 @@ export class CheckoutPage {
   districts: string[];
   countries: string[];
   zipcodes: string[];
+  shippingPrice: number = 0;
+  shippingPriceReady :boolean;
   savedAddresses: Address[];  
   public cityID : string = "";
   ready:boolean=false;
@@ -61,15 +64,15 @@ export class CheckoutPage {
 
   @ViewChild('scrollTab') scrollTab: ScrollTabsComponent;
   @ViewChild(Content) content: Content;
-  constructor(public navCtrl: NavController,
-     public navParams: NavParams,
-      private menu: MenuController,
-       private alertCtrl: AlertController,
-      public userProv : UsersProvider,
-      public order : Order
+  constructor(public navCtrl: NavController
+      ,public navParams: NavParams
+      ,private alertCtrl: AlertController
+      ,public userProv : UsersProvider
+      ,public order : Order
       ,public loadCtrl : LoadingController
       ,public nav : Nav
-      ,public catProv: CategoryProvider, 
+      ,public catProv: CategoryProvider
+      ,public productprov : ProductProvider
 
       ) { 
         
@@ -98,22 +101,24 @@ export class CheckoutPage {
     this.savedAddresses = await this.userProv.getAddress(this.user.id);
     console.log(this.savedAddresses);
     this.address = this.hasAddress() ? "saved" : "new" ;  
-    this.ready=true;
     
+   
+    this.shippingPrice = await this.productprov.getSgippingPrice(this.cart.products);
+    console.log(this.shippingPrice);
+    this.ready=true;
   }
 
   ionViewWillLeave() {
     this.tabBarElement.style.display = 'flex';
   }
 
-  ionViewDidLoad() {
-
+  async ionViewDidLoad() {
+    this.cart = Cart.getInstance();
     console.log('ionViewDidLoad CheckoutPage')
     this.SetData();
     this.selectedTab = this.tabs[0];
-    
-    this.cart = Cart.getInstance();
-    console.log(this.cart);
+  
+  
     this.shipping(0);
     // if(this.user.addresses.length > 0){
     //   this.address ='saved';
@@ -227,9 +232,10 @@ export class CheckoutPage {
         //let output =false;
          console.log(this.newAddress);
         //output =await this.order.addOrder(this.cart.total(),this.newAddress.toString(),this.cart.products);
-         let orderId = await this.order.sendOrder(this.user.id,this.newAddress.id,this.cart.total());
+        let totalprice = this.cart.total()+this.shippingPrice;
+         let orderId = await this.order.sendOrder(this.user.id,this.newAddress.id,totalprice);
          for(let i=0 ; i <this.cart.products.length;i++){
-          let output = await this.order.orderItem(orderId,this.cart.products[i].product.id,this.cart.products[i].quantity,this.cart.products[i].product.currentPrice,this.cart.total());
+          let output = await this.order.orderItem(orderId,this.cart.products[i].product.id,this.cart.products[i].quantity,this.cart.products[i].product.currentPrice,totalprice);
         console.log(output);
         }
         //onsole.log(output);
@@ -315,3 +321,4 @@ export class CheckoutPage {
     return this.user.addresses!= undefined && this.user.addresses.length > 0 ? true : false;
   }
 }
+;

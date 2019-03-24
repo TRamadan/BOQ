@@ -62,19 +62,19 @@ export class SignupPage {
       alert("Password does Not Match")
     }else{
       if (this.registerForm.valid) {
-       // loading.present();
+       loading.present();
         
-        //  let add = await this.userProvider.RegesterNop(this.registerForm.value.fname,this.registerForm.value.password,this.registerForm.value.email,this.registerForm.value.phone);
-        //  console.log(add);
-        //  loading.dismiss();
-        //  if(add!= "-1"){
+         let add = await this.userProvider.RegesterNop(this.registerForm.value.fname,this.registerForm.value.password,this.registerForm.value.email,this.registerForm.value.phone);
+         console.log(add);
+         loading.dismiss();
+          if(add!= "-1"){
           
-        //   console.log(this.userProvider.user);
-        //   this.navCtrl.setRoot(TabsPage);
+          console.log(this.userProvider.user);
+         this.navCtrl.setRoot(TabsPage);
           
-        // }else{
-        //   alert("this user name is used Please try a new one");
-        // }
+      }else{
+          alert("this user name is used Please try a new one");
+         }
          
        
         

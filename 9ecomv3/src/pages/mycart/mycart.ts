@@ -22,6 +22,7 @@ import { ProductPage } from '../product/product';
 export class MyCartPage {
   cart: Cart; 
   db : Database;
+  inDelete: boolean;
   constructor(
     public app : App,
     public navCtrl: NavController, public navParams: NavParams , public events : Events) {
@@ -30,6 +31,7 @@ export class MyCartPage {
   }
 
   ionViewDidLoad() {
+    this.inDelete=false;
     console.log('ionViewDidLoad MycartPage');
   }
 
@@ -69,6 +71,11 @@ export class MyCartPage {
 
   toProduct(prod: any) {
     this.navCtrl.push(ProductPage, {'data': prod.product});
+  }
+
+  deleteState(){
+    this.inDelete = !this.inDelete;
+
   }
 
  

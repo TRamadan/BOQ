@@ -185,7 +185,7 @@ export class SubCateListPage {
   openModal(){
     let cate ;
     let popover = this.popoverCtrl.create(CateListModalPage,{
-      'cates' : this.results
+      'cates' :  this.category.children
     },{ enableBackdropDismiss: true })
     popover.present();
     popover.onDidDismiss((data)=>{

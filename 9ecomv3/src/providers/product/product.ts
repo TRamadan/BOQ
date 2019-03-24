@@ -2,7 +2,8 @@ import { Http} from '@angular/http';
 import { Injectable } from '@angular/core';
 import { RootProvider } from '../root/root';
 import { Category } from '../category/category';
-import { subcategory } from '../sub-categories/sub-categories';
+import { CartProduct } from '../cart/cart';
+
 /*
   Generated class for the ProductProvider provider.
 
@@ -13,15 +14,39 @@ import { subcategory } from '../sub-categories/sub-categories';
 export class ProductProvider extends RootProvider {
   private getReviewsAPiController:string ='product/';
   private getReviewsActionString: string ='get_comments?';
+
+  private getShippingPriceController:string = 'shipping/';
+  private getShippingPriceActionString:string = 'shipping_by_weight?';
+
   constructor(public http: Http) {
     super(http);
   }
 
   public weightRatio(width:number,height:number,length:number,weight : number){
     let weightRatio =  ((width*height*length)/200) ;
+    console.log(weightRatio);
     return weightRatio > weight ? Math.round(weightRatio) : Math.round(weight) ;
 
   }
+
+  public async getSgippingPrice(products:CartProduct[]):Promise<any>{
+    let wRatio = 0 ;
+    for(let i =0 ; i<products.length; i++){
+      wRatio += this.weightRatio(products[i].product.specs.width,products[i].product.specs.height,products[i].product.specs.length,products[i].product.specs.weight);
+      console.log(wRatio);
+    }
+    
+    let temp = `${RootProvider.APIURL4}${this.getShippingPriceController}${this.getShippingPriceActionString}weight=${wRatio}`;
+    console.log(temp);
+    return new Promise((resolve)=>{
+      this.http.get(temp).map(res=><any>res.json()).subscribe(data=>{
+      console.log(data);
+      resolve(data);
+    })
+  });
+  
+  }
+
 
   getReviews(prodId:string):Promise<any>{
     let temp = `${RootProvider.APIURL4}${this.getReviewsAPiController}${this.getReviewsActionString}ProductId=${prodId}`;
