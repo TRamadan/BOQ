@@ -100,9 +100,9 @@ export class HomePage {
     // })
     console.log(this.tempRating);
     
-    this.categorySlider= new customSlider(this.category_array.slice(1,5),4,1);
-    this.vendorSlider = new customSlider(this.vendorsArray.slice(1,5),4,1);
-    console.log(this.categorySlider)
+    // this.categorySlider= new customSlider(this.category_array.slice(1,5),4,1);
+    // this.vendorSlider = new customSlider(this.vendorsArray.slice(1,5),4,1);
+    // console.log(this.categorySlider)
     /*
     this.smallAds.forEach(ads => {
       ads.forEach(item => {
@@ -159,23 +159,23 @@ export class HomePage {
     this.navCtrl.push(SubCateListPage,{'data':cate})
   }
 
-  swipe(event, number)
-  {
+  // swipe(event, number)
+  // {
     
-    console.log(event.direction)
-    if(event.direction == 2 || event.direction == 4 ){ // swipe left Or Right
-      if(number == 0){
+  //   console.log(event.direction)
+  //   if(event.direction == 2 || event.direction == 4 ){ // swipe left Or Right
+  //     if(number == 0){
      
-        this.categorySlider = this.changeSlider(this.categorySlider,this.category_array,event.direction);
-        console.log(this.categorySlider);
-      }else if(number == 1){
-        this.vendorSlider = this.changeSlider(this.vendorSlider,this.vendorsArray,event.direction);
-        console.log(this.vendorSlider);
-      }
+  //       this.categorySlider = this.changeSlider(this.categorySlider,this.category_array,event.direction);
+  //       console.log(this.categorySlider);
+  //     }else if(number == 1){
+  //       this.vendorSlider = this.changeSlider(this.vendorSlider,this.vendorsArray,event.direction);
+  //       console.log(this.vendorSlider);
+  //     }
 
-    }
+  //   }
 
-  }
+  // }
 
   changeSlider(sliderObject:customSlider,mainArray:Array<any> ,direction : number){
     let newStartIndex =sliderObject.startIndex;
