@@ -17,8 +17,8 @@
 
 
 <ion-content >
-  <button *ngIf=" hasProduct()" ion-button class="button-left" (tap)="openModal()">{{'subCatePage.categories' | translate}}</button>
-  <button *ngIf="hasCart()" ion-button class="button-right" (tap)="placeOrder()">{{'subCatePage.orderButton' | translate}}</button>
+  <button *ngIf=" hasProduct()" ion-button round class="button-left" (tap)="openModal()"><ion-icon name="ios-funnel"></ion-icon></button>
+  <button *ngIf="hasCart()" ion-button round  class="button-right" (tap)="placeOrder()"><ion-icon name="ios-cart"></ion-icon></button>
 <!-- 
     <div>
         <ion-slides dir="left"  loop="true" class="slides"[slidesPerView]="3">

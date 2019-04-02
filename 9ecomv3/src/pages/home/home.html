@@ -17,14 +17,14 @@
        
 
 
-
+<!-- 
   <div>
     <ion-slides dir="auto" autoplay="3000" loop="true" speed="1000" class="slides" pager="true">
       <ion-slide *ngFor="let Image of adsSliders">
          <img src="{{Image.image}}" alt="Product Image">
       </ion-slide>
  </ion-slides>
-  </div>
+  </div> -->
 <!-- 
   <div>
     <button ion-button (tap)="changeView()">Change View Type</button>
@@ -44,9 +44,9 @@
 
 
 
-<div [ngSwitch]="viewNum">
-  <div class="list-container" *ngSwitchCase="'0'">
-  <div class="card9-container" *ngFor="let item of category_array">
+<div  class="list-container" [ngSwitch]="viewNum">
+  <div *ngSwitchCase="'0'">
+  <!-- <div class="card9-container" *ngFor="let item of category_array">
            
     <div (tap)="categories(item)">
     
@@ -60,8 +60,24 @@
     </div>
     
    
+  </div> -->
+ 
+           
+    <ion-item class="cate-list"  *ngFor="let item of category_array" (tap)="categories(item)">
+        
+     <ion-label class="category-img-wrapper">
+        <div class="pic-box">
+        <img  [src] = "getImgContent(item.image)">
+      </div>    
+        <div class="title">{{item.name}}</div>
+  
+    </ion-label> 
+  
+
+      </ion-item>
+    
+   
   </div>
-</div>
 
 <div class="list-container" *ngSwitchCase="'1'">
   <div class="card9-container" *ngFor="let item of vendorsArray">
