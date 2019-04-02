@@ -60,13 +60,14 @@ padding-right: 0px !important;
     padding-left: 3vw;
     padding-right: 3vw;
     color: #f4f4f4;
-    position: fixed;
+    position: absolute;
     text-align: center;
-    top: 16vh;
+    bottom: 2.7vh;
     background-color: rgba(0, 0, 0, 0.30);
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     font-size: 2.50rem;
+    
 }
    
   
@@ -138,7 +139,7 @@ padding-right: 0px !important;
     padding-left: 2.5vw;
     padding-right: 2.5vw;
     width: 100vw;
-    background-image: url("../../assets/img/BOQ-home-bg.png");
+    background-image: url("../assets/img/BOQ-home-bg.png");  
     background-color: transparent;
     
     background-size: cover;
