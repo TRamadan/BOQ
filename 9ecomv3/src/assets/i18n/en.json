@@ -11,15 +11,15 @@
         "offers": "Offers"
     },
     "subCatePage":{
-        "categories": "الفئات",
-        "orderButton":"اطلب",
+        "categories": "Categories",
+        "orderButton":"Order",
         "add" : "Add To Cart"
     },
     "myCartPage":{
         "title": "Shopping bag",
         "noItemHeader": "No Items In Cart",
         "redirectButton": "Continue Shopping",
-        "placeOrderButton": "Place this order"
+        "placeOrderButton": "Order"
     },
     "profilePage":{
         "title": "Account Details",
