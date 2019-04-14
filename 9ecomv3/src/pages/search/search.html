@@ -19,7 +19,7 @@
 
 <ion-content class="page-search">
 
-    <ion-segment mode="md"[(ngModel)]="searchSegment" color="secondary">
+    <ion-segment mode="md"[(ngModel)]="searchSegment" color="primary">
         <ion-segment-button value="Products">
           <div class="search-change">{{'homePage.Category' | translate}}</div>
         </ion-segment-button>
@@ -30,28 +30,30 @@
 
      
       <div *ngIf="searchSegment == 'Products' ">
-          <ion-list class="cart-list" >
-              <ion-item class="cart-list-item" *ngFor="let product of resultsProd " >
+          <ion-scroll scrollY="true" class="scroll-list">
+              <ion-list>
+              <ion-item class="cart-list-item" *ngFor="let product of resultsProd">
                 <ion-thumbnail item-left class="item-thumbnail"  (tap)="toProduct(product)"> 
-                  <img class="img" [src]="product.image1">
-              </ion-thumbnail>
-              <div class="item-name-container"  (tap)="toProduct(product)">
-                <div class="item-name">{{product.name}}</div>
-                <div class="item-vendor">{{product.company_name}}</div>
-                <rating rating="{{product.rating}}" cCount="{{product.customerCount}}"></rating>
-              </div>
-              <div class="price-wrapper" *ngIf="product.price !=0" (tap)="toProduct(product)">
-                <div class="price">{{product.currentPrice}}</div> <div class="">LE</div>
-                <div class="old-price">{{product.price}} </div> <div>LE</div>
-              </div>
-              <div class="price-wrapper" *ngIf="product.price === 0" (tap)="toProduct(product)">
-                <div class="price">{{product.currentPrice}}</div>    
-                <div class="">LE</div> 
-                
-              </div>
-              <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">Add To Cart</div></div> 
+                    <img class="img" [src]="product.image1">
+                </ion-thumbnail>
+                <div    (tap)="toProduct(product)" class="item-name">{{product.name}}</div>
+                <div class="item-name-container"  (tap)="toProduct(product)">
+                  <div class="item-vendor">{{product.company_name}}</div>
+                  <rating rating="{{product.rating}}" cCount="{{product.customerCount}}"></rating>
+                </div>
+                <div class="price-wrapper" *ngIf="product.price !=0" (tap)="toProduct(product)">
+                  <div class="price">{{product.currentPrice}} LE</div> 
+                  <div class="old-price">{{product.price}} LE </div> 
+                </div>
+                <div class="price-wrapper" *ngIf="product.price === 0" (tap)="toProduct(product)">
+                  <div class="price">{{product.currentPrice}} LE</div>    
+                  
+                </div>
+                <div  class="order-button" (tap)="add2Cart(product)"><div class="order-text">{{'subCatePage.add' | translate}}</div> <ion-badge mod="ios" *ngIf="getProdQuant(product.id) > 0 " color="danger">{{ getProdQuant(product.id) }}</ion-badge></div> 
+               
               </ion-item>
             </ion-list>
+          </ion-scroll>
             
       </div>
       <div *ngIf="searchSegment == 'Vendors'">

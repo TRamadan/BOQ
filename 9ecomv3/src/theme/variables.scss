@@ -32,7 +32,7 @@ ion-card img {
 // The "primary" color is the only required color in the map.
 
 $colors: ( 
-   primary: #e94d3a,
+   primary: #3e3e3e,
    secondary: #e94d3a,
    danger: #f15a67,
    light: #f4f4f4,
@@ -114,6 +114,15 @@ ion-navbar.toolbar{
 
 .tabs-md-primary .tab-button, .tabs-md-primary .tab-button-icon {
   color:color($colors, primary)!important;
+}
+
+.segment-md .segment-button{
+  text-transform: capitalize !important;
+}
+
+content{
+  background-image: url("../assets/img/BOQ-home-bg.png");  
+
 }
 
 

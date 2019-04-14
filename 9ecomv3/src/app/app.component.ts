@@ -118,7 +118,7 @@ export class Ecom9App {
     this.platform.ready().then(() => {
       //console.log(new Date().toJSON());
       //this.trnasProv.changeDir('ar');
-      this.changelang();
+      //this.changelang();
       let date = new Date();
       console.log(date.toJSON());
       this.database = Database.getInstance();

@@ -38,7 +38,7 @@ page-mycart {
         font-size: 1.38rem;
         font-weight: 500;
         color: color($colors, pearl);
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
     }
   }
@@ -148,7 +148,7 @@ page-mycart {
           font-size: 2rem;
           font-weight: 500;
           color: color($colors, pearl);
-          text-transform: uppercase;
+          text-transform: capitalize;
         }
         border-right: 2px dotted color($colors, pearl);
         ;

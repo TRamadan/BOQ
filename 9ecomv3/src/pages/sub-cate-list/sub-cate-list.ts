@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , PopoverController } from 'ionic-angular';
 import { Category,CategoryProvider } from '../../providers/category/category';
-import { CategoriesPage } from '../categories/categories';
+
 import { Product } from '../../providers/product/product';
 import { ProductPage } from '../product/product';
 import { Cart } from '../../providers/cart/cart';
-import { timingSafeEqual } from 'crypto';
+
 import { CateListModalPage } from '../cate-list-modal/cate-list-modal';
 
 /**
@@ -151,20 +151,21 @@ export class SubCateListPage {
 
 
   add2Cart(product:any) { 
-    let flgFound = false;
-    this.cart.products.forEach(specific_item => {
-      //console.log(specific_item)
+    // let flgFound = false;
+    this.cart.addItem(product);
+    // this.cart.products.forEach(specific_item => {
+    //   //console.log(specific_item)
 
-      if (specific_item.product != undefined && specific_item.product.id === product.id) {
-        flgFound = true;
-        specific_item.quantity = parseInt(specific_item.quantity.toString()) + 1;
-      }
+    //   if (specific_item.product != undefined && specific_item.product.id === product.id) {
+    //     flgFound = true;
+    //     specific_item.quantity = parseInt(specific_item.quantity.toString()) + 1;
+    //   }
       
-    })
+    // })
     
-    if (!flgFound) {
-      this.cart.products.push({ product: product, quantity: 1 });
-    }
+    // if (!flgFound) {
+    //   this.cart.products.push({ product: product, quantity: 1 });
+    // }
     
   
   }

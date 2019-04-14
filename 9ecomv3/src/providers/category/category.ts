@@ -279,6 +279,7 @@ export class Vendor {
   titleAttribute: string;
   isNew: boolean;
   name: string;
+  catID: string;
   descr: string;
   constructor(id:string
     ,name: string
@@ -299,6 +300,7 @@ export class Vendor {
     this.altAttribute = AltAttribute;
     this.titleAttribute = titleAttribute;
     this.isNew = isNew;
+    this.catID="";
   }
 }
 

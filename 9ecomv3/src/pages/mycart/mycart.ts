@@ -7,6 +7,7 @@ import {TabsPage} from '../tabs/tabs';
 import { Events } from 'ionic-angular';
 import { Cart } from '../../providers/cart/cart';
 import { ProductPage } from '../product/product';
+import { Product } from '../../providers/product/product';
 
 /**
  * Generated class for the Mycart page.
@@ -40,13 +41,12 @@ export class MyCartPage {
   }
 
   incQty(item) {
-    item.quantity = parseInt(item.quantity) + 1;
+    console.log(item);
+    this.cart.addItem(item.product);
   }
 
-  decQty(item) {
-    if (parseInt(item.quantity) > 1) {
-      item.quantity = parseInt(item.quantity) - 1;
-    }
+  decQty(i) {
+    this.cart.removeItem(i,false);
   } 
 
   shopping()

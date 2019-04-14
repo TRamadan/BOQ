@@ -1,5 +1,8 @@
 page-home {
 
+  .content-scroll{
+    height: 72vh;
+  }
   
   .label-md {
     margin: 13px 0px 13px 0 !important;
@@ -34,6 +37,9 @@ padding-right: 0px !important;
 // }
 
 .cate-list{
+  height: 70vh;
+}
+.cate-list-item{
   height: 25vh;
   background-color: transparent;
   /* -webkit-box-shadow: 5px 0px 0px 0px rgba(0, 0, 0, 0.75); */
@@ -96,7 +102,10 @@ padding-right: 0px !important;
 
 
 .slider-image{
-  width: 100%;
+    border-radius: 15px;
+    width: 100%;
+    height: 10vh;
+  
 }
 .search-change{
   font-size: 1.6em;
@@ -107,7 +116,7 @@ padding-right: 0px !important;
     margin: 2vw 0 0 2vw;
     width: 29vw;
     height: 14vh;
-    background-color: color($colors, pearl);
+    background-color: transparent;
     .pic-box {
       text-align: center;
       padding-top: 0.3vh;
@@ -136,9 +145,10 @@ padding-right: 0px !important;
 
   
   .list-container{
-    padding-left: 2.5vw;
-    padding-right: 2.5vw;
+    padding-left: 1.5vw;
+    padding-right: 3.5vw;
     width: 100vw;
+    height: 76vh;
     background-image: url("../assets/img/BOQ-home-bg.png");  
     background-color: transparent;
     
@@ -170,7 +180,7 @@ padding-right: 0px !important;
         font-size: 1.6rem;
         font-weight: 800;
         color: color($colors, pearl);
-        text-transform: uppercase;
+        text-transform: capitalize;
       }
       .tab-selected-cat{
         display: inline-block;
@@ -278,7 +288,7 @@ padding-right: 0px !important;
       background-color: rgba( 51, 51, 51, 0.68);
       .ads-title {
         font-size: 1.26em;
-        text-transform: uppercase;
+        text-transform: capitalize;
         font-weight: 500;
         white-space: normal;
         span {
@@ -315,7 +325,7 @@ padding-right: 0px !important;
    
     .title {
       font-size: 1.26em;
-      text-transform: uppercase;
+      text-transform: capitalize;
       font-weight: 500;
       color: color($colors,primary);
       white-space: normal;

@@ -20,7 +20,7 @@ import { Cart } from '../../providers/cart/cart';
 export class VendorPage {
   private db : Database;
   private allProduct : Array<Product>;
-  private resultsProd :Array<Product>;
+  public resultsProd :Array<Product>;
   private vendor : Vendor;
   private ready=false;
   private cart : Cart;
