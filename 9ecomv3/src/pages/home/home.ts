@@ -24,6 +24,7 @@ import { VendorPage } from '../vendor/vendor';
 })
 export class HomePage {
   @ViewChild(Scroll) scrollElement: Scroll;
+  @ViewChild('vendorSlider') slides: Slides;
   tempRating:number=250;
   cCount:number = 80;
   adsSliders = [
@@ -117,9 +118,10 @@ export class HomePage {
 
   ionViewDidEnter() {
     let input :any = document.getElementById("input").getElementsByTagName("INPUT");
-    console.log(input);
-    input[0].disabled=true;
+     console.log(input);
+     input[0].disabled=true;
     console.log(this.viewNum);
+
     // this variable is to get the subcategories, when the categoriespage is pushed , 
     // the subcategories is loaded as needed
     // var subcategories = this.navParams.get('subcat'); 
@@ -141,6 +143,22 @@ export class HomePage {
   ionViewDidLoad() {
     this.viewNum='0';
     console.log('HomePage');
+    // this.OnInit();
+  }
+
+  public OnInit() {
+    this.slides.effect = 'coverflow';
+    this.slides.centeredSlides = true;
+    this.slides.slidesPerView = 2;
+    this.slides.spaceBetween = 15;
+    
+    this.slides.coverflow = {
+      rotate: 0,
+      stretch: 0,
+      depth: 50,
+      modifier: 1,
+      slideShadows: false,
+    }
   }
  
   /*

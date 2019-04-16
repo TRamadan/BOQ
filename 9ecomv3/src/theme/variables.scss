@@ -208,11 +208,16 @@ $tabs-background: color($colors, primary);
  .menu-image {
    height: 2.6vh;
  }
- .menu-logo-img{
-  height: 4vh;
-  margin: auto;
-  display: block;
-}
+ .menu-img-container{
+   margin: auto;
+   width: 10%;
+  .menu-logo-img{
+    height: 4vh;
+    margin: auto;
+    // display: block;
+  }
+ }
+ 
  
  /*.no-scroll .scroll-content {
    overflow: hidden;
@@ -409,10 +414,10 @@ $tabs-background: color($colors, primary);
  }
 
  .toolbar-content-md{
-  display: inherit !important;
+  //display: inherit !important;
 }
 .toolbar-content-ios{
-  display: inherit;
+  //display: inherit;
 }
 
  .toolbar-title-md {

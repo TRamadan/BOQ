@@ -6,12 +6,15 @@
 -->
 <ion-header>
   <ion-navbar (tap)="toSearchPage()">
-    
+    <div class=menu-img-container>
       <img src="assets/img/small-logo.png"  class="menu-logo-img">
-    
-      <ion-searchbar id="input"></ion-searchbar>
+    </div>
+    <div>
+        <ion-searchbar id="input"></ion-searchbar> 
+    </div>
+      
   </ion-navbar> 
-  <ion-segment mode="md" [(ngModel)]="viewNum" color="primary">
+  <!-- <ion-segment mode="md" [(ngModel)]="viewNum" color="primary">
       <ion-segment-button value="0">
         <div class="search-change">{{'homePage.Category' | translate}}</div>
       </ion-segment-button>
@@ -19,7 +22,7 @@
         <div class="search-change">{{'homePage.Supplier' | translate}}</div>
       </ion-segment-button>
     </ion-segment>
-    
+     -->
 </ion-header>
 <ion-content center class="page-home pane no-scroll">
 
@@ -27,15 +30,37 @@
 
 
 
+ <ion-slides dir="auto" autoplay="3000" loop="true" speed="1000" class="slides" pager="true">
+    <ion-slide *ngFor="let Image of adsSliders">
+       <img src="{{Image.image}}" alt="Product Image">
+    </ion-slide>
+</ion-slides>
 
+
+
+
+<ion-slides  dir="auto" loop="true" slidesPerView="3"  >
+  <ion-slide *ngFor="let item of category_array">
+       <img class="category-slider-image" src="{{item.image}}" alt="category Image">
+       <!-- <div class="title">{{item.name}}</div> -->
+  </ion-slide>
+</ion-slides>
+
+
+ <ion-slides  dir="auto" loop="true"  slidesPerView="3" spaceBetween="15" >
+  <ion-slide *ngFor="let item of vendorsArray">
+     <img src="{{item.image}}" alt="vendors Image">
+     
+  </ion-slide>
+</ion-slides>
   
   
 
 
 
-<div  class="list-container" [ngSwitch]="viewNum">
-  <div *ngSwitchCase="'0'">
-    <ion-scroll class="content-scroll" scrollY="true" >       
+<!-- <div  class="list-container" [ngSwitch]="viewNum">
+  <div *ngSwitchCase="'0'"> -->
+    <!-- <ion-scroll class="content-scroll" scrollY="true" >       
     <ion-item class="cate-list-item"  *ngFor="let item of category_array" (tap)="categories(item)">
         
      <ion-label class="category-img-wrapper">
@@ -49,10 +74,10 @@
 
       </ion-item>
     </ion-scroll>
-   
-  </div>
+    -->
+  <!-- </div> -->
 
-<div class="list-container" *ngSwitchCase="'1'">
+<!-- <div class="list-container" *ngSwitchCase="'1'"> -->
   
   <!-- <div>
     <ion-slides dir="auto" autoplay="3000" loop="true" speed="1000" class="slides" pager="true">
@@ -71,7 +96,7 @@
             </ion-slide>
        </ion-slides>
         </div> -->
-        <ion-scroll class="content-scroll" scrollY="true" >       
+        <!-- <ion-scroll class="content-scroll" scrollY="true" >       
           <div class="card9-container" *ngFor="let item of vendorsArray">
            
     <div (tap)="vendor(item)">
@@ -84,9 +109,9 @@
    
   </div>
   </div>
-  </ion-scroll>
-</div>
-</div>
+  </ion-scroll> -->
+<!-- </div> -->
+<!-- </div> -->
 
 
 <!-- <div *ngIf="viewType==1">
