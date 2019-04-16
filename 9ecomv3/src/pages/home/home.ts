@@ -143,7 +143,7 @@ export class HomePage {
   ionViewDidLoad() {
     this.viewNum='0';
     console.log('HomePage');
-    // this.OnInit();
+     this.OnInit();
   }
 
   public OnInit() {
